@@ -1,0 +1,96 @@
+@font-face {
+    font-family: 'Basis Grotesque Mono Pro';
+    src: url('BasisGrotesqueMonoPro-It.eot');
+    src: local('Basis Grotesque Mono Pro Italic'), local('BasisGrotesqueMonoPro-It'),
+        url('BasisGrotesqueMonoPro-It.eot?#iefix') format('embedded-opentype'),
+        url('BasisGrotesqueMonoPro-It.woff2') format('woff2'),
+        url('BasisGrotesqueMonoPro-It.woff') format('woff'),
+        url('BasisGrotesqueMonoPro-It.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Basis Grotesque Mono Pro';
+    src: url('BasisGrotesqueMonoPro-LightIt.eot');
+    src: local('Basis Grotesque Mono Pro Light Italic'), local('BasisGrotesqueMonoPro-LightIt'),
+        url('BasisGrotesqueMonoPro-LightIt.eot?#iefix') format('embedded-opentype'),
+        url('BasisGrotesqueMonoPro-LightIt.woff2') format('woff2'),
+        url('BasisGrotesqueMonoPro-LightIt.woff') format('woff'),
+        url('BasisGrotesqueMonoPro-LightIt.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Basis Grotesque Mono Pro';
+    src: url('BasisGrotesqueMonoPro-MediumIt.eot');
+    src: local('Basis Grotesque Mono Pro Medium Italic'), local('BasisGrotesqueMonoPro-MediumIt'),
+        url('BasisGrotesqueMonoPro-MediumIt.eot?#iefix') format('embedded-opentype'),
+        url('BasisGrotesqueMonoPro-MediumIt.woff2') format('woff2'),
+        url('BasisGrotesqueMonoPro-MediumIt.woff') format('woff'),
+        url('BasisGrotesqueMonoPro-MediumIt.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Basis Grotesque Mono Pro';
+    src: url('BasisGrotesqueMonoPro-Bold.eot');
+    src: local('Basis Grotesque Mono Pro Bold'), local('BasisGrotesqueMonoPro-Bold'),
+        url('BasisGrotesqueMonoPro-Bold.eot?#iefix') format('embedded-opentype'),
+        url('BasisGrotesqueMonoPro-Bold.woff2') format('woff2'),
+        url('BasisGrotesqueMonoPro-Bold.woff') format('woff'),
+        url('BasisGrotesqueMonoPro-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Basis Grotesque Mono Pro';
+    src: url('BasisGrotesqueMonoPro-BoldIt.eot');
+    src: local('Basis Grotesque Mono Pro Bold Italic'), local('BasisGrotesqueMonoPro-BoldIt'),
+        url('BasisGrotesqueMonoPro-BoldIt.eot?#iefix') format('embedded-opentype'),
+        url('BasisGrotesqueMonoPro-BoldIt.woff2') format('woff2'),
+        url('BasisGrotesqueMonoPro-BoldIt.woff') format('woff'),
+        url('BasisGrotesqueMonoPro-BoldIt.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Basis Grotesque Mono Pro';
+    src: url('BasisGrotesqueMonoPro-Light.eot');
+    src: local('Basis Grotesque Mono Pro Light'), local('BasisGrotesqueMonoPro-Light'),
+        url('BasisGrotesqueMonoPro-Light.eot?#iefix') format('embedded-opentype'),
+        url('BasisGrotesqueMonoPro-Light.woff2') format('woff2'),
+        url('BasisGrotesqueMonoPro-Light.woff') format('woff'),
+        url('BasisGrotesqueMonoPro-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Basis Grotesque Mono Pro';
+    src: url('BasisGrotesqueMonoPro-Medium.eot');
+    src: local('Basis Grotesque Mono Pro Medium'), local('BasisGrotesqueMonoPro-Medium'),
+        url('BasisGrotesqueMonoPro-Medium.eot?#iefix') format('embedded-opentype'),
+        url('BasisGrotesqueMonoPro-Medium.woff2') format('woff2'),
+        url('BasisGrotesqueMonoPro-Medium.woff') format('woff'),
+        url('BasisGrotesqueMonoPro-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Basis Grotesque Mono Pro';
+    src: url('BasisGrotesqueMonoPro-Regular.eot');
+    src: local('Basis Grotesque Mono Pro Regular'), local('BasisGrotesqueMonoPro-Regular'),
+        url('BasisGrotesqueMonoPro-Regular.eot?#iefix') format('embedded-opentype'),
+        url('BasisGrotesqueMonoPro-Regular.woff2') format('woff2'),
+        url('BasisGrotesqueMonoPro-Regular.woff') format('woff'),
+        url('BasisGrotesqueMonoPro-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
