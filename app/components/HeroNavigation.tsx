@@ -7,10 +7,10 @@ import { useEffect, useRef, useState } from "react";
 import styles from "../page.module.css";
 
 const navItems = [
-  { id: "catalog", label: "Каталог", href: "/catalog", image: "/photo/1.JPG" },
-  { id: "about", label: "О нас", href: "#about", image: "/photo/2.JPG" },
-  { id: "academy", label: "Академия", href: "#academy", image: "/photo/3.JPG" },
-  { id: "contacts", label: "Контакты", href: "#contacts", image: "/photo/4.JPG" },
+  { id: "catalog", label: "Catalog", href: "/catalog", image: "/photo/1.JPG" },
+  { id: "about", label: "About", href: "#about", image: "/photo/2.JPG" },
+  { id: "academy", label: "Academy", href: "#academy", image: "/photo/3.JPG" },
+  { id: "contacts", label: "Contact", href: "#contacts", image: "/photo/4.JPG" },
 ] as const;
 
 export default function HeroNavigation() {
@@ -108,7 +108,7 @@ export default function HeroNavigation() {
 
       <nav
         className={styles.nav}
-        aria-label="Основная навигация"
+        aria-label="Main navigation"
         onMouseLeave={deactivateActiveItem}
       >
         {navItems.map((item, index) => {

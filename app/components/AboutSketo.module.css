@@ -1,0 +1,151 @@
+.aboutSection {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.42fr) minmax(0, 1fr);
+  gap: 2rem;
+  padding: 5rem 1.25rem;
+  border-top: 1px solid rgba(45, 49, 52, 0.14);
+}
+
+.aboutMeta {
+  display: grid;
+  align-content: start;
+  gap: 2rem;
+}
+
+.aboutKicker {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.aboutFacts {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.aboutFactButton {
+  width: fit-content;
+  max-width: 14rem;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+  max-width: 14rem;
+  font-family: var(--font-basis-mono);
+  font-size: 11px;
+  line-height: 1.45;
+  text-transform: uppercase;
+  opacity: 0.72;
+  cursor: pointer;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    color 180ms ease;
+}
+
+.aboutFactButton:hover,
+.aboutFactButton:focus-visible {
+  opacity: 0.6;
+ 
+}
+
+.aboutFactButtonActive {
+  color: #ce1616;
+  opacity: 1;
+}
+
+.aboutContent {
+  display: grid;
+  gap: 2.25rem;
+  padding-left: 1rem;
+}
+
+.aboutStage {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  border-left: 1px solid #00000070;
+}
+
+.aboutMeasureLayer {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.aboutMeasureContent {
+  display: grid;
+  gap: 2.25rem;
+  padding-left: 1rem;
+}
+
+.aboutTitle {
+  max-width: 52rem;
+  font-family: var(--font-commissioner-display);
+  font-size: 4rem;
+  line-height: 0.94;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: #2d3134;
+  text-wrap: balance;
+}
+
+.aboutColumns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 2rem;
+}
+
+.aboutColumnsThree {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.aboutText {
+  max-width: 26rem;
+  font-family: var(--font-basis-mono);
+  font-size: 11px;
+  line-height: 1.55;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .aboutSection {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 4rem 1rem;
+  }
+
+  .aboutMeta {
+    gap: 1.5rem;
+  }
+
+  .aboutColumns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .aboutColumnsThree {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .aboutSection {
+    padding: 3rem 1rem;
+  }
+
+  .aboutTitle {
+    font-size: clamp(1.75rem, 10vw, 2.6rem);
+  }
+
+  .aboutText,
+  .aboutFactButton {
+    max-width: 100%;
+  }
+}

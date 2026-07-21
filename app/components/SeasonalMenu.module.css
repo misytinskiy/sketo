@@ -1,0 +1,317 @@
+.section {
+
+}
+
+.poster {
+  position: relative;
+  overflow: visible;
+  padding: 1rem 2rem 2rem;
+  background: #d9fbff;
+  color: #2d3134;
+  min-height: 100vh;
+}
+
+.topContent {
+  gap: 2rem;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.posterTop {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2.2rem;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.logoBlock {
+  display: grid;
+  gap: 0.1rem;
+  justify-items: start;
+}
+
+.floatingLogoBlock {
+  position: fixed;
+  z-index: 8;
+  display: grid;
+  gap: 0.1rem;
+  justify-items: start;
+  pointer-events: none;
+}
+
+.logo {
+  font-family: var(--font-commissioner-display);
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 0.9;
+  font-weight: 800;
+}
+
+.logoCaption {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: lowercase;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 0.72fr);
+  align-items: stretch;
+  gap: 2.25rem;
+  max-width: 86rem;
+}
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.25rem;
+  min-height: calc(100vh - 7rem);
+}
+
+.mediaColumn {
+  display: flex;
+}
+
+.videoWrap {
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.headingBlock {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.eyebrow {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.title {
+  font-family: var(--font-commissioner-display);
+  font-size: 2rem;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: #ce1616;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+}
+
+.leadBlock {
+  max-width: 54rem;
+}
+
+.lead {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  line-height: 1.12;
+  font-weight: 400;
+  letter-spacing: -.025em;
+  opacity: 0.9;
+}
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 2.5rem;
+  overflow-anchor: none;
+}
+
+.drinkCard {
+  display: grid;
+  align-content: start;
+  gap: 0.9rem;
+  appearance: none;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+  background: transparent;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(45, 49, 52, 0.35);
+  transition: transform 220ms ease;
+}
+
+.drinkCard:hover,
+.drinkCard:focus-visible {
+  transform: translateY(-2px);
+}
+
+.drinkHeader {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.drinkMetaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.drinkCopy {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.drinkIndex {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.drinkExpand {
+  display: block;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.52;
+  transform: translateY(-2px) rotate(45deg);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.drinkCard:hover .drinkExpand,
+.drinkCard:focus-visible .drinkExpand,
+.drinkCardActive .drinkExpand {
+  opacity: 0.9;
+}
+
+.drinkCardActive .drinkExpand {
+  transform: translateY(1px) rotate(-135deg);
+}
+
+.drinkCard:hover .drinkExpand,
+.drinkCard:focus-visible .drinkExpand {
+  transform: translateY(-3px) rotate(45deg);
+}
+
+.drinkCardActive:hover .drinkExpand,
+.drinkCardActive:focus-visible .drinkExpand {
+  transform: translateY(0) rotate(-135deg);
+}
+
+.drinkName {
+  font-family: var(--font-activist);
+  font-size: 1.5rem;
+  line-height: 0.94;
+  text-transform: uppercase;
+  color: #ce1616;
+  letter-spacing: -0.04em;
+}
+
+.drinkDescription {
+  max-width: 28rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  line-height: 1.18;
+  font-weight: 200;
+}
+
+.drinkMedia {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms ease;
+  overflow-anchor: none;
+}
+
+.drinkMediaActive {
+  grid-template-rows: 1fr;
+}
+
+.drinkMediaInner {
+  overflow: hidden;
+}
+
+.drinkImageWrap {
+  width: 100%;
+  margin-top: 0.15rem;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.drinkImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.footerNote {
+  max-width: 40rem;
+  font-family: var(--font-activist);
+  font-size: 1rem;
+  line-height: 1.02;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding: 0 1rem 4rem;
+  }
+
+  .poster {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .mainColumn {
+    min-height: auto;
+  }
+
+  .mediaColumn {
+    display: block;
+    order: -1;
+  }
+
+  .videoWrap {
+    height: auto;
+  }
+
+  .video {
+    height: auto;
+  }
+
+  .menuGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .posterTop {
+    position: static;
+    justify-content: flex-start;
+    margin-bottom: 1.25rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  .drinkDescription {
+    font-size: 0.95rem;
+  }
+}

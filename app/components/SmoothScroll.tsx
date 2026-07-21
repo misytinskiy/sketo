@@ -50,6 +50,7 @@ export default function SmoothScroll({
 
   return (
     <div id="smooth-wrapper">
+      <div id="fixed-layer" />
       <div id="smooth-content">{children}</div>
     </div>
   );

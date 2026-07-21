@@ -11,7 +11,7 @@ export default function LanguageSwitch() {
   const [activeLanguage, setActiveLanguage] = useState<Language>("kz");
 
   return (
-    <div className={styles.languageSwitch} aria-label="Переключение языка">
+    <div className={styles.languageSwitch} aria-label="Language switcher">
       {languages.map((language, index) => (
         <div key={language} className={styles.languageGroup}>
           <button
