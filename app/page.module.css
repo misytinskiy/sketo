@@ -80,6 +80,12 @@
   opacity: 0.75;
 }
 
+.languageDisabled {
+  opacity: 0.32;
+  cursor: default;
+  pointer-events: none;
+}
+
 .languageOption:hover,
 .languageOption:focus-visible {
   color: #ce1616;
@@ -115,7 +121,7 @@
   top: 50%;
   left: 50%;
   z-index: 1;
-  width: min(28vw, 24rem);
+  width: 21vw;
   aspect-ratio: 0.72;
   transform: translate(-50%, -50%);
   opacity: 0;

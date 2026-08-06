@@ -9,12 +9,20 @@ import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNavigation from "./HeroNavigation";
-import LanguageSwitch from "./LanguageSwitch";
+import LanguageSwitch, { type Language } from "./LanguageSwitch";
 import styles from "../page.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function HomeHero() {
+type HomeHeroProps = {
+  language: Language;
+  onLanguageChange: (language: Language) => void;
+};
+
+export default function HomeHero({
+  language,
+  onLanguageChange,
+}: HomeHeroProps) {
   const heroRef = useRef<HTMLElement | null>(null);
   const logoWrapRef = useRef<HTMLDivElement | null>(null);
   const topBarRef = useRef<HTMLElement | null>(null);
@@ -45,8 +53,6 @@ export default function HomeHero() {
       const logoWrap = logoWrapRef.current;
       const topBar = topBarRef.current;
       const quoteSection = document.getElementById("quote-section");
-      const aboutSection = document.getElementById("about-sketo-section");
-
       if (!hero || !logoWrap || !topBar) {
         return;
       }
@@ -117,111 +123,6 @@ export default function HomeHero() {
           },
         });
       }
-
-      if (aboutSection) {
-        let baseTopBarY = 0;
-        let baseLogoX = 0;
-        let baseLogoY = 0;
-        let baseLogoScale = 1;
-        let releaseLogoTop = 0;
-        let releaseLogoLeft = 0;
-        let logoReleased = false;
-
-        const captureBasePositions = () => {
-          baseLogoX = Number(gsap.getProperty(logoWrap, "x")) || 0;
-          baseLogoY = Number(gsap.getProperty(logoWrap, "y")) || 0;
-          baseLogoScale = Number(gsap.getProperty(logoWrap, "scale")) || 1;
-          baseTopBarY = Number(gsap.getProperty(topBar, "y")) || 0;
-        };
-
-        const releaseLogoToViewport = () => {
-          if (logoReleased) {
-            return;
-          }
-
-          const rect = logoWrap.getBoundingClientRect();
-          releaseLogoTop = rect.top;
-          releaseLogoLeft = rect.left;
-          logoReleased = true;
-
-          gsap.set(logoWrap, {
-            position: "fixed",
-            top: releaseLogoTop,
-            left: releaseLogoLeft,
-            right: "auto",
-            bottom: "auto",
-            x: 0,
-            y: 0,
-            scale: baseLogoScale,
-          });
-        };
-
-        const restoreLogoToFloating = () => {
-          logoReleased = false;
-          gsap.set(logoWrap, {
-            position: "fixed",
-            top: "auto",
-            left: "auto",
-            right: "-2vw",
-            bottom: "-1.2vw",
-            x: baseLogoX,
-            y: baseLogoY,
-            scale: baseLogoScale,
-          });
-        };
-
-        const aboutPaddingBottom = () =>
-          parseFloat(window.getComputedStyle(aboutSection).paddingBottom) || 0;
-
-        const releaseStart = () => {
-          const paddingBottom = aboutPaddingBottom();
-
-          return `bottom bottom-=${paddingBottom}`;
-        };
-
-        captureBasePositions();
-
-        ScrollTrigger.create({
-          trigger: aboutSection,
-          start: releaseStart,
-          end: "max",
-          invalidateOnRefresh: true,
-          onRefresh: () => {
-            captureBasePositions();
-            if (!logoReleased) {
-              restoreLogoToFloating();
-            }
-          },
-          onUpdate: (self) => {
-            const delta = Math.max(0, self.scroll() - self.start);
-
-            if (delta > 0 && !logoReleased) {
-              captureBasePositions();
-              releaseLogoToViewport();
-            }
-
-            if (logoReleased) {
-              gsap.set(logoWrap, {
-                top: releaseLogoTop - delta,
-                left: releaseLogoLeft,
-                autoAlpha: 1,
-              });
-            }
-
-            gsap.set(topBar, {
-              y: baseTopBarY - delta,
-              autoAlpha: 1,
-            });
-          },
-          onLeaveBack: () => {
-            restoreLogoToFloating();
-            gsap.set(topBar, {
-              y: baseTopBarY,
-              autoAlpha: 1,
-            });
-          },
-        });
-      }
     });
 
     return () => {
@@ -232,7 +133,7 @@ export default function HomeHero() {
   const overlay = (
     <>
       <header ref={topBarRef} className={styles.floatingTopBar}>
-        <LanguageSwitch />
+        <LanguageSwitch value={language} onChange={onLanguageChange} />
       </header>
 
       <div ref={logoWrapRef} className={styles.floatingLogoWrap}>
@@ -251,7 +152,7 @@ export default function HomeHero() {
       {!isDesktop ? (
         <>
           <header className={styles.topBar}>
-            <LanguageSwitch />
+            <LanguageSwitch value={language} onChange={onLanguageChange} />
           </header>
 
           <div className={styles.logoWrap}>
@@ -263,7 +164,7 @@ export default function HomeHero() {
       {isDesktop && portalTarget ? createPortal(overlay, portalTarget) : null}
 
       <div className={styles.header}>
-        <HeroNavigation />
+        <HeroNavigation language={language} />
       </div>
     </section>
   );

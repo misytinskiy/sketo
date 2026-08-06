@@ -4,71 +4,96 @@ import Link from "next/link";
 import { useDeferredValue, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import LanguageSwitch from "../../components/LanguageSwitch";
+import usePersistentLanguage, {
+  getContentLanguage,
+} from "../../components/usePersistentLanguage";
 import EquipmentCatalogCard from "./EquipmentCatalogCard";
 import {
   type EquipmentBrand,
   type EquipmentType,
+  equipmentBrandLabels,
   equipmentItems,
+  equipmentTypeLabels,
+  getEquipmentItemContent,
 } from "./equipment-data";
 import styles from "./equipment.module.css";
 
-const brandLabels: Record<EquipmentBrand, string> = {
-  all: "All",
-  "la-marzocco": "La Marzocco",
-  mahlkonig: "Mahlkonig",
-  anfim: "Anfim",
-  mazzer: "Mazzer",
-  balenare: "Balenare",
-  allround: "Allround",
-  "victoria-arduino": "Victoria Arduino",
-};
+function getItemsLabel(count: number, language: "ru" | "en") {
+  if (language === "en") {
+    return count === 1 ? "item" : "items";
+  }
 
-const typeLabels: Record<EquipmentType, string> = {
-  all: "All",
-  grinder: "Grinders",
-  "espresso-machine": "Espresso machines",
-};
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+
+  if (mod10 === 1 && mod100 !== 11) {
+    return "товар";
+  }
+
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) {
+    return "товара";
+  }
+
+  return "товаров";
+}
 
 export default function EquipmentCatalogContent() {
+  const [language, setLanguage] = usePersistentLanguage();
   const [activeBrand, setActiveBrand] = useState<EquipmentBrand>("all");
   const [activeType, setActiveType] = useState<EquipmentType>("all");
   const [searchValue, setSearchValue] = useState("");
   const deferredSearch = useDeferredValue(searchValue);
+  const currentLanguage = getContentLanguage(language);
 
   const filteredItems = useMemo(() => {
     const normalizedSearch = deferredSearch.trim().toLowerCase();
 
     return equipmentItems.filter((item) => {
+      const content = getEquipmentItemContent(item, currentLanguage);
       const matchesBrand = activeBrand === "all" || item.brand === activeBrand;
       const matchesType = activeType === "all" || item.type === activeType;
       const matchesSearch =
         normalizedSearch.length === 0 ||
-        `${item.name} ${item.category} ${brandLabels[item.brand]}`
+        `${item.name} ${content.category} ${content.description} ${
+          equipmentBrandLabels[currentLanguage][item.brand]
+        }`
           .toLowerCase()
           .includes(normalizedSearch);
 
       return matchesBrand && matchesType && matchesSearch;
     });
-  }, [activeBrand, activeType, deferredSearch]);
+  }, [activeBrand, activeType, currentLanguage, deferredSearch]);
 
-  const resultsLabel = `${filteredItems.length} ${
-    filteredItems.length === 1 ? "item" : "items"
-  }`;
+  const resultsLabel = `${filteredItems.length} ${getItemsLabel(
+    filteredItems.length,
+    currentLanguage,
+  )}`;
 
   return (
     <main className={styles.page}>
       <div className={styles.contentShell}>
         <div className={styles.topBar}>
-          <Link href="/" className={styles.homeLogo} aria-label="Sketo home">
+          <Link
+            href="/"
+            className={styles.homeLogo}
+            aria-label={currentLanguage === "en" ? "Sketo home" : "Главная Sketo"}
+          >
             sketo.
           </Link>
-          <LanguageSwitch />
+          <LanguageSwitch value={language} onChange={setLanguage} />
         </div>
 
-        <section className={styles.controls} aria-label="Equipment search and filters">
+        <section
+          className={styles.controls}
+          aria-label={
+            currentLanguage === "en"
+              ? "Equipment search and filters"
+              : "Поиск и фильтры оборудования"
+          }
+        >
           <div className={styles.searchBlock}>
             <label htmlFor="equipment-search" className={styles.controlLabel}>
-              Search
+              {currentLanguage === "en" ? "Search" : "Поиск"}
             </label>
             <input
               id="equipment-search"
@@ -76,73 +101,96 @@ export default function EquipmentCatalogContent() {
               value={searchValue}
               onChange={(event) => setSearchValue(event.target.value)}
               className={styles.searchInput}
-              placeholder="Model or category"
+              placeholder={
+                currentLanguage === "en"
+                  ? "Model or category"
+                  : "Модель или категория"
+              }
             />
           </div>
 
           <div className={styles.filtersBlock}>
-            <span className={styles.controlLabel}>Brands</span>
+            <span className={styles.controlLabel}>
+              {currentLanguage === "en" ? "Brands" : "Бренды"}
+            </span>
             <div className={styles.filterRow}>
-              {(Object.keys(brandLabels) as EquipmentBrand[]).map((brand) => {
-                const isActive = activeBrand === brand;
+              {(Object.keys(equipmentBrandLabels.ru) as EquipmentBrand[]).map(
+                (brand) => {
+                  const isActive = activeBrand === brand;
 
-                return (
-                  <button
-                    key={brand}
-                    type="button"
-                    onClick={() => setActiveBrand(brand)}
-                    className={`${styles.filterChip} ${
-                      isActive ? styles.filterChipActive : ""
-                    }`}
-                  >
-                    {brandLabels[brand]}
-                  </button>
-                );
-              })}
+                  return (
+                    <button
+                      key={brand}
+                      type="button"
+                      onClick={() => setActiveBrand(brand)}
+                      className={`${styles.filterChip} ${
+                        isActive ? styles.filterChipActive : ""
+                      }`}
+                    >
+                      {equipmentBrandLabels[currentLanguage][brand]}
+                    </button>
+                  );
+                },
+              )}
             </div>
           </div>
 
           <div className={styles.filtersBlock}>
-            <span className={styles.controlLabel}>Type</span>
+            <span className={styles.controlLabel}>
+              {currentLanguage === "en" ? "Type" : "Тип"}
+            </span>
             <div className={styles.filterRow}>
-              {(Object.keys(typeLabels) as EquipmentType[]).map((type) => {
-                const isActive = activeType === type;
+              {(Object.keys(equipmentTypeLabels.ru) as EquipmentType[]).map(
+                (type) => {
+                  const isActive = activeType === type;
 
-                return (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => setActiveType(type)}
-                    className={`${styles.filterChip} ${
-                      isActive ? styles.filterChipActive : ""
-                    }`}
-                  >
-                    {typeLabels[type]}
-                  </button>
-                );
-              })}
+                  return (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setActiveType(type)}
+                      className={`${styles.filterChip} ${
+                        isActive ? styles.filterChipActive : ""
+                      }`}
+                    >
+                      {equipmentTypeLabels[currentLanguage][type]}
+                    </button>
+                  );
+                },
+              )}
             </div>
           </div>
 
           <p className={styles.resultsCount}>{resultsLabel}</p>
         </section>
 
-        <section className={styles.grid} aria-label="Equipment catalog">
+        <section
+          className={styles.grid}
+          aria-label={
+            currentLanguage === "en" ? "Equipment catalog" : "Каталог оборудования"
+          }
+        >
           {filteredItems.length > 0 ? (
             filteredItems.map((item) => (
-              <EquipmentCatalogCard key={item.slug} item={item} />
+              <EquipmentCatalogCard
+                key={item.slug}
+                item={item}
+                language={currentLanguage}
+              />
             ))
           ) : (
             <div className={styles.emptyState}>
               <p className={styles.emptyStateText}>
-                Nothing found. Try another model name, brand, or equipment type.
+                {currentLanguage === "en"
+                  ? "Nothing found. Try another model, brand, or equipment type."
+                  : "Ничего не найдено. Попробуй другую модель, бренд или тип оборудования."}
               </p>
             </div>
           )}
         </section>
       </div>
 
-      <Footer />
+      <Footer language={currentLanguage} />
     </main>
   );
 }

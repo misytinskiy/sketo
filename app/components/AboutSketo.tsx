@@ -2,6 +2,7 @@
 
 import gsap from "gsap";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import type { Language } from "./LanguageSwitch";
 import styles from "./AboutSketo.module.css";
 
 type AboutItem = {
@@ -11,41 +12,103 @@ type AboutItem = {
   layout?: "two" | "three";
 };
 
-const aboutItems: AboutItem[] = [
-  {
-    fact: "Coffee for home and hospitality",
-    title:
-      "Sketo builds a coffee system where beans, equipment, and training work together instead of existing as separate products.",
-    columns: [
-      "We select coffee with a clear sensory profile, pair it with equipment that is reliable in daily use, and shape each touchpoint so the experience feels intentional from the first cup.",
-      "The result is a brand that can speak both to someone brewing at home and to teams building a cafe, bar, or hospitality concept with a stronger coffee identity.",
-    ],
-    layout: "two",
-  },
-  {
-    fact: "Curated beans, equipment, and education",
-    title:
-      "We treat the menu, the machine, and the workflow as one system, so the final cup stays consistent across training, service, and scale.",
-    columns: [
-      "Coffee is chosen for clarity and structure, with profiles that stay readable both in espresso and in slower filter formats.",
-      "Equipment is selected not only for performance, but for how it fits the counter, the service rhythm, and the people using it every day.",
-      "Education closes the loop: bar teams get practical calibration, recipe logic, and a cleaner understanding of how to repeat quality.",
-    ],
-    layout: "three",
-  },
-  {
-    fact: "Built around taste, rhythm, and service",
-    title:
-      "Every Sketo setup is designed to feel calm behind the bar, readable for the guest, and precise enough to support long-term coffee quality.",
-    columns: [
-      "Taste is the starting point, but rhythm matters just as much: dialing in, milk workflow, service speed, and maintenance all shape the daily result.",
-      "That is why we build around usable systems, not isolated products, so the coffee program remains stable as the space grows and the menu evolves.",
-    ],
-    layout: "two",
-  },
-];
+const aboutItemsByLanguage: Record<Exclude<Language, "kz">, AboutItem[]> = {
+  ru: [
+    {
+      fact: "Академия подбора оборудования и зерна",
+      title:
+        "Подбираем оборудование и кофе под конкретные задачи, формат работы и реальную нагрузку проекта.",
+      columns: [
+        "Смотрим на проект как на рабочую систему: поток гостей, формат меню, темп команды, задачи бара и тот вкус, который должен стабильно получаться в чашке каждый день.",
+        "Подбираем кофемашины, кофемолки и зерно так, чтобы они усиливали друг друга, а не конфликтовали между собой в настройке, сервисе и ежедневной эксплуатации.",
+      ],
+      layout: "two",
+    },
+    {
+      fact: "Комплексное сопровождение бизнеса",
+      title:
+        "Сопровождаем кофейный проект на всём пути: от идеи и комплектации до запуска, настройки процессов и дальнейшей поддержки.",
+      columns: [
+        "Помогаем собрать техническую и вкусовую основу проекта: оборудование, зерно, барную логику, меню и принципы работы команды.",
+        "После запуска настраиваем процессы, помогаем стабилизировать вкус, корректируем рабочую систему и остаёмся на связи, когда проект выходит в ежедневный ритм.",
+        "Так бизнес получает не разовую поставку, а партнёра, который понимает, как довести кофейную часть до устойчивого результата.",
+      ],
+      layout: "three",
+    },
+    {
+      fact: "Всё для кофе дома",
+      title:
+        "Для домашних пользователей собираем полноценную кофейную среду: зерно, акссесуары и понятную помощь в приготовлении.",
+      columns: [
+        "Подбираем зерно под вкус и сценарий заваривания: на каждый день, для эспрессо, фильтра или более спокойных домашних ритуалов.",
+        "Помогаем выбрать оборудование без перегруза лишними решениями и объясняем, как готовить кофе так, чтобы дома он был не случайным, а стабильно вкусным.",
+      ],
+      layout: "two",
+    },
+    {
+      fact: "Наш подход",
+      title:
+        "Sketo работает системно: обучение, оборудование, зерно и сопровождение соединяются в один понятный путь с контролем качества на каждом этапе.",
+      columns: [
+        "За каждым решением в Sketo стоит квалифицированная команда с практическим опытом в обучении, настройке вкуса, подборе оборудования и ежедневной работе с кофейными проектами.",
+        "Это значит, что мы смотрим не только на характеристики техники или описание зерна, а на то, как всё будет работать в реальной смене: в ритме команды, в логике бара и в стабильности чашки.",
+        "Мы сопровождаем клиента дальше и держим качество под контролем на всём пути — от первого обучения и выбора оборудования до подбора зерна, настройки процессов и ежедневного результата.",
+      ],
+      layout: "three",
+    },
+  ],
+  en: [
+    {
+      fact: "Equipment and bean selection academy",
+      title:
+        "We match equipment and coffee to specific tasks, operating format, and the actual load of each project.",
+      columns: [
+        "We look at every project as a working system: guest flow, menu format, team pace, bar tasks, and the cup profile that must stay consistent every day.",
+        "We select espresso machines, grinders, and coffee so they reinforce each other instead of conflicting in setup, service, and daily operation.",
+      ],
+      layout: "two",
+    },
+    {
+      fact: "End-to-end business support",
+      title:
+        "We support coffee projects through the full journey: from concept and setup to launch, workflow tuning, and ongoing operational support.",
+      columns: [
+        "We help build the technical and sensory foundation of the project: equipment, coffee, bar logic, menu, and the operating principles of the team.",
+        "After launch, we fine-tune workflows, stabilize cup quality, adjust the system, and stay involved as the project moves into its daily rhythm.",
+        "That gives the business not a one-time supplier, but a partner who understands how to bring the coffee side to a stable result.",
+      ],
+      layout: "three",
+    },
+    {
+      fact: "Everything for coffee at home",
+      title:
+        "For home users, we build a complete coffee environment: beans, gear, and clear guidance for brewing with confidence.",
+      columns: [
+        "We select coffee for taste preference and brewing scenario: everyday drinking, espresso, filter, or slower ritual-based home routines.",
+        "We help choose equipment without unnecessary complexity and explain how to brew coffee at home so it becomes consistently good, not accidental.",
+      ],
+      layout: "two",
+    },
+    {
+      fact: "Our approach",
+      title:
+        "Sketo works systemically: education, equipment, coffee, and support connect into one clear path with quality control at every stage.",
+      columns: [
+        "Behind every Sketo decision is a qualified team with hands-on experience in training, taste calibration, equipment selection, and real coffee project operations.",
+        "That means we look beyond specs and tasting notes to how everything will perform in an actual shift: inside team rhythm, bar logic, and cup consistency.",
+        "We stay with the client and keep quality under control all the way through — from initial training and equipment choice to coffee selection, workflow setup, and daily results.",
+      ],
+      layout: "three",
+    },
+  ],
+};
 
-export default function AboutSketo() {
+type AboutSketoProps = {
+  language: Exclude<Language, "kz">;
+};
+
+export default function AboutSketo({ language }: AboutSketoProps) {
+  const aboutItems = aboutItemsByLanguage[language];
   const [activeIndex, setActiveIndex] = useState(0);
   const [stageMinHeight, setStageMinHeight] = useState<number | null>(null);
   const activeItem = aboutItems[activeIndex];
@@ -170,7 +233,11 @@ export default function AboutSketo() {
     >
       <div className={styles.aboutMeta}>
         <p className={styles.aboutKicker}>About Sketo</p>
-        <div className={styles.aboutFacts} role="tablist" aria-label="About Sketo sections">
+        <div
+          className={styles.aboutFacts}
+          role="tablist"
+          aria-label={language === "en" ? "Sketo sections" : "Разделы о Sketo"}
+        >
           {aboutItems.map((item, index) => {
             const isActive = index === activeIndex;
 

@@ -1,20 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { CatalogItem } from "./catalog-data";
+import type { CatalogItem, CatalogLanguage } from "./catalog-data";
+import { getCatalogItemContent } from "./catalog-data";
 import styles from "./catalog.module.css";
 
 type CatalogCardProps = {
   item: CatalogItem;
+  language: CatalogLanguage;
 };
 
-export default function CatalogCard({ item }: CatalogCardProps) {
+export default function CatalogCard({ item, language }: CatalogCardProps) {
+  const content = getCatalogItemContent(item, language);
+
   return (
     <Link href={`/catalog/${item.slug}`} className={styles.cardLink}>
       <article className={styles.card}>
         <div className={styles.imagePanel}>
           <Image
             src={item.image}
-            alt={item.name}
+            alt={content.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 980px) 50vw, (max-width: 1280px) 33vw, 25vw"
             className={styles.image}
@@ -23,18 +27,18 @@ export default function CatalogCard({ item }: CatalogCardProps) {
 
         <div className={styles.content}>
           <div className={styles.metaBlock}>
-            <p className={styles.metaLabel}>Lot</p>
-            <h2 className={styles.name}>{item.name}</h2>
-            <p className={styles.details}>{item.size}</p>
+            <p className={styles.metaLabel}>{language === "en" ? "Lot" : "Лот"}</p>
+            <h2 className={styles.name}>{content.name}</h2>
+            <p className={styles.details}>{content.size}</p>
           </div>
 
           <div className={styles.metaBlock}>
-            <p className={styles.metaLabel}>Notes</p>
-            <p className={styles.details}>{item.notes}</p>
+            <p className={styles.metaLabel}>{language === "en" ? "Notes" : "Ноты"}</p>
+            <p className={styles.details}>{content.notes}</p>
           </div>
 
           <div className={styles.metaBlock}>
-            <p className={styles.metaLabel}>Price</p>
+            <p className={styles.metaLabel}>{language === "en" ? "Price" : "Цена"}</p>
             <p className={styles.price}>{item.price}</p>
           </div>
         </div>

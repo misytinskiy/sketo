@@ -1,0 +1,253 @@
+.stack {
+  display: grid;
+}
+
+.variantSection {
+  display: grid;
+  gap: 1.5rem;
+  padding: 4rem 1.25rem;
+  border-top: 1px solid rgba(45, 49, 52, 0.14);
+  background: #f2f0eb;
+}
+
+.variantMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(45, 49, 52, 0.58);
+}
+
+.variantIndex {
+  min-width: 1.5rem;
+}
+
+.variantLabel {
+  letter-spacing: 0.12em;
+}
+
+.gatewayCaption,
+.posterCaption,
+.operatingKicker {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.posterTitle {
+  font-family: var(--font-activist);
+  font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.posterDescription {
+  max-width: 20rem;
+  font-family: var(--font-basis-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  opacity: 0.76;
+}
+
+.posterGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.posterCard {
+  position: relative;
+  min-height: 44rem;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-left: 1px solid rgba(45, 49, 52, 0.18);
+  text-decoration: none;
+  overflow: hidden;
+  transition:
+    transform 280ms ease,
+    border-color 220ms ease,
+    background 220ms ease;
+}
+
+.posterCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  height: 100%;
+  background: rgba(45, 49, 52, 0.06);
+  transition: width 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.posterCardCoffee {
+  background: rgba(20, 20, 20, 0.03);
+  color: #2d3134;
+}
+
+.posterCardAcademy {
+  color: #2d3134;
+  background: url("/photo/dfdf.png") center top 23% / 65% no-repeat;
+}
+
+.posterCardB2b {
+  background: rgba(45, 49, 52, 0.06);
+  color: #2d3134;
+  background: url("/photo/2b2WorflowBG.png") center top 30% / 80% no-repeat;
+}
+
+.posterCard:hover,
+.posterCard:focus-visible {
+  transform: translateY(-0.35rem);
+  border-color: rgba(45, 49, 52, 0.34);
+}
+
+.posterCard:hover::before,
+.posterCard:focus-visible::before {
+  width: 100%;
+}
+
+.posterIndex,
+.operatingRowIndex {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.58;
+}
+
+.posterBody {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  display: grid;
+  gap: 1rem;
+}
+
+.posterFooterRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.posterArrow {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  justify-self: end;
+  white-space: nowrap;
+}
+
+.operatingSection {
+  gap: 2rem;
+}
+
+.operatingIntro {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.operatingTitle {
+  font-family: var(--font-commissioner-display);
+  font-size: clamp(2.75rem, 7vw, 6.5rem);
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  color: #2d3134;
+}
+
+.operatingTable {
+  display: grid;
+  border-top: 1px solid rgba(45, 49, 52, 0.14);
+}
+
+.operatingRow {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 0.8fr) minmax(12rem, 0.7fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgba(45, 49, 52, 0.14);
+  text-decoration: none;
+  color: #2d3134;
+  transition:
+    background 220ms ease,
+    color 220ms ease;
+}
+
+.operatingRow:hover,
+.operatingRow:focus-visible {
+  background: #2d3134;
+  color: #f2f0eb;
+}
+
+.operatingRowValue {
+  font-family: var(--font-activist);
+  font-size: clamp(2rem, 5vw, 4.75rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.operatingRowSide {
+  font-family: var(--font-commissioner-display);
+  font-size: clamp(1.1rem, 2vw, 1.8rem);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.operatingRowNote {
+  justify-self: end;
+  max-width: 18rem;
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1.45;
+  text-align: right;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+@media (max-width: 900px) {
+  .variantSection {
+    padding: 3rem 1rem;
+  }
+
+  .posterGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .posterCard {
+    min-height: 50vh;
+  }
+
+  .operatingRow {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: 0.5rem;
+  }
+
+  .operatingRowNote {
+    justify-self: start;
+    text-align: left;
+  }
+}

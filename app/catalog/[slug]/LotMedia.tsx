@@ -8,9 +8,10 @@ import styles from "./lot.module.css";
 type LotMediaProps = {
   image: string;
   name: string;
+  language: "ru" | "en";
 };
 
-export default function LotMedia({ image, name }: LotMediaProps) {
+export default function LotMedia({ image, name, language }: LotMediaProps) {
   const imageMotionRef = useRef<HTMLDivElement | null>(null);
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
@@ -64,7 +65,9 @@ export default function LotMedia({ image, name }: LotMediaProps) {
       <span className={`${styles.cropMark} ${styles.cropBottomLeft}`} />
       <span className={`${styles.cropMark} ${styles.cropBottomRight}`} />
       <p className={styles.mediaCaption} aria-hidden="true">
-        PRODUCT SHEET / VISUAL FRAME
+        {language === "en"
+          ? "Product sheet / visual frame"
+          : "Паспорт лота / визуальный кадр"}
       </p>
       <div ref={imageMotionRef} className={styles.mediaMotion}>
         <Image

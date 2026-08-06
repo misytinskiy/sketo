@@ -4,16 +4,44 @@ import Image from "next/image";
 import Link from "next/link";
 import type { FocusEvent, MouseEvent } from "react";
 import { useEffect, useRef, useState } from "react";
+import type { Language } from "./LanguageSwitch";
 import styles from "../page.module.css";
 
 const navItems = [
-  { id: "catalog", label: "Catalog", href: "/catalog", image: "/photo/1.JPG" },
-  { id: "about", label: "About", href: "#about", image: "/photo/2.JPG" },
-  { id: "academy", label: "Academy", href: "#academy", image: "/photo/3.JPG" },
-  { id: "contacts", label: "Contact", href: "#contacts", image: "/photo/4.JPG" },
+  {
+    id: "coffee",
+    label: { ru: "Кофе", en: "Coffee" },
+    href: "/catalog",
+    image: "/photo/1.JPG",
+  },
+  {
+    id: "equipment",
+    label: { ru: "Оборудование", en: "Equipment" },
+    href: "/equipment",
+    image: "/photo/2.JPG",
+  },
+  { id: "b2b", label: { ru: "B2B", en: "B2B" }, href: "/b2b", image: "/photo/3.JPG" },
+  {
+    id: "academy",
+    label: { ru: "Академия", en: "Academy" },
+    href: "/academy",
+    image: "/photo/4.JPG",
+  },
+  {
+    id: "contacts",
+    label: { ru: "Контакты", en: "Contacts" },
+    href: "/contacts",
+    image: "/photo/5.JPG",
+  },
 ] as const;
 
-export default function HeroNavigation() {
+type HeroNavigationProps = {
+  language?: Language;
+};
+
+export default function HeroNavigation({
+  language = "ru",
+}: HeroNavigationProps) {
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [leavingItem, setLeavingItem] = useState<string | null>(null);
   const [previewLeft, setPreviewLeft] = useState<string>("50%");
@@ -108,7 +136,7 @@ export default function HeroNavigation() {
 
       <nav
         className={styles.nav}
-        aria-label="Main navigation"
+        aria-label={language === "en" ? "Main navigation" : "Основная навигация"}
         onMouseLeave={deactivateActiveItem}
       >
         {navItems.map((item, index) => {
@@ -117,7 +145,7 @@ export default function HeroNavigation() {
               <span className={styles.navNumber}>
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <span className={styles.navLabel}>{item.label}</span>
+              <span className={styles.navLabel}>{item.label[language]}</span>
             </>
           );
 

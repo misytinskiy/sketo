@@ -1,0 +1,1078 @@
+.page {
+  min-height: 100svh;
+  background: #f2f0eb;
+  color: #2d3134;
+}
+
+.page :global([data-reveal]) {
+  will-change: transform, opacity, clip-path, filter;
+}
+
+.hero,
+.introSection,
+.ctaSection {
+  padding: 2rem 6.25rem;
+}
+
+.audienceSection,
+.blueprintSection,
+.workflowSection,
+.metricsSection {
+  padding: 4rem 6.25rem;
+}
+
+.hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background:
+    linear-gradient(rgba(242, 240, 235, 0.78), rgba(242, 240, 235, 0.78)),
+    url("/photo/b2bBg.png") center / 68rem auto no-repeat;
+  background-position-y: bottom;
+  background-position-x: right;
+}
+
+.topControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.backLink {
+  position: relative;
+  width: fit-content;
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.backLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.12rem;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 180ms ease;
+}
+
+.backLink:hover::after,
+.backLink:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.introLink,
+.introLinkSecondary {
+  position: relative;
+  width: fit-content;
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.introLinkSecondary {
+  opacity: 0.72;
+}
+
+.introLink::after,
+.introLinkSecondary::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.12rem;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 180ms ease;
+}
+
+.introLink:hover::after,
+.introLink:focus-visible::after,
+.introLinkSecondary:hover::after,
+.introLinkSecondary:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.9fr);
+  align-content: center;
+  gap: 1rem;
+}
+
+.heroCopy {
+  display: grid;
+  gap: 1rem;
+  max-width: 48rem;
+}
+
+.eyebrow {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: 0.68;
+}
+
+.title,
+.blueprintTitle,
+.serviceTitle,
+.ctaTitle {
+  font-family: var(--font-commissioner-display);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+}
+
+.title {
+  font-size: 9rem;
+  color: #ce1616;
+}
+
+.lead,
+.blueprintLead,
+.heroMetaValue,
+.serviceLead,
+.serviceParagraph,
+.ctaText {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.lead {
+  max-width: 32rem;
+  color: #2d3134c2;
+}
+
+.blueprintLead {
+  max-width: 20rem;
+  color: rgba(45, 49, 52, 0.74);
+}
+
+.heroMeta {
+  display: grid;
+  align-content: start;
+  padding-top: calc(10px + 1rem);
+}
+
+.heroMetaStack {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.introSection {
+  display: flex;
+  gap: 1.25rem;
+  padding-top: 2rem;
+  background: #1e2122f3;
+  color: #f2f0eb;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.introLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.introText {
+  max-width: 36rem;
+  font-family: var(--font-activist);
+  font-size: clamp(1.6rem, 4vw, 3.2rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  text-align: end;
+}
+
+.audienceSection {
+  padding-top: 3rem;
+}
+
+.audienceBlock {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+
+.audienceScheme {
+  position: relative;
+  min-height: 24rem;
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: minmax(15rem, 21rem) minmax(0, 1fr);
+  align-items: center;
+  gap: 2rem;
+}
+
+.audienceCore {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  width: min(20rem, 100%);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(45, 49, 52, 0.18);
+  background: #f2f0eb;
+  overflow: hidden;
+  cursor: pointer;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+
+.audienceCoreFill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #2d3134;
+  clip-path: circle(0px at 50% 50%);
+  z-index: 0;
+}
+
+.audienceCoreContent {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 0.35rem;
+  padding: 1.75rem;
+  text-align: center;
+  will-change: transform;
+}
+
+.audienceCoreContent,
+.audienceCoreHovered .audienceCoreContent {
+  transition: color 260ms ease;
+}
+
+.audienceCoreHovered .audienceCoreContent {
+  color: #f2f0eb;
+}
+
+.audienceCoreLabel {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: 0.68;
+  color: inherit;
+}
+
+.audienceCoreTitle {
+  margin: 0;
+  font-family: var(--font-commissioner-display);
+  font-size: 3rem;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  text-transform: capitalize;
+  font-weight: 800;
+  text-align: center;
+  color: inherit;
+}
+
+.audienceList {
+  display: grid;
+  gap: 1.2rem;
+  align-content: center;
+}
+
+.audienceNode {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.35rem;
+  width: min(18rem, 100%);
+  justify-self: start;
+  padding: 0 0 0.3rem;
+  border-bottom: 1px solid rgba(45, 49, 52, 0.18);
+  background: transparent;
+}
+
+.audienceNode::before {
+  content: "";
+  position: absolute;
+  top: 0.45rem;
+  right: calc(100% + 0.85rem);
+  width: clamp(2rem, 8vw, 6rem);
+  height: 1px;
+  background: rgba(45, 49, 52, 0.16);
+}
+
+.audienceIndex {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: 0.68;
+}
+
+.audienceNodeTitle {
+  margin: 0;
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: rgba(45, 49, 52, 0.76);
+}
+
+.heroMetaItem,
+.serviceTag,
+.serviceIndex,
+.stageIndex,
+.stageName {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.heroMetaItem {
+  line-height: 1.1;
+  padding-bottom: 0.22rem;
+  border-bottom: 1px solid rgba(45, 49, 52, 0.18);
+  color: #2d3134c2;
+}
+
+.blueprintSection {
+  display: grid;
+  grid-template-columns: minmax(34rem, .6fr) minmax(0, 1fr);
+  gap: 6rem;
+  align-items: stretch;
+}
+.workflowTitle,
+.workflowNodeTitle {
+  margin: 0;
+  font-family: var(--font-commissioner-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+}
+
+.blueprintRail {
+  position: relative;
+  align-self: stretch;
+  min-height: 100%;
+}
+
+.blueprintSticky {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+}
+
+.blueprintStickyBody {
+  display: grid;
+  gap: 1rem;
+}
+
+.blueprintTitle {
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  text-transform: uppercase;
+}
+
+.blueprintLead {
+  max-width: 18rem;
+  color: rgba(45, 49, 52, 0.74);
+}
+
+.workflowSection {
+  display: grid;
+  grid-template-columns: minmax(18rem, 24rem) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  background:
+    linear-gradient(#f2f0eb26, rgba(242, 240, 235, 0.9)),
+    url("/photo/2b2WorflowBG.png") left bottom -90px / 65% no-repeat;
+}
+
+.metricsSection {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.metricsIntro {
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+  padding: 2rem 0 0.5rem;
+  text-align: center;
+}
+
+.metricsMark {
+  font-family: var(--font-commissioner-display);
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+}
+
+.metricsTitle {
+  margin: 0;
+  max-width: 23rem;
+  font-family: var(--font-activist);
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.metricsLead {
+  margin: 0;
+  max-width: 18rem;
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: rgba(45, 49, 52, 0.66);
+}
+
+.metricsTable {
+  border-top: 1px solid rgba(45, 49, 52, 0.14);
+}
+
+.metricRow {
+  display: grid;
+  grid-template-columns: 19.25rem minmax(0, 1fr) minmax(12rem, 18rem);
+  align-items: center;
+  gap: 1rem;
+  min-height: 11.5rem;
+  border-bottom: 1px solid rgba(45, 49, 52, 0.14);
+}
+
+.metricIndex,
+.metricLabel,
+.metricNote {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.metricIndex {
+  color: rgba(45, 49, 52, 0.76);
+}
+
+.metricCenter {
+  display: grid;
+  justify-content: center;
+}
+
+.metricValue {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.08em;
+  font-family: var(--font-commissioner-display);
+  font-size: clamp(4.8rem, 13vw, 10rem);
+  font-weight: 800;
+  line-height: 0.78;
+  letter-spacing: -0.09em;
+  will-change: transform, filter, opacity;
+}
+
+.metricSlash {
+  display: inline-flex;
+  transform: translateY(-0.02em);
+}
+
+.metricMeta {
+  display: grid;
+  justify-self: end;
+  gap: 0.3rem;
+  max-width: 15rem;
+}
+
+.metricLabel,
+.metricNote {
+  margin: 0;
+}
+
+.metricLabel {
+  color: #2d3134;
+}
+
+.metricNote {
+  color: rgba(45, 49, 52, 0.62);
+}
+
+.workflowIntro {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.workflowTitle {
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  text-transform: uppercase;
+}
+
+.workflowLead,
+.workflowText {
+  margin: 0;
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: rgba(45, 49, 52, 0.74);
+}
+
+.workflowLead {
+  max-width: 18rem;
+}
+
+.workflowMap {
+  position: relative;
+  display: grid;
+  gap: 0;
+  padding-top: 0.4rem;
+}
+
+.workflowMap::before {
+  content: "";
+  position: absolute;
+  top: 0.9rem;
+  bottom: 0.9rem;
+  left: 50%;
+  width: 1px;
+  background: rgba(45, 49, 52, 0.18);
+  transform: translateX(-50%);
+}
+
+
+
+.workflowStep {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 11rem;
+}
+
+.workflowStepRight {
+  grid-template-areas: ". dot card";
+}
+
+.workflowStepLeft {
+  grid-template-areas: "card dot .";
+}
+
+.workflowDot {
+  grid-area: dot;
+  justify-self: center;
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 1px solid rgba(45, 49, 52, 0.32);
+  border-radius: 999px;
+  background: #f2f0eb;
+  margin: 10px;
+}
+
+.workflowBranch {
+  display: none;
+}
+
+.workflowNode {
+  grid-area: card;
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.85rem;
+  min-height: 9rem;
+  max-width: 22rem;
+  padding: 1.1rem 1.1rem 1.2rem 1.5rem;
+  border: 1px solid rgba(45, 49, 52, 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.52) 0%,
+    rgba(255, 255, 255, 0.24) 100%
+  );
+  backdrop-filter: blur(10px);
+}
+
+.workflowNode::before {
+  content: "";
+  position: absolute;
+  top: 0.8rem;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  width: 2px;
+  background: #ce1616;
+}
+
+.workflowStepRight .workflowNode {
+  justify-self: start;
+}
+
+.workflowStepLeft .workflowNode {
+  justify-self: end;
+}
+
+.workflowNodeTop {
+  display: grid;
+  gap: 0.55rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(45, 49, 52, 0.12);
+  overflow: hidden;
+}
+
+.workflowIndex {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(45, 49, 52, 0.7);
+  padding: 0.22rem 0.38rem;
+  border: 1px solid rgba(45, 49, 52, 0.14);
+  width: fit-content;
+  background: rgba(242, 240, 235, 0.76);
+}
+
+.workflowNodeTitle {
+  font-size: clamp(1.3rem, 2vw, 2rem);
+  text-transform: uppercase;
+  max-width: 13rem;
+}
+
+.workflowText {
+  max-width: 17rem;
+  overflow: hidden;
+}
+
+.stageList {
+  display: grid;
+  padding-top: 1rem;
+}
+
+.stageItem {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.7rem 0.5rem;
+  border-top: 1px solid rgba(45, 49, 52, 0.12);
+  overflow: hidden;
+  transition:
+    border-color 500ms ease,
+    color 400ms ease,
+    border-radius 500ms ease,
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stageItem::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #2d3134;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stageItemActive {
+  transform: translateX(0.18rem);
+  border-radius: 5px;
+}
+
+.stageItemActive::before {
+  transform: scaleX(1);
+}
+
+.stageItemActive .stageIndex,
+.stageItemActive .stageName {
+  color: #f2f0eb;
+  opacity: 1;
+  transform: translateX(0.1rem);
+}
+
+.stageIndex,
+.stageName {
+  position: relative;
+  z-index: 1;
+  transition:
+    color 220ms ease,
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stageIndex {
+  opacity: 0.46;
+}
+
+.stageName {
+  opacity: 0.82;
+}
+
+.cardsColumn {
+  display: grid;
+}
+
+.serviceCard {
+  padding: 0.8rem 0;
+  border-top: 1px solid rgba(45, 49, 52, 0.14);
+}
+
+.serviceCardOpen {
+  border-top-color: rgba(206, 22, 22, 0.28);
+}
+
+.cardsColumn > .serviceCard:last-child {
+  border-bottom: 1px solid rgba(45, 49, 52, 0.14);
+}
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: minmax(4rem, 5rem) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.serviceIndex {
+  font-family: var(--font-commissioner-display);
+  font-size: 1.5rem;
+  line-height: 0.86;
+  letter-spacing: -0.08em;
+  color: #ce1616;
+}
+
+.serviceIndexWrap {
+  display: grid;
+  align-content: start;
+}
+
+.serviceMain {
+  display: grid;
+  gap: 1rem;
+}
+
+.serviceMainButton {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.serviceHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: start;
+}
+
+.serviceTitleRow {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.serviceTags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: 0.35rem;
+  align-self: end;
+}
+
+.serviceTag {
+  line-height: 1;
+  padding: 0.34rem 0.45rem;
+  border: 1px solid rgba(45, 49, 52, 0.12);
+  color: rgba(45, 49, 52, 0.72);
+}
+
+.serviceTitle {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  max-width: 20rem;
+  font-weight: 400;
+}
+
+.serviceArrow {
+  flex: 0 0 auto;
+  font-family: var(--font-basis-mono);
+  font-size: 1.1rem;
+  line-height: 1;
+  color: rgba(45, 49, 52, 0.72);
+  transform: rotate(45deg);
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 180ms ease;
+}
+
+.serviceArrowOpen {
+  color: #ce1616;
+  transform: rotate(90deg);
+}
+
+.serviceLead {
+  max-width: 36rem;
+  color: rgba(45, 49, 52, 0.88);
+}
+
+.serviceContent {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition:
+    grid-template-rows 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease;
+}
+
+.serviceContentInner {
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  gap: 1rem;
+  opacity: 0;
+  transform: translateY(-0.35rem);
+  transition:
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.serviceCardOpen .serviceContent {
+  grid-template-rows: 1fr;
+}
+
+.serviceCardOpen .serviceContentInner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.serviceTextGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.5rem;
+}
+
+.serviceParagraph {
+  color: rgba(45, 49, 52, 0.74);
+}
+
+.ctaSection {
+  padding-top: 6rem;
+}
+
+.ctaGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);
+  gap: 2rem;
+  align-items: end;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(45, 49, 52, 0.14);
+}
+
+.ctaCopy,
+.ctaPanel {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.ctaTitle {
+  font-size: clamp(2.8rem, 5vw, 5.4rem);
+  text-transform: uppercase;
+}
+
+.ctaText {
+  color: rgba(45, 49, 52, 0.72);
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.4rem;
+
+}
+
+.primaryLink,
+.secondaryLink {
+  position: relative;
+  width: fit-content;
+  font-family: var(--font-activist);
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  transition: transform 180ms ease;
+}
+
+.primaryLink::after,
+.secondaryLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.12rem;
+  width: 100%;
+  height: 1px;
+  background: #ce1616;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 180ms ease;
+}
+
+.primaryLink:hover,
+.primaryLink:focus-visible,
+.secondaryLink:hover,
+.secondaryLink:focus-visible {
+  transform: translateY(-1px);
+}
+
+.primaryLink:hover::after,
+.primaryLink:focus-visible::after,
+.secondaryLink:hover::after,
+.secondaryLink:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 900px) {
+  .heroGrid,
+  .introSection,
+  .audienceBlock,
+  .blueprintSection,
+  .workflowSection,
+  .metricRow,
+  .ctaGrid,
+  .serviceGrid,
+  .serviceHeader,
+  .serviceTextGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .introSection {
+    display: grid;
+  }
+
+  .audienceScheme {
+    min-height: auto;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .audienceCore {
+    width: min(18rem, 100%);
+  }
+
+  .audienceList {
+    gap: 0.9rem;
+  }
+
+  .audienceNode {
+    width: 100%;
+  }
+
+  .audienceNode::before {
+    display: none;
+  }
+
+  .blueprintSticky {
+    position: static;
+  }
+
+  .workflowMap::before {
+    left: 0.45rem;
+    transform: none;
+  }
+
+  .workflowStart {
+    justify-self: start;
+  }
+
+  .workflowStep,
+  .workflowStepRight,
+  .workflowStepLeft {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "dot card";
+    gap: 1rem;
+    min-height: auto;
+    padding-bottom: 1rem;
+  }
+
+  .workflowDot {
+    align-self: start;
+    margin-top: 1rem;
+  }
+
+  .workflowBranch {
+    display: none;
+  }
+
+  .workflowNode,
+  .workflowStepLeft .workflowNode,
+  .workflowStepRight .workflowNode {
+    justify-self: stretch;
+    max-width: none;
+  }
+
+  .metricRow {
+    align-items: start;
+    gap: 0.75rem 1rem;
+    min-height: auto;
+    padding: 1rem 0;
+  }
+
+  .metricCenter,
+  .metricMeta {
+    justify-self: start;
+  }
+
+}
+
+@media (max-width: 640px) {
+  .hero,
+  .introSection,
+  .audienceSection,
+  .blueprintSection,
+  .workflowSection,
+  .metricsSection,
+  .ctaSection {
+    padding: 1rem;
+  }
+
+  .hero {
+    gap: 2rem;
+  }
+
+  .title {
+    font-size: 3.3rem;
+  }
+
+  .blueprintTitle,
+  .workflowTitle,
+  .metricsTitle,
+  .ctaTitle {
+    font-size: 2.4rem;
+  }
+
+  .serviceTitle,
+  .workflowNodeTitle,
+  .audienceNodeTitle {
+    font-size: 2rem;
+  }
+
+  .serviceTags {
+    justify-content: start;
+  }
+}

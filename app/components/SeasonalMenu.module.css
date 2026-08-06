@@ -5,7 +5,7 @@
 .poster {
   position: relative;
   overflow: visible;
-  padding: 1rem 2rem 2rem;
+  padding: 4rem 1.25rem 4rem;
   background: #d9fbff;
   color: #2d3134;
   min-height: 100vh;
@@ -18,46 +18,9 @@
 
 }
 
-.posterTop {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 2.2rem;
-  z-index: 4;
-  pointer-events: none;
-}
-
-.logoBlock {
-  display: grid;
-  gap: 0.1rem;
-  justify-items: start;
-}
-
-.floatingLogoBlock {
-  position: fixed;
-  z-index: 8;
-  display: grid;
-  gap: 0.1rem;
-  justify-items: start;
-  pointer-events: none;
-}
-
-.logo {
-  font-family: var(--font-commissioner-display);
-  font-size: clamp(2rem, 3vw, 3rem);
-  line-height: 0.9;
-  font-weight: 800;
-}
-
-.logoCaption {
-  font-family: var(--font-basis-mono);
-  font-size: 10px;
-  line-height: 1;
-  text-transform: lowercase;
-}
-
 .content {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 0.72fr);
+  grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.72fr);
   align-items: stretch;
   gap: 2.25rem;
   max-width: 86rem;
@@ -256,7 +219,7 @@
 }
 
 .footerNote {
-  max-width: 40rem;
+  max-width: 37rem;
   font-family: var(--font-activist);
   font-size: 1rem;
   line-height: 1.02;
@@ -301,12 +264,6 @@
 }
 
 @media (max-width: 640px) {
-  .posterTop {
-    position: static;
-    justify-content: flex-start;
-    margin-bottom: 1.25rem;
-  }
-
   .lead {
     font-size: 1rem;
   }

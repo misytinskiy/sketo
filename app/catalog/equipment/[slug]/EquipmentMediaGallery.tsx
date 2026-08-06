@@ -7,11 +7,13 @@ import styles from "./equipment-item.module.css";
 type EquipmentMediaGalleryProps = {
   images: string[];
   name: string;
+  language: "ru" | "en";
 };
 
 export default function EquipmentMediaGallery({
   images,
   name,
+  language,
 }: EquipmentMediaGalleryProps) {
   const galleryImages = images.slice(0, 6);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -36,7 +38,11 @@ export default function EquipmentMediaGallery({
         <div className={styles.mediaViewport}>
           <Image
             src={activeImage}
-            alt={`${name} view ${activeIndex + 1}`}
+            alt={
+              language === "en"
+                ? `${name} view ${activeIndex + 1}`
+                : `${name} кадр ${activeIndex + 1}`
+            }
             fill
             priority
             sizes="(max-width: 980px) 100vw, 54vw"
@@ -50,9 +56,11 @@ export default function EquipmentMediaGallery({
               type="button"
               onClick={showPrevious}
               className={styles.mediaButton}
-              aria-label="Previous image"
+              aria-label={
+                language === "en" ? "Previous image" : "Предыдущее изображение"
+              }
             >
-              Prev
+              {language === "en" ? "Prev" : "Назад"}
             </button>
 
             <p className={styles.mediaCounter}>
@@ -64,9 +72,9 @@ export default function EquipmentMediaGallery({
               type="button"
               onClick={showNext}
               className={styles.mediaButton}
-              aria-label="Next image"
+              aria-label={language === "en" ? "Next image" : "Следующее изображение"}
             >
-              Next
+              {language === "en" ? "Next" : "Далее"}
             </button>
           </div>
         ) : null}
@@ -84,7 +92,11 @@ export default function EquipmentMediaGallery({
               className={`${styles.thumbnailButton} ${
                 isActive ? styles.thumbnailButtonActive : ""
               }`}
-              aria-label={`Show image ${index + 1}`}
+              aria-label={
+                language === "en"
+                  ? `Show image ${index + 1}`
+                  : `Показать изображение ${index + 1}`
+              }
               aria-pressed={isActive}
             >
               <span className={styles.thumbnailIndex}>
