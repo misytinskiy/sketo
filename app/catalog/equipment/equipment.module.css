@@ -256,6 +256,10 @@
 }
 
 @media (max-width: 640px) {
+.grid {
+  gap: 3rem 1rem;
+}
+
   .topBar {
     margin-bottom: 2rem;
   }
@@ -268,17 +272,26 @@
     grid-template-columns: 1fr;
   }
 
+
+
   .content {
     grid-template-columns: 1fr;
-    gap: 0.9rem;
+    gap: 8px;
+    border-top: 1px solid #2d313482;
   }
 
   .name {
-    font-size: 1rem;
+    font-size: 12px;
   }
+
+  .imagePanel {
+    aspect-ratio: 2;
+  }
+
+  
 
   .details,
   .price {
-    font-size: 0.84rem;
+    font-size: 12px;
   }
 }

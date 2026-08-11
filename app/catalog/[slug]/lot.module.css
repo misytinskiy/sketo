@@ -368,6 +368,11 @@
 }
 
 @media (max-width: 640px) {
+
+  .title {
+    font-size: 2rem;
+  }
+
   .topBar {
     margin-bottom: 2rem;
   }
@@ -381,15 +386,80 @@
   }
 
   .editorialMedia {
-    min-height: 18rem;
+    min-height: 10rem;
   }
 
   .mediaImage {
-    padding: 1.5rem;
+    padding: 1rem;
+  }
+
+  .cropMark {
+    width: 15px;
+    height: 15px;
+  }
+
+  .topBar {
+    align-items: center;
   }
 
   .detailRow {
     grid-template-columns: 1fr;
-    gap: 0.15rem;
+    gap: 7px;
   }
+
+  .infoPanel {
+    gap: 20px;
+  }
+
+  .mediaCaption {
+    font-size: 8px;
+
+  }
+
+  .techMeta {
+    grid-template-columns: repeat(3, minmax(0, max-content)); 
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .techMetaText {
+    font-size: 9px;
+  }
+
+  .layout {
+    gap: 1.5rem;
+  }
+
+  .descriptionCard,
+.notesCard,
+.detailsCard {
+  border-top: 1px solid #2d313424;
+  gap: 14px;
+  padding-top: 14px;
+}
+
+.detailLabel,
+.detailValue {
+  font-size: 10px;
+}
+
+.description {
+  font-size: 10px;
+}
+
+.editorialBody {
+  font-size: 10px;
+}
+
+.editorialTab {
+  font-size: 10px;
+}
+
+.editorialTextPanel {
+  padding-top: 14px;
+}
+
+.editorialContent {
+  gap: 14px;
+}
 }

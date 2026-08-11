@@ -2,7 +2,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 3rem;
   padding: 2rem 3.25rem 2rem;
   background: #f2f0eb;
   color: #2d3134;
@@ -92,8 +92,8 @@
 @media (max-width: 900px) {
   .footer {
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem 1rem 2rem;
+    gap: 2.5rem;
+    padding: 2.5rem 1rem;
   }
 
   .footerColumns {
@@ -104,16 +104,20 @@
 
 @media (max-width: 640px) {
   .footerLogoImage {
-    width: 7.5rem;
+    width: 9rem;
   }
 
   .footerColumns {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1.5rem;
+  }
+
+  .footerTitle {
+    font-size: 15px;
   }
 
   .footerLink,
   .footerText {
-    font-size: 0.86rem;
+    font-size: 12px;
   }
 }

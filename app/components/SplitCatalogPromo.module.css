@@ -232,12 +232,23 @@
     padding: 3rem 1rem;
   }
 
+  .posterTitle {
+    font-size: 2.5rem;
+  }
+
+  .posterBody {
+    gap: 0.8rem;
+  }
+
+  
+
   .posterGrid {
     grid-template-columns: 1fr;
   }
 
   .posterCard {
-    min-height: 50vh;
+    min-height: 60vh;
+    padding: 1rem;
   }
 
   .operatingRow {

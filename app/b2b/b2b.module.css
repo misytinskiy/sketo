@@ -1048,11 +1048,26 @@
   .workflowSection,
   .metricsSection,
   .ctaSection {
-    padding: 1rem;
+    padding: 2rem 1rem;
+  }
+
+  .heroGrid {
+    align-content: start;
+    gap: 5rem;
+  }
+
+  .heroCopy {
+    gap: 1.6rem;
   }
 
   .hero {
     gap: 2rem;
+    padding-top: 1.5rem;
+    background-size: auto, 25rem;
+  }
+
+  .heroMetaItem {
+    font-size: 9px;
   }
 
   .title {
@@ -1074,5 +1089,117 @@
 
   .serviceTags {
     justify-content: start;
+  }
+
+  .introSection {
+    padding: 1.5rem 1rem;
+    gap: 1rem
+
+  }
+
+  .introLinks {
+    justify-content: end;
+    gap: 1rem;
+  }
+
+  .introText {
+    font-size: 1.3rem;
+  }
+
+  .audienceCore {
+    justify-self: center;
+    width: 15rem;
+        height: 15rem;
+  }
+
+  .audienceNodeTitle {
+    font-size: 10px;
+  }
+
+  .audienceScheme {
+    gap: 1.25rem
+  }
+
+  .audienceBlock {
+    gap: 2rem;
+  }
+
+  .serviceGrid {
+    display: flex;
+  }
+
+  .serviceTitle {
+    font-size: 15px;
+  }
+
+  .serviceIndex {
+    font-size: 15px;
+  }
+  
+  .serviceTag {
+    font-size: 9px;
+  }
+
+  .workflowDot {
+    margin: 0;
+  }
+
+  .workflowNodeTitle {
+    font-size: 1.5rem;
+  }
+
+  .workflowNodeTop {
+    gap: 1rem;
+  }
+
+  .metricsSection {
+    gap: 2rem;
+  }
+
+  .metricsIntro {
+    padding: 1rem 0 .5rem
+  }
+
+  .metricRow {
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem
+  }
+
+  .metricsTitle {
+    font-size: 1.5rem;
+  }
+
+  .metricsMark {
+    font-size: 1.5rem;
+  }
+
+  .metricMeta { 
+    text-align: center;
+    gap: .5rem;
+  }
+
+  .ctaGrid {
+    gap: 1.5rem;
+  }
+
+  .ctaTitle {
+    font-size: 2.5rem;
+  }
+
+  .primaryLink,
+  .secondaryLink {
+    font-size: 15px;
+  }
+
+  .workflowNode {
+    border: 0;
+    background: none;
+  }
+
+  .workflowIndex {
+    padding: .22rem 0;
+    border:none;
   }
 }

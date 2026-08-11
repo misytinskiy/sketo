@@ -78,8 +78,16 @@ export default function AcademyCourses({ courses }: AcademyCoursesProps) {
                 /{String(index + 1).padStart(2, "0")}
               </span>
               <span className={styles.courseSummaryTitle}>{course.title}</span>
-              <span className={styles.courseSummaryMeta}>{course.level}</span>
-              <span className={styles.courseSummaryMeta}>{course.format}</span>
+              <span
+                className={`${styles.courseSummaryMeta} ${styles.courseSummaryLevel}`}
+              >
+                {course.level}
+              </span>
+              <span
+                className={`${styles.courseSummaryMeta} ${styles.courseSummaryFormat}`}
+              >
+                {course.format}
+              </span>
               <span className={styles.courseSummaryToggle} aria-hidden="true">
                 <span className={styles.courseSummaryArrow} />
               </span>
@@ -98,15 +106,13 @@ export default function AcademyCourses({ courses }: AcademyCoursesProps) {
               >
                 <div className={styles.courseDetailsInfo}>
                   <p className={styles.courseDetailsLead}>{course.lead}</p>
-                  <span className={styles.courseDetailsPrice}>
-                    {course.price}
-                  </span>
                 </div>
                 <ul className={styles.courseDetailsList}>
                   {course.details.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
+                <span className={styles.courseDetailsPrice}>{course.price}</span>
               </div>
             </div>
           </article>

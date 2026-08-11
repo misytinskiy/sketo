@@ -298,7 +298,8 @@
 
 @media (max-width: 640px) {
   .lead {
-    font-size: 0.95rem;
+    font-size: 10px;
+
   }
 
   .detailRow {
@@ -308,5 +309,13 @@
 
   .title {
     font-size: 2.4rem;
+  }
+
+  .infoPanel {
+    gap: 1rem;
+  }
+
+  .addressLead {
+    padding-top: 1rem;
   }
 }

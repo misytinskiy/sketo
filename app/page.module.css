@@ -290,6 +290,10 @@
   text-wrap: balance;
 }
 
+.heroTagline {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .topBar {
     padding: 1.5rem 1rem 0;
@@ -408,7 +412,147 @@
   }
 
   .quoteText {
-    width: min(100%, 15rem);
-    font-size: 0.95rem;
+    width: 22rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    min-height: 100svh;
+    padding: 1.5rem 1rem 1rem;
+    overflow: hidden;
+
+  }
+
+  .topBar {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-left: 0;
+    padding: 0 0 1.5rem;
+  }
+
+  .logoWrap {
+    display: none;
+  }
+
+  .logo {
+    font-size: 12rem;
+    line-height: 0.8;
+    transform: none;
+    padding-bottom: 0;
+  }
+
+  .header {
+    grid-column: 1;
+    grid-row: 2;
+    position: relative;
+    inset: auto;
+    transform: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+
+  .heroTagline {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    font-family: var(--font-commissioner-display);
+    font-size: 17px;
+    line-height: 1.15;
+    text-align: right;
+    text-transform: lowercase;
+    color: #ce1616;
+    pointer-events: none;
+    font-weight: 600;
+  }
+
+  .heroNav {
+    width: 100%;
+    height: 100%;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 0.5rem;
+    font-size: 12px;
+  }
+
+  .navItem {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    transition: none;
+    padding: 0.75rem 0;
+  }
+
+  .languageSwitch {
+    font-size: 10px;
+  }
+
+  .navItem::before {
+    display: block;
+    opacity: 0.8;
+  }
+
+  .navItem::after {
+    display: none;
+  }
+
+  .navNumber {
+    display: none;
+  }
+
+  .navLabel {
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .navItemActive,
+  .navItemLeaving {
+    color: #2d3134;
+    transform: none;
+  }
+
+  .topBar::before {
+    content: "sketo.";
+    display: block;
+    font-family: var(--font-commissioner-display);
+    font-size: 2.4rem;
+    line-height: 0.9;
+    font-weight: 800;
+    color: #ce1616;
+    white-space: nowrap;
+  }
+
+  .languageOption,
+  .languageActive {
+    transition: none;
+  }
+
+  .languageOption:hover,
+  .languageOption:focus-visible,
+  .languageActive:hover,
+  .languageActive:focus-visible {
+    color: inherit;
+    transform: none;
+    opacity: inherit;
   }
 }

@@ -357,8 +357,9 @@
   }
 
   .sectionBlockFeatures {
-    padding: 1.5rem;
-    background-position: center top;
+    background-position: center;
+    background-size:70%;
+
   }
 
   .techMeta {
@@ -368,33 +369,76 @@
 }
 
 @media (max-width: 640px) {
+  .title {
+    font-size: 2rem;
+  }
+
   .topBar {
     margin-bottom: 2rem;
+    align-items: center;
   }
 
   .homeLogo {
     font-size: 2.2rem;
   }
 
-  .mediaImage {
-    padding: 1.25rem;
+  .infoPanel {
+    gap: 20px;
   }
 
-  .thumbnailGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .mediaImage {
+    padding: 1rem;
   }
 
   .detailRow {
     grid-template-columns: 1fr;
-    gap: 0.35rem;
+    gap: 7px;
+  }
+
+ 
+  .specificationValue {
+    text-align: left;
+  }
+
+  .sectionBlock {
+    padding-top: 1rem;
+    border-top: 1px solid #2d313424;
   }
 
   .specificationRow {
-    grid-template-columns: 1fr;
-    gap: 0.35rem;
+    padding: 1rem 0;
   }
 
-  .specificationValue {
-    text-align: left;
+  .techMeta {
+    grid-template-columns: repeat(3, minmax(0, max-content));
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .techMetaText {
+    font-size: 9px;
+  }
+
+  .layout {
+    gap: 1.5rem;
+  }
+
+  .infoCard {
+    border-top: 1px solid #2d313424;
+    gap: 14px;
+    padding-top: 14px;
+  }
+
+  .detailLabel,
+  .detailValue,
+  .specificationLabel,
+  .specificationValue,
+  .featureDescription,
+  .description {
+    font-size: 10px;
+  }
+
+  .thumbnailGrid  {
+    display: none;
   }
 }

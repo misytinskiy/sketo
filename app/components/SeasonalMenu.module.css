@@ -228,12 +228,9 @@
 }
 
 @media (max-width: 900px) {
-  .section {
-    padding: 0 1rem 4rem;
-  }
 
   .poster {
-    padding: 1.5rem 1.25rem;
+    padding: 2.5rem 1rem;
   }
 
   .content {
@@ -246,7 +243,6 @@
 
   .mediaColumn {
     display: block;
-    order: -1;
   }
 
   .videoWrap {
@@ -261,14 +257,22 @@
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+
+  .headingBlock {
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 640px) {
   .lead {
-    font-size: 1rem;
+    font-size: 14px;
+  }
+
+  .drinkCard {
+    padding-top: 1.5rem;
   }
 
   .drinkDescription {
-    font-size: 0.95rem;
+    font-size: 14px;
   }
 }

@@ -166,6 +166,10 @@ export default function HomeHero({
       <div className={styles.header}>
         <HeroNavigation language={language} />
       </div>
+
+      {!isDesktop ? (
+        <p className={styles.heroTagline}>coffee and all about.</p>
+      ) : null}
     </section>
   );
 }
