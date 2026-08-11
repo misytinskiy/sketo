@@ -16,7 +16,10 @@ export default function SmoothScroll({
   const pathname = usePathname();
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      window.matchMedia("(max-width: 640px)").matches
+    ) {
       return;
     }
 
@@ -41,6 +44,7 @@ export default function SmoothScroll({
     const smoother = ScrollSmoother.get();
 
     if (!smoother) {
+      window.scrollTo({ top: 0, behavior: "auto" });
       return;
     }
 
