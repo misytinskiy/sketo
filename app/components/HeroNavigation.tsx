@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { FocusEvent, MouseEvent } from "react";
 import { useEffect, useRef, useState } from "react";
-import type { Language } from "./LanguageSwitch";
 import styles from "../page.module.css";
 
 const navItems = [
@@ -36,7 +35,7 @@ const navItems = [
 ] as const;
 
 type HeroNavigationProps = {
-  language?: Language;
+  language?: "ru" | "en";
 };
 
 export default function HeroNavigation({

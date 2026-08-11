@@ -10,6 +10,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNavigation from "./HeroNavigation";
 import LanguageSwitch, { type Language } from "./LanguageSwitch";
+import { getContentLanguage } from "./usePersistentLanguage";
 import styles from "../page.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -23,6 +24,7 @@ export default function HomeHero({
   language,
   onLanguageChange,
 }: HomeHeroProps) {
+  const contentLanguage = getContentLanguage(language);
   const heroRef = useRef<HTMLElement | null>(null);
   const logoWrapRef = useRef<HTMLDivElement | null>(null);
   const topBarRef = useRef<HTMLElement | null>(null);
@@ -164,7 +166,7 @@ export default function HomeHero({
       {isDesktop && portalTarget ? createPortal(overlay, portalTarget) : null}
 
       <div className={styles.header}>
-        <HeroNavigation language={language} />
+        <HeroNavigation language={contentLanguage} />
       </div>
 
       {!isDesktop ? (
