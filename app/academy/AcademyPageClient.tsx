@@ -4,9 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import LanguageSwitch from "../components/LanguageSwitch";
-import usePersistentLanguage, {
-  getContentLanguage,
-} from "../components/usePersistentLanguage";
+import { getContentLanguage } from "../components/language";
+import usePersistentLanguage from "../components/usePersistentLanguage";
 import AcademyReveal from "./AcademyReveal";
 import AudienceCore from "./AudienceCore";
 import AcademyCourseShowcase from "./AcademyCourseShowcase";
@@ -361,8 +360,14 @@ const content = {
   },
 } as const;
 
-export default function AcademyPageClient() {
-  const [language, setLanguage] = usePersistentLanguage();
+type AcademyPageClientProps = {
+  initialLanguage: "ru" | "en";
+};
+
+export default function AcademyPageClient({
+  initialLanguage,
+}: AcademyPageClientProps) {
+  const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const currentLanguage = getContentLanguage(language);
   const copy = content[currentLanguage];
 

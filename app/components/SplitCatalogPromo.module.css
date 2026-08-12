@@ -228,6 +228,27 @@
 }
 
 @media (max-width: 900px) {
+  .posterCard:hover,
+  .posterCard:focus-visible {
+    transform: none;
+    border-color: rgba(45, 49, 52, 0.18);
+  }
+
+  .posterCard:hover::before,
+  .posterCard:focus-visible::before {
+    width: 0;
+  }
+
+  .posterCard:active {
+    transform: translateY(2px) scale(0.992);
+    border-color: rgba(45, 49, 52, 0.28);
+  }
+
+  .posterCard:active::before {
+    width: 100%;
+    background: rgba(45, 49, 52, 0.04);
+  }
+
   .variantSection {
     padding: 3rem 1rem;
   }

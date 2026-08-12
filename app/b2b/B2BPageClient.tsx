@@ -4,9 +4,8 @@ import Link from "next/link";
 import AcademyReveal from "../academy/AcademyReveal";
 import Footer from "../components/Footer";
 import LanguageSwitch from "../components/LanguageSwitch";
-import usePersistentLanguage, {
-  getContentLanguage,
-} from "../components/usePersistentLanguage";
+import { getContentLanguage } from "../components/language";
+import usePersistentLanguage from "../components/usePersistentLanguage";
 import B2BAudienceCore from "./B2BAudienceCore";
 import B2BBlueprintSection from "./B2BBlueprintSection";
 import B2BWorkflowSection from "./B2BWorkflowSection";
@@ -364,8 +363,14 @@ const content = {
   },
 } as const;
 
-export default function B2BPageClient() {
-  const [language, setLanguage] = usePersistentLanguage();
+type B2BPageClientProps = {
+  initialLanguage: "ru" | "en";
+};
+
+export default function B2BPageClient({
+  initialLanguage,
+}: B2BPageClientProps) {
+  const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const currentLanguage = getContentLanguage(language);
   const copy = content[currentLanguage];
 

@@ -4,9 +4,8 @@ import Link from "next/link";
 import { useDeferredValue, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import LanguageSwitch from "../../components/LanguageSwitch";
-import usePersistentLanguage, {
-  getContentLanguage,
-} from "../../components/usePersistentLanguage";
+import { getContentLanguage } from "../../components/language";
+import usePersistentLanguage from "../../components/usePersistentLanguage";
 import EquipmentCatalogCard from "./EquipmentCatalogCard";
 import {
   type EquipmentBrand,
@@ -37,8 +36,14 @@ function getItemsLabel(count: number, language: "ru" | "en") {
   return "товаров";
 }
 
-export default function EquipmentCatalogContent() {
-  const [language, setLanguage] = usePersistentLanguage();
+type EquipmentCatalogContentProps = {
+  initialLanguage: "ru" | "en";
+};
+
+export default function EquipmentCatalogContent({
+  initialLanguage,
+}: EquipmentCatalogContentProps) {
+  const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const [activeBrand, setActiveBrand] = useState<EquipmentBrand>("all");
   const [activeType, setActiveType] = useState<EquipmentType>("all");
   const [searchValue, setSearchValue] = useState("");

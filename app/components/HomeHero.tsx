@@ -10,7 +10,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNavigation from "./HeroNavigation";
 import LanguageSwitch, { type Language } from "./LanguageSwitch";
-import { getContentLanguage } from "./usePersistentLanguage";
+import { getContentLanguage } from "./language";
 import styles from "../page.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -61,26 +61,40 @@ export default function HomeHero({
 
       gsap.set(topBar, { xPercent: -50 });
 
-      const logoTweenValues = () => {
+      const getLogoTargetMetrics = () => {
         const rect = logoWrap.getBoundingClientRect();
-        const inset = window.innerWidth < 900 ? 16 : 24;
+        const inset = window.innerWidth < 900 ? 16 : 20;
         const targetWidth = gsap.utils.clamp(96, 142, window.innerWidth * 0.082);
+        const scale = targetWidth / rect.width;
+
+        return {
+          rect,
+          inset,
+          scale,
+          targetHeight: rect.height * scale,
+        };
+      };
+
+      const logoTweenValues = () => {
+        const { rect, inset, scale } = getLogoTargetMetrics();
 
         return {
           x: inset - rect.left,
           y: inset - rect.top,
-          scale: targetWidth / rect.width,
+          scale,
           force3D: true,
         };
       };
 
       const topBarTweenValues = () => {
         const rect = topBar.getBoundingClientRect();
-        const inset = window.innerWidth < 900 ? 32 : 52;
+        const rightInset = 20;
+        const { inset, targetHeight } = getLogoTargetMetrics();
+        const targetTop = inset + targetHeight / 2 - rect.height / 2;
 
         return {
-          x: window.innerWidth - inset - rect.right,
-          y: inset - rect.top,
+          x: window.innerWidth - rightInset - rect.right - rect.width / 2,
+          y: targetTop - rect.top,
           xPercent: 0,
           force3D: true,
         };

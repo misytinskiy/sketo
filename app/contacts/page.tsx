@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getInitialLanguage } from "../components/getInitialLanguage";
 import ContactsPageClient from "./ContactsPageClient";
 
 export const metadata: Metadata = {
@@ -6,6 +7,8 @@ export const metadata: Metadata = {
   description: "Контактная страница Sketo Coffee Company в Астане.",
 };
 
-export default function ContactsPage() {
-  return <ContactsPageClient />;
+export default async function ContactsPage() {
+  const initialLanguage = await getInitialLanguage();
+
+  return <ContactsPageClient initialLanguage={initialLanguage} />;
 }

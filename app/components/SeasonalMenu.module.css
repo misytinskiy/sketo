@@ -19,11 +19,13 @@
 }
 
 .content {
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.72fr);
-  align-items: stretch;
-  gap: 2.25rem;
-  max-width: 86rem;
+  /* display: grid; */
+  /* grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.72fr); */
+  /* align-items: stretch; */
+  display: flex;
+
+  gap: 3.5rem;
+  /* max-width: 86rem; */
 }
 
 .mainColumn {
@@ -42,6 +44,8 @@
   height: 100%;
   width: 100%;
   background: rgba(255, 255, 255, 0.14);
+  /* max-width: 31vw; */
+  max-width: 26vw;
 }
 
 .video {
@@ -234,7 +238,7 @@
   }
 
   .content {
-    grid-template-columns: 1fr;
+flex-direction: column;
   }
 
   .mainColumn {
@@ -247,6 +251,7 @@
 
   .videoWrap {
     height: auto;
+    max-width: none;
   }
 
   .video {

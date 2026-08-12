@@ -1,21 +1,17 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import type { Language } from "./LanguageSwitch";
+import {
+  LANGUAGE_COOKIE_KEY,
+  LANGUAGE_STORAGE_KEY,
+  type Language,
+  normalizeLanguage,
+} from "./language";
 
-export const LANGUAGE_STORAGE_KEY = "sketo-language";
 const LANGUAGE_EVENT = "sketo-language-change";
 
-function normalizeLanguage(language: string | null): Language {
-  if (language === "en") {
-    return "en";
-  }
-
-  return "ru";
-}
-
-function getServerSnapshot(): Language {
-  return "ru";
+function getServerSnapshot(initialLanguage: Language): Language {
+  return normalizeLanguage(initialLanguage);
 }
 
 function getClientSnapshot(): Language {
@@ -60,18 +56,15 @@ export function persistLanguage(language: Language) {
   const normalizedLanguage = normalizeLanguage(language);
 
   window.localStorage.setItem(LANGUAGE_STORAGE_KEY, normalizedLanguage);
+  document.cookie = `${LANGUAGE_COOKIE_KEY}=${normalizedLanguage}; path=/; max-age=31536000; samesite=lax`;
   window.dispatchEvent(new Event(LANGUAGE_EVENT));
 }
 
-export function getContentLanguage(language: Language): "ru" | "en" {
-  return language === "en" ? "en" : "ru";
-}
-
-export default function usePersistentLanguage() {
+export default function usePersistentLanguage(initialLanguage: Language = "ru") {
   const language = useSyncExternalStore(
     subscribe,
     getClientSnapshot,
-    getServerSnapshot,
+    () => getServerSnapshot(initialLanguage),
   );
 
   return [language, persistLanguage] as const;

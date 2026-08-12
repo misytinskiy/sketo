@@ -4,9 +4,8 @@ import Link from "next/link";
 import { useDeferredValue, useMemo, useState } from "react";
 import Footer from "../components/Footer";
 import LanguageSwitch from "../components/LanguageSwitch";
-import usePersistentLanguage, {
-  getContentLanguage,
-} from "../components/usePersistentLanguage";
+import { getContentLanguage } from "../components/language";
+import usePersistentLanguage from "../components/usePersistentLanguage";
 import CatalogCard from "./CatalogCard";
 import {
   type CatalogFilter,
@@ -49,8 +48,14 @@ function getLotsLabel(count: number, language: "ru" | "en") {
   return "лотов";
 };
 
-export default function CatalogContent() {
-  const [language, setLanguage] = usePersistentLanguage();
+type CatalogContentProps = {
+  initialLanguage: "ru" | "en";
+};
+
+export default function CatalogContent({
+  initialLanguage,
+}: CatalogContentProps) {
+  const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const [activeFilter, setActiveFilter] = useState<CatalogFilter>("all");
   const [searchValue, setSearchValue] = useState("");
   const deferredSearch = useDeferredValue(searchValue);

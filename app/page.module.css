@@ -250,7 +250,7 @@
   display: block;
   font-family: var(--font-commissioner-display);
   font-weight: 800;
-  font-size: 23rem;
+  font-size: 21.5rem;
   line-height: 0.8;
   color: #ce1616;
   white-space: nowrap;
@@ -531,6 +531,11 @@
     transform: none;
   }
 
+  .navItem:active {
+    transform: translateY(2px) scale(0.992);
+    opacity: 0.78;
+  }
+
   .topBar::before {
     content: "sketo.";
     display: block;
@@ -548,11 +553,16 @@
   }
 
   .languageOption:hover,
-  .languageOption:focus-visible,
-  .languageActive:hover,
-  .languageActive:focus-visible {
+  .languageOption:focus-visible {
     color: inherit;
     transform: none;
     opacity: inherit;
+  }
+
+  .languageActive:hover,
+  .languageActive:focus-visible {
+    color: #ce1616;
+    transform: none;
+    opacity: 1;
   }
 }

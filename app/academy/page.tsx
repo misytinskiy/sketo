@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getInitialLanguage } from "../components/getInitialLanguage";
 import AcademyPageClient from "./AcademyPageClient";
 
 export const metadata: Metadata = {
@@ -6,6 +7,8 @@ export const metadata: Metadata = {
   description: "Academy as system page for Sketo.",
 };
 
-export default function AcademySystemPage() {
-  return <AcademyPageClient />;
+export default async function AcademySystemPage() {
+  const initialLanguage = await getInitialLanguage();
+
+  return <AcademyPageClient initialLanguage={initialLanguage} />;
 }

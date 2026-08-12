@@ -3,9 +3,8 @@
 import Link from "next/link";
 import Footer from "../../../components/Footer";
 import LanguageSwitch from "../../../components/LanguageSwitch";
-import usePersistentLanguage, {
-  getContentLanguage,
-} from "../../../components/usePersistentLanguage";
+import { getContentLanguage } from "../../../components/language";
+import usePersistentLanguage from "../../../components/usePersistentLanguage";
 import {
   equipmentBrandLabels,
   equipmentTypeLabels,
@@ -18,13 +17,15 @@ import styles from "./equipment-item.module.css";
 type EquipmentItemPageClientProps = {
   item: EquipmentItem;
   itemIndex: number;
+  initialLanguage: "ru" | "en";
 };
 
 export default function EquipmentItemPageClient({
   item,
   itemIndex,
+  initialLanguage,
 }: EquipmentItemPageClientProps) {
-  const [language, setLanguage] = usePersistentLanguage();
+  const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const currentLanguage = getContentLanguage(language);
   const content = getEquipmentItemContent(item, currentLanguage);
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Commissioner } from "next/font/google";
+import { getInitialLanguage } from "./components/getInitialLanguage";
 import SmoothScroll from "./components/SmoothScroll";
 import "./globals.css";
 
@@ -13,13 +14,15 @@ export const metadata: Metadata = {
   description: "Главная страница кофейни Sketo",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialLanguage = await getInitialLanguage();
+
   return (
-    <html lang="ru" className={commissioner.variable}>
+    <html lang={initialLanguage} className={commissioner.variable}>
       <body>
         <SmoothScroll>{children}</SmoothScroll>
       </body>

@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getInitialLanguage } from "../../components/getInitialLanguage";
 import { catalogItems, getCatalogItemBySlug } from "../catalog-data";
 import LotPageClient from "./LotPageClient";
 
@@ -15,6 +16,7 @@ type LotPageProps = {
 };
 
 export default async function LotPage({ params }: LotPageProps) {
+  const initialLanguage = await getInitialLanguage();
   const { slug } = await params;
   const item = getCatalogItemBySlug(slug);
   const itemIndex = catalogItems.findIndex(
@@ -25,5 +27,11 @@ export default async function LotPage({ params }: LotPageProps) {
     notFound();
   }
 
-  return <LotPageClient item={item} itemIndex={itemIndex} />;
+  return (
+    <LotPageClient
+      item={item}
+      itemIndex={itemIndex}
+      initialLanguage={initialLanguage}
+    />
+  );
 }

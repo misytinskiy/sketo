@@ -3,7 +3,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 3rem;
-  padding: 2rem 3.25rem 2rem;
+  padding: 2rem 1.25rem 2rem;
   background: #f2f0eb;
   color: #2d3134;
 }
@@ -33,7 +33,7 @@
 .footerColumns {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2rem 3.5rem;
+  gap: 2rem 0;
   width: min(100%, 40rem);
 }
 

@@ -3,9 +3,8 @@
 import Link from "next/link";
 import Footer from "../../components/Footer";
 import LanguageSwitch from "../../components/LanguageSwitch";
-import usePersistentLanguage, {
-  getContentLanguage,
-} from "../../components/usePersistentLanguage";
+import { getContentLanguage } from "../../components/language";
+import usePersistentLanguage from "../../components/usePersistentLanguage";
 import {
   type CatalogItem,
   getCatalogItemContent,
@@ -17,13 +16,15 @@ import styles from "./lot.module.css";
 type LotPageClientProps = {
   item: CatalogItem;
   itemIndex: number;
+  initialLanguage: "ru" | "en";
 };
 
 export default function LotPageClient({
   item,
   itemIndex,
+  initialLanguage,
 }: LotPageClientProps) {
-  const [language, setLanguage] = usePersistentLanguage();
+  const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const currentLanguage = getContentLanguage(language);
   const content = getCatalogItemContent(item, currentLanguage);
 

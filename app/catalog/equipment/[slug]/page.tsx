@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getInitialLanguage } from "../../../components/getInitialLanguage";
 import {
   equipmentItems,
   getEquipmentItemBySlug,
@@ -20,6 +21,7 @@ type EquipmentItemPageProps = {
 export default async function EquipmentItemPage({
   params,
 }: EquipmentItemPageProps) {
+  const initialLanguage = await getInitialLanguage();
   const { slug } = await params;
   const item = getEquipmentItemBySlug(slug);
   const itemIndex = equipmentItems.findIndex(
@@ -30,5 +32,11 @@ export default async function EquipmentItemPage({
     notFound();
   }
 
-  return <EquipmentItemPageClient item={item} itemIndex={itemIndex} />;
+  return (
+    <EquipmentItemPageClient
+      item={item}
+      itemIndex={itemIndex}
+      initialLanguage={initialLanguage}
+    />
+  );
 }

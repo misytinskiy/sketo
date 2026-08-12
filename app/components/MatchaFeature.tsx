@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import type { Language } from "./LanguageSwitch";
 import MatchaCtaButton from "./MatchaCtaButton";
 import styles from "./MatchaFeature.module.css";
@@ -7,16 +10,53 @@ type MatchaFeatureProps = {
 };
 
 export default function MatchaFeature({ language }: MatchaFeatureProps) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    const tryPlay = () => {
+      video.defaultMuted = true;
+      video.muted = true;
+
+      const playPromise = video.play();
+
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {});
+      }
+    };
+
+    tryPlay();
+
+    video.addEventListener("loadeddata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
+    document.addEventListener("visibilitychange", tryPlay);
+
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+      document.removeEventListener("visibilitychange", tryPlay);
+    };
+  }, []);
+
   return (
     <section className={styles.section} aria-labelledby="matcha-feature-title">
       <video
+        ref={videoRef}
         className={styles.video}
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
+        poster="/photo/matchaMain.jpg"
+        disablePictureInPicture
       >
+        <source src="/photo/matchaMain.mp4" type="video/mp4" />
         <source src="/photo/matchaMain.webm" type="video/webm" />
         {language === "en"
           ? "Your browser does not support background video."

@@ -3,17 +3,22 @@
 import Link from "next/link";
 import Footer from "../components/Footer";
 import LanguageSwitch from "../components/LanguageSwitch";
-import usePersistentLanguage, {
-  getContentLanguage,
-} from "../components/usePersistentLanguage";
+import { getContentLanguage } from "../components/language";
+import usePersistentLanguage from "../components/usePersistentLanguage";
 import styles from "./contacts.module.css";
 
 const mapLink = "https://maps.app.goo.gl/cFffiJuC9Q692hYv6";
 const mapEmbed =
   "https://www.google.com/maps?q=Mukhtar%20Auezov%20St%202%2C%20Astana%2C%20Kazakhstan&z=16&output=embed";
 
-export default function ContactsPageClient() {
-  const [language, setLanguage] = usePersistentLanguage();
+type ContactsPageClientProps = {
+  initialLanguage: "ru" | "en";
+};
+
+export default function ContactsPageClient({
+  initialLanguage,
+}: ContactsPageClientProps) {
+  const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const currentLanguage = getContentLanguage(language);
 
   return (

@@ -1,9 +1,8 @@
 "use client";
 
 import styles from "../page.module.css";
+import type { Language } from "./language";
 import usePersistentLanguage from "./usePersistentLanguage";
-
-export type Language = "kz" | "en" | "ru";
 
 const languages: Language[] = ["kz", "en", "ru"];
 
