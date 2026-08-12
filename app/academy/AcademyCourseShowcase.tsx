@@ -64,6 +64,7 @@ export default function AcademyCourseShowcase({
 
     const ctx = gsap.context(() => {
       const state = { y: -140 };
+      const isMobile = window.matchMedia("(max-width: 640px)").matches;
 
       revealPath.setAttribute("d", buildWavePath(state.y));
 
@@ -75,8 +76,8 @@ export default function AcademyCourseShowcase({
         },
         scrollTrigger: {
           trigger: showcase,
-          start: "top 75%",
-          end: "bottom 85%",
+          start: isMobile ? "top 70%" : "top 75%", 
+          end: isMobile ? "bottom 150%" : "bottom 85%",
           scrub: true,
         },
       });

@@ -23,6 +23,10 @@ export default function B2BAudienceCore({
   const contentXToRef = useRef<((value: number) => gsap.core.Tween) | null>(null);
   const contentYToRef = useRef<((value: number) => gsap.core.Tween) | null>(null);
 
+  const isMobileViewport = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(max-width: 640px)").matches;
+
   const ensureQuickTo = () => {
     if (!rootRef.current || !contentRef.current) {
       return;
@@ -64,7 +68,7 @@ export default function B2BAudienceCore({
   };
 
   const handlePointerEnter = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!fillRef.current) {
+    if (!fillRef.current || isMobileViewport()) {
       return;
     }
 
@@ -85,6 +89,10 @@ export default function B2BAudienceCore({
   };
 
   const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (isMobileViewport()) {
+      return;
+    }
+
     ensureQuickTo();
 
     const { x, y, width, height } = getPointerPosition(event);
@@ -98,7 +106,7 @@ export default function B2BAudienceCore({
   };
 
   const handlePointerLeave = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!fillRef.current) {
+    if (!fillRef.current || isMobileViewport()) {
       return;
     }
 

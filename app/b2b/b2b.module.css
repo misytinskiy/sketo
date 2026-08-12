@@ -1041,6 +1041,19 @@
 }
 
 @media (max-width: 640px) {
+  .audienceCore {
+    cursor: default;
+    transform: none !important;
+  }
+
+  .audienceCoreFill {
+    clip-path: circle(0px at 50% 50%) !important;
+  }
+
+  .audienceCoreContent {
+    transform: none !important;
+  }
+
   .hero,
   .introSection,
   .audienceSection,

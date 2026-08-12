@@ -258,6 +258,25 @@
 }
 
 @media (max-width: 640px) {
+  .card:hover,
+  .card:focus-within {
+    transform: none;
+  }
+
+  .card:hover .content,
+  .card:focus-within .content {
+    border-top-color: #2d313482;
+  }
+
+  .card:active {
+    transform: translateY(2px) scale(0.992);
+  }
+
+  .card:active .content {
+    border-top-color: #2d3134;
+    opacity: 0.9;
+  }
+
   .topBar {
     margin-bottom: 2rem;
   }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./equipment-item.module.css";
 
 type EquipmentMediaGalleryProps = {
@@ -17,6 +17,8 @@ export default function EquipmentMediaGallery({
 }: EquipmentMediaGalleryProps) {
   const galleryImages = images.slice(0, 6);
   const [activeIndex, setActiveIndex] = useState(0);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
   const activeImage = galleryImages[activeIndex] ?? galleryImages[0];
   const hasMultipleImages = galleryImages.length > 1;
 
@@ -32,10 +34,49 @@ export default function EquipmentMediaGallery({
     );
   };
 
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    touchStartXRef.current = touch.clientX;
+    touchStartYRef.current = touch.clientY;
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (!hasMultipleImages) return;
+
+    const touch = event.changedTouches[0];
+    const startX = touchStartXRef.current;
+    const startY = touchStartYRef.current;
+
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+
+    if (!touch || startX === null || startY === null) return;
+
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+
+    if (Math.abs(deltaX) < 36 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    if (deltaX < 0) {
+      showNext();
+      return;
+    }
+
+    showPrevious();
+  };
+
   return (
     <div className={styles.mediaColumn}>
       <div className={styles.mediaPanel}>
-        <div className={styles.mediaViewport}>
+        <div
+          className={styles.mediaViewport}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <Image
             src={activeImage}
             alt={

@@ -1159,6 +1159,18 @@
 }
 
 @media (max-width: 640px) {
+  .audienceCore {
+    cursor: default;
+    transform: none !important;
+  }
+
+  .audienceCoreFill {
+    clip-path: circle(0px at 50% 50%) !important;
+  }
+
+  .audienceCoreContent {
+    transform: none !important;
+  }
 
   .section {
     padding: 2rem 1rem;
@@ -1294,6 +1306,11 @@
 
   .finalCtaTitle {
     font-size: 2.5rem;
+  }
+
+  .courseSummaryArrow {
+    width: 5px;
+    height: 5px;
   }
 
   .finalCtaGrid {

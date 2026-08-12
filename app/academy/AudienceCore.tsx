@@ -20,6 +20,10 @@ export default function AudienceCore({ label, title }: AudienceCoreProps) {
   const contentXToRef = useRef<((value: number) => gsap.core.Tween) | null>(null);
   const contentYToRef = useRef<((value: number) => gsap.core.Tween) | null>(null);
 
+  const isMobileViewport = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(max-width: 640px)").matches;
+
   const ensureQuickTo = () => {
     if (!rootRef.current || !contentRef.current) return;
 
@@ -58,7 +62,7 @@ export default function AudienceCore({ label, title }: AudienceCoreProps) {
   };
 
   const handlePointerEnter = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!fillRef.current) return;
+    if (!fillRef.current || isMobileViewport()) return;
 
     ensureQuickTo();
     setIsHovered(true);
@@ -77,6 +81,8 @@ export default function AudienceCore({ label, title }: AudienceCoreProps) {
   };
 
   const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (isMobileViewport()) return;
+
     ensureQuickTo();
 
     const { x, y, width, height } = getPointerPosition(event);
@@ -90,7 +96,7 @@ export default function AudienceCore({ label, title }: AudienceCoreProps) {
   };
 
   const handlePointerLeave = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!fillRef.current) return;
+    if (!fillRef.current || isMobileViewport()) return;
 
     const { x, y } = getPointerPosition(event);
 
