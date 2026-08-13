@@ -9,8 +9,8 @@ import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNavigation from "./HeroNavigation";
-import LanguageSwitch, { type Language } from "./LanguageSwitch";
-import { getContentLanguage } from "./language";
+import LanguageSwitch from "./LanguageSwitch";
+import { getContentLanguage, type Language } from "./language";
 import styles from "../page.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
