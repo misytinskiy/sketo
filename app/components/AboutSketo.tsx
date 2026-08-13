@@ -2,7 +2,7 @@
 
 import gsap from "gsap";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { Language } from "./LanguageSwitch";
+import type { Language } from "./language";
 import styles from "./AboutSketo.module.css";
 
 type AboutItem = {

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useState } from "react";
-import type { Language } from "./LanguageSwitch";
+import type { Language } from "./language";
 import styles from "./MatchaFeature.module.css";
 
 type MatchaCtaButtonProps = {

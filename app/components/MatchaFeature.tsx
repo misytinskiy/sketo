@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { Language } from "./LanguageSwitch";
+import type { Language } from "./language";
 import MatchaCtaButton from "./MatchaCtaButton";
 import styles from "./MatchaFeature.module.css";
 

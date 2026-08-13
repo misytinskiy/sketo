@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { Language } from "./LanguageSwitch";
+import type { Language } from "./language";
 import styles from "./SplitCatalogPromo.module.css";
 
 const posterLinksByLanguage = {

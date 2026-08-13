@@ -7,7 +7,7 @@ import {
 } from "react";
 import Image from "next/image";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { Language } from "./LanguageSwitch";
+import type { Language } from "./language";
 import styles from "./SeasonalMenu.module.css";
 
 const drinksByLanguage = {

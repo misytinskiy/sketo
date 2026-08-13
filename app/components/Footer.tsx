@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Language } from "./LanguageSwitch";
+import type { Language } from "./language";
 import styles from "./Footer.module.css";
 
 type FooterProps = {
