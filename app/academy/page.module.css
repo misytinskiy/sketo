@@ -1346,6 +1346,7 @@
   }
 
   .mentorImageWrap {
+    min-height: 40rem;
     margin-top: 2rem;
   }
 
@@ -1386,6 +1387,7 @@
 
   .audienceBlock {
     gap: 2rem;
+    display: grid;
   }
 
   .courseIntroText {
