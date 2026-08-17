@@ -8,7 +8,8 @@
   padding: 4rem 1.25rem 4rem;
   background: #d9fbff;
   color: #2d3134;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+ 
 }
 
 .topContent {
@@ -231,6 +232,24 @@
   letter-spacing: -0.03em;
 }
 
+@media (max-width: 1400px) {
+
+  .videoWrap {min-width: 33vw;}
+ }
+
+
+@media (max-width: 1200px) {
+.menuGrid {
+  grid-template-columns: none;
+}
+
+  .videoWrap {
+    min-width: 40vw;
+  }
+
+
+}
+
 @media (max-width: 900px) {
 
   .poster {
@@ -279,5 +298,79 @@ flex-direction: column;
 
   .drinkDescription {
     font-size: 14px;
+  }
+}
+
+@media (min-width: 1700) {
+  .content{ gap: 5.5rem; }
+}
+
+@media (min-width: 1900px) {
+  .poster {
+    padding: 4rem 7.25rem;
+  }
+
+  .videoWrap {
+    max-width: 24vw !important;
+  }
+
+  .content {
+    gap: 5rem !important;
+  }
+
+  .topContent {
+    gap: 2.5rem;
+  }
+
+  .mainColumn {
+    gap: 2.75rem;
+    min-height: calc(100vh - 8rem);
+  }
+
+  .headingBlock {
+    gap: 0.8rem;
+  }
+
+  .eyebrow,
+  .drinkIndex {
+    font-size: 12px;
+  }
+
+  .title {
+    font-size: 2.6rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+    line-height: 1.16;
+  }
+
+  .menuGrid {
+    gap: 2.25rem 3rem;
+  }
+
+  .drinkCard {
+    gap: 1rem;
+    padding-top: 1.15rem;
+  }
+
+  .drinkHeader,
+  .drinkCopy {
+    gap: 0.65rem;
+  }
+
+  .drinkName {
+    font-size: 1.8rem;
+  }
+
+  .drinkDescription {
+    max-width: 31rem;
+    font-size: 1rem;
+    line-height: 1.22;
+  }
+
+  .footerNote {
+    max-width: 42rem;
+    font-size: 1.2rem;
   }
 }

@@ -21,6 +21,21 @@
   padding: 4rem 6.25rem;
 }
 
+@media (min-width: 1900px) {
+  .audienceSection,
+  .blueprintSection,
+  .workflowSection,
+  .metricsSection {
+    padding: 4rem 7.25rem;
+  }
+
+  .hero,
+.introSection,
+.ctaSection {
+  padding: 2rem 7.25rem;
+}
+ }
+
 .hero {
   min-height: 100svh;
   display: grid;
@@ -639,10 +654,8 @@
   line-height: 1;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.7);
-  padding: 0.22rem 0.38rem;
-  border: 1px solid rgba(45, 49, 52, 0.14);
+  padding-bottom: 0.22rem;
   width: fit-content;
-  background: rgba(242, 240, 235, 0.76);
 }
 
 .workflowNodeTitle {
@@ -948,6 +961,19 @@
 }
 
 @media (max-width: 900px) {
+.hero, .introSection
+ {
+  padding: 1.5rem 1.25rem !important;
+}
+
+.audienceSection,
+.blueprintSection,
+.workflowSection,
+.metricsSection,
+.ctaSection {
+  padding: 2rem 1.25rem;
+}
+
   .heroGrid,
   .introSection,
   .audienceBlock,
@@ -961,21 +987,105 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .audienceBlock {
+    display: flex;
+    justify-content: space-around;
+  }
+
+
+
+  .hero {
+    gap: 2rem;
+    padding-top: 1.5rem;
+    background-size: auto, 100%;
+  }
+
+  .heroGrid {
+    align-content: start;
+    gap: 7rem;
+  }
+
+.serviceGrid {
+    display: flex;
+  }
+
+  .serviceTitle {
+    font-size: 1rem;
+  }
+
+  .serviceIndex {
+    font-size: 1rem;
+  }
+
+  .serviceMain {
+    gap: 1.5rem
+  }
+
+  .heroCopy {
+    gap: 1.6rem;
+  }
+
+  .heroMeta {
+    padding-top: 0;
+  }
+
   .introSection {
     display: grid;
   }
 
+  .title {
+    font-size: 7rem;
+  }
+
+  .workflowSection {
+    background:
+    linear-gradient(#f2f0eb26, rgba(242, 240, 235, 0.9)),
+    url("/photo/2b2WorflowBG.png") right bottom  / 50% no-repeat;
+  }
+
+  .workflowDot {
+    margin: 0;
+  }
+
+  .workflowNode {
+    background: none;
+    border: 0;
+    backdrop-filter: none
+  }
+
+  .workflowIndex {
+    background: none;
+    border: 0;
+    padding: 0;
+    padding-bottom: .22rem;
+  }
+
+  .introText {
+    text-align: start;
+  }
+
   .audienceScheme {
     min-height: auto;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 0;
   }
 
   .audienceCore {
-    width: min(18rem, 100%);
+    width: 100%;
+    aspect-ratio: auto;
+    justify-self: center;
+    width: 15rem;
+    height: 15rem;
+    padding: 1.5rem;
+  }
+
+  .audienceCoreTitle {
+    font-size: 2.5rem;
   }
 
   .audienceList {
-    gap: 0.9rem;
+    gap: 1rem;
   }
 
   .audienceNode {
@@ -1027,15 +1137,22 @@
   }
 
   .metricRow {
-    align-items: start;
-    gap: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
     min-height: auto;
     padding: 1rem 0;
   }
 
   .metricCenter,
   .metricMeta {
-    justify-self: start;
+    justify-self: center;
+  }
+
+  .metricMeta {
+    text-align: center;
+    gap: 0.5rem;
   }
 
 }
@@ -1062,21 +1179,6 @@
   .metricsSection,
   .ctaSection {
     padding: 2rem 1rem;
-  }
-
-  .heroGrid {
-    align-content: start;
-    gap: 5rem;
-  }
-
-  .heroCopy {
-    gap: 1.6rem;
-  }
-
-  .hero {
-    gap: 2rem;
-    padding-top: 1.5rem;
-    background-size: auto, 25rem;
   }
 
   .heroMetaItem {
@@ -1111,7 +1213,7 @@
   }
 
   .introLinks {
-    justify-content: end;
+    justify-content: start;
     gap: 1rem;
   }
 
@@ -1119,27 +1221,24 @@
     font-size: 1.3rem;
   }
 
-  .audienceCore {
-    justify-self: center;
-    width: 15rem;
-        height: 15rem;
-  }
-
   .audienceNodeTitle {
     font-size: 10px;
   }
 
   .audienceScheme {
-    gap: 1.25rem
+    gap: 1.25rem;
+    min-width: 100%;
   }
 
   .audienceBlock {
     gap: 2rem;
   }
 
-  .serviceGrid {
-    display: flex;
+  .audienceList {
+    width: auto;
   }
+
+
 
   .serviceTitle {
     font-size: 15px;
@@ -1214,5 +1313,342 @@
   .workflowIndex {
     padding: .22rem 0;
     border:none;
+  }
+}
+
+@media (min-width: 1900px) {
+  .hero {
+    background-size: auto, 78rem auto;
+  }
+
+  .topControls {
+    gap: 1.25rem;
+  }
+
+  .backLink {
+    font-size: 12px;
+  }
+
+  .heroGrid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(22rem, 0.95fr);
+    gap: 1.5rem;
+  }
+
+  .heroCopy {
+    gap: 1.25rem;
+    max-width: 56rem;
+  }
+
+  .heroMetaItem {
+    font-size: 12px;
+    padding-bottom: 0.42rem;
+  }
+
+  .lead,
+  .heroMetaValue,
+  .serviceLead,
+  .serviceParagraph,
+  .workflowLead,
+  .workflowText,
+  .metricsLead,
+  .ctaText {
+    font-size: 12px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+  }
+
+  .introLink,
+  .introLinkSecondary {
+    font-size: 14px;
+  }
+
+  .heroMeta {
+    padding-top: calc(12px + 1.25rem);
+  }
+
+  .heroMetaStack {
+    gap: 0.42rem;
+  }
+
+  .lead {
+    max-width: 36rem;
+  }
+
+  .introSection {
+    gap: 1.6rem;
+    padding-top: 2.5rem;
+  }
+
+  .introLinks {
+    gap: 1.5rem;
+  }
+
+  .introText {
+    max-width: 47rem;
+    font-size: clamp(2rem, 3.4vw, 3.75rem);
+  }
+
+  .audienceSection {
+    padding-top: 4rem;
+  }
+
+  .audienceBlock {
+    gap: 4rem;
+  }
+
+  .audienceScheme {
+    min-height: 28rem;
+    grid-template-columns: minmax(16rem, 25rem) minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .audienceNode {
+    width: min(27rem, 100%);
+    gap: 0.45rem;
+  }
+
+  .audienceNodeTitle {
+    font-size: 14px;
+  }
+
+  .audienceIndex {
+    font-size: 12px;
+  }
+
+  .audienceCore {
+    width: min(23rem, 100%);
+  }
+
+  .audienceCoreLabel {
+    font-size: 12px;
+  }
+
+  .audienceCoreTitle {
+    font-size: 3.5rem;
+  }
+
+  .audienceCoreContent {
+    gap: 0.45rem;
+    padding: 2rem;
+  }
+
+  .audienceNode::before {
+    width: clamp(3rem, 8vw, 7rem);
+  }
+
+  .blueprintSection {
+    grid-template-columns: minmax(38rem, 0.62fr) minmax(0, 1fr);
+    gap: 7rem;
+  }
+
+  .blueprintSticky {
+    gap: 1.25rem;
+  }
+
+  .blueprintStickyBody {
+    gap: 1.25rem;
+  }
+
+  .blueprintTitle {
+    font-size: clamp(3rem, 5vw, 6rem);
+  }
+
+  .blueprintLead {
+    font-size: 12px;
+    max-width: 24rem;
+  }
+
+  .stageList {
+    padding-top: 1.25rem;
+  }
+
+  .stageItem {
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    gap: 0.9rem;
+    padding: 0.85rem 0.65rem;
+  }
+
+  .stageIndex,
+  .stageName {
+    font-size: 12px;
+  }
+
+  .workflowSection {
+    grid-template-columns: minmax(20rem, 27rem) minmax(0, 1fr);
+    gap: 3rem;
+    background-size: auto, 58%;
+  }
+
+  .workflowIntro {
+    gap: 1.25rem;
+  }
+
+  .workflowTitle {
+    font-size: clamp(3rem, 5vw, 6rem);
+  }
+
+  .workflowLead {
+    max-width: 22rem;
+  }
+
+  .workflowMap {
+    padding-top: 0.75rem;
+  }
+
+  .workflowStep {
+    min-height: 13rem;
+  }
+
+  .workflowDot {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .workflowNode {
+    gap: 1rem;
+    min-height: 10.5rem;
+    max-width: 26rem;
+    padding: 1.35rem 1.35rem 1.45rem 1.8rem;
+  }
+
+  .workflowNode::before {
+    top: 0.95rem;
+    bottom: 0.95rem;
+    left: 0.95rem;
+  }
+
+  .workflowNodeTop {
+    gap: 0.65rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .workflowIndex {
+    font-size: 12px;
+    padding-bottom: 0.26rem;
+  }
+
+  .workflowNodeTitle {
+    font-size: clamp(1.55rem, 2vw, 2.25rem);
+    max-width: 16rem;
+  }
+
+  .workflowText {
+    max-width: 19rem;
+  }
+
+  .metricsSection {
+    gap: 3rem;
+  }
+
+  .metricsIntro {
+    gap: 0.9rem;
+    padding: 2.75rem 0 0.75rem;
+  }
+
+  .metricsMark {
+    font-size: clamp(3rem, 4vw, 4.8rem);
+  }
+
+  .metricsTitle {
+    max-width: 28rem;
+    font-size: 2.4rem;
+  }
+
+  .metricsLead {
+    max-width: 22rem;
+  }
+
+  .metricRow {
+    grid-template-columns: 22rem minmax(0, 1fr) minmax(14rem, 17rem);
+    gap: 1.5rem;
+    min-height: 13rem;
+  }
+
+  .metricIndex,
+  .metricLabel,
+  .metricNote {
+    font-size: 12px;
+  }
+
+  .metricMeta {
+    gap: 0.45rem;
+    max-width: 17rem;
+  }
+
+  .serviceCard {
+    padding: 0.95rem 0;
+  }
+
+  .serviceGrid {
+    grid-template-columns: minmax(4.5rem, 5.5rem) minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .serviceIndex {
+    font-size: 1.7rem;
+  }
+
+  .serviceMain {
+    gap: 1.15rem;
+  }
+
+  .serviceHeader {
+    gap: 1.1rem;
+  }
+
+  .serviceTitleRow {
+    gap: 1.25rem;
+  }
+
+  .serviceTags {
+    gap: 0.4rem;
+  }
+
+  .serviceTag {
+    font-size: 12px;
+    padding: 0.4rem 0.55rem;
+  }
+
+  .serviceTitle {
+    font-size: 1.7rem;
+    max-width: 24rem;
+  }
+
+  .serviceArrow {
+    font-size: 1.25rem;
+  }
+
+  .serviceLead {
+    max-width: 42rem;
+  }
+
+  .serviceTextGrid {
+    gap: 1.25rem 2rem;
+  }
+
+  .ctaSection {
+    padding-top: 7rem;
+  }
+
+  .ctaGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 30rem);
+    gap: 2.5rem;
+    padding: 1.25rem 0;
+  }
+
+
+  .ctaText {
+    max-width: 24rem;
+  }
+
+  .ctaActions {
+    gap: 1rem 1.5rem;
+  }
+
+  .primaryLink,
+  .secondaryLink {
+    font-size: 1.125rem;
   }
 }

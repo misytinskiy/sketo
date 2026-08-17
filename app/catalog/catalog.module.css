@@ -309,3 +309,81 @@
     font-size: 12px;
   }
 }
+
+@media (min-width: 1900px) {
+  .contentShell {
+    padding: 4rem 7.25rem 4rem;
+  }
+
+  .topBar {
+    margin-bottom: 3rem;
+  }
+
+  .homeLogo {
+    font-size: 3rem;
+  }
+
+  .controls {
+    gap: 1.5rem 2rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .searchBlock,
+  .filtersBlock {
+    gap: 0.7rem;
+  }
+
+  .controlLabel,
+  .resultsCount,
+  .metaLabel,
+  .name,
+  .price,
+  .details,
+  .filterChip {
+    font-size: 12px;
+  }
+
+  .searchInput {
+    padding-bottom: 0.8rem;
+    font-size: 14px;
+  }
+
+  .filterRow {
+    gap: 0.65rem;
+  }
+
+  .filterChip {
+    padding: 0.55rem 0.95rem;
+  }
+
+  .grid {
+    gap: 3rem 2rem;
+  }
+
+  .card {
+    gap: 1.15rem;
+  }
+
+  .content {
+    gap: 1.25rem;
+    padding-top: 1.1rem;
+    min-height: 104px;
+  }
+
+  .metaBlock {
+    gap: 0.6rem;
+  }
+
+  .name {
+    line-height: 1.12;
+  }
+
+  .details {
+    line-height: 1.28;
+  }
+
+  .emptyStateText {
+    max-width: 22rem;
+    font-size: 14px;
+  }
+}

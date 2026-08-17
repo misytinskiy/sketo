@@ -59,7 +59,7 @@
 
 .aboutContent {
   display: grid;
-  gap: 2.25rem;
+  gap: 1.25rem;
   padding-left: 1rem;
 }
 
@@ -114,6 +114,12 @@
   opacity: 0.9;
 }
 
+@media (max-width: 1300px) {
+  .aboutTitle {
+    font-size: 3.5rem;
+  }
+}
+
 @media (max-width: 900px) {
   .aboutSection {
     grid-template-columns: 1fr;
@@ -151,5 +157,52 @@
   .aboutText,
   .aboutFactButton {
     max-width: 100%;
+  }
+}
+
+@media (min-width: 1900px) {
+  .aboutSection {
+    padding: 4rem 7.25rem;
+    grid-template-columns: minmax(16rem, 0.46fr) minmax(0, 1fr);
+    gap: 2.75rem;
+  }
+
+  .aboutMeta {
+    gap: 2.5rem;
+  }
+
+  .aboutKicker {
+    font-size: 12px;
+  }
+
+  .aboutFacts {
+    gap: 1rem;
+  }
+
+  .aboutFactButton {
+    max-width: 16rem;
+    font-size: 14px;
+  }
+
+  .aboutContent {
+    gap: 3.25rem;
+  }
+
+  .aboutMeasureContent {
+    gap: 2.75rem;
+  }
+
+  .aboutTitle {
+    max-width: 58rem;
+    font-size: 4.85rem;
+  }
+
+  .aboutColumns {
+    gap: 1.75rem 2.5rem;
+  }
+
+  .aboutText {
+    max-width: 29rem;
+    font-size: 14px;
   }
 }

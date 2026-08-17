@@ -82,14 +82,15 @@ export default function Footer({ language }: FooterProps) {
           >
             Google Maps
           </a>
+          <a href="tel:+77473835398" className={styles.footerLink}>
+            +7 747 383 5398
+          </a>
           <p className={styles.footerText}>
             {language === "en"
               ? "Astana, 2 Mukhtar Auezov St."
               : "Астана, ул. Мухтара Ауэзова, 2"}
           </p>
-          <a href="tel:+77473835398" className={styles.footerLink}>
-            +7 747 383 5398
-          </a>
+         
         </div>
       </div>
     </footer>

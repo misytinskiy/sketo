@@ -121,3 +121,33 @@
     font-size: 12px;
   }
 }
+
+@media (min-width: 1900px) {
+  .footer {
+    padding: 4rem 7.25rem;
+    gap: 4rem;
+  }
+
+  .footerLogoImage {
+    width: 10.25rem;
+  }
+
+  .footerColumns {
+    width: min(100%, 47rem);
+    gap: 2.5rem 0;
+  }
+
+  .footerColumn {
+    gap: 0.6rem;
+  }
+
+  .footerTitle {
+    margin-bottom: 0.55rem;
+    font-size: 20px;
+  }
+
+  .footerLink,
+  .footerText {
+    font-size: 14px;
+  }
+}

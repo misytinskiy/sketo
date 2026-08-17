@@ -1,0 +1,398 @@
+.page {
+  min-height: 100svh;
+  background: #f2f0eb;
+  color: #2d3134;
+}
+
+.shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.backLink,
+.eyebrow,
+.sidebarLabel,
+.kindLabel,
+.sectionLabel,
+.fieldLabel,
+.tableHeader,
+.tableKey,
+.badgeLive,
+.badgeNeutral,
+.sidebarValue,
+.primaryAction,
+.secondaryAction,
+.secondaryActionDanger {
+  font-family: var(--font-basis-mono);
+  text-transform: uppercase;
+}
+
+.backLink,
+.eyebrow {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.backLink {
+  opacity: 0.68;
+  transition: opacity 180ms ease;
+}
+
+.backLink:hover,
+.backLink:focus-visible {
+  opacity: 1;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(17rem, 18.5rem) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.sidebarCard,
+.sectionBlock,
+.heroCard {
+  border: 1px solid rgba(45, 49, 52, 0.12);
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.sidebarCard {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+}
+
+.sidebarLabel {
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0.58;
+}
+
+.sidebarValue {
+  font-size: 11px;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.badgeLive,
+.badgeNeutral {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid currentColor;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.badgeLive {
+  color: #f2f0eb;
+  border-color: #ce1616;
+  background: #ce1616;
+}
+
+.badgeNeutral {
+  color: #2d3134;
+}
+
+.actionStack {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.primaryAction,
+.secondaryAction,
+.secondaryActionDanger {
+  appearance: none;
+  min-height: 2.7rem;
+  border: 1px solid #2d3134;
+  background: transparent;
+  font-size: 10px;
+  line-height: 1;
+  color: #2d3134;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.primaryAction {
+  border-color: #ce1616;
+  background: #ce1616;
+  color: #f2f0eb;
+}
+
+.secondaryActionDanger {
+  border-color: rgba(206, 22, 22, 0.4);
+  color: #ce1616;
+}
+
+.primaryAction:hover,
+.primaryAction:focus-visible,
+.secondaryAction:hover,
+.secondaryAction:focus-visible,
+.secondaryActionDanger:hover,
+.secondaryActionDanger:focus-visible {
+  transform: translateY(-1px);
+}
+
+.editor {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.heroCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+  gap: 1.5rem;
+  padding: 1.25rem;
+}
+
+.heroCopy {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+}
+
+.kindLabel {
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0.58;
+}
+
+.pageTitle {
+  font-family: var(--font-activist);
+  font-size: clamp(2.3rem, 4vw, 4rem);
+  line-height: 0.92;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+}
+
+.pageMeta {
+  font-family: var(--font-basis-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.heroMedia,
+.mediaFrame,
+.galleryFrame {
+  position: relative;
+  overflow: hidden;
+  background: rgba(45, 49, 52, 0.04);
+}
+
+.heroMedia {
+  min-height: 24rem;
+}
+
+.heroImage,
+.mediaImage {
+  object-fit: contain;
+}
+
+.sectionBlock {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.sectionTopline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(45, 49, 52, 0.12);
+}
+
+.sectionLabel,
+.fieldLabel,
+.tableHeader,
+.tableKey {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.fieldCard {
+  display: grid;
+  gap: 0.55rem;
+  min-height: 8rem;
+  padding: 1rem;
+  border: 1px solid rgba(45, 49, 52, 0.12);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.fieldCardWide {
+  grid-column: span 3;
+}
+
+.fieldValue,
+.stackTitle {
+  font-family: var(--font-basis-mono);
+  font-size: 12px;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.fieldHint,
+.sectionHint,
+.stackText {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  opacity: 0.68;
+}
+
+.mediaSingle {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.mediaFrame {
+  min-height: 33rem;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.galleryFrame {
+  min-height: 15rem;
+}
+
+.tableBlock {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.tableHeader,
+.tableRow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 1rem;
+}
+
+.tableHeader {
+  padding: 0 0 0.6rem;
+  opacity: 0.58;
+  border-bottom: 1px solid rgba(45, 49, 52, 0.12);
+}
+
+.tableBody {
+  display: grid;
+}
+
+.tableRow {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(45, 49, 52, 0.08);
+}
+
+.tableValue {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.dualColumn {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.stackBlock,
+.stackList {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.stackCard {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid rgba(45, 49, 52, 0.12);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 1080px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .heroCard,
+  .formGrid,
+  .galleryGrid,
+  .dualColumn {
+    grid-template-columns: 1fr;
+  }
+
+  .fieldCardWide {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .shell {
+    padding-inline: 1rem;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .heroMedia,
+  .mediaFrame {
+    min-height: 20rem;
+  }
+
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 1fr;
+  }
+}

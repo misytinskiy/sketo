@@ -40,7 +40,7 @@
   grid-template-columns: minmax(0, 0.95fr) minmax(18rem, 0.85fr);
   gap: 2.5rem;
   align-items: start;
-  row-gap: 34px;
+  row-gap: 25px;
 }
 
 .mediaPanel {
@@ -461,4 +461,139 @@ display: none;
 .editorialContent {
   gap: 14px;
 }
+}
+
+@media (min-width: 1900px) {
+  .contentShell {
+    padding: 4rem 7.25rem 4rem;
+  }
+
+  .topBar {
+    margin-bottom: 3rem;
+  }
+
+  .homeLogo {
+    font-size: 3rem;
+  }
+
+  .layout,
+  .editorialSection {
+    gap: 3rem;
+  }
+
+  .layout {
+    row-gap: 2rem;
+  }
+
+  .mediaPanel {
+    min-height: 42rem;
+  }
+
+  .mediaGrid {
+    background-size: 4rem 4rem;
+  }
+
+  .cropMark {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .cropTopLeft {
+    top: 1.1rem;
+    left: 1.1rem;
+  }
+
+  .cropTopRight {
+    top: 1.1rem;
+    right: 1.1rem;
+  }
+
+  .cropBottomLeft {
+    bottom: 1.1rem;
+    left: 1.1rem;
+  }
+
+  .cropBottomRight {
+    right: 1.1rem;
+    bottom: 1.1rem;
+  }
+
+  .mediaImage {
+    padding: 3.15rem;
+  }
+
+  .mediaCaption,
+  .techMetaText,
+  .backLink,
+  .sectionLabel,
+  .price,
+  .size,
+  .editorialTab,
+  .detailLabel,
+  .detailValue,
+  .description,
+  .notesText,
+  .editorialBody {
+    font-size: 12px;
+  }
+
+  .mediaCaption {
+    bottom: 1.7rem;
+    right: 1.8rem;
+  }
+
+  .infoPanel {
+    gap: 1.75rem;
+  }
+
+  .techMeta {
+    gap: 0.75rem 1.65rem;
+    padding-bottom: 0.9rem;
+  }
+
+  .title {
+    font-size: clamp(2.5rem, 3.8vw, 4.75rem);
+  }
+
+  .descriptionCard,
+  .notesCard,
+  .detailsCard {
+    gap: 1rem;
+    padding-top: 1.15rem;
+  }
+
+  .description,
+  .notesText {
+    line-height: 1.55;
+  }
+
+  .detailsList {
+    gap: 1rem;
+  }
+
+  .detailRow {
+    grid-template-columns: 7.75rem minmax(0, 1fr);
+    gap: 1.2rem;
+  }
+
+  .editorialSection {
+    margin-top: 5rem;
+    padding-top: 2.5rem;
+  }
+
+  .editorialMedia {
+    border-radius: 24px;
+  }
+
+  .editorialContent {
+    gap: 1.25rem;
+  }
+
+  .editorialTabs {
+    gap: 1.8rem;
+  }
+
+  .editorialTextPanel {
+    padding-top: 1.15rem;
+  }
 }

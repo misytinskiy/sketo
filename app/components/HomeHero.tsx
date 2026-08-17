@@ -61,26 +61,52 @@ export default function HomeHero({
 
       gsap.set(topBar, { xPercent: -50 });
 
+      const getDesktopInset = () => {
+        if (window.innerWidth >= 1900) {
+          const rootFontSize = Number.parseFloat(
+            window.getComputedStyle(document.documentElement).fontSize,
+          );
+
+          return Number.isFinite(rootFontSize) ? rootFontSize * 7.25 : 116;
+        }
+
+        return window.innerWidth < 900 ? 16 : 20;
+      };
+
+      const getDesktopTopInset = () => {
+        if (window.innerWidth >= 1900) {
+          const rootFontSize = Number.parseFloat(
+            window.getComputedStyle(document.documentElement).fontSize,
+          );
+
+          return Number.isFinite(rootFontSize) ? rootFontSize * 3.1 : 50;
+        }
+
+        return getDesktopInset();
+      };
+
       const getLogoTargetMetrics = () => {
         const rect = logoWrap.getBoundingClientRect();
-        const inset = window.innerWidth < 900 ? 16 : 20;
+        const inset = getDesktopInset();
+        const topInset = getDesktopTopInset();
         const targetWidth = gsap.utils.clamp(96, 142, window.innerWidth * 0.082);
         const scale = targetWidth / rect.width;
 
         return {
           rect,
           inset,
+          topInset,
           scale,
           targetHeight: rect.height * scale,
         };
       };
 
       const logoTweenValues = () => {
-        const { rect, inset, scale } = getLogoTargetMetrics();
+        const { rect, inset, topInset, scale } = getLogoTargetMetrics();
 
         return {
           x: inset - rect.left,
-          y: inset - rect.top,
+          y: topInset - rect.top,
           scale,
           force3D: true,
         };
@@ -88,9 +114,9 @@ export default function HomeHero({
 
       const topBarTweenValues = () => {
         const rect = topBar.getBoundingClientRect();
-        const rightInset = 20;
-        const { inset, targetHeight } = getLogoTargetMetrics();
-        const targetTop = inset + targetHeight / 2 - rect.height / 2;
+        const rightInset = getDesktopInset();
+        const { topInset, targetHeight } = getLogoTargetMetrics();
+        const targetTop = topInset + targetHeight / 2 - rect.height / 2;
 
         return {
           x: window.innerWidth - rightInset - rect.right - rect.width / 2,

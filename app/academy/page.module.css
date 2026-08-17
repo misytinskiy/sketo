@@ -12,6 +12,8 @@
   padding: 4rem 6.25rem;
 }
 
+
+
 .hero {
   min-height: 100svh;
   display: grid;
@@ -777,7 +779,7 @@
 .courseDisplayText,
 .courseDisplayTextFilled {
   font-family: var(--font-commissioner-display);
-  font-size: 168px;
+  font-size: 140px;
   font-weight: 800;
   letter-spacing: -0.06em;
 }
@@ -1074,7 +1076,17 @@
 }
 
 @media (max-width: 900px) {
+  .hero,
+  .introSection {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  .section {
+    padding: 2rem 1.25rem;
+  }
+
   .heroGrid,
+  .introSection,
   .audienceBlock,
   .systemGrid,
   .mentorGrid,
@@ -1083,8 +1095,32 @@
     grid-template-columns: 1fr;
   }
 
+  .hero {
+    gap: 2rem;
+    padding-top: 1.5rem;
+    background-size: auto, 100%;
+    background-position: bottom;
+  }
+
+  .title {
+    font-size: 7rem;
+  }
+
+  .heroGrid {
+    align-content: start;
+    gap: 7rem;
+  }
+
   .heroCopy {
     gap: 1.6rem;
+  }
+
+  .heroTopMeta {
+    gap: 0.7rem;
+  }
+
+  .heroInfoStack {
+    margin-top: 0;
   }
 
   .mentorGrid {
@@ -1102,7 +1138,7 @@
   }
 
   .mentorImageWrap {
-    min-height: 28rem;
+    min-height: 81rem;
   }
 
   .mentorCard {
@@ -1110,11 +1146,20 @@
     min-height: auto;
   }
 
+  .mentorBody {
+    margin-bottom: 16px;
+  }
+
   .audienceScheme {
     min-height: auto;
     grid-template-columns: 1fr;
     gap: 1.25rem;
     padding: 0;
+  }
+
+  .audienceBlock {
+    display: flex;
+    justify-content: space-around;
   }
 
   .audienceCore {
@@ -1345,5 +1390,413 @@
 
   .courseIntroText {
     font-size: 10px;
+  }
+}
+
+@media (min-width: 1900px) {
+  .hero,
+  .introSection {
+    padding: 2rem 7.25rem;
+  }
+
+  .section {
+    padding: 4rem 7.25rem;
+  }
+
+  .hero {
+    background-size: auto, 78rem auto;
+  }
+
+  .heroTopRow {
+    gap: 1.25rem;
+  }
+
+  .heroTopMeta {
+    gap: 1rem;
+  }
+
+  .backLink,
+  .ctaLink,
+  .ctaLinkSecondary {
+    font-size: 14px;
+  }
+
+  .heroGrid {
+    gap: 2.5rem;
+  }
+
+  .heroCopy {
+    gap: 1.25rem;
+    max-width: 42rem;
+  }
+
+  .heroInfoStack {
+    gap: 0.42rem;
+    margin-top: calc(12px + 1.25rem);
+  }
+
+  .heroInfoItem {
+    font-size: 12px;
+    padding-bottom: 0.42rem;
+  }
+
+  .eyebrow,
+  .cardIndex,
+  .audienceCoreLabel,
+  .mentorRole,
+  .mentorLabel,
+  .editorialMentorRole,
+  .editorialMentorLabel,
+  .editorialMentorSwitchIndex,
+  .courseKicker,
+  .courseSummaryIndex,
+  .courseSummaryMeta,
+  .faqSummaryIndex {
+    font-size: 12px;
+  }
+
+  .courseSummaryIndex {
+    font-size: 14px;
+  }
+
+
+  .sectionTitle {
+    font-size: 2.4rem;
+  }
+
+  .lead,
+  .systemText p,
+  .mentorNote,
+  .faqAnswer,
+  .zoneRowList,
+  .courseDetailsLead,
+  .courseDetailsList,
+  .editorialMentorNote,
+  .finalCtaText {
+    font-size: 12px;
+  }
+
+  .lead {
+    max-width: 36rem;
+  }
+
+  .faqGrid {
+    gap: 1.25rem;
+  }
+
+  .faqCard {
+    gap: 0.85rem;
+    padding: 1.15rem;
+  }
+
+  .cardTitle {
+    font-size: 12px;
+  }
+
+  .sectionHeader {
+    gap: 0.65rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .audienceBlock {
+    gap: 4rem;
+  }
+
+  .audienceScheme {
+    min-height: 28rem;
+    grid-template-columns: minmax(16rem, 25rem) minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .audienceSchemeReverse {
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 25rem);
+  }
+
+  .audienceCore {
+    width: min(23rem, 100%);
+  }
+
+  .audienceCoreContent {
+    gap: 0.45rem;
+    padding: 2rem;
+  }
+
+  .audienceCoreTitle {
+    font-size: 3.5rem;
+  }
+
+  .audienceList {
+    gap: 1.35rem;
+  }
+
+  .audienceNode {
+    width: min(24rem, 100%);
+    gap: 0.45rem;
+  }
+
+  .audienceNode::before {
+    width: clamp(3rem, 8vw, 7rem);
+  }
+
+  .audienceNodeTitle {
+    font-size: 12px;
+  }
+
+  .systemText {
+    max-width: 38rem;
+  }
+
+  .systemList {
+    gap: 1rem;
+  }
+
+  .systemRow {
+    gap: 0.95rem;
+    padding-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .systemDot {
+    width: 0.55rem;
+    height: 0.55rem;
+  }
+
+  .zonesStack {
+    gap: 1.8rem;
+  }
+
+  .zoneRow {
+    gap: 2rem;
+    padding-top: 1.8rem;
+  }
+
+  .zoneMeta {
+    gap: 1rem;
+  }
+
+  .zoneRowTitle {
+    font-size: 2rem;
+  }
+
+  .zoneRowText {
+    font-size: 12px;
+  }
+
+  .mentorCard {
+    grid-template-columns: minmax(0, 1fr) minmax(24rem, 12rem) !important;
+    min-height: 36rem !important;
+  }
+
+  .mentorBody {
+    padding-right: 4rem !important;
+  }
+
+  .mentorGrid {
+    gap: 2.5rem;
+  }
+
+  .mentorBody {
+    gap: 1.1rem;
+    padding-top: 0.25rem;
+  }
+
+  .mentorTopline {
+    gap: 0.9rem;
+    padding-bottom: 0.45rem;
+  }
+
+  .mentorName {
+    font-size: 2.8rem;
+    margin-top: 4rem;
+  }
+
+  .mentorColumns {
+    gap: 1rem;
+  }
+
+  .mentorPanel {
+    gap: 0.65rem;
+  }
+
+  .mentorList {
+    gap: 0.45rem;
+    font-size: 12px;
+  }
+
+  .mentorList li {
+    padding-top: 0.45rem;
+  }
+
+  .mentorNoteBlock {
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+  }
+
+  .editorialMentor {
+    grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.1fr);
+    gap: 2.5rem;
+  }
+
+  .editorialMentorImageWrap {
+    min-height: 34rem;
+    border-radius: 32px;
+  }
+
+  .editorialMentorBody {
+    gap: 1.8rem;
+    padding-top: 0.3rem;
+  }
+
+  .editorialMentorTopline {
+    gap: 1.2rem;
+    padding-bottom: 0.9rem;
+  }
+
+  .editorialMentorName {
+    font-size: 3.5rem;
+  }
+
+  .editorialMentorHeader {
+    gap: 0.95rem;
+  }
+
+  .editorialMentorColumns {
+    gap: 1.2rem;
+  }
+
+  .editorialMentorColumn {
+    gap: 0.7rem;
+  }
+
+  .editorialMentorList {
+    gap: 0.45rem;
+    font-size: 12px;
+  }
+
+  .editorialMentorList li {
+    padding-top: 0.5rem;
+  }
+
+  .editorialMentorSwitches {
+    gap: 0.7rem;
+    padding-top: 0.9rem;
+  }
+
+  .editorialMentorSwitch {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.9rem 0;
+  }
+
+  .editorialMentorSwitchName {
+    font-size: 1.15rem;
+  }
+
+  .courseShowcase {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
+    gap: 3rem;
+  }
+
+  .courseStatement {
+    gap: 1rem;
+  }
+
+
+  .courseContent {
+    gap: 1.8rem;
+  }
+
+  .courseIntro {
+    gap: 2.5rem;
+  }
+
+  .courseIntroText {
+    max-width: 46rem;
+    font-size: 13px;
+  }
+
+  .courseSummary {
+    grid-template-columns: 4.5rem minmax(0, 1fr) auto auto 1.4rem;
+    gap: 1rem;
+    padding: 3.15rem 0;
+  }
+
+  .courseSummaryTitle,
+  .courseDetailsPrice,
+  .faqSummaryTitle {
+    font-size: 18px;
+  }
+
+  .courseSummaryArrow,
+  .faqSummaryArrow {
+    width: 8px;
+    height: 8px;
+  }
+
+  .courseDetails {
+    gap: 1.25rem 1.8rem;
+    padding: 0 0 1.15rem calc(4.5rem + 1rem);
+  }
+
+  .courseDetailsInfo {
+    gap: 0.95rem;
+  }
+
+  .faqSummary {
+    grid-template-columns: 4.5rem minmax(0, 1fr) 1.4rem;
+    gap: 1rem;
+    padding: 2.9rem 0;
+  }
+
+  .faqDetails {
+    padding: 0 0 1.15rem calc(4.5rem + 1rem);
+  }
+
+  .faqAnswer {
+    max-width: 48rem;
+  }
+
+  .introSection {
+    gap: 1.6rem;
+    padding-top: 2.5rem;
+  }
+
+  .ctaText {
+    max-width: 47rem;
+    font-size: clamp(2rem, 3.4vw, 3.75rem);
+  }
+
+  .ctaLinks {
+    gap: 1.5rem;
+  }
+
+  .finalCtaSection {
+    padding-top: 7rem;
+  }
+
+  .finalCtaGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 30rem);
+    gap: 2.5rem;
+    padding: 1.25rem 0;
+  }
+
+  .finalCtaCopy,
+  .finalCtaPanel {
+    gap: 1.25rem;
+  }
+
+
+
+  .finalCtaText {
+    max-width: 24rem;
+  }
+
+  .finalCtaActions {
+    gap: 1rem 1.5rem;
+  }
+
+  .finalPrimaryLink,
+  .finalSecondaryLink {
+    font-size: 1.125rem;
   }
 }

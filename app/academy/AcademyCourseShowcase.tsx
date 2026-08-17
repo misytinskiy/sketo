@@ -34,6 +34,9 @@ export default function AcademyCourseShowcase({
   const revealPathRef = useRef<SVGPathElement | null>(null);
   const clipPathId = useId().replace(/:/g, "");
   const outlineFilterId = useId().replace(/:/g, "");
+  const lineStart = 132;
+  const lineStep = 126;
+  const svgHeight = lineStart + (displayLines.length - 1) * lineStep + 92;
 
   const buildWavePath = (y: number) => {
     const amplitude = 24;
@@ -62,14 +65,14 @@ export default function AcademyCourseShowcase({
       return;
     }
 
-    const ctx = gsap.context(() => {
-      const state = { y: -140 };
-      const isMobile = window.matchMedia("(max-width: 640px)").matches;
+      const ctx = gsap.context(() => {
+        const state = { y: -140 };
+        const isMobile = window.matchMedia("(max-width: 640px)").matches;
 
       revealPath.setAttribute("d", buildWavePath(state.y));
 
       gsap.to(state, {
-        y: 900,
+        y: svgHeight + 80,
         ease: "none",
         onUpdate: () => {
           revealPath.setAttribute("d", buildWavePath(state.y));
@@ -95,7 +98,7 @@ export default function AcademyCourseShowcase({
           <div className={styles.courseStatement}>
             <svg
               className={styles.courseDisplaySvg}
-              viewBox="0 0 980 900"
+              viewBox={`0 0 980 ${svgHeight}`}
               role="img"
               aria-label={displayLabel}
             >
@@ -143,7 +146,7 @@ export default function AcademyCourseShowcase({
                     key={`outline-${line}`}
                     className={styles.courseDisplayText}
                     x="4"
-                    y={150 + index * 147}
+                    y={lineStart + index * lineStep}
                   >
                     {line}
                   </text>
@@ -156,7 +159,7 @@ export default function AcademyCourseShowcase({
                     key={`fill-${line}`}
                     className={styles.courseDisplayTextFilled}
                     x="4"
-                    y={150 + index * 147}
+                    y={lineStart + index * lineStep}
                   >
                     {line}
                   </text>

@@ -250,7 +250,7 @@
   display: block;
   font-family: var(--font-commissioner-display);
   font-weight: 800;
-  font-size: 21.5rem;
+  font-size: 23vw;
   line-height: 0.8;
   color: #ce1616;
   white-space: nowrap;
@@ -273,12 +273,63 @@
   background-repeat: no-repeat;
 }
 
+@media (min-width: 1900px) {
+  .topBar {
+    gap: 2.5rem;
+    padding: 2.5rem 7.25rem 0;
+  }
+
+  .floatingTopBar {
+    top: 2.5rem;
+  }
+
+  .languageSwitch {
+    font-size: 14px;
+  }
+
+  .header {
+    padding: 0 7.25rem;
+  }
+
+  .preview {
+    width: 23vw;
+  }
+
+  .nav {
+    gap: 2.5rem;
+    font-size: 16px;
+  }
+
+  .navItem {
+    gap: 1.25rem;
+    padding-top: 14px;
+  }
+
+  .navNumber,
+  .navLabel {
+    font-size: 14px;
+  }
+
+  .logo {
+    font-size: 25vw;
+  }
+
+  .quoteSection {
+    padding: 4rem 7.25rem;
+  }
+}
+
 .quoteContent {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   width: 40vw;
 }
+
+@media (max-width: 1200px) {
+  .quoteContent {   width: 55vw; }
+ }
+
 
 .quoteText {
   font-family: var(--font-activist);
@@ -308,7 +359,7 @@
   }
 
   .languageSwitch {
-    font-size: 0.95rem;
+    font-size: 12px;
   }
 
   .header {
@@ -324,11 +375,11 @@
   }
 
   .navNumber {
-    font-size: 0.95rem;
+    font-size: 12px;
   }
 
   .navLabel {
-    font-size: 1rem;
+    font-size: 12px;
   }
 
   .logoWrap {
@@ -337,7 +388,7 @@
   }
 
   .logo {
-    font-size: 78vw;
+    font-size: 28vw;
   }
 
   .quoteSection {
@@ -346,11 +397,11 @@
   }
 
   .quoteContent {
-    width: min(100%, 20rem);
+    width: min(100%, 30rem);
   }
 
   .quoteText {
-    width: min(100%, 17rem);
+    width: min(100%, 30rem);
     font-size: clamp(0.95rem, 2.8vw, 1.3rem);
   }
 }
@@ -564,5 +615,16 @@
     color: #ce1616;
     transform: none;
     opacity: 1;
+  }
+}
+
+@media (min-width: 1900px) {
+  .quoteContent {
+    width: 51rem;
+  }
+
+  .quoteText {
+    max-width: 51rem;
+    font-size: 1.9rem;
   }
 }

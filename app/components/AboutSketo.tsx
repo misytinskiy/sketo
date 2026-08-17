@@ -61,7 +61,7 @@ const aboutItemsByLanguage: Record<Exclude<Language, "kz">, AboutItem[]> = {
     {
       fact: "Equipment and bean selection academy",
       title:
-        "We match equipment and coffee to specific tasks, operating format, and the actual load of each project.",
+        "We match equipment and coffee to specific tasks, operating format, team workflow, and the actual load of each project.",
       columns: [
         "We look at every project as a working system: guest flow, menu format, team pace, bar tasks, and the cup profile that must stay consistent every day.",
         "We select espresso machines, grinders, and coffee so they reinforce each other instead of conflicting in setup, service, and daily operation.",

@@ -283,3 +283,66 @@
     text-align: left;
   }
 }
+
+@media (min-width: 1900px) {
+  .variantSection {
+    padding: 4rem 7.25rem;
+    gap: 2rem;
+  }
+
+  .variantMeta,
+  .gatewayCaption,
+  .posterCaption,
+  .posterArrow,
+  .posterIndex,
+  .operatingKicker,
+  .operatingRowIndex,
+  .operatingRowNote {
+    font-size: 12px;
+  }
+
+  .posterTitle {
+    font-size: clamp(3.75rem, 6.8vw, 8.5rem);
+  }
+
+  .posterDescription {
+    max-width: 23rem;
+    font-size: 14px;
+  }
+
+  .posterGrid {
+    gap: 1.25rem;
+  }
+
+  .posterCard {
+    min-height: 50rem;
+    gap: 2rem;
+    padding: 1.9rem;
+  }
+
+  .posterBody {
+    gap: 1.25rem;
+  }
+
+  .operatingSection {
+    gap: 2.5rem;
+  }
+
+  .operatingIntro {
+    gap: 1.25rem;
+  }
+
+  .operatingRow {
+    grid-template-columns: 3.5rem minmax(0, 0.8fr) minmax(13rem, 0.75fr) minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.35rem 0;
+  }
+
+  .operatingRowValue {
+    font-size: clamp(2.5rem, 4.8vw, 5.5rem);
+  }
+
+  .operatingRowSide {
+    font-size: clamp(1.2rem, 1.8vw, 2rem);
+  }
+}
