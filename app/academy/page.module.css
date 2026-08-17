@@ -1381,6 +1381,11 @@
     padding: 1rem 0;
   }
 
+  .faqSummaryArrow {
+    width: 5px;
+    height: 5px;
+  }
+
   .audienceList {
    gap: .9rem;
   }
