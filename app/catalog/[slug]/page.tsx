@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 import { getInitialLanguage } from "../../components/getInitialLanguage";
-import { catalogItems, getCatalogItemBySlug } from "../catalog-data";
+import {
+  getCoffeeCatalogItemBySlug,
+  getCoffeeCatalogItemIndex,
+  getCoffeeCatalogStaticParams,
+} from "../catalog-db";
 import LotPageClient from "./LotPageClient";
 
-export function generateStaticParams() {
-  return catalogItems.map((item) => ({
-    slug: item.slug,
-  }));
+export async function generateStaticParams() {
+  return getCoffeeCatalogStaticParams();
 }
 
 type LotPageProps = {
@@ -18,10 +20,10 @@ type LotPageProps = {
 export default async function LotPage({ params }: LotPageProps) {
   const initialLanguage = await getInitialLanguage();
   const { slug } = await params;
-  const item = getCatalogItemBySlug(slug);
-  const itemIndex = catalogItems.findIndex(
-    (catalogItem) => catalogItem.slug === slug
-  );
+  const [item, itemIndex] = await Promise.all([
+    getCoffeeCatalogItemBySlug(slug),
+    getCoffeeCatalogItemIndex(slug),
+  ]);
 
   if (!item) {
     notFound();

@@ -1,0 +1,5 @@
+.page { min-height: 100svh; display: grid; place-items: center; padding: 24px; background: #f2f0eb; color: #2d3134; }
+.panel { max-width: 540px; display: grid; gap: 24px; }
+.panel button { padding: 14px 20px; border: 0; background: #ce1616; color: white; font: inherit; cursor: pointer; }
+.panel button:disabled { opacity: .6; cursor: wait; }
+.panel a { text-decoration: underline; }

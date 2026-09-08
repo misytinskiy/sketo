@@ -1,4 +1,5 @@
 "use client";
+import type { EquipmentCatalogCardItem } from "./equipment-db";
 
 import Link from "next/link";
 import { useDeferredValue, useMemo, useState } from "react";
@@ -11,9 +12,7 @@ import {
   type EquipmentBrand,
   type EquipmentType,
   equipmentBrandLabels,
-  equipmentItems,
   equipmentTypeLabels,
-  getEquipmentItemContent,
 } from "./equipment-data";
 import styles from "./equipment.module.css";
 
@@ -38,10 +37,12 @@ function getItemsLabel(count: number, language: "ru" | "en") {
 
 type EquipmentCatalogContentProps = {
   initialLanguage: "ru" | "en";
+  items: EquipmentCatalogCardItem[];
 };
 
 export default function EquipmentCatalogContent({
   initialLanguage,
+  items,
 }: EquipmentCatalogContentProps) {
   const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const [activeBrand, setActiveBrand] = useState<EquipmentBrand>("all");
@@ -53,8 +54,8 @@ export default function EquipmentCatalogContent({
   const filteredItems = useMemo(() => {
     const normalizedSearch = deferredSearch.trim().toLowerCase();
 
-    return equipmentItems.filter((item) => {
-      const content = getEquipmentItemContent(item, currentLanguage);
+    return items.filter((item) => {
+      const content = item.translations[currentLanguage];
       const matchesBrand = activeBrand === "all" || item.brand === activeBrand;
       const matchesType = activeType === "all" || item.type === activeType;
       const matchesSearch =
@@ -67,7 +68,7 @@ export default function EquipmentCatalogContent({
 
       return matchesBrand && matchesType && matchesSearch;
     });
-  }, [activeBrand, activeType, currentLanguage, deferredSearch]);
+  }, [activeBrand, activeType, currentLanguage, deferredSearch, items]);
 
   const resultsLabel = `${filteredItems.length} ${getItemsLabel(
     filteredItems.length,

@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -234,3 +235,27 @@ export type MediaKind = (typeof mediaKindEnum.enumValues)[number];
 export type MediaRole = (typeof mediaRoleEnum.enumValues)[number];
 export type AuditEntityType = (typeof auditEntityTypeEnum.enumValues)[number];
 export type AuditAction = (typeof auditActionEnum.enumValues)[number];
+
+// Query-only relations: these do not change the database schema.
+export const productsRelations = relations(products, ({ many }) => ({
+  translations: many(productTranslations),
+  details: many(productDetails),
+  features: many(productFeatures),
+  images: many(productImages),
+  revisions: many(productRevisions),
+}));
+export const translationsRelations = relations(productTranslations, ({ one }) => ({
+  product: one(products, { fields: [productTranslations.productId], references: [products.id] }),
+}));
+export const detailsRelations = relations(productDetails, ({ one }) => ({
+  product: one(products, { fields: [productDetails.productId], references: [products.id] }),
+}));
+export const featuresRelations = relations(productFeatures, ({ one }) => ({
+  product: one(products, { fields: [productFeatures.productId], references: [products.id] }),
+}));
+export const imagesRelations = relations(productImages, ({ one }) => ({
+  product: one(products, { fields: [productImages.productId], references: [products.id] }),
+}));
+export const revisionsRelations = relations(productRevisions, ({ one }) => ({
+  product: one(products, { fields: [productRevisions.productId], references: [products.id] }),
+}));

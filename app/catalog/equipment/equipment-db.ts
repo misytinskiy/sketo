@@ -1,0 +1,75 @@
+import { and, asc, eq } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
+import { cache } from "react";
+import { db } from "@/lib/db";
+import { products } from "@/lib/db/schema";
+import { resolveEquipmentStorageUrl } from "@/lib/supabase/storage-public";
+import type { EquipmentItem } from "./equipment-data";
+
+export type EquipmentCatalogCardItem = Omit<EquipmentItem, "translations" | "images"> & {
+  translations: Record<"ru" | "en", Pick<EquipmentItem["translations"]["ru"], "category" | "status" | "description">>;
+};
+const published = and(eq(products.type, "equipment"), eq(products.isPublished, true));
+const cacheOptions = { tags: ["products", "equipment-catalog"], revalidate: 300 };
+
+// One SQL statement for cards. Description is retained for the existing client-side search.
+export const equipmentCardQuery = {
+  columns: { slug: true, name: true, imageUrl: true, brand: true, equipmentType: true },
+  where: published,
+  orderBy: [asc(products.sortOrder), asc(products.slug)],
+  with: { translations: { columns: { locale: true, category: true, statusLabel: true, description: true } } },
+} satisfies NonNullable<Parameters<typeof db.query.products.findMany>[0]>;
+
+function mapCard(row: Awaited<ReturnType<typeof loadCards>>[number]): EquipmentCatalogCardItem {
+  const translation = (locale: "ru" | "en") => {
+    const value = row.translations.find((entry) => entry.locale === locale);
+    return { category: value?.category ?? "", status: value?.statusLabel ?? "", description: value?.description ?? "" };
+  };
+  return { slug: row.slug, image: resolveEquipmentStorageUrl(row.imageUrl),
+    name: row.name ?? row.slug, brand: row.brand ?? "la-marzocco", type: row.equipmentType ?? "espresso-machine",
+    translations: { ru: translation("ru"), en: translation("en") } };
+}
+async function loadCards() { return db.query.products.findMany(equipmentCardQuery); }
+export const getEquipmentCatalogItems = cache(unstable_cache(
+  async () => (await loadCards()).map(mapCard), ["equipment-catalog-cards-v2"], cacheOptions,
+));
+
+export const equipmentDetailRelations = {
+  translations: true,
+  details: { orderBy: (table, { asc }) => [asc(table.sortOrder), asc(table.label)] },
+  features: { orderBy: (table, { asc }) => [asc(table.sortOrder), asc(table.title)] },
+  images: { orderBy: (table, { asc }) => [asc(table.sortOrder), asc(table.url)] },
+} satisfies NonNullable<Parameters<typeof db.query.products.findFirst>[0]>["with"];
+
+async function loadDetail(slug: string, preview = false): Promise<EquipmentItem | null> {
+  const row = await db.query.products.findFirst({
+    where: and(eq(products.type, "equipment"), eq(products.slug, slug), preview ? undefined : eq(products.isPublished, true)),
+    with: equipmentDetailRelations,
+  });
+  if (!row) return null;
+  const card = mapCard(row);
+  const translation = (locale: "ru" | "en") => ({
+    ...card.translations[locale],
+    description: row.translations.find((entry) => entry.locale === locale)?.description ?? "",
+    details: row.details.filter((entry) => entry.locale === locale && entry.kind === "detail").map(({ label, value }) => ({ label, value })),
+    features: row.features.filter((entry) => entry.locale === locale).map(({ title, description }) => ({ title, description })),
+    specifications: row.details.filter((entry) => entry.locale === locale && entry.kind === "specification").map(({ label, value }) => ({ label, value })),
+  });
+  const images = [...new Set(row.images.map((image) => resolveEquipmentStorageUrl(image.url)))];
+  const primary = row.images.find((image) => image.isPrimary);
+  return { ...card, image: primary ? resolveEquipmentStorageUrl(primary.url) : images[0] ?? card.image, images: images.length ? images : card.image ? [card.image] : [], translations: { ru: translation("ru"), en: translation("en") } };
+}
+export const getEquipmentItemBySlug = cache(unstable_cache(
+  (slug: string) => loadDetail(slug), ["equipment-product-detail-v2"], cacheOptions,
+));
+// Preview deliberately bypasses the public cache and publication filter.
+export async function getEquipmentPreviewItem(slug: string) { return loadDetail(slug, true); }
+
+const getSlugs = cache(unstable_cache(
+  () => db.select({ slug: products.slug }).from(products).where(published).orderBy(asc(products.sortOrder), asc(products.slug)),
+  ["equipment-catalog-slugs-v2"], cacheOptions,
+));
+export async function getEquipmentItemIndex(slug: string) {
+  return (await getSlugs()).findIndex((item) => item.slug === slug);
+}
+export async function getEquipmentStaticParams() { return getSlugs(); }

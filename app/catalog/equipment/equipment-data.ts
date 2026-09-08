@@ -654,7 +654,7 @@ export const equipmentItems: EquipmentItem[] = [
       "/photo/techCatalog/Linea Classic S AV 2 Group/2.webp",
       "/photo/techCatalog/Linea Classic S AV 2 Group/3.png",
       "/photo/techCatalog/Linea Classic S AV 2 Group/4.png",
-      "/photo/techCatalog/Linea Classic S AV 2 Group/5.webp",
+      "/photo/techCatalog/Linea Classic S AV 2 Group/5.png",
       "/photo/techCatalog/Linea Classic S AV 2 Group/6.webp",
     ],
     brand: "la-marzocco",

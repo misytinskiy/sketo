@@ -1,15 +1,14 @@
 import { notFound } from "next/navigation";
 import { getInitialLanguage } from "../../../components/getInitialLanguage";
 import {
-  equipmentItems,
   getEquipmentItemBySlug,
-} from "../equipment-data";
+  getEquipmentItemIndex,
+  getEquipmentStaticParams,
+} from "../equipment-db";
 import EquipmentItemPageClient from "./EquipmentItemPageClient";
 
-export function generateStaticParams() {
-  return equipmentItems.map((item) => ({
-    slug: item.slug,
-  }));
+export async function generateStaticParams() {
+  return getEquipmentStaticParams();
 }
 
 type EquipmentItemPageProps = {
@@ -23,10 +22,10 @@ export default async function EquipmentItemPage({
 }: EquipmentItemPageProps) {
   const initialLanguage = await getInitialLanguage();
   const { slug } = await params;
-  const item = getEquipmentItemBySlug(slug);
-  const itemIndex = equipmentItems.findIndex(
-    (equipmentItem) => equipmentItem.slug === slug,
-  );
+  const [item, itemIndex] = await Promise.all([
+    getEquipmentItemBySlug(slug),
+    getEquipmentItemIndex(slug),
+  ]);
 
   if (!item) {
     notFound();

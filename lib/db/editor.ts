@@ -1,6 +1,10 @@
 import { and, asc, desc, eq, ilike, inArray, or, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
+  resolveCoffeeStorageUrl,
+  resolveEquipmentStorageUrl,
+} from "@/lib/supabase/storage-public";
+import {
   auditLogs,
   mediaAssets,
   productDetails,
@@ -65,11 +69,17 @@ export type EditorProductRecord = Product & {
   auditTrail: AuditLog[];
 };
 
+export type EditorProductFormRecord = Product & {
+  translations: ProductTranslation[];
+  details: ProductDetail[];
+  features: ProductFeature[];
+  images: ProductImage[];
+};
+
 export type EditorDashboardStats = {
   totalProducts: number;
   publishedProducts: number;
   draftProducts: number;
-  reviewProducts: number;
   archivedProducts: number;
   mediaAssets: number;
   activeStaff: number;
@@ -87,12 +97,17 @@ function normalizeSearch(search?: string) {
   return search?.trim() ? `%${search.trim()}%` : null;
 }
 
+function resolveProductImageUrl(type: ProductType, path: string) {
+  return type === "coffee"
+    ? resolveCoffeeStorageUrl(path)
+    : resolveEquipmentStorageUrl(path);
+}
+
 export async function getEditorDashboardStats(): Promise<EditorDashboardStats> {
   const [
     totalProductsResult,
     publishedProductsResult,
     draftProductsResult,
-    reviewProductsResult,
     archivedProductsResult,
     mediaAssetsResult,
     activeStaffResult,
@@ -105,11 +120,7 @@ export async function getEditorDashboardStats(): Promise<EditorDashboardStats> {
     db
       .select({ count: sql<number>`count(*)::int` })
       .from(products)
-      .where(eq(products.editorialState, "draft")),
-    db
-      .select({ count: sql<number>`count(*)::int` })
-      .from(products)
-      .where(eq(products.editorialState, "review")),
+      .where(inArray(products.editorialState, ["draft", "review"])),
     db
       .select({ count: sql<number>`count(*)::int` })
       .from(products)
@@ -125,7 +136,6 @@ export async function getEditorDashboardStats(): Promise<EditorDashboardStats> {
     totalProducts: totalProductsResult[0]?.count ?? 0,
     publishedProducts: publishedProductsResult[0]?.count ?? 0,
     draftProducts: draftProductsResult[0]?.count ?? 0,
-    reviewProducts: reviewProductsResult[0]?.count ?? 0,
     archivedProducts: archivedProductsResult[0]?.count ?? 0,
     mediaAssets: mediaAssetsResult[0]?.count ?? 0,
     activeStaff: activeStaffResult[0]?.count ?? 0,
@@ -192,7 +202,10 @@ export async function listEditorProducts(
     .where(conditions.length ? and(...conditions) : undefined)
     .orderBy(asc(products.type), asc(products.sortOrder), asc(products.slug));
 
-  return rows;
+  return rows.map((row) => ({
+    ...row,
+    imageUrl: resolveProductImageUrl(row.type, row.imageUrl),
+  }));
 }
 
 export async function getEditorProductBySlug(
@@ -281,10 +294,14 @@ export async function getEditorProductBySlug(
 
   return {
     ...product,
+    imageUrl: resolveProductImageUrl(product.type, product.imageUrl),
     translations,
     details,
     features,
-    images,
+    images: images.map((image) => ({
+      ...image,
+      url: resolveProductImageUrl(product.type, image.url),
+    })),
     media: mediaRows.map((row) => ({
       id: row.id,
       productId: row.productId,
@@ -316,74 +333,85 @@ export async function getEditorProductBySlug(
   };
 }
 
-export async function createProductRevisionSnapshot(input: {
+export function editorProductRelations(locale?: Locale | null) {
+  return {
+    translations: {
+      where: locale ? eq(productTranslations.locale, locale) : undefined,
+      orderBy: [asc(productTranslations.locale)],
+    },
+    details: {
+      where: locale ? eq(productDetails.locale, locale) : undefined,
+      orderBy: [asc(productDetails.locale), asc(productDetails.kind), asc(productDetails.sortOrder), asc(productDetails.id)],
+    },
+    features: {
+      where: locale ? eq(productFeatures.locale, locale) : undefined,
+      orderBy: [asc(productFeatures.locale), asc(productFeatures.sortOrder), asc(productFeatures.id)],
+    },
+    images: { orderBy: [desc(productImages.isPrimary), asc(productImages.sortOrder), asc(productImages.id)] },
+  };
+}
+
+export async function getEditorProductFormBySlug(
+  type: ProductType,
+  slug: string,
+): Promise<EditorProductFormRecord | null> {
+  const product = await db.query.products.findFirst({
+    where: and(eq(products.type, type), eq(products.slug, slug)),
+    with: editorProductRelations(),
+  });
+  if (!product) return null;
+  return {
+    ...product,
+    imageUrl: resolveProductImageUrl(product.type, product.imageUrl),
+    images: product.images.map((image) => ({ ...image, url: resolveProductImageUrl(product.type, image.url) })),
+  };
+}
+
+export type EditorTransaction = Parameters<Parameters<typeof db.transaction>[0]>[0];
+type RevisionInput = {
   productId: string;
   actorId?: string | null;
   locale?: Locale | null;
   note?: string | null;
-}) {
-  const product = await db.query.products.findFirst({
-    where: eq(products.id, input.productId),
+};
+
+// Callers hold product row locks for the whole transaction, including the writes below.
+export async function createProductRevisionSnapshots(
+  input: { productIds: string[]; actorId?: string | null; locale?: Locale | null; note?: string | null },
+  tx: EditorTransaction,
+) {
+  const ids = [...new Set(input.productIds)];
+  if (!ids.length) return [];
+  const rows = await tx.query.products.findMany({
+    where: inArray(products.id, ids),
+    with: {
+      ...editorProductRelations(input.locale),
+      revisions: { columns: { version: true }, orderBy: [desc(productRevisions.version)], limit: 1 },
+    },
   });
-
-  if (!product) {
-    throw new Error("Product not found");
-  }
-
-  const [translations, details, features, images] = await Promise.all([
-    db
-      .select()
-      .from(productTranslations)
-      .where(
-        and(
-          eq(productTranslations.productId, input.productId),
-          input.locale ? eq(productTranslations.locale, input.locale) : undefined,
-        ),
-      ),
-    db
-      .select()
-      .from(productDetails)
-      .where(
-        and(
-          eq(productDetails.productId, input.productId),
-          input.locale ? eq(productDetails.locale, input.locale) : undefined,
-        ),
-      ),
-    db
-      .select()
-      .from(productFeatures)
-      .where(
-        and(
-          eq(productFeatures.productId, input.productId),
-          input.locale ? eq(productFeatures.locale, input.locale) : undefined,
-        ),
-      ),
-    db.select().from(productImages).where(eq(productImages.productId, input.productId)),
-  ]);
-
-  const latestRevision = await db.query.productRevisions.findFirst({
-    where: eq(productRevisions.productId, input.productId),
-    orderBy: [desc(productRevisions.version)],
-  });
-
-  const [revision] = await db
-    .insert(productRevisions)
-    .values({
-      productId: input.productId,
-      version: (latestRevision?.version ?? 0) + 1,
+  if (rows.length !== ids.length) throw new Error("Product not found");
+  return tx.insert(productRevisions).values(rows.map((row) => {
+    const { translations, details, features, images, revisions, ...product } = row;
+    return {
+      productId: product.id,
+      version: (revisions[0]?.version ?? 0) + 1,
       locale: input.locale ?? null,
       note: input.note ?? null,
-      payload: {
-        product,
-        translations,
-        details,
-        features,
-        images,
-      },
+      payload: { product, translations, details, features, images },
       createdBy: input.actorId ?? null,
-    })
-    .returning();
+    };
+  })).returning();
+}
 
+export async function createProductRevisionSnapshot(input: RevisionInput, connection: typeof db | EditorTransaction = db) {
+  if (connection === db) {
+    return db.transaction(async (tx) => {
+      await tx.select({ id: products.id }).from(products).where(eq(products.id, input.productId)).for("update");
+      const [revision] = await createProductRevisionSnapshots({ ...input, productIds: [input.productId] }, tx);
+      return revision;
+    });
+  }
+  const [revision] = await createProductRevisionSnapshots({ ...input, productIds: [input.productId] }, connection as EditorTransaction);
   return revision;
 }
 
@@ -402,8 +430,8 @@ export async function appendAuditLog(input: {
   summary: string;
   actorId?: string | null;
   diff?: Record<string, unknown>;
-}) {
-  const [entry] = await db
+}, connection: typeof db | EditorTransaction = db) {
+  const [entry] = await connection
     .insert(auditLogs)
     .values({
       entityType: input.entityType,

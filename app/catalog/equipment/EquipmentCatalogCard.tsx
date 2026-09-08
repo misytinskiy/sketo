@@ -1,15 +1,16 @@
+import type { EquipmentCatalogCardItem } from "./equipment-db";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "../../components/CatalogImage";
 import {
   equipmentBrandLabels,
-  type EquipmentItem,
+  
   type EquipmentLanguage,
-  getEquipmentItemContent,
+
 } from "./equipment-data";
 import styles from "./equipment.module.css";
 
 type EquipmentCatalogCardProps = {
-  item: EquipmentItem;
+  item: EquipmentCatalogCardItem;
   language: EquipmentLanguage;
 };
 
@@ -17,7 +18,7 @@ export default function EquipmentCatalogCard({
   item,
   language,
 }: EquipmentCatalogCardProps) {
-  const content = getEquipmentItemContent(item, language);
+  const content = item.translations[language];
 
   return (
     <Link href={`/equipment/${item.slug}`} className={styles.cardLink}>

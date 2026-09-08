@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "../../../components/CatalogImage";
 import { useRef, useState } from "react";
 import styles from "./equipment-item.module.css";
 

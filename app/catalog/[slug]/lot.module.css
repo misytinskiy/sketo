@@ -118,7 +118,7 @@
   bottom: 1.4rem;
   z-index: 2;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -172,7 +172,7 @@
   padding: 0;
   background: transparent;
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.38);
@@ -197,7 +197,7 @@
 .editorialBody {
   max-width: 38rem;
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.55;
   text-transform: uppercase;
 }
@@ -214,7 +214,7 @@
 
 .techMetaText {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.52;
@@ -225,7 +225,7 @@
   align-self: start;
   margin-top: 0.15rem;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.65;
@@ -266,7 +266,7 @@
 
 .price {
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
  
@@ -274,7 +274,7 @@
 
 .size {
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.6;
@@ -293,14 +293,14 @@
 .description {
   max-width: 34rem;
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
   text-transform: uppercase;
 }
 
 .sectionLabel {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.6;
@@ -308,14 +308,14 @@
 
 .notesText {
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
   text-transform: uppercase;
 }
 
 .detailsList {
   display: grid;
-  gap: 0.85rem;
+  gap: 1rem;
 }
 
 .detailRow {
@@ -327,7 +327,7 @@
 .detailLabel,
 .detailValue {
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.45;
   text-transform: uppercase;
 }
@@ -439,19 +439,19 @@ display: none;
 
 .detailLabel,
 .detailValue {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .description {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .editorialBody {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .editorialTab {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .editorialTextPanel {
@@ -534,7 +534,7 @@ display: none;
   .description,
   .notesText,
   .editorialBody {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .mediaCaption {

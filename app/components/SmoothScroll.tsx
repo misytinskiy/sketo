@@ -14,9 +14,11 @@ export default function SmoothScroll({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+  const isStaff = pathname === "/staff" || pathname.startsWith("/staff/");
 
   useEffect(() => {
     if (
+      isStaff ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       window.matchMedia("(max-width: 640px)").matches
     ) {
@@ -38,7 +40,7 @@ export default function SmoothScroll({
     return () => {
       smoother.kill();
     };
-  }, []);
+  }, [isStaff]);
 
   useEffect(() => {
     const smoother = ScrollSmoother.get();

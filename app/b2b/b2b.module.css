@@ -58,7 +58,7 @@
   position: relative;
   width: fit-content;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -86,7 +86,7 @@
   position: relative;
   width: fit-content;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -131,7 +131,7 @@
 
 .eyebrow {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.68;
@@ -144,11 +144,11 @@
   font-family: var(--font-commissioner-display);
   font-weight: 800;
   letter-spacing: -0.06em;
-  line-height: 0.9;
+  line-height: 1;
 }
 
 .title {
-  font-size: 9rem;
+  font-size: 8rem;
   color: #ce1616;
 }
 
@@ -159,7 +159,7 @@
 .serviceParagraph,
 .ctaText {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.45;
   text-transform: uppercase;
 }
@@ -177,7 +177,7 @@
 .heroMeta {
   display: grid;
   align-content: start;
-  padding-top: calc(10px + 1rem);
+  padding-top: calc(12px + 1rem);
 }
 
 .heroMetaStack {
@@ -204,7 +204,7 @@
 .introText {
   max-width: 36rem;
   font-family: var(--font-activist);
-  font-size: clamp(1.6rem, 4vw, 3.2rem);
+  font-size: 2.5rem;
   line-height: 0.95;
   text-transform: uppercase;
   letter-spacing: -0.05em;
@@ -282,7 +282,7 @@
 
 .audienceCoreLabel {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.68;
@@ -331,7 +331,7 @@
 
 .audienceIndex {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.68;
@@ -340,8 +340,8 @@
 .audienceNodeTitle {
   margin: 0;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
-  line-height: 1.2;
+  font-size: 12px;
+  line-height: 1.4;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.76);
 }
@@ -352,9 +352,13 @@
 .stageIndex,
 .stageName {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
+}
+
+.serviceTag  {
+  font-size: 11px;
 }
 
 .heroMetaItem {
@@ -362,6 +366,7 @@
   padding-bottom: 0.22rem;
   border-bottom: 1px solid rgba(45, 49, 52, 0.18);
   color: #2d3134c2;
+  font-size: 11px;
 }
 
 .blueprintSection {
@@ -453,7 +458,7 @@
   margin: 0;
   max-width: 18rem;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.45;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.66);
@@ -476,7 +481,7 @@
 .metricLabel,
 .metricNote {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.35;
   text-transform: uppercase;
 }
@@ -542,7 +547,7 @@
 .workflowText {
   margin: 0;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.45;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.74);
@@ -597,7 +602,7 @@
   border: 1px solid rgba(45, 49, 52, 0.32);
   border-radius: 999px;
   background: #f2f0eb;
-  margin: 10px;
+  margin: 12px;
 }
 
 .workflowBranch {
@@ -650,7 +655,7 @@
 
 .workflowIndex {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.7);
@@ -739,7 +744,7 @@
 }
 
 .serviceCard {
-  padding: 0.8rem 0;
+  padding: 1rem 0;
   border-top: 1px solid rgba(45, 49, 52, 0.14);
 }
 
@@ -773,7 +778,7 @@
 
 .serviceMain {
   display: grid;
-  gap: 1rem;
+  gap: 1.4rem;
 }
 
 .serviceMainButton {
@@ -826,7 +831,7 @@
 .serviceArrow {
   flex: 0 0 auto;
   font-family: var(--font-basis-mono);
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   line-height: 1;
   color: rgba(45, 49, 52, 0.72);
   transform: rotate(45deg);
@@ -857,7 +862,7 @@
   min-height: 0;
   overflow: hidden;
   display: grid;
-  gap: 1rem;
+  gap: 1.5rem;
   opacity: 0;
   transform: translateY(-0.35rem);
   transition:
@@ -1188,6 +1193,8 @@
   .title {
     font-size: 3.3rem;
   }
+
+
 
   .blueprintTitle,
   .workflowTitle,

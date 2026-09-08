@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "../../components/CatalogImage";
 import gsap from "gsap";
 import { type PointerEvent, useRef } from "react";
 import styles from "./lot.module.css";

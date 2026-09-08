@@ -15,7 +15,7 @@
   align-items: center;
   gap: 0.75rem;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.58);
@@ -33,7 +33,7 @@
 .posterCaption,
 .operatingKicker {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.2;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -48,12 +48,12 @@
 }
 
 .posterDescription {
-  max-width: 20rem;
+  max-width: 21rem;
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.5;
   text-transform: uppercase;
-  opacity: 0.76;
+  opacity: .65;
 }
 
 .posterGrid {
@@ -120,7 +120,7 @@
   position: relative;
   z-index: 1;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -146,7 +146,7 @@
   position: relative;
   z-index: 1;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -220,7 +220,7 @@
   justify-self: end;
   max-width: 18rem;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.45;
   text-align: right;
   text-transform: uppercase;
@@ -287,6 +287,10 @@
   .operatingRowNote {
     justify-self: start;
     text-align: left;
+  }
+
+  .posterArrow {
+    font-size: 11px;
   }
 }
 

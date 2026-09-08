@@ -1,16 +1,16 @@
-import Image from "next/image";
+import type { CoffeeCatalogCardItem } from "./catalog-db";
+import Image from "../components/CatalogImage";
 import Link from "next/link";
-import type { CatalogItem, CatalogLanguage } from "./catalog-data";
-import { getCatalogItemContent } from "./catalog-data";
+import type { CatalogLanguage } from "./catalog-data";
 import styles from "./catalog.module.css";
 
 type CatalogCardProps = {
-  item: CatalogItem;
+  item: CoffeeCatalogCardItem;
   language: CatalogLanguage;
 };
 
 export default function CatalogCard({ item, language }: CatalogCardProps) {
-  const content = getCatalogItemContent(item, language);
+  const content = item.translations[language];
 
   return (
     <Link href={`/catalog/${item.slug}`} className={styles.cardLink}>

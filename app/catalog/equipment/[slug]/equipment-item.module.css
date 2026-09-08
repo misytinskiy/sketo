@@ -48,7 +48,7 @@
   align-self: start;
   margin-top: 0.15rem;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.65;
@@ -66,7 +66,7 @@
 .techMeta {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, max-content));
-  gap: 0.65rem 1.4rem;
+  gap: 0.8rem 1.4rem;
   align-self: start;
   padding-top: 0.15rem;
   padding-bottom: 0.75rem;
@@ -75,7 +75,7 @@
 
 .techMetaText {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.52;
@@ -93,7 +93,7 @@
 
 .mediaViewport {
   position: relative;
-  aspect-ratio: 1.7;
+  aspect-ratio: 1.6;
   overflow: hidden;
 }
 
@@ -121,7 +121,7 @@
 
 .mediaButton {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   transition:
@@ -137,7 +137,7 @@
 
 .mediaCounter {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.58;
@@ -157,7 +157,7 @@
 
 .thumbnailIndex {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.45;
@@ -204,7 +204,7 @@
 
 .infoCard {
   display: grid;
-  gap: 0.9rem;
+  gap: 1.1rem;
   padding-top: 1rem;
   border-top: 1px solid #2d3134;
 }
@@ -225,12 +225,12 @@
 
 .sectionIntro {
   display: grid;
-  gap: 0.65rem;
+  gap: 0.8rem;
 }
 
 .sectionKicker {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.5;
@@ -248,7 +248,7 @@
 .featuresGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem 3rem;
+  gap: 2rem 3rem;
 
   background-image:
   linear-gradient(rgba(242, 240, 235, 0.88), rgba(242, 240, 235, 0.9)),
@@ -275,7 +275,7 @@ background-size: 20%;
 .featureDescription {
   max-width: 36rem;
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.55;
   text-transform: uppercase;
 }
@@ -296,7 +296,7 @@ background-size: 20%;
 .specificationLabel,
 .specificationValue {
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.3;
   text-transform: uppercase;
 }
@@ -307,7 +307,7 @@ background-size: 20%;
 
 .sectionLabel {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.6;
@@ -316,14 +316,14 @@ background-size: 20%;
 .description {
   max-width: 34rem;
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.55;
   text-transform: uppercase;
 }
 
 .detailsList {
   display: grid;
-  gap: 0.85rem;
+  gap: 1rem;
 }
 
 .detailRow {
@@ -335,7 +335,7 @@ background-size: 20%;
 .detailLabel,
 .detailValue {
   font-family: var(--font-basis-mono);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.25;
   text-transform: uppercase;
 }
@@ -438,7 +438,7 @@ background-size: 20%;
   .specificationValue,
   .featureDescription,
   .description {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .thumbnailGrid  {
@@ -489,7 +489,7 @@ background-size: 20%;
   .specificationLabel,
   .specificationValue,
   .featureDescription {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .techMeta {

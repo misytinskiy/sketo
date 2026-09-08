@@ -1,4 +1,5 @@
 "use client";
+import type { CoffeeCatalogCardItem } from "./catalog-db";
 
 import Link from "next/link";
 import { useDeferredValue, useMemo, useState } from "react";
@@ -7,11 +8,7 @@ import LanguageSwitch from "../components/LanguageSwitch";
 import { getContentLanguage } from "../components/language";
 import usePersistentLanguage from "../components/usePersistentLanguage";
 import CatalogCard from "./CatalogCard";
-import {
-  type CatalogFilter,
-  catalogItems,
-  getCatalogItemContent,
-} from "./catalog-data";
+import type { CatalogFilter } from "./catalog-data";
 import styles from "./catalog.module.css";
 
 const filterLabels = {
@@ -50,10 +47,12 @@ function getLotsLabel(count: number, language: "ru" | "en") {
 
 type CatalogContentProps = {
   initialLanguage: "ru" | "en";
+  items: CoffeeCatalogCardItem[];
 };
 
 export default function CatalogContent({
   initialLanguage,
+  items,
 }: CatalogContentProps) {
   const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const [activeFilter, setActiveFilter] = useState<CatalogFilter>("all");
@@ -64,8 +63,8 @@ export default function CatalogContent({
   const filteredItems = useMemo(() => {
     const normalizedSearch = deferredSearch.trim().toLowerCase();
 
-    return catalogItems.filter((item) => {
-      const content = getCatalogItemContent(item, currentLanguage);
+    return items.filter((item) => {
+      const content = item.translations[currentLanguage];
       const matchesFilter =
         activeFilter === "all" || item.filters.includes(activeFilter);
       const matchesSearch =
@@ -76,7 +75,7 @@ export default function CatalogContent({
 
       return matchesFilter && matchesSearch;
     });
-  }, [activeFilter, currentLanguage, deferredSearch]);
+  }, [activeFilter, currentLanguage, deferredSearch, items]);
 
   const resultsLabel = `${filteredItems.length} ${getLotsLabel(
     filteredItems.length,

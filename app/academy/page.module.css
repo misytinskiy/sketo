@@ -47,7 +47,7 @@
 
 .heroInfoItem {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.1;
   text-transform: uppercase;
   padding-bottom: 0.22rem;
@@ -64,7 +64,7 @@
   position: relative;
   width: fit-content;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -99,6 +99,8 @@
   align-items: start;
 }
 
+
+
 .heroGrid {
   align-content: center;
 }
@@ -113,13 +115,13 @@
 .heroInfoStack {
   /* align-self: start; */
   /* justify-self: end; */
-  margin-top: calc(10px + 1rem);
+  margin-top: calc(12px + 1rem);
 }
 
 .eyebrow,
 .cardIndex {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.68;
@@ -137,7 +139,7 @@
 }
 
 .title {
-  font-size: 9rem;
+  font-size: 8rem;
   color: #ce1616;
   font-family: var(--font-commissioner-display);
   font-weight: 800;
@@ -149,7 +151,7 @@
 .mentorNote,
 .faqAnswer {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.45;
   text-transform: uppercase;
 }
@@ -174,7 +176,7 @@
 
 .cardTitle {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.2;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.76);
@@ -261,7 +263,7 @@
 
 .audienceCoreLabel {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.58;
@@ -388,7 +390,7 @@
   display: grid;
   gap: 0.3rem;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.35;
   text-transform: uppercase;
 }
@@ -415,7 +417,7 @@
 
 .mentorGrid {
   grid-template-columns: 100%;
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .mentorCard {
@@ -452,7 +454,7 @@
 .mentorRole,
 .mentorLabel {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.1;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.66);
@@ -489,7 +491,7 @@
   display: grid;
   gap: 0.35rem;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.35;
   text-transform: uppercase;
 }
@@ -522,7 +524,7 @@
 .finalCtaTitle {
   font-family: var(--font-commissioner-display);
   font-size: 5rem;
-  line-height: 0.9;
+  line-height: 1;
   letter-spacing: -0.05em;
   font-weight: 800;
   text-transform: uppercase;
@@ -530,7 +532,7 @@
 
 .finalCtaText {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.45;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.72);
@@ -638,7 +640,7 @@
 .editorialMentorLabel,
 .editorialMentorSwitchIndex {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.1;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.62);
@@ -664,7 +666,7 @@
   margin: 0;
   max-width: 36rem;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.45;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.84);
@@ -689,7 +691,7 @@
   display: grid;
   gap: 0.35rem;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.35;
   text-transform: uppercase;
 }
@@ -759,7 +761,7 @@
 
 .courseKicker {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.58);
@@ -814,7 +816,7 @@
 
 .courseDetailsLead,
 .courseDetailsList {
-  font-size: 10px;}
+  font-size: 12px;}
 
 .courseIntroText {
   max-width: 40rem;
@@ -850,7 +852,7 @@
 .courseSummaryIndex,
 .courseSummaryMeta {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.58);
@@ -965,7 +967,7 @@
 
 .faqSummaryIndex {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   color: rgba(45, 49, 52, 0.58);
@@ -1034,7 +1036,7 @@
 .ctaText {
   max-width: 36rem;
   font-family: var(--font-activist);
-  font-size: clamp(1.6rem, 4vw, 3.2rem);
+  font-size: 2.5rem;
   line-height: 0.95;
   text-transform: uppercase;
   letter-spacing: -0.05em;
@@ -1051,7 +1053,7 @@
   position: relative;
   width: fit-content;
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.72;

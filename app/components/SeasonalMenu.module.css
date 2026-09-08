@@ -13,7 +13,7 @@
 }
 
 .topContent {
-  gap: 2rem;
+  gap: 1.75rem;
     display: flex;
     flex-direction: column;
 
@@ -58,12 +58,12 @@
 
 .headingBlock {
   display: grid;
-  gap: 0.6rem;
+  gap: 0.8rem;
 }
 
 .eyebrow {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.65;
@@ -85,7 +85,7 @@
 
 .lead {
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 14px;
   line-height: 1.12;
   font-weight: 400;
   letter-spacing: -.025em;
@@ -123,7 +123,7 @@
 
 .drinkHeader {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.7rem;
 }
 
 .drinkMetaRow {
@@ -135,12 +135,12 @@
 
 .drinkCopy {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.7rem;
 }
 
 .drinkIndex {
   font-family: var(--font-basis-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-transform: uppercase;
   opacity: 0.6;
@@ -191,7 +191,7 @@
 .drinkDescription {
   max-width: 28rem;
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 14px;
   line-height: 1.18;
   font-weight: 200;
 }
@@ -224,7 +224,7 @@
 }
 
 .footerNote {
-  max-width: 37rem;
+  max-width: 45rem;
   font-family: var(--font-activist);
   font-size: 1rem;
   line-height: 1.02;
@@ -289,7 +289,7 @@ flex-direction: column;
 
 @media (max-width: 640px) {
   .lead {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .drinkCard {
@@ -341,7 +341,7 @@ flex-direction: column;
   }
 
   .lead {
-    font-size: 1rem;
+    font-size: 14px;
     line-height: 1.16;
   }
 

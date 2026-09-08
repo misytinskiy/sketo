@@ -1,5 +1,5 @@
-import { getInitialLanguage } from "../components/getInitialLanguage";
 import StaffPageClient from "./StaffPageClient";
+import { getStaffProducts } from "./staff-data";
 
 export const metadata = {
   title: "Кабинет — Sketo",
@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 export default async function StaffPage() {
-  const initialLanguage = await getInitialLanguage();
+  const products = await getStaffProducts();
 
-  return <StaffPageClient initialLanguage={initialLanguage} />;
+  return <StaffPageClient products={products} />;
 }

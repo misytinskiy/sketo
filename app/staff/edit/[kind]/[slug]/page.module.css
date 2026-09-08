@@ -31,7 +31,8 @@
 .sidebarValue,
 .primaryAction,
 .secondaryAction,
-.secondaryActionDanger {
+.secondaryActionDanger,
+.secondaryActionLink {
   font-family: var(--font-basis-mono);
   text-transform: uppercase;
 }
@@ -54,29 +55,15 @@
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(17rem, 18.5rem) minmax(0, 1fr);
   gap: 1.5rem;
   align-items: start;
 }
 
-.sidebar {
-  position: sticky;
-  top: 1.5rem;
-  display: grid;
-  gap: 1rem;
-}
-
-.sidebarCard,
+.actionBar,
 .sectionBlock,
 .heroCard {
   border: 1px solid rgba(45, 49, 52, 0.12);
   background: rgba(255, 255, 255, 0.34);
-}
-
-.sidebarCard {
-  display: grid;
-  gap: 0.7rem;
-  padding: 1rem;
 }
 
 .sidebarLabel {
@@ -118,16 +105,13 @@
   color: #2d3134;
 }
 
-.actionStack {
-  display: grid;
-  gap: 0.5rem;
-}
-
 .primaryAction,
 .secondaryAction,
-.secondaryActionDanger {
+.secondaryActionDanger,
+.secondaryActionLink {
   appearance: none;
   min-height: 2.7rem;
+  padding: 0.75rem 1rem;
   border: 1px solid #2d3134;
   background: transparent;
   font-size: 10px;
@@ -139,6 +123,12 @@
     border-color 180ms ease,
     background-color 180ms ease,
     color 180ms ease;
+}
+
+.secondaryActionLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .primaryAction {
@@ -156,6 +146,8 @@
 .primaryAction:focus-visible,
 .secondaryAction:hover,
 .secondaryAction:focus-visible,
+.secondaryActionLink:hover,
+.secondaryActionLink:focus-visible,
 .secondaryActionDanger:hover,
 .secondaryActionDanger:focus-visible {
   transform: translateY(-1px);
@@ -164,6 +156,47 @@
 .editor {
   display: grid;
   gap: 1.5rem;
+}
+
+.editorForm {
+  display: grid;
+  gap: 1rem;
+}
+
+.actionBar {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.actionBarMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.actionBarButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@keyframes enteredRowReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(0.9rem) scale(0.99);
+  }
+
+  65% {
+    opacity: 1;
+    transform: translateY(-0.04rem) scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .heroCard {
@@ -187,7 +220,7 @@
 
 .pageTitle {
   font-family: var(--font-activist);
-  font-size: clamp(2.3rem, 4vw, 4rem);
+  font-size: clamp(2.3rem, 3vw, 4rem);
   line-height: 0.92;
   text-transform: uppercase;
   letter-spacing: -0.05em;
@@ -209,7 +242,7 @@
 }
 
 .heroMedia {
-  min-height: 24rem;
+  min-height: 19rem;
 }
 
 .heroImage,
@@ -249,14 +282,374 @@
 .fieldCard {
   display: grid;
   gap: 0.55rem;
-  min-height: 8rem;
-  padding: 1rem;
-  border: 1px solid rgba(45, 49, 52, 0.12);
-  background: rgba(255, 255, 255, 0.3);
+  min-height: 5rem;
 }
 
 .fieldCardWide {
   grid-column: span 3;
+}
+
+.detailFieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.detailFieldCard {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.detailEditor {
+  display: grid;
+  gap: 1rem;
+}
+
+.detailToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(45, 49, 52, 0.12);
+  background:
+    linear-gradient(135deg, rgba(142, 96, 56, 0.08), rgba(255, 255, 255, 0.82));
+}
+
+.detailList {
+  display: grid;
+  gap: 0.7rem;
+  transition: gap 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.detailCard {
+  display: grid;
+}
+
+.enteredRow {
+  animation: enteredRowReveal 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: top left;
+}
+
+.detailCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.detailIndex,
+.detailAddButton,
+.detailRemoveButton {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.detailIndex {
+  opacity: 0.58;
+}
+
+.detailFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.detailAddButton,
+.detailRemoveButton {
+  appearance: none;
+  min-height: 2.4rem;
+  padding: 0 0.9rem;
+  border: 1px solid rgba(45, 49, 52, 0.2);
+  background: rgba(255, 255, 255, 0.82);
+  color: #2d3134;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.detailAddButton:hover,
+.detailAddButton:focus-visible,
+.detailRemoveButton:hover,
+.detailRemoveButton:focus-visible {
+  transform: translateY(-1px);
+  border-color: #ce1616;
+}
+
+.detailRemoveButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+  transform: none;
+}
+
+.detailRemoveButton {
+  position: relative;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: transparent;
+}
+
+.detailRemoveIcon {
+  position: relative;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+}
+
+.detailRemoveIcon::before,
+.detailRemoveIcon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.65rem;
+  height: 1px;
+  background: rgba(45, 49, 52, 0.72);
+  transform-origin: center;
+  transition: background-color 180ms ease;
+}
+
+.detailRemoveIcon::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.detailRemoveIcon::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.detailRemoveButton:hover .detailRemoveIcon::before,
+.detailRemoveButton:hover .detailRemoveIcon::after,
+.detailRemoveButton:focus-visible .detailRemoveIcon::before,
+.detailRemoveButton:focus-visible .detailRemoveIcon::after {
+  background: #ce1616;
+}
+
+.detailAddButton,
+.featureAddButton,
+.specAddButton {
+  justify-self: start;
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.detailRow,
+.featureRow {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(45, 49, 52, 0.12);
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.detailRow {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.featureFieldGrid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.featureEditor {
+  display: grid;
+  gap: 1rem;
+}
+
+.featureToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(45, 49, 52, 0.12);
+  background:
+    linear-gradient(135deg, rgba(45, 49, 52, 0.04), rgba(255, 255, 255, 0.82));
+}
+
+.featureList {
+  display: grid;
+  gap: 0.9rem;
+  transition: gap 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.featureCard {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+  border: 1px solid rgba(45, 49, 52, 0.14);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.featureCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.featureIndex,
+.featureAddButton,
+.featureRemoveButton {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.featureIndex {
+  opacity: 0.58;
+}
+
+.featureFields {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.featureAddButton,
+.featureRemoveButton {
+  appearance: none;
+  min-height: 2.4rem;
+  padding: 0 0.9rem;
+  border: 1px solid rgba(45, 49, 52, 0.2);
+  background: rgba(255, 255, 255, 0.82);
+  color: #2d3134;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.featureAddButton:hover,
+.featureAddButton:focus-visible,
+.featureRemoveButton:hover,
+.featureRemoveButton:focus-visible {
+  transform: translateY(-1px);
+  border-color: #ce1616;
+}
+
+.featureRemoveButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+  transform: none;
+}
+
+.featureRemoveButton {
+  min-width: 2.4rem;
+  width: 2.4rem;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 300;
+  line-height: 1;
+  border: none;
+  background: transparent;
+  color: rgba(45, 49, 52, 0.72);
+}
+
+.specEditor {
+  display: grid;
+  gap: 1rem;
+}
+
+.specToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(45, 49, 52, 0.12);
+  background:
+    linear-gradient(135deg, rgba(206, 22, 22, 0.06), rgba(255, 255, 255, 0.72));
+}
+
+.specList {
+  display: grid;
+  gap: 0.9rem;
+  transition: gap 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.specCard {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+  border: 1px solid rgba(45, 49, 52, 0.14);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.specCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.specIndex,
+.specAddButton,
+.specRemoveButton {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.specIndex {
+  opacity: 0.58;
+}
+
+.specFields {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.9fr) minmax(0, 1.1fr);
+  gap: 0.85rem;
+}
+
+.specAddButton,
+.specRemoveButton {
+  appearance: none;
+  min-height: 2.4rem;
+  padding: 0 0.9rem;
+  border: 1px solid rgba(45, 49, 52, 0.2);
+  background: rgba(255, 255, 255, 0.82);
+  color: #2d3134;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.specAddButton:hover,
+.specAddButton:focus-visible,
+.specRemoveButton:hover,
+.specRemoveButton:focus-visible {
+  transform: translateY(-1px);
+  border-color: #ce1616;
+}
+
+.specRemoveButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+  transform: none;
+}
+
+.specRemoveButton {
+  min-width: 2.4rem;
+  width: 2.4rem;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 300;
+  line-height: 1;
+  border: none;
+  background: transparent;
+  color: rgba(45, 49, 52, 0.72);
 }
 
 .fieldValue,
@@ -276,9 +669,250 @@
   opacity: 0.68;
 }
 
+.textInput,
+.textArea,
+.customSelectTrigger {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid rgba(45, 49, 52, 0.18);
+  background: #ffffff52;
+  color: #2d3134;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1;
+  padding: 0.5rem 0.6rem;
+}
+
+.textArea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.textInput:focus,
+.textArea:focus,
+.customSelectTrigger:focus-visible {
+  outline: none;
+  border-color: #ce1616;
+}
+
+.customSelect {
+  position: relative;
+}
+
+.customSelectTrigger,
+.customSelectOption {
+  appearance: none;
+}
+
+.customSelectTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 2rem;
+  height: 2rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  gap: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+.customSelectTrigger:hover,
+.customSelectTrigger:focus-visible {
+  border-color: #ce1616;
+}
+
+.customSelectChevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg) translateY(-0.04rem);
+  transform-origin: center;
+  transition: transform 180ms ease;
+}
+
+.customSelectChevronOpen {
+  transform: rotate(225deg) translateY(0.02rem);
+}
+
+.customSelectMenu {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 0;
+  z-index: 12;
+  display: grid;
+  width: 100%;
+  min-width: 100%;
+  border: 1px solid rgba(45, 49, 52, 0.14);
+  background: #f2f0eb;
+  box-shadow: 0 14px 34px rgba(45, 49, 52, 0.08);
+}
+
+.customSelectOption {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #2d3134;
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.85rem 0.9rem;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.customSelectOption:hover,
+.customSelectOption:focus-visible {
+  background: rgba(206, 22, 22, 0.08);
+  color: #ce1616;
+  outline: none;
+}
+
+.customSelectOptionActive {
+  background: #2d3134;
+  color: #f2f0eb;
+}
+
+.customSelectOptionActive:hover,
+.customSelectOptionActive:focus-visible {
+  background: #2d3134;
+  color: #f2f0eb;
+}
+
+.formMessage {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.formMessageError {
+  color: #ce1616;
+}
+
 .mediaSingle {
   display: grid;
   gap: 0.85rem;
+}
+
+.mediaInput {
+  display: none;
+}
+
+.mediaManagerGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.mediaAddCard,
+.mediaItemCard {
+  border: 1px solid rgba(45, 49, 52, 0.14);
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.mediaAddCard {
+  appearance: none;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.45rem;
+  justify-content: center;
+  min-height: 15rem;
+  padding: 1.15rem;
+  color: #2d3134;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.mediaAddCard:hover,
+.mediaAddCard:focus-visible {
+  transform: translateY(-1px);
+  border-color: #ce1616;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.mediaAddIcon {
+  font-family: var(--font-activist);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.mediaAddTitle {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.mediaItemCard {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.8rem;
+}
+
+.mediaManagerFrame {
+  position: relative;
+  min-height: 14rem;
+  overflow: hidden;
+  background: rgba(45, 49, 52, 0.04);
+}
+
+.mediaItemToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mediaItemMeta,
+.mediaRemoveButton {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.mediaItemMeta {
+  opacity: 0.58;
+}
+
+.mediaRemoveButton {
+  appearance: none;
+  min-width: 2rem;
+  width: 2rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #2d3134;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+
+.mediaRemoveButton:focus-visible {
+  color: #ce1616;
+}
+
+.mediaRemoveButton:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 .mediaFrame {
@@ -348,27 +982,89 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-@media (max-width: 1080px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
+.localeSection {
+  gap: 1.25rem;
+}
 
-  .sidebar {
-    position: static;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.localeHeading {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.localeTabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.localeTab {
+  appearance: none;
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(45, 49, 52, 0.14);
+  background: rgba(255, 255, 255, 0.52);
+  color: #2d3134;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.localeTab:hover,
+.localeTab:focus-visible {
+  transform: translateY(-1px);
+  border-color: #ce1616;
+}
+
+.localeTabActive {
+  border-color: #ce1616;
+  background:
+    linear-gradient(135deg, rgba(206, 22, 22, 0.08), rgba(255, 255, 255, 0.84));
+}
+
+.localeTabCode {
+  font-family: var(--font-basis-mono);
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: 0.58;
+}
+
+.localeTabLabel {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.localePanelHidden {
+  display: none;
+}
+
+@media (max-width: 1080px) {
 }
 
 @media (max-width: 900px) {
   .heroCard,
   .formGrid,
+  .detailFieldGrid,
+  .mediaManagerGrid,
   .galleryGrid,
-  .dualColumn {
+  .dualColumn,
+  .localeTabs {
     grid-template-columns: 1fr;
   }
 
   .fieldCardWide {
     grid-column: span 1;
+  }
+
+  .specFields,
+  .detailFields,
+  .detailRow {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -382,8 +1078,10 @@
     align-items: flex-start;
   }
 
-  .sidebar {
-    grid-template-columns: 1fr;
+  .actionBarMeta,
+  .actionBarButtons {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .heroMedia,
@@ -395,4 +1093,26 @@
   .tableRow {
     grid-template-columns: 1fr;
   }
+}
+
+/* Keep the editor actions within reach on long forms. */
+.shell { padding-bottom: 140px; }
+.actionBar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px max(24px, calc((100vw - 1240px) / 2)); padding-bottom: max(16px, env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid #ddd; box-shadow: 0 -4px 24px #0000000a; }
+.actionBarButtons { align-items: center; flex-direction: row; flex-wrap: nowrap; }
+.moreMenu { position: relative; }
+.moreMenu > summary { cursor: pointer; padding: 12px 16px; list-style: none; border: 1px solid #ddd; border-radius: 8px; }
+.moreMenuItems { position: absolute; bottom: calc(100% + 12px); right: 0; min-width: 230px; padding: 8px; display: grid; gap: 8px; background: white; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 24px #0002; }
+.collapsible > summary { cursor: pointer; font-size: 16px; font-weight: 600; padding: 12px 0; }
+.collapsible[open] > summary { margin-bottom: 16px; }
+.fieldError { color: #b42318; font-size: 14px; line-height: 1.4; }
+.textInput[aria-invalid="true"], .textArea[aria-invalid="true"] { border-color: #b42318; outline-color: #b42318; }
+.dropActive { background: #edf7ed; outline: 3px solid #387747; outline-offset: -3px; }
+.primaryBadge { position: absolute; top: 10px; left: 10px; z-index: 1; padding: 7px 10px; border-radius: 6px; background: #245c35; color: white; font-size: 13px; font-weight: 600; }
+.pendingPhotos { display: grid; gap: 16px; padding: 16px; border: 1px dashed #aaa; border-radius: 12px; }
+@media (max-width: 600px) {
+ .actionBar { padding: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+ .actionBarMeta { display: none; }
+ .actionBarButtons { width: 100%; gap: 6px; }
+ .actionBarButtons > .primaryAction, .actionBarButtons > .secondaryActionLink { padding: 12px 8px; font-size: 13px; }
+ .moreMenu { margin-left: auto; }
 }
