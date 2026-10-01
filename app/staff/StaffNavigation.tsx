@@ -18,6 +18,7 @@ export default function StaffNavigation({ name, email, role }: StaffNavigationPr
     ...(role === "admin"
       ? [{ href: "/staff/users", label: "Пользователи", active: pathname.startsWith("/staff/users") }]
       : []),
+    { href: "/staff/security", label: "Пароль", active: pathname === "/staff/security" },
   ];
 
   return <header className={styles.staffHeader}>
