@@ -1,10 +1,12 @@
 "use server";
 
+import { requireStaff } from "@/lib/staff-auth";
+
 import { Buffer } from "node:buffer";
 import sharp from "sharp";
 import { validateProductFields } from "@/lib/product-form";
 import { validateImageFile, matchesImageSignature } from "@/lib/supabase/media-validation";
-import { queueMediaCleanup, processMediaCleanup } from "@/lib/supabase/media-cleanup";
+import { queueMediaCleanup, processMediaCleanup, getPendingMediaCleanupCount } from "@/lib/supabase/media-cleanup";
 import { and, asc, eq, sql } from "drizzle-orm";
 import { revalidatePath, updateTag } from "next/cache";
 import { db } from "@/lib/db";
@@ -46,6 +48,8 @@ type FeatureInput = {
 };
 
 type TranslationInput = {
+  seoTitle?: string;
+  seoDescription?: string;
   name: string;
   description: string;
   size?: string;
@@ -56,6 +60,13 @@ type TranslationInput = {
 
 function asNonEmptyString(value: FormDataEntryValue | null) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function readSeoFields(data: FormData, suffix: "Ru" | "En" | "Kz") {
+  return {
+    ...(data.has(`seoTitle${suffix}`) ? { seoTitle: asNonEmptyString(data.get(`seoTitle${suffix}`)) } : {}),
+    ...(data.has(`seoDescription${suffix}`) ? { seoDescription: asNonEmptyString(data.get(`seoDescription${suffix}`)) } : {}),
+  };
 }
 
 function parsePrice(priceDisplay: string) {
@@ -130,7 +141,7 @@ function isInlineImage(path: string) {
 async function saveTranslation(
   tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
   productId: string,
-  locale: "ru" | "en",
+  locale: "ru" | "en" | "kz",
   values: TranslationInput,
 ) {
   const existing = await tx.query.productTranslations.findFirst({
@@ -159,7 +170,7 @@ async function saveTranslation(
 async function replaceDetailsForLocale(
   tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
   productId: string,
-  locale: "ru" | "en",
+  locale: "ru" | "en" | "kz",
   kind: "detail" | "specification",
   details: DetailInput[],
 ) {
@@ -192,7 +203,7 @@ async function replaceDetailsForLocale(
 async function replaceFeaturesForLocale(
   tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
   productId: string,
-  locale: "ru" | "en",
+  locale: "ru" | "en" | "kz",
   features: FeatureInput[],
 ) {
   await tx
@@ -219,8 +230,9 @@ async function replaceFeaturesForLocale(
   );
 }
 
-function getStatusLabel(status: ProductStatus, locale: "ru" | "en") {
+function getStatusLabel(status: ProductStatus, locale: "ru" | "en" | "kz") {
   const labels = {
+    kz: { in_stock: "Қолда бар", out_of_stock: "Қолда жоқ", preorder: "Тапсырыспен" },
     ru: {
       in_stock: "В наличии",
       out_of_stock: "Нет в наличии",
@@ -249,16 +261,24 @@ function revalidateProduct(kind: ProductType, slug: string) {
   revalidatePath(kind === "coffee" ? "/catalog" : "/equipment", "page");
 }
 
+export async function getMediaCleanupStatus() {
+  await requireStaff();
+  return getPendingMediaCleanupCount();
+}
+
 export async function retryMediaCleanup(): Promise<EditorActionState> {
+  await requireStaff();
   try {
-    const pending = await processMediaCleanup();
-    return { status: pending ? "error" : "success", message: pending ? "Часть файлов пока не удалось очистить. Повторите позже." : "Проверка очереди очистки завершена. Новые задания доступны через 15 минут." };
+    await processMediaCleanup();
+    const pending = await getPendingMediaCleanupCount();
+    return { status: pending ? "error" : "success", message: pending ? `Осталось очистить файлов: ${pending}. Повторите очистку позже.` : "Оставшиеся файлы очищены." };
   } catch {
     return { status: "error", message: "Очистка недоступна. Повторите позже." };
   }
 }
 
 export async function uploadProductMedia(formData: FormData): Promise<EditorActionState> {
+  await requireStaff();
   const kind = asNonEmptyString(formData.get("kind")) as ProductType;
   const slug = asNonEmptyString(formData.get("slug"));
   const files = formData.getAll("files");
@@ -369,6 +389,7 @@ export async function uploadProductMedia(formData: FormData): Promise<EditorActi
 }
 
 export async function deleteProductMedia(formData: FormData): Promise<EditorActionState> {
+  await requireStaff();
   const kind = asNonEmptyString(formData.get("kind")) as ProductType;
   const slug = asNonEmptyString(formData.get("slug"));
   const imageId = asNonEmptyString(formData.get("imageId"));
@@ -488,8 +509,10 @@ async function submitEditorTransaction(
   const priceDisplay = asNonEmptyString(formData.get("price"));
   const titleRu = asNonEmptyString(formData.get("titleRu"));
   const titleEn = asNonEmptyString(formData.get("titleEn"));
+  const titleKz = asNonEmptyString(formData.get("titleKz"));
   const descriptionRu = asNonEmptyString(formData.get("descriptionRu"));
   const descriptionEn = asNonEmptyString(formData.get("descriptionEn"));
+  const descriptionKz = asNonEmptyString(formData.get("descriptionKz"));
 
   if (willPublish && (!titleRu || !descriptionRu || !status)) {
     return {
@@ -549,8 +572,10 @@ async function submitEditorTransaction(
     if (kind === "coffee") {
       const sizeRu = asNonEmptyString(formData.get("sizeRu"));
       const sizeEn = asNonEmptyString(formData.get("sizeEn"));
+      const sizeKz = asNonEmptyString(formData.get("sizeKz"));
       const notesRu = asNonEmptyString(formData.get("notesRu"));
       const notesEn = asNonEmptyString(formData.get("notesEn"));
+      const notesKz = asNonEmptyString(formData.get("notesKz"));
       const detailsRu = parseParallelDetails(
         formData.getAll("coffeeDetailRuLabel"),
         formData.getAll("coffeeDetailRuValue"),
@@ -559,8 +584,13 @@ async function submitEditorTransaction(
         formData.getAll("coffeeDetailEnLabel"),
         formData.getAll("coffeeDetailEnValue"),
       );
+      const detailsKz = parseParallelDetails(
+        formData.getAll("coffeeDetailKzLabel"),
+        formData.getAll("coffeeDetailKzValue"),
+      );
 
       await saveTranslation(tx, product.id, "ru", {
+        ...readSeoFields(formData, "Ru"),
         name: titleRu,
         size: sizeRu,
         notes: notesRu,
@@ -568,17 +598,27 @@ async function submitEditorTransaction(
       });
 
       await saveTranslation(tx, product.id, "en", {
+        ...readSeoFields(formData, "En"),
         name: titleEn,
         size: sizeEn,
         notes: notesEn,
         description: descriptionEn,
       });
+      await saveTranslation(tx, product.id, "kz", {
+        ...readSeoFields(formData, "Kz"),
+        name: titleKz,
+        size: sizeKz,
+        notes: notesKz,
+        description: descriptionKz,
+      });
 
       await replaceDetailsForLocale(tx, product.id, "ru", "detail", detailsRu);
       await replaceDetailsForLocale(tx, product.id, "en", "detail", detailsEn);
+      await replaceDetailsForLocale(tx, product.id, "kz", "detail", detailsKz);
     } else {
       const categoryRu = asNonEmptyString(formData.get("categoryRu"));
       const categoryEn = asNonEmptyString(formData.get("categoryEn"));
+      const categoryKz = asNonEmptyString(formData.get("categoryKz"));
       const detailsRu = parseParallelDetails(
         formData.getAll("equipmentDetailRuLabel"),
         formData.getAll("equipmentDetailRuValue"),
@@ -586,6 +626,10 @@ async function submitEditorTransaction(
       const detailsEn = parseParallelDetails(
         formData.getAll("equipmentDetailEnLabel"),
         formData.getAll("equipmentDetailEnValue"),
+      );
+      const detailsKz = parseParallelDetails(
+        formData.getAll("equipmentDetailKzLabel"),
+        formData.getAll("equipmentDetailKzValue"),
       );
       const featuresRu = parseParallelFeatures(
         formData.getAll("equipmentFeatureRuTitle"),
@@ -595,6 +639,10 @@ async function submitEditorTransaction(
         formData.getAll("equipmentFeatureEnTitle"),
         formData.getAll("equipmentFeatureEnDescription"),
       );
+      const featuresKz = parseParallelFeatures(
+        formData.getAll("equipmentFeatureKzTitle"),
+        formData.getAll("equipmentFeatureKzDescription"),
+      );
       const specificationsRu = parseParallelDetails(
         formData.getAll("equipmentSpecificationRuLabel"),
         formData.getAll("equipmentSpecificationRuValue"),
@@ -603,8 +651,13 @@ async function submitEditorTransaction(
         formData.getAll("equipmentSpecificationEnLabel"),
         formData.getAll("equipmentSpecificationEnValue"),
       );
+      const specificationsKz = parseParallelDetails(
+        formData.getAll("equipmentSpecificationKzLabel"),
+        formData.getAll("equipmentSpecificationKzValue"),
+      );
 
       await saveTranslation(tx, product.id, "ru", {
+        ...readSeoFields(formData, "Ru"),
         name: titleRu,
         category: categoryRu,
         description: descriptionRu,
@@ -612,14 +665,23 @@ async function submitEditorTransaction(
       });
 
       await saveTranslation(tx, product.id, "en", {
+        ...readSeoFields(formData, "En"),
         name: titleEn,
         category: categoryEn,
         description: descriptionEn,
         statusLabel: getStatusLabel(status, "en"),
       });
+      await saveTranslation(tx, product.id, "kz", {
+        ...readSeoFields(formData, "Kz"),
+        name: titleKz,
+        category: categoryKz,
+        description: descriptionKz,
+        statusLabel: getStatusLabel(status, "kz"),
+      });
 
       await replaceDetailsForLocale(tx, product.id, "ru", "detail", detailsRu);
       await replaceDetailsForLocale(tx, product.id, "en", "detail", detailsEn);
+      await replaceDetailsForLocale(tx, product.id, "kz", "detail", detailsKz);
       await replaceDetailsForLocale(
         tx,
         product.id,
@@ -634,8 +696,16 @@ async function submitEditorTransaction(
         "specification",
         specificationsEn,
       );
+      await replaceDetailsForLocale(
+        tx,
+        product.id,
+        "kz",
+        "specification",
+        specificationsKz,
+      );
       await replaceFeaturesForLocale(tx, product.id, "ru", featuresRu);
       await replaceFeaturesForLocale(tx, product.id, "en", featuresEn);
+      await replaceFeaturesForLocale(tx, product.id, "kz", featuresKz);
     }
   }
 
@@ -670,6 +740,7 @@ export async function submitEditorForm(
   _prevState: EditorActionState,
   formData: FormData,
 ): Promise<EditorActionState> {
+  await requireStaff();
   let result: EditorActionState;
   try {
     result = await db.transaction((tx) => submitEditorTransaction(formData, tx));
@@ -688,6 +759,7 @@ export async function submitEditorForm(
 }
 
 export async function updateProductMediaOrder(formData: FormData): Promise<EditorActionState> {
+  await requireStaff();
   const kind = asNonEmptyString(formData.get("kind")) as ProductType;
   const slug = asNonEmptyString(formData.get("slug"));
   const ids = formData.getAll("imageIds").map((value) => typeof value === "string" ? value : "");

@@ -5,6 +5,24 @@ import type { Language } from "./language";
 import styles from "./SplitCatalogPromo.module.css";
 
 const posterLinksByLanguage = {
+  kz: [
+    {
+      href: "/academy",
+      title: "академия",
+      caption: "sketo академиясы",
+      description: "бағдарламалар, тәлімгерлер, оқу бағыттары",
+      tone: "академия",
+      index: "01",
+    },
+    {
+      href: "/b2b",
+      title: "b2b",
+      caption: "бизнеске арналған sketo",
+      description: "іске қосу, жұмыс процестері, оқыту жүйелері",
+      tone: "b2b",
+      index: "02",
+    },
+  ],
   ru: [
     {
       href: "/academy",
@@ -44,7 +62,7 @@ const posterLinksByLanguage = {
 } as const;
 
 type SplitCatalogPromoProps = {
-  language: Exclude<Language, "kz">;
+  language: Language;
 };
 
 export default function SplitCatalogPromo({
@@ -102,7 +120,7 @@ export default function SplitCatalogPromo({
                         : styles.posterArrowB2b
                     }`}
                   >
-                    {language === "en" ? "open" : "открыть"}
+                    {language === "kz" ? "ашу" : language === "en" ? "open" : "открыть"}
                   </span>
                 </div>
               </div>

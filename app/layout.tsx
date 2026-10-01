@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
 import { Commissioner } from "next/font/google";
 import { getInitialLanguage } from "./components/getInitialLanguage";
+import LanguageProvider from "./components/LanguageProvider";
 import SmoothScroll from "./components/SmoothScroll";
 import "./globals.css";
+import { getSiteUrl } from "@/lib/site-url";
 
 const commissioner = Commissioner({
   subsets: ["latin"],
   variable: "--font-commissioner",
 });
 
-export const metadata: Metadata = {
-  title: "Sketo Coffee",
-  description: "Главная страница кофейни Sketo",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const language = await getInitialLanguage();
+  return {
+    metadataBase: getSiteUrl(),
+    title: "Sketo Coffee",
+    description: language === "kz" ? "Sketo кофеханасының басты беті" : "Главная страница кофейни Sketo",
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -22,9 +28,11 @@ export default async function RootLayout({
   const initialLanguage = await getInitialLanguage();
 
   return (
-    <html lang={initialLanguage} className={commissioner.variable}>
+    <html lang={initialLanguage === "kz" ? "kk" : initialLanguage} className={commissioner.variable}>
       <body>
-        <SmoothScroll>{children}</SmoothScroll>
+        <LanguageProvider language={initialLanguage}>
+          <SmoothScroll>{children}</SmoothScroll>
+        </LanguageProvider>
       </body>
     </html>
   );

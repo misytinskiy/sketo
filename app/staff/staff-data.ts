@@ -40,7 +40,7 @@ type ProductRow = {
 
 type TranslationRow = {
   productId: string;
-  locale: "ru" | "en";
+  locale: "ru" | "en" | "kz";
   name: string | null;
   size: string | null;
   notes: string | null;
@@ -117,7 +117,7 @@ async function loadTranslationRows(productIds: string[]): Promise<TranslationRow
 }
 
 function buildTranslationMap(rows: TranslationRow[]) {
-  const map = new Map<string, Partial<Record<"ru" | "en", TranslationRow>>>();
+  const map = new Map<string, Partial<Record<"ru" | "en" | "kz", TranslationRow>>>();
 
   for (const row of rows) {
     const current = map.get(row.productId) ?? {};
@@ -166,7 +166,7 @@ function buildFallbackName(kind: StaffProductKind, locale: "ru" | "en") {
 
 function mapProductRecord(
   row: ProductRow,
-  translations: Partial<Record<"ru" | "en", TranslationRow>>,
+  translations: Partial<Record<"ru" | "en" | "kz", TranslationRow>>,
 ): StaffProductRecord {
   const ruTranslation = translations.ru;
   const enTranslation = translations.en;
@@ -175,7 +175,7 @@ function mapProductRecord(
     ruTranslation?.name?.trim() || baseName || buildFallbackName(row.type, "ru");
   const enName =
     enTranslation?.name?.trim() || baseName || buildFallbackName(row.type, "en");
-  const hasTranslation = Boolean(translations.ru && translations.en);
+  const hasTranslation = Boolean(translations.ru && translations.en && translations.kz);
 
   return {
     slug: row.slug,
@@ -262,7 +262,7 @@ export const getStaffProductMeta = unstable_cache(
     return {
       status: product.status,
       editorialState: normalizeEditorialState(product.editorialState),
-      hasTranslation: locales.has("ru") && locales.has("en"),
+      hasTranslation: locales.has("ru") && locales.has("en") && locales.has("kz"),
       updatedAt: product.updatedAt?.toISOString() ?? null,
     };
   },

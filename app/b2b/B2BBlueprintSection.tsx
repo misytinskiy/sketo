@@ -1,4 +1,6 @@
 "use client";
+import LocalizedText from "@/app/components/LocalizedText";
+
 
 import { useState } from "react";
 import styles from "./b2b.module.css";
@@ -30,15 +32,12 @@ export default function B2BBlueprintSection({
     <section className={styles.blueprintSection}>
       <div className={styles.blueprintRail}>
         <div className={styles.blueprintSticky}>
-          <p className={styles.eyebrow}>service map</p>
+          <p className={styles.eyebrow}><LocalizedText text="service map" /></p>
           <div className={styles.blueprintStickyBody}>
             <h2 className={styles.blueprintTitle}>
-              From concept
-              <br />
-              to daily
-              <br />
-              operation
-            </h2>
+              <LocalizedText text="From concept" /><br />
+              <LocalizedText text="to daily" /><br />
+              <LocalizedText text="operation" /></h2>
             <p className={styles.blueprintLead}>{lead}</p>
 
             <div className={styles.stageList} aria-label={stageListAriaLabel}>
@@ -54,7 +53,7 @@ export default function B2BBlueprintSection({
                     }`}
                   >
                     <span className={styles.stageIndex}>{stageIndex}</span>
-                    <span className={styles.stageName}>{stage}</span>
+                    <span className={styles.stageName}><LocalizedText text={stage} /></span>
                   </div>
                 );
               })}

@@ -10,7 +10,7 @@ export type EquipmentBrand =
 
 export type EquipmentType = "all" | "grinder" | "espresso-machine";
 
-export type EquipmentLanguage = "ru" | "en";
+export type EquipmentLanguage = "ru" | "en" | "kz";
 
 export type EquipmentDetail = {
   label: string;
@@ -23,6 +23,8 @@ export type EquipmentFeature = {
 };
 
 type EquipmentTranslation = {
+  seoTitle?: string;
+  seoDescription?: string;
   category: string;
   status: string;
   description: string;
@@ -45,6 +47,16 @@ export const equipmentBrandLabels: Record<
   EquipmentLanguage,
   Record<EquipmentBrand, string>
 > = {
+  kz: {
+    all: "Барлығы",
+    "la-marzocco": "La Marzocco",
+    mahlkonig: "Mahlkönig",
+    anfim: "Anfim",
+    mazzer: "Mazzer",
+    balenare: "Balenare",
+    allround: "Allround",
+    "victoria-arduino": "Victoria Arduino",
+  },
   ru: {
     all: "Все",
     "la-marzocco": "La Marzocco",
@@ -71,6 +83,11 @@ export const equipmentTypeLabels: Record<
   EquipmentLanguage,
   Record<EquipmentType, string>
 > = {
+  kz: {
+    all: "Барлығы",
+    grinder: "Кофе тартқыштар",
+    "espresso-machine": "Кофемашиналар",
+  },
   ru: {
     all: "Все",
     grinder: "Кофемолки",
@@ -84,6 +101,38 @@ export const equipmentTypeLabels: Record<
 };
 
 const lineaPbFeatures = {
+  kz: [
+    {
+      title: "сатурацияланған топтар",
+      description:
+        "Дайындау кезінде су кофе бойлерінен шықпайды, сондықтан әр шотта температура тұрақты сақталады.",
+    },
+    {
+      title: "қос PID",
+      description:
+        "Дәлірек баптау үшін кофе және бу бойлерлерінің температурасын тәуелсіз электрондық бақылау.",
+    },
+    {
+      title: "цифрлық дисплей",
+      description:
+        "Температураны көрсету, шот таймерлері, су ағыны импульстерінің есептегіші және түсінікті бағдарламалау параметрлерді өзгертуді жеңілдетеді.",
+    },
+    {
+      title: "Piero топ қақпақтары",
+      description:
+        "Топқа біріктірілген шығын өлшегіштер көлемдік мөлшерлеу дәлдігін және күнделікті нәтиженің тұрақтылығын жақсартады.",
+    },
+    {
+      title: "алдын ала қыздыру жүйесі",
+      description:
+        "Су кофе бойлеріне түспес бұрын қызады, бұл ең қарбалас уақытта өнімділікті арттырады.",
+    },
+    {
+      title: "баристаға арналған жарық",
+      description:
+        "LED жарығы экстракция кезінде топ пен кесені жақсырақ көруге көмектеседі.",
+    },
+  ],
   ru: [
     {
       title: "сатурированные группы",
@@ -151,6 +200,15 @@ const lineaPbFeatures = {
 } satisfies Record<EquipmentLanguage, EquipmentFeature[]>;
 
 const lineaPbSpecs = {
+  kz: [
+    { label: "Биіктік", value: "21 in / 53.3 cm" },
+    { label: "Ені", value: "28 in / 71 cm" },
+    { label: "Тереңдігі", value: "23 in / 59 cm" },
+    { label: "Салмағы", value: "134.5 lb / 61 kg" },
+    { label: "Қуаты", value: "4600 W" },
+    { label: "Кофе бойлері", value: "3.4 L" },
+    { label: "Бу бойлері", value: "7 L" },
+  ],
   ru: [
     { label: "Высота", value: "21 in / 53.3 cm" },
     { label: "Ширина", value: "28 in / 71 cm" },
@@ -172,6 +230,38 @@ const lineaPbSpecs = {
 } satisfies Record<EquipmentLanguage, EquipmentDetail[]>;
 
 const lineaClassicFeatures = {
+  kz: [
+    {
+      title: "қос бойлер",
+      description:
+        "Бөлек кофе және бу бойлерлері бір уақытта тұрақты эспрессо дайындауға және сүт көпіртуге мүмкіндік береді.",
+    },
+    {
+      title: "қос PID",
+      description:
+        "Екі бойлердің температурасын электрондық бақылау баптауды дәлірек әрі тұрақты етеді.",
+    },
+    {
+      title: "сатурацияланған топтар",
+      description:
+        "Топ құрылымы үздіксіз жұмыс кезінде дайындау температурасын тұрақты сақтауға арналған.",
+    },
+    {
+      title: "3 батырмалы интерфейс",
+      description:
+        "AV нұсқасындағы сол жақ топ батырмалары немесе EE нұсқасындағы электрондық панель бағдарламалау мен басқаруға қолданылады.",
+    },
+    {
+      title: "Pro App қолдауы",
+      description:
+        "Электрондық тақта машинаны басқару және бақылау үшін La Marzocco Pro App қосымшасына қосылуды қолдайды.",
+    },
+    {
+      title: "су датчигі",
+      description:
+        "Кіріс судың өткізгіштігі мен қаттылығын бақылау қызмет көрсетуді дәлірек жоспарлауға көмектеседі.",
+    },
+  ],
   ru: [
     {
       title: "двойные бойлеры",
@@ -239,6 +329,16 @@ const lineaClassicFeatures = {
 } satisfies Record<EquipmentLanguage, EquipmentFeature[]>;
 
 const lineaClassicSpecs = {
+  kz: [
+    { label: "Биіктік", value: "20.5 in / 44.5 cm" },
+    { label: "Ені", value: "27.3 in / 69.3 cm" },
+    { label: "Тереңдігі", value: "23 in / 58.5 cm" },
+    { label: "Салмағы", value: "130 lb / 59 kg" },
+    { label: "Ең төменгі қуат", value: "3350 W" },
+    { label: "Ең жоғары қуат", value: "5670 W" },
+    { label: "Кофе бойлері", value: "3.4 L" },
+    { label: "Бу бойлері", value: "7 L" },
+  ],
   ru: [
     { label: "Высота", value: "20.5 in / 44.5 cm" },
     { label: "Ширина", value: "27.3 in / 69.3 cm" },
@@ -262,6 +362,38 @@ const lineaClassicSpecs = {
 } satisfies Record<EquipmentLanguage, EquipmentDetail[]>;
 
 const gb5Features = {
+  kz: [
+    {
+      title: "қос бойлер",
+      description:
+        "Эспрессо мен буға арналған бөлек бойлерлер үздіксіз жұмыс кезінде машинаның тұрақтылығын сақтайды.",
+    },
+    {
+      title: "қос PID",
+      description:
+        "Дәлірек калибрлеу үшін кофе мен бу температуралары электронды реттеледі.",
+    },
+    {
+      title: "Piero топ қақпақтары",
+      description:
+        "Жаңартылған ішкі су жолы мен шығын өлшегіштің орналасуы температура тұрақтылығын жақсартады.",
+    },
+    {
+      title: "цифрлық дисплей",
+      description:
+        "Түсінікті цифрлық интерфейс машина параметрлерін баптауды және жұмысын бақылауды жеңілдетеді.",
+    },
+    {
+      title: "жарықтығы реттелетін шам",
+      description:
+        "Үш режимді LED жарығы топты жақсы көру үшін eco, on және brewing режимдерін қолдайды.",
+    },
+    {
+      title: "жылдам қызмет көрсетілетін бу клапаны",
+      description:
+        "Бу клапаны бүкіл торапты шешпей, алдыңғы жағынан қызмет көрсетуге лайықталған.",
+    },
+  ],
   ru: [
     {
       title: "двойные бойлеры",
@@ -329,6 +461,16 @@ const gb5Features = {
 } satisfies Record<EquipmentLanguage, EquipmentFeature[]>;
 
 const gb5Specs = {
+  kz: [
+    { label: "Биіктік", value: "21.4 in / 54.4 cm" },
+    { label: "Ені", value: "30 in / 77 cm" },
+    { label: "Тереңдігі", value: "25 in / 64 cm" },
+    { label: "Салмағы", value: "154 lb / 70 kg" },
+    { label: "Ең төменгі қуат", value: "3730 W" },
+    { label: "Ең жоғары қуат", value: "5445 W" },
+    { label: "Кофе бойлері", value: "3.4 L" },
+    { label: "Бу бойлері", value: "7 L" },
+  ],
   ru: [
     { label: "Высота", value: "21.4 in / 54.4 cm" },
     { label: "Ширина", value: "30 in / 77 cm" },
@@ -360,6 +502,61 @@ export const equipmentItems: EquipmentItem[] = [
     brand: "la-marzocco",
     type: "espresso-machine",
     translations: {
+      kz: {
+        category: "Үйге арналған кофемашина",
+        status: "Тапсырыспен",
+        description:
+          "Ықшам форматта кәсіби сипат қажет үй асүйлеріне, студиялық барларға және шағын қонақ кеңістіктеріне арналған La Marzocco платформасы.",
+        details: [
+          { label: "Бренд", value: "La Marzocco" },
+          { label: "Серия", value: "Micra" },
+          { label: "Формат", value: "Үй / ықшам" },
+          { label: "Мақсаты", value: "Эспрессо" },
+        ],
+        features: [
+          {
+            title: "түрленетін портафильтр",
+            description:
+              "3-і 1-де портафильтр бір шүмекті, қос шүмекті және түбі ашық конфигурациялар арасында жылдам ауысады.",
+          },
+          {
+            title: "су жіберу тұтқасы",
+            description:
+              "Механикалық paddle тұтқасының сезімі электр қосқышының сенімділігімен үйлеседі.",
+          },
+          {
+            title: "жылу оқшауланған бу түтігі",
+            description:
+              "Cool-touch бу түтігі жұмыста ыңғайлы әрі қуатты бу беруді сақтайды.",
+          },
+          {
+            title: "ыңғайлы су ыдысы",
+            description:
+              "2 литрлік автономды су ыдысына қол жеткізу оңай, қажет болса машинаны су құбырына қосуға болады.",
+          },
+          {
+            title: "қосымшаға қосылу",
+            description:
+              "La Marzocco Home App арқылы температураны, параметрлерді, кестелерді өзгертіп, автоматты кері шаюды іске қосуға болады.",
+          },
+          {
+            title: "баристаға арналған жарық",
+            description:
+              "LED жарығы жұмыс аймағын жарықтандырып, топ маңындағы көріністі жақсартады.",
+          },
+        ],
+        specifications: [
+          { label: "Биіктік", value: "13.3 in / 33.8 cm" },
+          { label: "Ені", value: "11.4 in / 29 cm" },
+          { label: "Тереңдігі", value: "18.6 in / 47.2 cm" },
+          { label: "Салмағы", value: "42 lb / 19 kg" },
+          { label: "Ең төменгі қуат", value: "1600 W (110V)" },
+          { label: "Ең жоғары қуат", value: "1850 W (220V)" },
+          { label: "Кофе бойлері", value: "0.25 L" },
+          { label: "Бу бойлері", value: "1.6 L" },
+          { label: "Су ыдысы", value: "2 L" },
+        ],
+      },
       ru: {
         category: "Домашняя кофемашина",
         status: "Под заказ",
@@ -484,6 +681,63 @@ export const equipmentItems: EquipmentItem[] = [
     brand: "la-marzocco",
     type: "espresso-machine",
     translations: {
+      kz: {
+        category: "Просьюмер кофемашинасы",
+        status: "Тапсырыспен",
+        description:
+          "Премиум үй жабдықтарына, каппинг аймақтарына және дизайнға мән беретін кофе нүктелеріне арналған, айқын пішінді әрі кәсіби келбеті бар Linea просьюмер платформасы.",
+        details: [
+          { label: "Бренд", value: "La Marzocco" },
+          { label: "Серия", value: "Linea Mini R" },
+          { label: "Формат", value: "Просьюмер" },
+          { label: "Мақсаты", value: "Эспрессо" },
+        ],
+        features: [
+          {
+            title: "қос бойлер + PID",
+            description:
+              "PID температура бақылауы бар қос бойлер эспрессо экстракциясының тұрақты әрі болжамды болуын қамтамасыз етеді.",
+          },
+          {
+            title: "кірістірілген шот таймері",
+            description:
+              "Кірістірілген таймер әр шотта су өту уақытын көзбен бақылауға мүмкіндік береді.",
+          },
+          {
+            title: "қысымды жылдам баптау",
+            description:
+              "Сорғы қысымын нақты кофе мен рецептке сай жылдам реттеуге болады.",
+          },
+          {
+            title: "алдын ала сулау жүйесі",
+            description:
+              "Екі клапанды алдын ала сулау жүйесі кофе таблеткасын жұмсақ қанықтырады және өздігінен тазаланатын ағын шектегішін қамтиды.",
+          },
+          {
+            title: "жартылай автоматты paddle",
+            description:
+              "Paddle интерфейсі қолмен басқару сезімін алдын ала сулауды электрондық бақылаумен біріктіреді.",
+          },
+          {
+            title: "Home App интеграциясы",
+            description:
+              "La Marzocco Home App қосымшасына қосылу баптау, қызмет көрсету және пайдалану мүмкіндіктерін кеңейтеді.",
+          },
+        ],
+        specifications: [
+          { label: "Биіктік", value: "15 in / 38 cm" },
+          { label: "Ені", value: "14.2 in / 36 cm" },
+          { label: "Тереңдігі", value: "21.3 in / 54 cm" },
+          { label: "Салмағы", value: "66.2 lb / 30 kg" },
+          { label: "Кернеу", value: "120V немесе 220–240V, бір фаза" },
+          {
+            label: "Ең жоғары қуат",
+            value: "1800 W (120V) / 1770-2100 W (220-240V)",
+          },
+          { label: "Бу бойлері", value: "3-3.5 L" },
+          { label: "Су ыдысы", value: "2.5 L" },
+        ],
+      },
       ru: {
         category: "Просьюмер-кофемашина",
         status: "Под заказ",
@@ -615,6 +869,20 @@ export const equipmentItems: EquipmentItem[] = [
     brand: "la-marzocco",
     type: "espresso-machine",
     translations: {
+      kz: {
+        category: "Кәсіби кофемашина",
+        status: "Тапсырыспен",
+        description:
+          "Кофеханадағы тұрақты ағынға арналған екі топты көлемдік мөлшерлеу конфигурациясы: таныс PB пішіні, тот баспайтын болат әрлеуі және сервиске ыңғайлы эргономика.",
+        details: [
+          { label: "Бренд", value: "La Marzocco" },
+          { label: "Серия", value: "Linea PB AV" },
+          { label: "Топтар", value: "2 топ" },
+          { label: "Басқару", value: "Автоматты көлемдік" },
+        ],
+        features: lineaPbFeatures.kz,
+        specifications: lineaPbSpecs.kz,
+      },
       ru: {
         category: "Коммерческая кофемашина",
         status: "Под заказ",
@@ -660,6 +928,20 @@ export const equipmentItems: EquipmentItem[] = [
     brand: "la-marzocco",
     type: "espresso-machine",
     translations: {
+      kz: {
+        category: "Кәсіби кофемашина",
+        status: "Тапсырыспен",
+        description:
+          "Сенімді жұмыс тәртібі мен уақыт сынынан өткен сыртқы келбет қажет қарбалас барларға арналған AV конфигурациясындағы ең танымал Linea пішіні.",
+        details: [
+          { label: "Бренд", value: "La Marzocco" },
+          { label: "Серия", value: "Linea Classic S AV" },
+          { label: "Топтар", value: "2 топ" },
+          { label: "Басқару", value: "Автоматты көлемдік" },
+        ],
+        features: lineaClassicFeatures.kz,
+        specifications: lineaClassicSpecs.kz,
+      },
       ru: {
         category: "Коммерческая кофемашина",
         status: "Под заказ",
@@ -705,6 +987,20 @@ export const equipmentItems: EquipmentItem[] = [
     brand: "la-marzocco",
     type: "espresso-machine",
     translations: {
+      kz: {
+        category: "Кәсіби кофемашина",
+        status: "Тапсырыспен",
+        description:
+          "Иілген корпусы, AV басқаруы және айқын алдыңғы бөлшегі бар GB5 — бардың классикалық көрнекі орталығын іздейтін мекемелерге арналған.",
+        details: [
+          { label: "Бренд", value: "La Marzocco" },
+          { label: "Серия", value: "GB5 S AV" },
+          { label: "Топтар", value: "2 топ" },
+          { label: "Басқару", value: "Автоматты көлемдік" },
+        ],
+        features: gb5Features.kz,
+        specifications: gb5Specs.kz,
+      },
       ru: {
         category: "Коммерческая кофемашина",
         status: "Под заказ",
@@ -750,6 +1046,20 @@ export const equipmentItems: EquipmentItem[] = [
     brand: "la-marzocco",
     type: "espresso-machine",
     translations: {
+      kz: {
+        category: "Кәсіби кофемашина",
+        status: "Тапсырыспен",
+        description:
+          "Экстракцияны қолмен көбірек бақылауды және танымал классикалық келбетті қалайтындарға арналған, айқын корпусы сақталған GB5 қолмен басқарылатын нұсқасы.",
+        details: [
+          { label: "Бренд", value: "La Marzocco" },
+          { label: "Серия", value: "GB5 S EE" },
+          { label: "Топтар", value: "2 топ" },
+          { label: "Басқару", value: "Жартылай автоматты" },
+        ],
+        features: gb5Features.kz,
+        specifications: gb5Specs.kz,
+      },
       ru: {
         category: "Коммерческая кофемашина",
         status: "Под заказ",

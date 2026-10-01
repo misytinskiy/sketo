@@ -5,6 +5,19 @@ import { appendAuditLog, type EditorTransaction } from "@/lib/db/editor";
 import { createAdminClient } from "./admin";
 import { getStorageBucketName, resolveCoffeeStorageUrl, resolveEquipmentStorageUrl } from "./storage-public";
 
+const pendingCleanup = and(
+  eq(auditLogs.entityType, "media"),
+  sql`${auditLogs.diff}->>'cleanupPending' = 'true'`,
+);
+const readyForCleanup = sql`(${auditLogs.diff}->>'cleanupFailed' = 'true' or ${auditLogs.createdAt} < now() - interval '15 minutes')`;
+
+// Count files rather than jobs: a file can have more than one queued attempt.
+export async function getPendingMediaCleanupCount() {
+  const [row] = await db.select({ count: sql<number>`count(distinct (${auditLogs.diff}->>'kind', ${auditLogs.diff}->>'path'))::int` })
+    .from(auditLogs).where(and(pendingCleanup, readyForCleanup));
+  return Number(row?.count ?? 0);
+}
+
 // Durable outbox stored in the existing audit table; no schema migration is required.
 export async function queueMediaCleanup(kind: ProductType, path: string, tx: typeof db | EditorTransaction = db) {
   return appendAuditLog({ entityType: "media", entityId: crypto.randomUUID(), action: "delete",
@@ -14,9 +27,8 @@ export async function queueMediaCleanup(kind: ProductType, path: string, tx: typ
 
 export async function processMediaCleanup(ids?: string[]) {
   const jobs = await db.select().from(auditLogs).where(and(
-    eq(auditLogs.entityType, "media"),
-    sql`${auditLogs.diff}->>'cleanupPending' = 'true'`,
-    ids ? inArray(auditLogs.id, ids) : sql`${auditLogs.createdAt} < now() - interval '15 minutes'`,
+    pendingCleanup,
+    ids ? inArray(auditLogs.id, ids) : readyForCleanup,
   )).limit(20);
   let pending = 0;
   for (const job of jobs) {
@@ -44,7 +56,11 @@ export async function processMediaCleanup(ids?: string[]) {
         const { error } = await admin.storage.from(bucket).remove([path]);
         if (!error) { removed = true; break; }
       }
-      if (!removed) { pending++; continue; }
+      if (!removed) {
+        pending++;
+        await db.update(auditLogs).set({ diff: { kind, path, cleanupPending: true, cleanupFailed: true } }).where(eq(auditLogs.id, job.id));
+        continue;
+      }
       await db.transaction(async (tx) => {
         await tx.delete(mediaAssets).where(and(eq(mediaAssets.bucket, bucket), eq(mediaAssets.path, path)));
         await tx.update(auditLogs).set({ diff: { kind, path, cleanupPending: false } }).where(eq(auditLogs.id, job.id));
@@ -52,6 +68,9 @@ export async function processMediaCleanup(ids?: string[]) {
     } catch (error) {
       pending++;
       console.error("Storage cleanup deferred", job.id, error);
+      try {
+        await db.update(auditLogs).set({ diff: { ...(job.diff as Record<string, unknown>), cleanupFailed: true } }).where(eq(auditLogs.id, job.id));
+      } catch { /* Keep the queued job if the database is also unavailable. */ }
     }
   }
   return pending;

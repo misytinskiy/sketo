@@ -1,4 +1,6 @@
 "use client";
+import LocalizedText from "@/app/components/LocalizedText";
+
 
 import Link from "next/link";
 import { useRef, useState } from "react";
@@ -60,7 +62,7 @@ export default function WhyFinalCtaButton() {
       onFocus={handleFocus}
       onBlur={handleBlur}
     >
-      <span className={styles.finalLinkLabel}>View catalogue</span>
+      <span className={styles.finalLinkLabel}><LocalizedText text="View catalogue" /></span>
     </Link>
   );
 }

@@ -16,7 +16,8 @@ import {
 } from "./equipment-data";
 import styles from "./equipment.module.css";
 
-function getItemsLabel(count: number, language: "ru" | "en") {
+function getItemsLabel(count: number, language: "ru" | "en" | "kz") {
+  if (language === "kz") return "тауар";
   if (language === "en") {
     return count === 1 ? "item" : "items";
   }
@@ -36,7 +37,7 @@ function getItemsLabel(count: number, language: "ru" | "en") {
 }
 
 type EquipmentCatalogContentProps = {
-  initialLanguage: "ru" | "en";
+  initialLanguage: "ru" | "en" | "kz";
   items: EquipmentCatalogCardItem[];
 };
 
@@ -82,7 +83,7 @@ export default function EquipmentCatalogContent({
           <Link
             href="/"
             className={styles.homeLogo}
-            aria-label={currentLanguage === "en" ? "Sketo home" : "Главная Sketo"}
+            aria-label={currentLanguage === "kz" ? "Sketo басты беті" : currentLanguage === "en" ? "Sketo home" : "Главная Sketo"}
           >
             sketo.
           </Link>
@@ -92,14 +93,14 @@ export default function EquipmentCatalogContent({
         <section
           className={styles.controls}
           aria-label={
-            currentLanguage === "en"
+            currentLanguage === "kz" ? "Жабдықты іздеу және сүзгілер" : currentLanguage === "en"
               ? "Equipment search and filters"
               : "Поиск и фильтры оборудования"
           }
         >
           <div className={styles.searchBlock}>
             <label htmlFor="equipment-search" className={styles.controlLabel}>
-              {currentLanguage === "en" ? "Search" : "Поиск"}
+              {currentLanguage === "kz" ? "Іздеу" : currentLanguage === "en" ? "Search" : "Поиск"}
             </label>
             <input
               id="equipment-search"
@@ -108,7 +109,7 @@ export default function EquipmentCatalogContent({
               onChange={(event) => setSearchValue(event.target.value)}
               className={styles.searchInput}
               placeholder={
-                currentLanguage === "en"
+                currentLanguage === "kz" ? "Модель немесе санат" : currentLanguage === "en"
                   ? "Model or category"
                   : "Модель или категория"
               }
@@ -117,7 +118,7 @@ export default function EquipmentCatalogContent({
 
           <div className={styles.filtersBlock}>
             <span className={styles.controlLabel}>
-              {currentLanguage === "en" ? "Brands" : "Бренды"}
+              {currentLanguage === "kz" ? "Брендтер" : currentLanguage === "en" ? "Brands" : "Бренды"}
             </span>
             <div className={styles.filterRow}>
               {(Object.keys(equipmentBrandLabels.ru) as EquipmentBrand[]).map(
@@ -143,7 +144,7 @@ export default function EquipmentCatalogContent({
 
           <div className={styles.filtersBlock}>
             <span className={styles.controlLabel}>
-              {currentLanguage === "en" ? "Type" : "Тип"}
+              {currentLanguage === "kz" ? "Түрі" : currentLanguage === "en" ? "Type" : "Тип"}
             </span>
             <div className={styles.filterRow}>
               {(Object.keys(equipmentTypeLabels.ru) as EquipmentType[]).map(
@@ -173,7 +174,7 @@ export default function EquipmentCatalogContent({
         <section
           className={styles.grid}
           aria-label={
-            currentLanguage === "en" ? "Equipment catalog" : "Каталог оборудования"
+            currentLanguage === "kz" ? "Жабдық каталогы" : currentLanguage === "en" ? "Equipment catalog" : "Каталог оборудования"
           }
         >
           {filteredItems.length > 0 ? (
@@ -187,7 +188,7 @@ export default function EquipmentCatalogContent({
           ) : (
             <div className={styles.emptyState}>
               <p className={styles.emptyStateText}>
-                {currentLanguage === "en"
+                {currentLanguage === "kz" ? "Ештеңе табылмады. Басқа модельді, брендті немесе жабдық түрін қолданып көріңіз." : currentLanguage === "en"
                   ? "Nothing found. Try another model, brand, or equipment type."
                   : "Ничего не найдено. Попробуй другую модель, бренд или тип оборудования."}
               </p>

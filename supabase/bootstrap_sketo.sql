@@ -32,7 +32,7 @@ BEGIN
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'locale') THEN
-    CREATE TYPE locale AS ENUM ('ru', 'en');
+    CREATE TYPE locale AS ENUM ('ru', 'en', 'kz');
   END IF;
 
   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'detail_kind') THEN

@@ -7,7 +7,7 @@ import { resolveEquipmentStorageUrl } from "@/lib/supabase/storage-public";
 import type { EquipmentItem } from "./equipment-data";
 
 export type EquipmentCatalogCardItem = Omit<EquipmentItem, "translations" | "images"> & {
-  translations: Record<"ru" | "en", Pick<EquipmentItem["translations"]["ru"], "category" | "status" | "description">>;
+  translations: Record<"ru" | "en" | "kz", Pick<EquipmentItem["translations"]["ru"], "category" | "status" | "description">>;
 };
 const published = and(eq(products.type, "equipment"), eq(products.isPublished, true));
 const cacheOptions = { tags: ["products", "equipment-catalog"], revalidate: 300 };
@@ -21,17 +21,18 @@ export const equipmentCardQuery = {
 } satisfies NonNullable<Parameters<typeof db.query.products.findMany>[0]>;
 
 function mapCard(row: Awaited<ReturnType<typeof loadCards>>[number]): EquipmentCatalogCardItem {
-  const translation = (locale: "ru" | "en") => {
-    const value = row.translations.find((entry) => entry.locale === locale);
+  const translation = (locale: "ru" | "en" | "kz") => {
+    const value = row.translations.find((entry) => entry.locale === locale)
+      ?? (locale === "kz" ? row.translations.find((entry) => entry.locale === "ru") : undefined);
     return { category: value?.category ?? "", status: value?.statusLabel ?? "", description: value?.description ?? "" };
   };
   return { slug: row.slug, image: resolveEquipmentStorageUrl(row.imageUrl),
     name: row.name ?? row.slug, brand: row.brand ?? "la-marzocco", type: row.equipmentType ?? "espresso-machine",
-    translations: { ru: translation("ru"), en: translation("en") } };
+    translations: { ru: translation("ru"), en: translation("en"), kz: translation("kz") } };
 }
 async function loadCards() { return db.query.products.findMany(equipmentCardQuery); }
 export const getEquipmentCatalogItems = cache(unstable_cache(
-  async () => (await loadCards()).map(mapCard), ["equipment-catalog-cards-v2"], cacheOptions,
+  async () => (await loadCards()).map(mapCard), ["equipment-catalog-cards-v3-kz"], cacheOptions,
 ));
 
 export const equipmentDetailRelations = {
@@ -48,26 +49,31 @@ async function loadDetail(slug: string, preview = false): Promise<EquipmentItem 
   });
   if (!row) return null;
   const card = mapCard(row);
-  const translation = (locale: "ru" | "en") => ({
+  // Fall back only when the locale is absent; empty saved collections stay empty.
+  const detailLocale = (locale: "ru" | "en" | "kz") =>
+    locale === "kz" && !row.translations.some((entry) => entry.locale === "kz") ? "ru" : locale;
+  const translation = (locale: "ru" | "en" | "kz") => ({
     ...card.translations[locale],
-    description: row.translations.find((entry) => entry.locale === locale)?.description ?? "",
-    details: row.details.filter((entry) => entry.locale === locale && entry.kind === "detail").map(({ label, value }) => ({ label, value })),
-    features: row.features.filter((entry) => entry.locale === locale).map(({ title, description }) => ({ title, description })),
-    specifications: row.details.filter((entry) => entry.locale === locale && entry.kind === "specification").map(({ label, value }) => ({ label, value })),
+    seoTitle: row.translations.find((entry) => entry.locale === detailLocale(locale))?.seoTitle ?? "",
+    seoDescription: row.translations.find((entry) => entry.locale === detailLocale(locale))?.seoDescription ?? "",
+    description: row.translations.find((entry) => entry.locale === detailLocale(locale))?.description ?? "",
+    details: row.details.filter((entry) => entry.locale === detailLocale(locale) && entry.kind === "detail").map(({ label, value }) => ({ label, value })),
+    features: row.features.filter((entry) => entry.locale === detailLocale(locale)).map(({ title, description }) => ({ title, description })),
+    specifications: row.details.filter((entry) => entry.locale === detailLocale(locale) && entry.kind === "specification").map(({ label, value }) => ({ label, value })),
   });
   const images = [...new Set(row.images.map((image) => resolveEquipmentStorageUrl(image.url)))];
   const primary = row.images.find((image) => image.isPrimary);
-  return { ...card, image: primary ? resolveEquipmentStorageUrl(primary.url) : images[0] ?? card.image, images: images.length ? images : card.image ? [card.image] : [], translations: { ru: translation("ru"), en: translation("en") } };
+  return { ...card, image: primary ? resolveEquipmentStorageUrl(primary.url) : images[0] ?? card.image, images: images.length ? images : card.image ? [card.image] : [], translations: { ru: translation("ru"), en: translation("en"), kz: translation("kz") } };
 }
 export const getEquipmentItemBySlug = cache(unstable_cache(
-  (slug: string) => loadDetail(slug), ["equipment-product-detail-v2"], cacheOptions,
+  (slug: string) => loadDetail(slug), ["equipment-product-detail-v4-seo"], cacheOptions,
 ));
 // Preview deliberately bypasses the public cache and publication filter.
 export async function getEquipmentPreviewItem(slug: string) { return loadDetail(slug, true); }
 
 const getSlugs = cache(unstable_cache(
   () => db.select({ slug: products.slug }).from(products).where(published).orderBy(asc(products.sortOrder), asc(products.slug)),
-  ["equipment-catalog-slugs-v2"], cacheOptions,
+  ["equipment-catalog-slugs-v3-kz"], cacheOptions,
 ));
 export async function getEquipmentItemIndex(slug: string) {
   return (await getSlugs()).findIndex((item) => item.slug === slug);

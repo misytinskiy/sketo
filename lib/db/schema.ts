@@ -29,7 +29,7 @@ export const equipmentTypeEnum = pgEnum("equipment_type", [
   "grinder",
   "espresso-machine",
 ]);
-export const localeEnum = pgEnum("locale", ["ru", "en"]);
+export const localeEnum = pgEnum("locale", ["ru", "en", "kz"]);
 export const detailKindEnum = pgEnum("detail_kind", ["detail", "specification"]);
 export const editorialRoleEnum = pgEnum("editorial_role", [
   "admin",

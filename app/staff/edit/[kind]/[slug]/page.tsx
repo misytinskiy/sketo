@@ -1,3 +1,4 @@
+import { requireStaff } from "@/lib/staff-auth";
 import { createPreviewHref } from "@/lib/staff-preview";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,7 +30,7 @@ const copy = {
     inStock: "В наличии",
     outOfStock: "Нет в наличии",
     onRequest: "Под заказ",
-    ruEn: "RU / EN",
+    ruEn: "RU / EN / KZ",
     singleLanguage: "Один язык",
     catalogCoffee: "Каталог кофе",
     catalogEquipment: "Каталог оборудования",
@@ -56,7 +57,7 @@ type EditorFormProduct = NonNullable<
 
 function hasBothTranslations(product: EditorFormProduct) {
   const locales = new Set(product.translations.map((entry) => entry.locale));
-  return locales.has("ru") && locales.has("en");
+  return locales.has("ru") && locales.has("en") && locales.has("kz");
 }
 
 function buildCoffeeFormData(
@@ -65,6 +66,7 @@ function buildCoffeeFormData(
 ): EditorProductFormData {
   const ruTranslation = product.translations.find((entry) => entry.locale === "ru");
   const enTranslation = product.translations.find((entry) => entry.locale === "en");
+  const kzTranslation = product.translations.find((entry) => entry.locale === "kz");
   const ruDetails = product.details
     .filter((detail) => detail.locale === "ru" && detail.kind === "detail")
     .map((detail) => ({
@@ -73,6 +75,12 @@ function buildCoffeeFormData(
     }));
   const enDetails = product.details
     .filter((detail) => detail.locale === "en" && detail.kind === "detail")
+    .map((detail) => ({
+      label: detail.label,
+      value: detail.value,
+    }));
+  const kzDetails = product.details
+    .filter((detail) => detail.locale === "kz" && detail.kind === "detail")
     .map((detail) => ({
       label: detail.label,
       value: detail.value,
@@ -98,6 +106,13 @@ function buildCoffeeFormData(
           description: enTranslation?.description ?? "",
           details: enDetails,
         },
+        kz: {
+          name: kzTranslation?.name ?? "",
+          size: kzTranslation?.size ?? "",
+          notes: kzTranslation?.notes ?? "",
+          description: kzTranslation?.description ?? "",
+          details: kzDetails,
+        },
       },
     },
     "ru",
@@ -117,6 +132,8 @@ function buildCoffeeFormData(
     price: product.priceDisplay ?? "",
     translations: {
       ru: {
+        seoTitle: ruTranslation?.seoTitle ?? "",
+        seoDescription: ruTranslation?.seoDescription ?? "",
         title: ruTranslation?.name ?? product.name ?? fallbackContent.name,
         size: ruTranslation?.size ?? fallbackContent.size,
         notes: ruTranslation?.notes ?? fallbackContent.notes,
@@ -124,11 +141,22 @@ function buildCoffeeFormData(
         details: ruDetails,
       },
       en: {
+        seoTitle: enTranslation?.seoTitle ?? "",
+        seoDescription: enTranslation?.seoDescription ?? "",
         title: enTranslation?.name ?? "",
         size: enTranslation?.size ?? "",
         notes: enTranslation?.notes ?? "",
         description: enTranslation?.description ?? "",
         details: enDetails,
+      },
+      kz: {
+        seoTitle: kzTranslation?.seoTitle ?? "",
+        seoDescription: kzTranslation?.seoDescription ?? "",
+        title: kzTranslation?.name ?? "",
+        size: kzTranslation?.size ?? "",
+        notes: kzTranslation?.notes ?? "",
+        description: kzTranslation?.description ?? "",
+        details: kzDetails,
       },
     },
   };
@@ -140,14 +168,15 @@ function buildEquipmentFormData(
 ): EditorProductFormData {
   const ruTranslation = product.translations.find((entry) => entry.locale === "ru");
   const enTranslation = product.translations.find((entry) => entry.locale === "en");
-  const getDetailsForLocale = (locale: "ru" | "en", kind: "detail" | "specification") =>
+  const kzTranslation = product.translations.find((entry) => entry.locale === "kz");
+  const getDetailsForLocale = (locale: "ru" | "en" | "kz", kind: "detail" | "specification") =>
     product.details
       .filter((detail) => detail.locale === locale && detail.kind === kind)
       .map((detail) => ({
         label: detail.label,
         value: detail.value,
       }));
-  const getFeaturesForLocale = (locale: "ru" | "en") =>
+  const getFeaturesForLocale = (locale: "ru" | "en" | "kz") =>
     product.features
       .filter((feature) => feature.locale === locale)
       .map((feature) => ({
@@ -171,6 +200,8 @@ function buildEquipmentFormData(
     equipmentType: product.equipmentType ?? "grinder",
     translations: {
       ru: {
+        seoTitle: ruTranslation?.seoTitle ?? "",
+        seoDescription: ruTranslation?.seoDescription ?? "",
         title: ruTranslation?.name ?? product.name ?? "",
         category: ruTranslation?.category ?? "",
         description: ruTranslation?.description ?? "",
@@ -179,6 +210,8 @@ function buildEquipmentFormData(
         specifications: getDetailsForLocale("ru", "specification"),
       },
       en: {
+        seoTitle: enTranslation?.seoTitle ?? "",
+        seoDescription: enTranslation?.seoDescription ?? "",
         title: enTranslation?.name ?? "",
         category: enTranslation?.category ?? "",
         description: enTranslation?.description ?? "",
@@ -186,12 +219,23 @@ function buildEquipmentFormData(
         features: getFeaturesForLocale("en"),
         specifications: getDetailsForLocale("en", "specification"),
       },
+      kz: {
+        seoTitle: kzTranslation?.seoTitle ?? "",
+        seoDescription: kzTranslation?.seoDescription ?? "",
+        title: kzTranslation?.name ?? "",
+        category: kzTranslation?.category ?? "",
+        description: kzTranslation?.description ?? "",
+        details: getDetailsForLocale("kz", "detail"),
+        features: getFeaturesForLocale("kz"),
+        specifications: getDetailsForLocale("kz", "specification"),
+      },
     },
     images,
   };
 }
 
 export default async function StaffEditPage({ params }: StaffEditPageProps) {
+  await requireStaff();
   const { kind, slug } = await params;
   const product = await getEditorProductFormBySlug(kind, slug);
 

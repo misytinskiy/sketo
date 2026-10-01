@@ -1,3 +1,4 @@
+import LocalizedText from "@/app/components/LocalizedText";
 import Link from "next/link";
 import WhyScene from "../why/WhyScene";
 import styles from "./HomeWhyTeaser.module.css";
@@ -33,12 +34,9 @@ export default function HomeWhyTeaser() {
       <div className={styles.content}>
         <p className={styles.eyebrow}>Sketo coffee company</p>
         <h2 id="home-why-teaser-title" className={styles.title}>
-          Why Sketo
-        </h2>
+          <LocalizedText text="Why Sketo" /></h2>
         <p className={styles.lead}>
-          We build coffee around clarity, character and a quiet confidence in
-          every detail.
-        </p>
+          <LocalizedText text="We build coffee around clarity, character and a quiet confidence in every detail." /></p>
       </div>
     </Link>
   );

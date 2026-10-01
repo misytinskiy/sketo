@@ -1,4 +1,6 @@
 "use client";
+import LocalizedText from "@/app/components/LocalizedText";
+
 
 import {
   useEffect,
@@ -11,6 +13,32 @@ import type { Language } from "./language";
 import styles from "./SeasonalMenu.module.css";
 
 const drinksByLanguage = {
+  kz: [
+    {
+      name: "Cherry Bloom",
+      image: "/photo/seasonMenu/cherryBloom.PNG",
+      description:
+        "Шырынды шие, піскен алма және жеңіл уытты соңғы дәм. Жазғы бақта серуендегенді еске түсіретін сусын.",
+    },
+    {
+      name: "Banana Tonic",
+      image: "/photo/seasonMenu/bananaTonic.PNG",
+      description:
+        "Нәзік бананды милк-панч, цитрус ащылығы және сергітетін тоник. Рауғаштың жеңіл реңкі бар жарқын әрі ерекше дәм.",
+    },
+    {
+      name: "White Pine",
+      image: "/photo/seasonMenu/whitePine.PNG",
+      description:
+        "Тропикалық ананас, ақ шайдың гүлді ноталары және жеңіл өсімдік сипаты. Ыстық күндерге арналған сергітетін әрі әсем сусын.",
+    },
+    {
+      name: "Golden Osmanthus",
+      image: "/photo/seasonMenu/goldenOsmanthus.PNG",
+      description:
+        "Османтус, Earl Grey және нәзік цитрус реңктері. Асықпай өтетін жазғы кештерге арналған жұмсақ, гүлді және көпқырлы дәм.",
+    },
+  ],
   ru: [
     {
       name: "Cherry Bloom",
@@ -66,7 +94,7 @@ const drinksByLanguage = {
 } as const;
 
 type SeasonalMenuProps = {
-  language: Exclude<Language, "kz">;
+  language: Language;
 };
 
 export default function SeasonalMenu({ language }: SeasonalMenuProps) {
@@ -124,9 +152,13 @@ export default function SeasonalMenu({ language }: SeasonalMenuProps) {
           <div className={styles.mainColumn}>
             <div className={styles.topContent}>
               <div className={styles.headingBlock}>
-                <p className={styles.eyebrow}>summer / 2026</p>
+                <p className={styles.eyebrow}><LocalizedText text="summer / 2026" /></p>
                 <h2 id="seasonal-menu-title" className={styles.title}>
-                  {language === "en" ? (
+                  {language === "kz" ? (
+                    <>
+                      <LocalizedText text="Сезонное" /><br />
+                      <LocalizedText text="меню" /></>
+                  ) : language === "en" ? (
                     <>
                       Seasonal
                       <br />
@@ -134,16 +166,14 @@ export default function SeasonalMenu({ language }: SeasonalMenuProps) {
                     </>
                   ) : (
                     <>
-                      Сезонное
-                      <br />
-                      меню
-                    </>
+                      <LocalizedText text="Сезонное" /><br />
+                      <LocalizedText text="меню" /></>
                   )}
                 </h2>
               </div>
               <div className={styles.leadBlock}>
                 <p className={styles.lead}>
-                  {language === "en"
+                  {language === "kz" ? "sketo.coffee-де әр сусыны өзіндік көңіл күй сыйлайтын маусымдық мәзір жинадық: шырынды жеміс балғындығынан нәзік гүл мен шай ноталарына дейін. Жеңіл, сергітетін әрі өзіндік мінезі бар бұл сусындар жылы кездесулер мен ұзақ әңгімелерге арналған." : language === "en"
                     ? "At sketo.coffee, we built a seasonal drink menu where every item carries its own mood: from juicy fruit brightness to delicate floral and tea-like notes. Light, refreshing, and full of character, these drinks are made for warm meetings and long conversations."
                     : "В sketo.coffee мы собрали сезонное меню напитков, где каждая позиция несет свое настроение: от сочной фруктовой свежести до тонких цветочных и чайных нот. Легкие, освежающие и с характером, эти напитки созданы для теплых встреч и долгих разговоров."}
                 </p>
@@ -210,7 +240,7 @@ export default function SeasonalMenu({ language }: SeasonalMenuProps) {
             </div>
 
             <p className={styles.footerNote}>
-              {language === "en"
+              {language === "kz" ? "Дәмін татып, сүйікті сусыныңызды табуға және маусымды Sketo-мен бірге өткізуге келіңіз." : language === "en"
                 ? "Come by to taste, find your favorites, and spend the season with Sketo."
                 : "Приходите пробовать, находить своих фаворитов и проводить сезон вместе со Sketo."}
             </p>

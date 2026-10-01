@@ -12,18 +12,21 @@ import {
   getEquipmentItemContent,
 } from "../equipment-data";
 import EquipmentMediaGallery from "./EquipmentMediaGallery";
+import ProductOrderButton from "../../../components/ProductOrderButton";
 import styles from "./equipment-item.module.css";
 
 type EquipmentItemPageClientProps = {
+  productUrl: string;
   item: EquipmentItem;
   itemIndex: number;
-  initialLanguage: "ru" | "en";
+  initialLanguage: "ru" | "en" | "kz";
 };
 
 export default function EquipmentItemPageClient({
   item,
   itemIndex,
   initialLanguage,
+  productUrl,
 }: EquipmentItemPageClientProps) {
   const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const currentLanguage = getContentLanguage(language);
@@ -36,7 +39,7 @@ export default function EquipmentItemPageClient({
           <Link
             href="/"
             className={styles.homeLogo}
-            aria-label={currentLanguage === "en" ? "Sketo home" : "Главная Sketo"}
+            aria-label={currentLanguage === "kz" ? "Sketo басты беті" : currentLanguage === "en" ? "Sketo home" : "Главная Sketo"}
           >
             sketo.
           </Link>
@@ -45,24 +48,24 @@ export default function EquipmentItemPageClient({
 
         <section className={styles.layout}>
           <Link href="/equipment" className={styles.backLink}>
-            {currentLanguage === "en"
+            {currentLanguage === "kz" ? "Жабдыққа оралу" : currentLanguage === "en"
               ? "Back to equipment"
               : "Назад к оборудованию"}
           </Link>
 
           <div className={styles.techMeta}>
             <p className={styles.techMetaText}>
-              {currentLanguage === "en" ? "ITEM" : "ТОВАР"}{" "}
+              {currentLanguage === "kz" ? "ТАУАР" : currentLanguage === "en" ? "ITEM" : "ТОВАР"}{" "}
               {(itemIndex + 1).toString().padStart(2, "0")}
             </p>
             <p className={styles.techMetaText}>
-              {currentLanguage === "en" ? "ARTICLE" : "АРТИКУЛ"} /{" "}
+              {currentLanguage === "kz" ? "АРТИКУЛ" : currentLanguage === "en" ? "ARTICLE" : "АРТИКУЛ"} /{" "}
               {item.slug.toUpperCase()}
             </p>
             <p className={styles.techMetaText}>
-              {currentLanguage === "en" ? "GALLERY" : "ГАЛЕРЕЯ"} /{" "}
+              {currentLanguage === "kz" ? "ГАЛЕРЕЯ" : currentLanguage === "en" ? "GALLERY" : "ГАЛЕРЕЯ"} /{" "}
               {String(item.images.length).padStart(2, "0")}{" "}
-              {currentLanguage === "en" ? "FRAMES" : "КАДРОВ"}
+              {currentLanguage === "kz" ? "КАДР" : currentLanguage === "en" ? "FRAMES" : "КАДРОВ"}
             </p>
           </div>
 
@@ -79,19 +82,19 @@ export default function EquipmentItemPageClient({
 
             <div className={styles.infoCard}>
               <p className={styles.sectionLabel}>
-                {currentLanguage === "en" ? "Overview" : "Обзор"}
+                {currentLanguage === "kz" ? "Шолу" : currentLanguage === "en" ? "Overview" : "Обзор"}
               </p>
               <p className={styles.description}>{content.description}</p>
             </div>
 
             <div className={styles.infoCard}>
               <p className={styles.sectionLabel}>
-                {currentLanguage === "en" ? "Configuration" : "Конфигурация"}
+                {currentLanguage === "kz" ? "Конфигурация" : currentLanguage === "en" ? "Configuration" : "Конфигурация"}
               </p>
               <div className={styles.detailsList}>
                 <div className={styles.detailRow}>
                   <p className={styles.detailLabel}>
-                    {currentLanguage === "en" ? "Brand" : "Бренд"}
+                    {currentLanguage === "kz" ? "Бренд" : currentLanguage === "en" ? "Brand" : "Бренд"}
                   </p>
                   <p className={styles.detailValue}>
                     {equipmentBrandLabels[currentLanguage][item.brand]}
@@ -99,7 +102,7 @@ export default function EquipmentItemPageClient({
                 </div>
                 <div className={styles.detailRow}>
                   <p className={styles.detailLabel}>
-                    {currentLanguage === "en" ? "Type" : "Тип"}
+                    {currentLanguage === "kz" ? "Түрі" : currentLanguage === "en" ? "Type" : "Тип"}
                   </p>
                   <p className={styles.detailValue}>
                     {equipmentTypeLabels[currentLanguage][item.type]}
@@ -107,13 +110,13 @@ export default function EquipmentItemPageClient({
                 </div>
                 <div className={styles.detailRow}>
                   <p className={styles.detailLabel}>
-                    {currentLanguage === "en" ? "Category" : "Категория"}
+                    {currentLanguage === "kz" ? "Санат" : currentLanguage === "en" ? "Category" : "Категория"}
                   </p>
                   <p className={styles.detailValue}>{content.category}</p>
                 </div>
                 <div className={styles.detailRow}>
                   <p className={styles.detailLabel}>
-                    {currentLanguage === "en" ? "Status" : "Статус"}
+                    {currentLanguage === "kz" ? "Мәртебе" : currentLanguage === "en" ? "Status" : "Статус"}
                   </p>
                   <p className={styles.detailValue}>{content.status}</p>
                 </div>
@@ -122,7 +125,7 @@ export default function EquipmentItemPageClient({
 
             <div className={styles.infoCard}>
               <p className={styles.sectionLabel}>
-                {currentLanguage === "en" ? "Details" : "Детали"}
+                {currentLanguage === "kz" ? "Мәліметтер" : currentLanguage === "en" ? "Details" : "Детали"}
               </p>
               <div className={styles.detailsList}>
                 {content.details.map((detail) => (
@@ -133,6 +136,11 @@ export default function EquipmentItemPageClient({
                 ))}
               </div>
             </div>
+
+            <div className={styles.orderAction}>
+              <ProductOrderButton kind="equipment" language={currentLanguage} name={item.name}
+                slug={item.slug} productUrl={productUrl} />
+            </div>
           </div>
         </section>
 
@@ -142,7 +150,7 @@ export default function EquipmentItemPageClient({
           <div className={styles.sectionIntro}>
             <p className={styles.sectionKicker}>01</p>
             <h2 className={styles.sectionTitle}>
-              {currentLanguage === "en"
+              {currentLanguage === "kz" ? "негізгі ерекшеліктер" : currentLanguage === "en"
                 ? "essential features"
                 : "ключевые особенности"}
             </h2>
@@ -164,7 +172,7 @@ export default function EquipmentItemPageClient({
           <div className={styles.sectionIntro}>
             <p className={styles.sectionKicker}>02</p>
             <h2 className={styles.sectionTitle}>
-              {currentLanguage === "en"
+              {currentLanguage === "kz" ? "техникалық сипаттамалар" : currentLanguage === "en"
                 ? "technical specifications"
                 : "технические характеристики"}
             </h2>

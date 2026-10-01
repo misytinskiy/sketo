@@ -1,5 +1,6 @@
 "use client";
 
+import ActionSpinner from "../../../ActionSpinner";
 import { useStaffFeedback } from "../../../StaffFeedback";
 import Link from "next/link";
 import { suggestProductSlug, validateProductFields } from "@/lib/product-form";
@@ -11,6 +12,7 @@ import { useEditorVersion } from "./EditorVersionContext";
 import { submitEditorForm } from "./actions";
 import { initialEditorActionState, type EditorActionState } from "./action-state";
 import styles from "./page.module.css";
+import AnimatedDetails from "./AnimatedDetails";
 
 async function submitWithFeedback(previous: EditorActionState, data: FormData): Promise<EditorActionState> {
   try { return await submitEditorForm(previous, data); }
@@ -18,11 +20,13 @@ async function submitWithFeedback(previous: EditorActionState, data: FormData): 
 }
 
 type ProductStatus = "in_stock" | "out_of_stock" | "preorder";
-type Locale = "ru" | "en";
+type Locale = "ru" | "en" | "kz";
 type LabelValueRow = { label: string; value: string };
 type FeatureRow = { title: string; description: string };
 
 type CoffeeTranslationFormData = {
+  seoTitle?: string;
+  seoDescription?: string;
   title: string;
   size: string;
   notes: string;
@@ -31,6 +35,8 @@ type CoffeeTranslationFormData = {
 };
 
 type EquipmentTranslationFormData = {
+  seoTitle?: string;
+  seoDescription?: string;
   title: string;
   category: string;
   description: string;
@@ -102,6 +108,7 @@ const copy = {
   specificationItem: "Позиция",
   sectionLabel: "Основное",
   localeSection: {
+    kz: "Версия на казахском",
     ru: "Версия на русском",
     en: "Версия на английском",
   },
@@ -115,7 +122,7 @@ const copy = {
     grinder: "Кофемолка",
     "espresso-machine": "Кофемашина",
   },
-  translationReady: "RU / EN",
+  translationReady: "RU / EN / KZ",
   translationMissing: "Один язык",
 } as const;
 
@@ -487,6 +494,7 @@ export default function EditorProductForm({
   const { version, setVersion } = useEditorVersion();
   const router = useRouter();
   const { notify, runTask } = useStaffFeedback();
+  const [pendingIntent, setPendingIntent] = useState("save_draft");
   const [dirty, setDirty] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -535,6 +543,12 @@ export default function EditorProductForm({
       : [],
     () => ({ label: "", value: "" }),
   );
+const coffeeKzDetails = useDynamicRows<LabelValueRow>(
+    product.kind === "coffee"
+      ? getDetailFields(product.translations.kz.details)
+      : [],
+    () => ({ label: "", value: "" }),
+  );
   const equipmentRuDetails = useDynamicRows<LabelValueRow>(
     product.kind === "equipment"
       ? getDetailFields(product.translations.ru.details)
@@ -544,6 +558,12 @@ export default function EditorProductForm({
   const equipmentEnDetails = useDynamicRows<LabelValueRow>(
     product.kind === "equipment"
       ? getDetailFields(product.translations.en.details)
+      : [],
+    () => ({ label: "", value: "" }),
+  );
+const equipmentKzDetails = useDynamicRows<LabelValueRow>(
+    product.kind === "equipment"
+      ? getDetailFields(product.translations.kz.details)
       : [],
     () => ({ label: "", value: "" }),
   );
@@ -559,6 +579,12 @@ export default function EditorProductForm({
       : [],
     () => ({ title: "", description: "" }),
   );
+const equipmentKzFeatures = useDynamicRows<FeatureRow>(
+    product.kind === "equipment"
+      ? getFeatureFields(product.translations.kz.features)
+      : [],
+    () => ({ title: "", description: "" }),
+  );
   const equipmentRuSpecifications = useDynamicRows<LabelValueRow>(
     product.kind === "equipment"
       ? getDetailFields(product.translations.ru.specifications)
@@ -568,6 +594,12 @@ export default function EditorProductForm({
   const equipmentEnSpecifications = useDynamicRows<LabelValueRow>(
     product.kind === "equipment"
       ? getDetailFields(product.translations.en.specifications)
+      : [],
+    () => ({ label: "", value: "" }),
+  );
+const equipmentKzSpecifications = useDynamicRows<LabelValueRow>(
+    product.kind === "equipment"
+      ? getDetailFields(product.translations.kz.specifications)
       : [],
     () => ({ label: "", value: "" }),
   );
@@ -610,6 +642,7 @@ export default function EditorProductForm({
           setFieldErrors(errors);
           if (Object.keys(errors).length) { setActiveLocale("ru"); return; }
         }
+        setPendingIntent(String(payload.get("intent")));
         // Dispatch manually so React does not reset uncontrolled fields on a handled error.
         startTransition(() => formAction(payload));
       }}
@@ -623,16 +656,16 @@ export default function EditorProductForm({
         <span className={styles.actionBarMeta}>{isPending ? "Выполняем действие…" : dirty ? "Есть изменения" : "Изменений нет"}</span>
         <div className={styles.actionBarButtons}>
           <button type="submit" name="intent" value={product.isArchived ? "restore" : "save_draft"} className={styles.primaryAction} disabled={isPending}>
-            {product.isArchived ? "Восстановить" : "Сохранить"}
+            {isPending ? <><ActionSpinner />{({ publish: "Публикуем…", archive: "Архивируем…", delete: "Удаляем…", restore: "Восстанавливаем…", unpublish: "Снимаем с публикации…" } as Record<string, string>)[pendingIntent] ?? "Сохраняем…"}</> : product.isArchived ? "Восстановить" : "Сохранить"}
           </button>
           <Link href={product.previewHref} target="_blank" rel="noopener noreferrer" prefetch={false} className={styles.secondaryActionLink}>Предпросмотр</Link>
           <details className={styles.moreMenu} onKeyDown={(event) => { if (event.key === "Escape") { event.currentTarget.open = false; event.currentTarget.querySelector("summary")?.focus(); } }}>
             <summary>Ещё</summary>
             <div className={styles.moreMenuItems}>
-              {!product.isArchived && !product.isPublished && <button type="submit" name="intent" value="publish" className={styles.secondaryAction} disabled={isPending}>Опубликовать</button>}
-              {product.isPublished && <button type="submit" name="intent" value="unpublish" className={styles.secondaryAction} disabled={isPending}>Снять с публикации</button>}
-              {!product.isArchived && <button type="submit" name="intent" value="archive" className={styles.secondaryAction} disabled={isPending}>В архив</button>}
-              <button type="submit" name="intent" value="delete" className={styles.secondaryActionDanger} disabled={isPending}>Удалить</button>
+              {!product.isArchived && !product.isPublished && <button type="submit" name="intent" value="publish" className={styles.secondaryAction} disabled={isPending}>{isPending && pendingIntent === "publish" && <ActionSpinner />}Опубликовать</button>}
+              {product.isPublished && <button type="submit" name="intent" value="unpublish" className={styles.secondaryAction} disabled={isPending}>{isPending && pendingIntent === "unpublish" && <ActionSpinner />}Снять с публикации</button>}
+              {!product.isArchived && <button type="submit" name="intent" value="archive" className={styles.secondaryAction} disabled={isPending}>{isPending && pendingIntent === "archive" && <ActionSpinner />}В архив</button>}
+              <button type="submit" name="intent" value="delete" className={styles.secondaryActionDanger} disabled={isPending}>{isPending && pendingIntent === "delete" && <ActionSpinner />}Удалить</button>
             </div>
           </details>
         </div>
@@ -713,11 +746,11 @@ export default function EditorProductForm({
 
       <section className={styles.sectionBlock}>
         <div className={styles.sectionTopline}>
-          <span className={styles.sectionLabel}>Описание RU / EN</span>
+          <span className={styles.sectionLabel}>Описание RU / EN / KZ</span>
         </div>
 
         <div className={styles.localeTabs} role="tablist" aria-label="Выбор языка">
-          {(["ru", "en"] as const).map((locale) => {
+          {(["ru", "en", "kz"] as const).map((locale) => {
             const isActive = activeLocale === locale;
 
             return (
@@ -785,7 +818,7 @@ export default function EditorProductForm({
                 {fieldError("descriptionRu")}
               </label>
 
-              <details className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`}><summary>{copy.details}</summary>
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.details}>
                 <PairCollectionEditor
                   rows={coffeeRuDetails.rows}
                   enteredRowIndex={coffeeRuDetails.enteredRowIndex}
@@ -802,7 +835,7 @@ export default function EditorProductForm({
                   onRemove={(index) => { setDirty(true); coffeeRuDetails.removeRow(index); }}
                   onUpdate={coffeeRuDetails.updateRow}
                 />
-              </details>
+              </AnimatedDetails>
             </LocaleCard>
           </div>
 
@@ -845,7 +878,7 @@ export default function EditorProductForm({
                 />
               </label>
 
-              <details className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`}><summary>{copy.details}</summary>
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.details}>
                 <PairCollectionEditor
                   rows={coffeeEnDetails.rows}
                   enteredRowIndex={coffeeEnDetails.enteredRowIndex}
@@ -862,7 +895,66 @@ export default function EditorProductForm({
                   onRemove={(index) => { setDirty(true); coffeeEnDetails.removeRow(index); }}
                   onUpdate={coffeeEnDetails.updateRow}
                 />
-              </details>
+              </AnimatedDetails>
+            </LocaleCard>
+          </div>
+          <div className={activeLocale === "kz" ? "" : styles.localePanelHidden}>
+            <LocaleCard locale="kz">
+              <label className={styles.fieldCard}>
+                <span className={styles.fieldLabel}>{copy.name}</span>
+                <input
+                  name="titleKz"
+                  defaultValue={product.translations.kz.title}
+                  className={styles.textInput}
+                />
+              </label>
+
+              <label className={styles.fieldCard}>
+                <span className={styles.fieldLabel}>{copy.size}</span>
+                <input
+                  name="sizeKz"
+                  defaultValue={product.translations.kz.size}
+                  className={styles.textInput}
+                />
+              </label>
+
+              <label className={styles.fieldCard}>
+                <span className={styles.fieldLabel}>{copy.notes}</span>
+                <input
+                  name="notesKz"
+                  defaultValue={product.translations.kz.notes}
+                  className={styles.textInput}
+                />
+              </label>
+
+              <label className={`${styles.fieldCard} ${styles.fieldCardWide}`}>
+                <span className={styles.fieldLabel}>{copy.description}</span>
+                <textarea
+                  name="descriptionKz"
+                  defaultValue={product.translations.kz.description}
+                  className={styles.textArea}
+                  rows={5}
+                />
+              </label>
+
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.details}>
+                <PairCollectionEditor
+                  rows={coffeeKzDetails.rows}
+                  enteredRowIndex={coffeeKzDetails.enteredRowIndex}
+                  itemLabel={copy.detailItem}
+                  hint={copy.detailsHint}
+                  addLabel={copy.addDetail}
+                  removeLabel={copy.removeDetail}
+                  labelName="coffeeDetailKzLabel"
+                  valueName="coffeeDetailKzValue"
+                  labelPlaceholder="Field name"
+                  valuePlaceholder="Value"
+                  tone="detail"
+                  onAdd={() => { setDirty(true); coffeeKzDetails.addRow(); }}
+                  onRemove={(index) => { setDirty(true); coffeeKzDetails.removeRow(index); }}
+                  onUpdate={coffeeKzDetails.updateRow}
+                />
+              </AnimatedDetails>
             </LocaleCard>
           </div>
         </>
@@ -902,7 +994,7 @@ export default function EditorProductForm({
                 {fieldError("descriptionRu")}
               </label>
 
-              <details className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`}><summary>{copy.details}</summary>
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.details}>
                 <PairCollectionEditor
                   rows={equipmentRuDetails.rows}
                   enteredRowIndex={equipmentRuDetails.enteredRowIndex}
@@ -919,9 +1011,9 @@ export default function EditorProductForm({
                   onRemove={(index) => { setDirty(true); equipmentRuDetails.removeRow(index); }}
                   onUpdate={equipmentRuDetails.updateRow}
                 />
-              </details>
+              </AnimatedDetails>
 
-              <details className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`}><summary>{copy.features}</summary>
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.features}>
                 <FeatureCollectionEditor
                   rows={equipmentRuFeatures.rows}
                   enteredRowIndex={equipmentRuFeatures.enteredRowIndex}
@@ -935,9 +1027,9 @@ export default function EditorProductForm({
                   onRemove={(index) => { setDirty(true); equipmentRuFeatures.removeRow(index); }}
                   onUpdate={equipmentRuFeatures.updateRow}
                 />
-              </details>
+              </AnimatedDetails>
 
-              <details className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`}><summary>{copy.specifications}</summary>
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.specifications}>
                 <PairCollectionEditor
                   rows={equipmentRuSpecifications.rows}
                   enteredRowIndex={equipmentRuSpecifications.enteredRowIndex}
@@ -954,7 +1046,7 @@ export default function EditorProductForm({
                   onRemove={(index) => { setDirty(true); equipmentRuSpecifications.removeRow(index); }}
                   onUpdate={equipmentRuSpecifications.updateRow}
                 />
-              </details>
+              </AnimatedDetails>
             </LocaleCard>
           </div>
 
@@ -988,7 +1080,7 @@ export default function EditorProductForm({
                 />
               </label>
 
-              <details className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`}><summary>{copy.details}</summary>
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.details}>
                 <PairCollectionEditor
                   rows={equipmentEnDetails.rows}
                   enteredRowIndex={equipmentEnDetails.enteredRowIndex}
@@ -1005,9 +1097,9 @@ export default function EditorProductForm({
                   onRemove={(index) => { setDirty(true); equipmentEnDetails.removeRow(index); }}
                   onUpdate={equipmentEnDetails.updateRow}
                 />
-              </details>
+              </AnimatedDetails>
 
-              <details className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`}><summary>{copy.features}</summary>
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.features}>
                 <FeatureCollectionEditor
                   rows={equipmentEnFeatures.rows}
                   enteredRowIndex={equipmentEnFeatures.enteredRowIndex}
@@ -1021,9 +1113,9 @@ export default function EditorProductForm({
                   onRemove={(index) => { setDirty(true); equipmentEnFeatures.removeRow(index); }}
                   onUpdate={equipmentEnFeatures.updateRow}
                 />
-              </details>
+              </AnimatedDetails>
 
-              <details className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`}><summary>{copy.specifications}</summary>
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.specifications}>
                 <PairCollectionEditor
                   rows={equipmentEnSpecifications.rows}
                   enteredRowIndex={equipmentEnSpecifications.enteredRowIndex}
@@ -1040,12 +1132,119 @@ export default function EditorProductForm({
                   onRemove={(index) => { setDirty(true); equipmentEnSpecifications.removeRow(index); }}
                   onUpdate={equipmentEnSpecifications.updateRow}
                 />
-              </details>
+              </AnimatedDetails>
+            </LocaleCard>
+          </div>
+          <div className={activeLocale === "kz" ? "" : styles.localePanelHidden}>
+            <LocaleCard locale="kz">
+              <label className={styles.fieldCard}>
+                <span className={styles.fieldLabel}>{copy.name}</span>
+                <input
+                  name="titleKz"
+                  defaultValue={product.translations.kz.title}
+                  className={styles.textInput}
+                />
+              </label>
+
+              <label className={styles.fieldCard}>
+                <span className={styles.fieldLabel}>{copy.category}</span>
+                <input
+                  name="categoryKz"
+                  defaultValue={product.translations.kz.category}
+                  className={styles.textInput}
+                />
+              </label>
+
+              <label className={`${styles.fieldCard} ${styles.fieldCardWide}`}>
+                <span className={styles.fieldLabel}>{copy.description}</span>
+                <textarea
+                  name="descriptionKz"
+                  defaultValue={product.translations.kz.description}
+                  className={styles.textArea}
+                  rows={5}
+                />
+              </label>
+
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.details}>
+                <PairCollectionEditor
+                  rows={equipmentKzDetails.rows}
+                  enteredRowIndex={equipmentKzDetails.enteredRowIndex}
+                  itemLabel={copy.detailItem}
+                  hint={copy.detailsHint}
+                  addLabel={copy.addDetail}
+                  removeLabel={copy.removeDetail}
+                  labelName="equipmentDetailKzLabel"
+                  valueName="equipmentDetailKzValue"
+                  labelPlaceholder="Field name"
+                  valuePlaceholder="Value"
+                  tone="detail"
+                  onAdd={() => { setDirty(true); equipmentKzDetails.addRow(); }}
+                  onRemove={(index) => { setDirty(true); equipmentKzDetails.removeRow(index); }}
+                  onUpdate={equipmentKzDetails.updateRow}
+                />
+              </AnimatedDetails>
+
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.features}>
+                <FeatureCollectionEditor
+                  rows={equipmentKzFeatures.rows}
+                  enteredRowIndex={equipmentKzFeatures.enteredRowIndex}
+                  hint={copy.featuresHint}
+                  addLabel={copy.addFeature}
+                  removeLabel={copy.removeFeature}
+                  itemLabel={copy.featureItem}
+                  titleName="equipmentFeatureKzTitle"
+                  descriptionName="equipmentFeatureKzDescription"
+                  onAdd={() => { setDirty(true); equipmentKzFeatures.addRow(); }}
+                  onRemove={(index) => { setDirty(true); equipmentKzFeatures.removeRow(index); }}
+                  onUpdate={equipmentKzFeatures.updateRow}
+                />
+              </AnimatedDetails>
+
+              <AnimatedDetails className={`${styles.fieldCard} ${styles.fieldCardWide} ${styles.collapsible}`} title={copy.specifications}>
+                <PairCollectionEditor
+                  rows={equipmentKzSpecifications.rows}
+                  enteredRowIndex={equipmentKzSpecifications.enteredRowIndex}
+                  itemLabel={copy.specificationItem}
+                  hint={copy.specificationsHint}
+                  addLabel={copy.addSpecification}
+                  removeLabel={copy.removeSpecification}
+                  labelName="equipmentSpecificationKzLabel"
+                  valueName="equipmentSpecificationKzValue"
+                  labelPlaceholder="Specification"
+                  valuePlaceholder="Value"
+                  tone="spec"
+                  onAdd={() => { setDirty(true); equipmentKzSpecifications.addRow(); }}
+                  onRemove={(index) => { setDirty(true); equipmentKzSpecifications.removeRow(index); }}
+                  onUpdate={equipmentKzSpecifications.updateRow}
+                />
+              </AnimatedDetails>
             </LocaleCard>
           </div>
 
         </>
       )}
+      <AnimatedDetails className={`${styles.fieldCard} ${styles.collapsible}`} title="SEO: поиск и превью ссылок">
+        <p className={styles.fieldHint}>Пустые поля заполняются автоматически из названия и описания товара. Изменения применяются после сохранения.</p>
+        {(["ru", "en", "kz"] as const).map((locale) => {
+          const suffix = { ru: "Ru", en: "En", kz: "Kz" }[locale];
+          return <div key={locale} className={styles.formGrid}>
+            <label className={styles.fieldCard}>
+              <span className={styles.fieldLabel}>SEO-заголовок · {locale.toUpperCase()}</span>
+              <input name={`seoTitle${suffix}`} defaultValue={product.translations[locale].seoTitle ?? ""}
+                maxLength={100} className={styles.textInput} placeholder="Автоматически"
+                aria-invalid={Boolean(fieldErrors[`seoTitle${suffix}`])} aria-describedby={`error-seoTitle${suffix}`} />
+              {fieldError(`seoTitle${suffix}`)}
+            </label>
+            <label className={styles.fieldCard}>
+              <span className={styles.fieldLabel}>SEO-описание · {locale.toUpperCase()}</span>
+              <textarea name={`seoDescription${suffix}`} defaultValue={product.translations[locale].seoDescription ?? ""}
+                maxLength={180} rows={3} className={styles.textArea} placeholder="Автоматически"
+                aria-invalid={Boolean(fieldErrors[`seoDescription${suffix}`])} aria-describedby={`error-seoDescription${suffix}`} />
+              {fieldError(`seoDescription${suffix}`)}
+            </label>
+          </div>;
+        })}
+      </AnimatedDetails>
       </fieldset>
     </form>
   );

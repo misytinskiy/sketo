@@ -1,4 +1,6 @@
 "use client";
+import LocalizedText from "@/app/components/LocalizedText";
+
 
 import { useState } from "react";
 import Image from "next/image";
@@ -54,7 +56,7 @@ export default function AcademyMentorEditorial({
 
         <div className={styles.editorialMentorColumns}>
           <div className={styles.editorialMentorColumn}>
-            <span className={styles.editorialMentorLabel}>background</span>
+            <span className={styles.editorialMentorLabel}><LocalizedText text="background" /></span>
             <ul className={styles.editorialMentorList}>
               {activeMentor.stats.map((item) => (
                 <li key={item}>{item}</li>
@@ -63,7 +65,7 @@ export default function AcademyMentorEditorial({
           </div>
 
           <div className={styles.editorialMentorColumn}>
-            <span className={styles.editorialMentorLabel}>focus</span>
+            <span className={styles.editorialMentorLabel}><LocalizedText text="focus" /></span>
             <ul className={styles.editorialMentorList}>
               {activeMentor.focus.map((item) => (
                 <li key={item}>{item}</li>

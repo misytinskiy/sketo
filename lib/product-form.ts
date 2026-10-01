@@ -8,6 +8,10 @@ export function suggestProductSlug(title: string) {
 export function validateProductFields(data: FormData, kind: "coffee" | "equipment", published: boolean) {
   const errors: Record<string, string> = {};
   const value = (key: string) => String(data.get(key) ?? "").trim();
+  for (const locale of ["Ru", "En", "Kz"]) {
+    if (value(`seoTitle${locale}`).length > 100) errors[`seoTitle${locale}`] = "Не более 100 символов.";
+    if (value(`seoDescription${locale}`).length > 180) errors[`seoDescription${locale}`] = "Не более 180 символов.";
+  }
   const slug = data.has("newSlug") ? value("newSlug") : value("slug");
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || slug.length > 80 || (kind === "coffee" && slug === "equipment")) errors.newSlug = "Укажите свободный адрес: латинские строчные буквы, цифры и дефисы, до 80 символов.";
   if (published) {

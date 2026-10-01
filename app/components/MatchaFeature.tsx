@@ -1,4 +1,6 @@
 "use client";
+import LocalizedText from "@/app/components/LocalizedText";
+
 
 import { useEffect, useRef } from "react";
 import type { Language } from "./language";
@@ -6,7 +8,7 @@ import MatchaCtaButton from "./MatchaCtaButton";
 import styles from "./MatchaFeature.module.css";
 
 type MatchaFeatureProps = {
-  language: Exclude<Language, "kz">;
+  language: Language;
 };
 
 export default function MatchaFeature({ language }: MatchaFeatureProps) {
@@ -58,7 +60,7 @@ export default function MatchaFeature({ language }: MatchaFeatureProps) {
       >
         <source src="/photo/matchaMain.mp4" type="video/mp4" />
         <source src="/photo/matchaMain.webm" type="video/webm" />
-        {language === "en"
+        {language === "kz" ? "Браузеріңіз фондық бейнені қолдамайды." : language === "en"
           ? "Your browser does not support background video."
           : "Ваш браузер не поддерживает фоновое видео."}
       </video>
@@ -67,9 +69,13 @@ export default function MatchaFeature({ language }: MatchaFeatureProps) {
 
       <div className={styles.content}>
         <div className={styles.header}>
-          <p className={styles.eyebrow}>matcha ritual / slow green</p>
+          <p className={styles.eyebrow}><LocalizedText text="matcha ritual / slow green" /></p>
           <h2 id="matcha-feature-title" className={styles.title}>
-            {language === "en" ? (
+            {language === "kz" ? (
+              <>
+                <LocalizedText text="Фокус" /><br />
+                <LocalizedText text="и красивая пауза" /></>
+            ) : language === "en" ? (
               <>
                 Focus
                 <br />
@@ -77,10 +83,8 @@ export default function MatchaFeature({ language }: MatchaFeatureProps) {
               </>
             ) : (
               <>
-                Фокус
-                <br />
-                и красивая пауза
-              </>
+                <LocalizedText text="Фокус" /><br />
+                <LocalizedText text="и красивая пауза" /></>
             )}
           </h2>
         </div>
@@ -89,7 +93,7 @@ export default function MatchaFeature({ language }: MatchaFeatureProps) {
           <div className={styles.body}>
             <div className={styles.column}>
               <p className={styles.text}>
-                {language === "en"
+                {language === "kz" ? "Sketo-дағы матча сусыннан емес, көңіл күйден басталады. Бұл — қимыл, ырғақ және процеске назар маңызды болатын күн ішіндегі қысқа үзіліс." : language === "en"
                   ? "Matcha at Sketo begins not with a drink, but with a state of mind. It is a brief pause inside the day, where gesture, tempo, and attention to process matter."
                   : "Матча в Sketo начинается не с напитка, а с состояния. Это короткая пауза внутри дня, где важны жест, темп и внимание к процессу."}
               </p>
@@ -97,7 +101,7 @@ export default function MatchaFeature({ language }: MatchaFeatureProps) {
 
             <div className={styles.column}>
               <p className={styles.text}>
-                {language === "en"
+                {language === "kz" ? "Көпірту, қою құрылым, жұмсақ ащылық және таза соңғы дәм қайта оралғың келетін тыныш рәсімге айналады." : language === "en"
                   ? "Whisking, dense texture, soft bitterness, and a clean finish come together in a calm ritual you want to return to again and again."
                   : "Взбивание, плотная текстура, мягкая горечь и чистое послевкусие складываются в спокойный ритуал, к которому хочется возвращаться снова."}
               </p>
@@ -105,7 +109,7 @@ export default function MatchaFeature({ language }: MatchaFeatureProps) {
 
             <div className={styles.column}>
               <p className={styles.text}>
-                {language === "en"
+                {language === "kz" ? "Sketo-дағы церемониялық матча — таза дәм, қою құрылым және асықпай ұсыну ырғағы." : language === "en"
                   ? "Ceremonial-grade matcha at Sketo is about clarity of taste, velvety texture, and a slower rhythm of serving."
                   : "Церемониальная матча в Sketo — это про чистоту вкуса, плотную текстуру и медленный ритм подачи."}
               </p>

@@ -7,7 +7,7 @@ import styles from "./equipment-item.module.css";
 type EquipmentMediaGalleryProps = {
   images: string[];
   name: string;
-  language: "ru" | "en";
+  language: "ru" | "en" | "kz";
 };
 
 export default function EquipmentMediaGallery({
@@ -80,7 +80,7 @@ export default function EquipmentMediaGallery({
           <Image
             src={activeImage}
             alt={
-              language === "en"
+              language === "kz" ? `${name} кадр ${activeIndex + 1}` : language === "en"
                 ? `${name} view ${activeIndex + 1}`
                 : `${name} кадр ${activeIndex + 1}`
             }
@@ -98,10 +98,10 @@ export default function EquipmentMediaGallery({
               onClick={showPrevious}
               className={styles.mediaButton}
               aria-label={
-                language === "en" ? "Previous image" : "Предыдущее изображение"
+                language === "kz" ? "Алдыңғы сурет" : language === "en" ? "Previous image" : "Предыдущее изображение"
               }
             >
-              {language === "en" ? "Prev" : "Назад"}
+              {language === "kz" ? "Артқа" : language === "en" ? "Prev" : "Назад"}
             </button>
 
             <p className={styles.mediaCounter}>
@@ -113,9 +113,9 @@ export default function EquipmentMediaGallery({
               type="button"
               onClick={showNext}
               className={styles.mediaButton}
-              aria-label={language === "en" ? "Next image" : "Следующее изображение"}
+              aria-label={language === "kz" ? "Келесі сурет" : language === "en" ? "Next image" : "Следующее изображение"}
             >
-              {language === "en" ? "Next" : "Далее"}
+              {language === "kz" ? "Келесі" : language === "en" ? "Next" : "Далее"}
             </button>
           </div>
         ) : null}
@@ -134,7 +134,7 @@ export default function EquipmentMediaGallery({
                 isActive ? styles.thumbnailButtonActive : ""
               }`}
               aria-label={
-                language === "en"
+                language === "kz" ? `${index + 1}-суретті көрсету` : language === "en"
                   ? `Show image ${index + 1}`
                   : `Показать изображение ${index + 1}`
               }

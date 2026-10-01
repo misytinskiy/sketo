@@ -63,3 +63,20 @@ test('preview token only authorizes its product and expires', () => {
   assert.equal(preview.verifyPreviewToken('coffee', 'sample', `${token}bad`, now), false);
   assert.equal(preview.verifyPreviewToken('coffee', 'sample', '', now), false);
 });
+
+test('cleanup count deduplicates files and excludes fresh jobs without a failure', async () => {
+  let query;
+  const cleanup = load('lib/supabase/media-cleanup.ts', {
+    'drizzle-orm': orm, '@/lib/db/schema': schema, '@/lib/db/editor': {}, './admin': {}, './storage-public': {},
+    '@/lib/db': { db: { select: (fields) => ({ from: (table) => ({ where: async (condition) => {
+      query = db.select(fields).from(table).where(condition).toSQL();
+      return [{ count: 2 }];
+    } }) }) } },
+  });
+  assert.equal(await cleanup.getPendingMediaCleanupCount(), 2);
+  assert.match(query.sql, /count\(distinct/i);
+  assert.match(query.sql, /cleanupPending/);
+  assert.match(query.sql, /cleanupFailed/);
+  assert.match(query.sql, /15 minutes/);
+  assert.ok(query.params.includes('media'));
+});

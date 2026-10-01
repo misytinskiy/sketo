@@ -1,5 +1,7 @@
 "use client";
 
+import PermanentDeleteButton from "./PermanentDeleteButton";
+import ActionSpinner from "./ActionSpinner";
 import { useStaffFeedback } from "./StaffFeedback";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,6 +23,7 @@ import {
   deleteSelectedStaffProducts,
 } from "./actions";
 import styles from "./staff.module.css";
+import useStaffPreference from "./useStaffPreference";
 import type {
   StaffEditorialState,
   StaffProductRecord,
@@ -204,16 +207,17 @@ function getServerSnapshot() {
 export default function StaffPageClient({
   products: sourceProducts,
 }: StaffPageClientProps) {
-  const [listView, setListView] = useState<"active" | "archive">("active");
-  const [workspaceMode, setWorkspaceMode] = useState<WorkspaceMode>("coffee");
-  const [activeStatus, setActiveStatus] = useState<ProductStatus>("all");
-  const [activeEditorial, setActiveEditorial] = useState<EditorialFilter>("all");
-  const [sortMode, setSortMode] = useState<SortMode>("status");
+  const [listView, setListView] = useStaffPreference("list", "active", ["active", "archive"]);
+  const [workspaceMode, setWorkspaceMode] = useStaffPreference<WorkspaceMode>("catalog", "coffee", ["coffee", "equipment"]);
+  const [activeStatus, setActiveStatus] = useStaffPreference<ProductStatus>("status", "all", Object.keys(copy.statusTabs) as ProductStatus[]);
+  const [activeEditorial, setActiveEditorial] = useStaffPreference<EditorialFilter>("editorial", "all", Object.keys(copy.editorialTabs).filter((value) => value !== "archived") as EditorialFilter[]);
+  const [sortMode, setSortMode] = useStaffPreference<SortMode>("sort", "status", Object.keys(copy.sort) as SortMode[]);
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isArchiving, startArchiveTransition] = useTransition();
   const [isDeleting, startDeleteTransition] = useTransition();
+  const [creatingKind, setCreatingKind] = useState<WorkspaceMode | null>(null);
   const [isCreating, startCreateTransition] = useTransition();
   const [pendingNavigationLabel, setPendingNavigationLabel] = useState<string | null>(
     null,
@@ -440,6 +444,7 @@ export default function StaffPageClient({
 
 
 
+    setCreatingKind(kind);
     startCreateTransition(() => runTask(label, async () => {
       try {
         const formData = new FormData();
@@ -544,6 +549,7 @@ export default function StaffPageClient({
               try { notify(await restoreSelectedStaffProducts([productId], { [productId]: product.updatedAt })); }
               catch { notify({ status: "error", message: "Не удалось восстановить товар. Повторите попытку." }); }
             }))}>Восстановить</button>}
+            {product.editorialState === "archived" && <PermanentDeleteButton kind={product.kind} slug={product.slug} name={product.name} version={product.updatedAt} disabled={isArchiving || isDeleting || isCreating} />}
             {canOpenPublicPage ? (
               <Link href={product.href} className={styles.textAction}>
                 {copy.row.publicPage}
@@ -678,7 +684,7 @@ export default function StaffPageClient({
                 className={styles.primaryButton}
                 disabled={Boolean(pendingNavigationLabel) || isCreating}
               >
-                {copy.primaryActions.addCoffee}
+                {isCreating && creatingKind === "coffee" && <ActionSpinner />}{isCreating && creatingKind === "coffee" ? "Создаём…" : copy.primaryActions.addCoffee}
               </button>
             </form>
             <form
@@ -692,7 +698,7 @@ export default function StaffPageClient({
                 className={styles.primaryButton}
                 disabled={Boolean(pendingNavigationLabel) || isCreating}
               >
-                {copy.primaryActions.addEquipment}
+                {isCreating && creatingKind === "equipment" && <ActionSpinner />}{isCreating && creatingKind === "equipment" ? "Создаём…" : copy.primaryActions.addEquipment}
               </button>
             </form>
           </div>

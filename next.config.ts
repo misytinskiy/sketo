@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [{ source: "/catalog/equipment/:path*", destination: "/equipment/:path*", permanent: true }];
+  },
   experimental: { serverActions: { bodySizeLimit: "6mb" } },
   images: {
     remotePatterns: [

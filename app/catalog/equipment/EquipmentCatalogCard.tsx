@@ -36,28 +36,28 @@ export default function EquipmentCatalogCard({
         <div className={styles.content}>
           <div className={styles.metaBlock}>
             <p className={styles.metaLabel}>
-              {language === "en" ? "Model" : "Модель"}
+              {language === "kz" ? "Модель" : language === "en" ? "Model" : "Модель"}
             </p>
             <h2 className={styles.name}>{item.name}</h2>
           </div>
 
           <div className={styles.metaBlock}>
             <p className={styles.metaLabel}>
-              {language === "en" ? "Brand" : "Бренд"}
+              {language === "kz" ? "Бренд" : language === "en" ? "Brand" : "Бренд"}
             </p>
             <p className={styles.details}>{equipmentBrandLabels[language][item.brand]}</p>
           </div>
 
           <div className={styles.metaBlock}>
             <p className={styles.metaLabel}>
-              {language === "en" ? "Type" : "Тип"}
+              {language === "kz" ? "Түрі" : language === "en" ? "Type" : "Тип"}
             </p>
             <p className={styles.details}>{content.category}</p>
           </div>
 
           <div className={styles.metaBlock}>
             <p className={styles.metaLabel}>
-              {language === "en" ? "Status" : "Статус"}
+              {language === "kz" ? "Мәртебе" : language === "en" ? "Status" : "Статус"}
             </p>
             <p className={styles.price}>{content.status}</p>
           </div>

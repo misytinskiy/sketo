@@ -1,6 +1,6 @@
 .page {
   min-height: 100svh;
-  background: #f2f0eb;
+  background: transparent;
   color: #2d3134;
 }
 
@@ -993,7 +993,7 @@
 
 .localeTabs {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.75rem;
 }
 
@@ -1116,3 +1116,25 @@
  .actionBarButtons > .primaryAction, .actionBarButtons > .secondaryActionLink { padding: 12px 8px; font-size: 13px; }
  .moreMenu { margin-left: auto; }
 }
+
+/* Match native inputs and custom selects, including their label baseline. */
+.fieldCard { align-content: start; grid-auto-rows: max-content; }
+.textInput, .customSelectTrigger { height: 40px; min-height: 40px; margin: 0; line-height: 1.25; padding: 0 0.6rem; }
+.customSelect { align-self: start; }
+.collapsible { display: block; min-height: 0; box-sizing: border-box; }
+.mediaItemCard[draggable="true"] { cursor: grab; }
+.mediaItemCard[draggable="true"]:active { cursor: grabbing; }
+.mediaDragging { opacity: .45; }
+.mediaDropTarget { outline: 3px solid #ce1616; outline-offset: 3px; }
+
+.cleanupControls { position: relative; display: flex; align-items: center; width: fit-content; max-width: 100%; gap: 4px; }
+
+.mediaContent { display: grid; gap: 20px; }
+.mediaContent > .sectionTopline { margin-bottom: 0; }
+.mediaContent > p { line-height: 1.5; }
+.cleanupNotice { display: grid; gap: 12px; padding: 18px; border: 1px solid #d5bc87; background: #fbf5e9; border-radius: 10px; }
+.cleanupNotice p { font-size: 14px; line-height: 1.5; }
+.mediaContent > .mediaManagerGrid { margin-top: 4px; }
+
+.mediaProgress { display: flex; align-items: center; padding: 14px 16px; background: #ebe8e1; border-radius: 8px; font-size: 14px; overflow-wrap: anywhere; }
+.mediaBusyOverlay { position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center; padding: 16px; background: #f2f0ebdd; font-size: 14px; }

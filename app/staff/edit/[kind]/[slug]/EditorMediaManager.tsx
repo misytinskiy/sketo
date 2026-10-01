@@ -1,15 +1,18 @@
 "use client";
 
+import ActionSpinner from "../../../ActionSpinner";
 import { useStaffFeedback } from "../../../StaffFeedback";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
 import type { ProductType } from "@/lib/db/schema";
-import { deleteProductMedia, uploadProductMedia, retryMediaCleanup, updateProductMediaOrder } from "./actions";
+import { deleteProductMedia, uploadProductMedia, updateProductMediaOrder } from "./actions";
 import { type EditorActionState } from "./action-state";
 import { useEditorVersion } from "./EditorVersionContext";
 import { MAX_UPLOAD_FILES, validateImageFile } from "@/lib/supabase/media-validation";
 import styles from "./page.module.css";
+import AnimatedDetails from "./AnimatedDetails";
+import MediaCleanupNotice from "./MediaCleanupNotice";
 
 type MediaItem = {
   id: string;
@@ -34,6 +37,8 @@ export default function EditorMediaManager({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [queued, setQueued] = useState<Array<{ file: File; url: string }>>([]);
   const queuedRef = useRef<Array<{ file: File; url: string }>>([]);
+  const [draggedId, setDraggedId] = useState<string | null>(null);
+  const [dropTarget, setDropTarget] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [selectionError, setSelectionError] = useState("");
   useEffect(() => () => { queuedRef.current.forEach((item) => URL.revokeObjectURL(item.url)); }, []);
@@ -54,12 +59,19 @@ export default function EditorMediaManager({
     replaceQueue([...queued, ...selected.map((file) => ({ file, url: URL.createObjectURL(file) }))]);
     if (inputRef.current) inputRef.current.value = "";
   }
+  const [taskLabel, setTaskLabel] = useState("");
+  const [activeImageId, setActiveImageId] = useState<string | null>(null);
+  const [cleanupRevision, setCleanupRevision] = useState(0);
   const [failedFiles, setFailedFiles] = useState<File[]>([]);
   const { notify, runTask } = useStaffFeedback();
   const [isPending, startTransition] = useTransition();
 
   function startMediaTask(label: string, work: (progress: (label: string) => void) => Promise<void>) {
-    startTransition(() => runTask(label, work));
+    setTaskLabel(label);
+    startTransition(() => runTask(label, async (progress) => {
+      try { await work((value) => { setTaskLabel(value); progress(value); }); }
+      finally { setActiveImageId(null); setCleanupRevision((value) => value + 1); }
+    }));
   }
 
   function openFilePicker() {
@@ -110,6 +122,8 @@ export default function EditorMediaManager({
   }
 
   function handleDelete(imageId: string) {
+    if (isPending) return;
+    setActiveImageId(imageId);
     const payload = new FormData();
     payload.set("kind", kind);
     payload.set("slug", slug);
@@ -131,6 +145,7 @@ export default function EditorMediaManager({
 
   function moveImage(from: number, to: number) {
     if (isPending || to < 0 || to >= items.length || from === to) return;
+    setActiveImageId(items[from].id);
     const ordered = [...items];
     const [image] = ordered.splice(from, 1);
     ordered.splice(to, 0, image);
@@ -150,8 +165,9 @@ export default function EditorMediaManager({
   }
 
   return (
-    <details open className={`${styles.sectionBlock} ${styles.collapsible}`}>
-      <summary>Фотографии</summary>
+    <AnimatedDetails open title="Фотографии" className={`${styles.sectionBlock} ${styles.collapsible}`}>
+      <div className={styles.mediaContent} aria-busy={isPending}>
+      {isPending && <p className={styles.mediaProgress} role="status"><ActionSpinner />{taskLabel}</p>}
       <div className={styles.sectionTopline}>
         <span className={styles.sectionLabel}>Медиа</span>
         <span className={styles.sidebarValue}>
@@ -159,12 +175,10 @@ export default function EditorMediaManager({
         </span>
       </div>
 
+      <p>Перетащите фото на нужную позицию — порядок сохранится автоматически. Первое фото станет главным.</p>
       <p>JPEG, PNG или WebP · до 5 МБ и 25 Мп на файл · до 10 файлов за выбор.</p>
       {failedFiles.length > 0 && <button type="button" className={styles.secondaryAction} disabled={isPending} onClick={() => handleUpload(failedFiles)}>Повторить неудачные загрузки ({failedFiles.length})</button>}
-      <button type="button" className={styles.secondaryAction} disabled={isPending} onClick={() => startMediaTask("Очищаем удалённые файлы…", async () => {
-        try { notify(await retryMediaCleanup()); }
-        catch { notify({ status: "error", message: "Очистка недоступна. Повторите позже." }); }
-      })}>Повторить очистку удалённых файлов</button>
+      <MediaCleanupNotice revision={cleanupRevision} disabled={isPending} />
       <input
         ref={inputRef}
         type="file"
@@ -194,16 +208,44 @@ export default function EditorMediaManager({
           onClick={openFilePicker}
           disabled={isPending}
         >
-          <span className={styles.mediaAddIcon}>+</span>
-          <span className={styles.mediaAddTitle}>Перетащите файлы сюда<br />или выберите изображения</span>
+          <span className={styles.mediaAddIcon}>{isPending ? <ActionSpinner /> : "+"}</span>
+          <span className={styles.mediaAddTitle}>{isPending ? "Дождитесь завершения…" : <>Перетащите файлы сюда<br />или выберите изображения</>}</span>
         </button>
 
         {items.map((item, index) => (
-          <article key={item.id} className={styles.mediaItemCard}>
+          <article key={item.id}
+            className={`${styles.mediaItemCard} ${draggedId === item.id ? styles.mediaDragging : ""} ${dropTarget === item.id ? styles.mediaDropTarget : ""}`}
+            draggable={!isPending && items.length > 1}
+            onDragStart={(event) => {
+              if (isPending) { event.preventDefault(); return; }
+              event.dataTransfer.effectAllowed = "move";
+              event.dataTransfer.setData("application/x-sketo-photo", item.id);
+              setDraggedId(item.id);
+            }}
+            onDragOver={(event) => {
+              if (!draggedId || isPending || draggedId === item.id) return;
+              event.preventDefault();
+              event.dataTransfer.dropEffect = "move";
+              setDropTarget(item.id);
+            }}
+            onDragLeave={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDropTarget(null);
+            }}
+            onDrop={(event) => {
+              event.preventDefault();
+              const id = event.dataTransfer.getData("application/x-sketo-photo");
+              const from = items.findIndex((entry) => entry.id === id);
+              setDraggedId(null); setDropTarget(null);
+              if (from >= 0 && id === draggedId) moveImage(from, index);
+            }}
+            onDragEnd={() => { setDraggedId(null); setDropTarget(null); }}
+          >
             <div className={styles.mediaManagerFrame}>
+              {isPending && activeImageId === item.id && <div className={styles.mediaBusyOverlay}><ActionSpinner /><span>{taskLabel}</span></div>}
               {index === 0 && <span className={styles.primaryBadge}>★ Главное фото</span>}
               <Image
                 src={item.url}
+                draggable={false}
                 alt={`${title} ${index + 1}`}
                 fill
                 sizes="(max-width: 900px) 100vw, 16rem"
@@ -232,6 +274,7 @@ export default function EditorMediaManager({
           </article>
         ))}
       </div>
-    </details>
+      </div>
+    </AnimatedDetails>
   );
 }

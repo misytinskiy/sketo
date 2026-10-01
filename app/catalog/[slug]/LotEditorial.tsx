@@ -4,10 +4,30 @@ import { useState } from "react";
 import styles from "./lot.module.css";
 
 type LotEditorialProps = {
-  language: "ru" | "en";
+  language: "ru" | "en" | "kz";
 };
 
 const editorialTabs = {
+  kz: [
+    {
+      id: "cup-note",
+      label: "Кеседегі дәм",
+      content:
+        "Біз құрылымы айқын, дәмнен кейінгі әсері таза және мәнерлі әрі түсінікті профилі бар кофені таңдаймыз. Коллекциядағы әр лот кеседегі дәм дәл, тәттілігі теңгерімді және алғашқы жұтымнан түсінікті болатындай іріктеледі.",
+    },
+    {
+      id: "origin",
+      label: "Шығу тегі",
+      content:
+        "Sketo үшін кофенің шығу тегі оның сұрпынан, өскен биіктігінен және өңдеу тәсілінен сезілуі маңызды. Бізге аймақтық сипатын сақтайтын лоттар қызық: жарқын гүлді профиль де, терең шоколадты дәм де.",
+    },
+    {
+      id: "brew-guide",
+      label: "Рецепт",
+      content:
+        "Бұл кофе күнделікті дайындауға жарайды: сүзгі үшін орташа ұнтақтаудан, 92–94°C судан және 1:16 арақатынасынан бастаңыз. Эспрессо үшін теңгерімді негізгі рецептті алып, тәттілік пен дәм тазалығына сүйеніп реттеңіз.",
+    },
+  ],
   ru: [
     {
       id: "cup-note",
@@ -76,7 +96,7 @@ export default function LotEditorial({ language }: LotEditorialProps) {
           className={styles.editorialTabs}
           role="tablist"
           aria-label={
-            language === "en" ? "Lot description tabs" : "Вкладки описания лота"
+            language === "kz" ? "Лот сипаттамасының қойындылары" : language === "en" ? "Lot description tabs" : "Вкладки описания лота"
           }
         >
           {tabs.map((tab) => {

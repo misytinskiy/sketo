@@ -1,6 +1,6 @@
 export type CatalogFilter = "all" | "profiles" | "decaf" | "microlot";
 
-export type CatalogLanguage = "ru" | "en";
+export type CatalogLanguage = "ru" | "en" | "kz";
 
 export type CatalogDetailField = {
   label: string;
@@ -8,6 +8,8 @@ export type CatalogDetailField = {
 };
 
 type CatalogTranslation = {
+  seoTitle?: string;
+  seoDescription?: string;
   name: string;
   size: string;
   notes: string;
@@ -30,6 +32,21 @@ export const catalogItems: CatalogItem[] = [
     price: "KZT 5,700",
     filters: ["profiles"],
     translations: {
+      kz: {
+        name: "African Profile 1.0",
+        size: "250 г",
+        notes: "Гүлдер, грейпфрут, шабдалы, ананас",
+        description:
+          "Хош иісі айқын, шырынды жеміс дәмі ашылатын, таза кесеге арналған жарқын африкалық профиль.",
+        details: [
+          { label: "Ел", value: "Эфиопия" },
+          { label: "Аймақ", value: "Йиргачеффе, Гедео аймағы" },
+          { label: "Өңдеу", value: "Хани" },
+          { label: "Биіктік", value: "1800 м" },
+          { label: "Q-score", value: "86" },
+          { label: "Дәм шоғыры", value: "Гүлдер, грейпфрут, шабдалы, ананас" },
+        ],
+      },
       ru: {
         name: "African Profile 1.0",
         size: "250 г",
@@ -68,6 +85,24 @@ export const catalogItems: CatalogItem[] = [
     price: "KZT 5,900",
     filters: ["profiles"],
     translations: {
+      kz: {
+        name: "Latino Profile 2.0",
+        size: "250 г",
+        notes: "Құрақ қанты, сүйекті жемістер, карамель",
+        description:
+          "Жұмсақ тәттілігі және жағымды эспрессо дәмі бар теңгерімді латынамерикалық профиль.",
+        details: [
+          { label: "Ел", value: "Бразилия" },
+          { label: "Лот", value: "Engheno Farm, лот 32#" },
+          { label: "Өңдеу", value: "Палпд-натурал" },
+          { label: "Сұрып", value: "Сары бурбон" },
+          { label: "Қуыру профилі", value: "Эспрессо | Сүзгі" },
+          {
+            label: "Дәм шоғыры",
+            value: "Құрақ қанты, сүйекті жемістер, карамель",
+          },
+        ],
+      },
       ru: {
         name: "Latino Profile 2.0",
         size: "250 г",
@@ -109,6 +144,20 @@ export const catalogItems: CatalogItem[] = [
     price: "KZT 5,900",
     filters: ["decaf"],
     translations: {
+      kz: {
+        name: "Декаф",
+        size: "250 г",
+        notes: "Карамель, сүтті шоколад, алма, лимон",
+        description:
+          "Тәттілігі мен дәм тазалығын сақтайтын, қою әрі үйреншікті кофе сипаты бар декаф.",
+        details: [
+          { label: "Ел", value: "Колумбия, Нариньо" },
+          { label: "Процесс", value: "Sugar Cane EA Decaf" },
+          { label: "Түрі", value: "Кофеині аз кофе" },
+          { label: "Қуыру", value: "Эспрессо" },
+          { label: "Дәм шоғыры", value: "Карамель, сүтті шоколад, алма, лимон" },
+        ],
+      },
       ru: {
         name: "Декаф",
         size: "250 г",
@@ -145,6 +194,21 @@ export const catalogItems: CatalogItem[] = [
     price: "KZT 5,900",
     filters: ["profiles"],
     translations: {
+      kz: {
+        name: "Asian Profile",
+        size: "250 г",
+        notes: "Кептірілген өрік, қара өрік, қара шоколад, жержаңғақ",
+        description:
+          "Қышқылдығы төмен, дәмнен кейін шоколад пен жаңғақ реңкі қалатын қою әрі күңгірт профиль.",
+        details: [
+          { label: "Қоспа", value: "Бразилия \\ Эфиопия, 60 \\ 40" },
+          { label: "Тәттілік", value: "4/5" },
+          { label: "Қышқылдық", value: "3/5" },
+          { label: "Ащылық", value: "3/5" },
+          { label: "Қоюлық", value: "4/5" },
+          { label: "Дәм шоғыры", value: "Кептірілген өрік, қара өрік, қара шоколад, жержаңғақ" },
+        ],
+      },
       ru: {
         name: "Asian Profile",
         size: "250 г",
@@ -183,6 +247,21 @@ export const catalogItems: CatalogItem[] = [
     price: "KZT 5,900",
     filters: ["profiles"],
     translations: {
+      kz: {
+        name: "Italian Profile Medium",
+        size: "250 г",
+        notes: "Қара шоколад, жаңғақтар",
+        description:
+          "Шоколадты дәм мен тұрақты нәтижеге бағытталған, эспрессоға арналған қою италиялық профиль.",
+        details: [
+          { label: "Қоспа", value: "Бразилия / Уганда" },
+          { label: "Құрамы", value: "100% арабика" },
+          { label: "Тәттілік", value: "4/5" },
+          { label: "Қышқылдық", value: "2/5" },
+          { label: "Ащылық", value: "4/5" },
+          { label: "Дәм шоғыры", value: "Қара шоколад, жаңғақтар" },
+        ],
+      },
       ru: {
         name: "Italian Profile Medium",
         size: "250 г",
@@ -221,6 +300,21 @@ export const catalogItems: CatalogItem[] = [
     price: "KZT 5,900",
     filters: ["profiles"],
     translations: {
+      kz: {
+        name: "Brazilian Profile 1.0",
+        size: "250 г",
+        notes: "Карамель, қара шоколад, грек жаңғағы",
+        description:
+          "Күнделікті эспрессоға арналған, жаңғақ дәмі мен ұстамды тәттілігі бар жұмсақ бразилиялық профиль.",
+        details: [
+          { label: "Аймақ", value: "Бразилия Серрадо" },
+          { label: "Тәттілік", value: "3/5" },
+          { label: "Қышқылдық", value: "2/5" },
+          { label: "Ащылық", value: "3/5" },
+          { label: "Қоюлық", value: "4/5" },
+          { label: "Дәм шоғыры", value: "Карамель, қара шоколад, грек жаңғағы" },
+        ],
+      },
       ru: {
         name: "Brazilian Profile 1.0",
         size: "250 г",
@@ -259,6 +353,21 @@ export const catalogItems: CatalogItem[] = [
     price: "KZT 5,900",
     filters: ["profiles"],
     translations: {
+      kz: {
+        name: "Brazilian Profile 2.0",
+        size: "250 г",
+        notes: "Цитрус, қара шоколад, грек жаңғағы",
+        description:
+          "Жеңіл цитрус реңкі мен қою негізі бар бразилиялық профильдің жарқын нұсқасы.",
+        details: [
+          { label: "Қоспа", value: "Бразилия \\ Эфиопия, 80 \\ 20" },
+          { label: "Тәттілік", value: "3/5" },
+          { label: "Қышқылдық", value: "2/5" },
+          { label: "Ащылық", value: "3/5" },
+          { label: "Қоюлық", value: "4/5" },
+          { label: "Дәм шоғыры", value: "Цитрус, қара шоколад, грек жаңғағы" },
+        ],
+      },
       ru: {
         name: "Brazilian Profile 2.0",
         size: "250 г",
@@ -297,6 +406,23 @@ export const catalogItems: CatalogItem[] = [
     price: "KZT 7,200",
     filters: ["microlot"],
     translations: {
+      kz: {
+        name: "Микролот 2.0",
+        size: "250 г",
+        notes: "Сары жемістер, сүтті шоколад, мүкжидек, бадам",
+        description:
+          "Мәнерлі дәмге бағытталған, күрделі хош иісі мен нәзік ферментациясы бар микролот.",
+        details: [
+          { label: "Ел", value: "Бразилия, Санта-Катарина" },
+          { label: "Сұрып", value: "Сары катуаи" },
+          { label: "Өңдеу", value: "Табиғи ферментация" },
+          { label: "Қуыру", value: "Сүзгі" },
+          {
+            label: "Дәм шоғыры",
+            value: "Сары жемістер, сүтті шоколад, мүкжидек, бадам",
+          },
+        ],
+      },
       ru: {
         name: "Микролот 2.0",
         size: "250 г",

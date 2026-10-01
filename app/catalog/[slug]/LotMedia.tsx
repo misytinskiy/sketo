@@ -8,7 +8,7 @@ import styles from "./lot.module.css";
 type LotMediaProps = {
   image: string;
   name: string;
-  language: "ru" | "en";
+  language: "ru" | "en" | "kz";
 };
 
 export default function LotMedia({ image, name, language }: LotMediaProps) {
@@ -65,7 +65,7 @@ export default function LotMedia({ image, name, language }: LotMediaProps) {
       <span className={`${styles.cropMark} ${styles.cropBottomLeft}`} />
       <span className={`${styles.cropMark} ${styles.cropBottomRight}`} />
       <p className={styles.mediaCaption} aria-hidden="true">
-        {language === "en"
+        {language === "kz" ? "Лот паспорты / сурет" : language === "en"
           ? "Product sheet / visual frame"
           : "Паспорт лота / визуальный кадр"}
       </p>

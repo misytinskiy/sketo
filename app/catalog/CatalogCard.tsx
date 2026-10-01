@@ -27,18 +27,18 @@ export default function CatalogCard({ item, language }: CatalogCardProps) {
 
         <div className={styles.content}>
           <div className={styles.metaBlock}>
-            <p className={styles.metaLabel}>{language === "en" ? "Lot" : "Лот"}</p>
+            <p className={styles.metaLabel}>{language === "kz" ? "Лот" : language === "en" ? "Lot" : "Лот"}</p>
             <h2 className={styles.name}>{content.name}</h2>
             <p className={styles.details}>{content.size}</p>
           </div>
 
           <div className={styles.metaBlock}>
-            <p className={styles.metaLabel}>{language === "en" ? "Notes" : "Ноты"}</p>
+            <p className={styles.metaLabel}>{language === "kz" ? "Дәм ноталары" : language === "en" ? "Notes" : "Ноты"}</p>
             <p className={styles.details}>{content.notes}</p>
           </div>
 
           <div className={styles.metaBlock}>
-            <p className={styles.metaLabel}>{language === "en" ? "Price" : "Цена"}</p>
+            <p className={styles.metaLabel}>{language === "kz" ? "Баға" : language === "en" ? "Price" : "Цена"}</p>
             <p className={styles.price}>{item.price}</p>
           </div>
         </div>

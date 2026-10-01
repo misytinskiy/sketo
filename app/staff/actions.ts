@@ -1,5 +1,7 @@
 "use server";
 
+import { requireStaff } from "@/lib/staff-auth";
+
 import { and, asc, eq, inArray, like, or, sql } from "drizzle-orm";
 import { revalidatePath, updateTag } from "next/cache";
 import { db } from "@/lib/db";
@@ -92,6 +94,7 @@ function revalidateStaffCatalogs(kinds: ProductType[]) {
 }
 
 export async function createStaffProduct(formData: FormData) {
+  await requireStaff();
   const kind = formData.get("kind");
 
   if (kind !== "coffee" && kind !== "equipment") {
@@ -135,6 +138,16 @@ export async function createStaffProduct(formData: FormData) {
       .returning();
 
     await tx.insert(productTranslations).values([
+      {
+        productId: product.id,
+        locale: "kz",
+        name: kind === "coffee" ? "Жаңа кофе" : "Жаңа жабдық",
+        size: kind === "coffee" ? "250 г" : null,
+        notes: kind === "coffee" ? "" : null,
+        category: kind === "equipment" ? "Жаңа санат" : null,
+        description: "",
+        statusLabel: kind === "equipment" ? "Қолда бар" : null,
+      },
       {
         productId: product.id,
         locale: "ru",
@@ -215,12 +228,15 @@ async function changeSelectedStaffProducts(productIds: string[], versions: Recor
 }
 
 export async function deleteSelectedStaffProducts(productIds: string[], versions: Record<string, string | null>) {
+  await requireStaff();
   return archiveSelectedStaffProducts(productIds, versions);
 }
 
 export async function archiveSelectedStaffProducts(productIds: string[], versions: Record<string, string | null>) {
+  await requireStaff();
   return changeSelectedStaffProducts(productIds, versions, false);
 }
 export async function restoreSelectedStaffProducts(productIds: string[], versions: Record<string, string | null>) {
+  await requireStaff();
   return changeSelectedStaffProducts(productIds, versions, true);
 }

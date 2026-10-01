@@ -11,7 +11,7 @@ import usePersistentLanguage from "./components/usePersistentLanguage";
 import styles from "./page.module.css";
 
 type HomePageClientProps = {
-  initialLanguage: "ru" | "en";
+  initialLanguage: "ru" | "en" | "kz";
 };
 
 export default function HomePageClient({
@@ -27,7 +27,7 @@ export default function HomePageClient({
       <section id="quote-section" className={styles.quoteSection}>
         <div className={styles.quoteContent}>
           <p className={styles.quoteText}>
-            {currentLanguage === "en"
+            {currentLanguage === "kz" ? "Кофе — зейінді арттырып, уақытты баяулататын және қарапайым әңгімені жылы әрі есте қаларлық сәтке айналдыратын үзіліс." : currentLanguage === "en"
               ? "Coffee is a pause that sharpens attention, slows down time, and turns an ordinary conversation into something warm, precise, and memorable."
               : "Кофе — это пауза, которая обостряет внимание, замедляет время и превращает обычный разговор в нечто теплое, точное и запоминающееся."}
           </p>

@@ -6,7 +6,7 @@ import type { Language } from "./language";
 import styles from "./MatchaFeature.module.css";
 
 type MatchaCtaButtonProps = {
-  language: Exclude<Language, "kz">;
+  language: Language;
 };
 
 export default function MatchaCtaButton({ language }: MatchaCtaButtonProps) {
@@ -46,7 +46,7 @@ export default function MatchaCtaButton({ language }: MatchaCtaButtonProps) {
       onBlur={() => setIsHovered(false)}
     >
       <span className={styles.ctaLinkLabel}>
-        {language === "en" ? "visit sketo" : "посетить sketo"}
+        {language === "kz" ? "sketo-ға келу" : language === "en" ? "visit sketo" : "посетить sketo"}
       </span>
     </Link>
   );

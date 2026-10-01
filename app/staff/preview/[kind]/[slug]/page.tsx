@@ -1,3 +1,6 @@
+import { requireStaff } from "@/lib/staff-auth";
+import { getSiteUrl, publicProductPath } from "@/lib/site-url";
+import { getInitialLanguage } from "@/app/components/getInitialLanguage";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { verifyPreviewToken } from "@/lib/staff-preview";
@@ -13,18 +16,21 @@ export default async function PreviewPage({ params, searchParams }: {
   params: Promise<{ kind: string; slug: string }>;
   searchParams: Promise<{ token?: string }>;
 }) {
+  await requireStaff();
   const { kind, slug } = await params;
   const { token } = await searchParams;
   if ((kind !== "coffee" && kind !== "equipment") || typeof token !== "string" || !verifyPreviewToken(kind, slug, token)) notFound();
   const content = kind === "coffee" ? await getCoffeePreviewItem(slug) : await getEquipmentPreviewItem(slug);
   if (!content) notFound();
+  const initialLanguage = await getInitialLanguage();
+  const productUrl = new URL(publicProductPath(kind, slug), getSiteUrl()).href;
   return <>
     <aside style={{ padding: "16px", background: "#2d3134", color: "white" }}>
       Предпросмотр сохранённой версии · ссылка действует 15 минут. {" "}
       <Link href={`/staff/edit/${kind}/${slug}`}>Вернуться к редактору</Link>
     </aside>
     {"price" in content
-      ? <LotPageClient item={content} itemIndex={0} initialLanguage="ru" />
-      : <EquipmentItemPageClient item={content} itemIndex={0} initialLanguage="ru" />}
+      ? <LotPageClient item={content} itemIndex={0} initialLanguage={initialLanguage} productUrl={productUrl} />
+      : <EquipmentItemPageClient item={content} itemIndex={0} initialLanguage={initialLanguage} productUrl={productUrl} />}
   </>;
 }

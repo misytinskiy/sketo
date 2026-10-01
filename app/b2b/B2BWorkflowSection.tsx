@@ -1,4 +1,6 @@
 "use client";
+import LocalizedText from "@/app/components/LocalizedText";
+
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
@@ -74,12 +76,10 @@ export default function B2BWorkflowSection({
   return (
     <section ref={sectionRef} className={styles.workflowSection}>
       <div className={styles.workflowIntro}>
-        <p className={styles.eyebrow}>workflow / how it works</p>
+        <p className={styles.eyebrow}><LocalizedText text="workflow / how it works" /></p>
         <h2 className={styles.workflowTitle}>
-          How
-          <br />
-          work moves
-        </h2>
+          <LocalizedText text="How" /><br />
+          <LocalizedText text="work moves" /></h2>
         <p className={styles.workflowLead}>{lead}</p>
       </div>
 

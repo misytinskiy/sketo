@@ -15,7 +15,7 @@ type LanguageSwitchProps = {
 export default function LanguageSwitch({
   value,
   onChange,
-  disabledLanguages = ["kz"],
+  disabledLanguages = [],
 }: LanguageSwitchProps) {
   const [storedLanguage, setStoredLanguage] = usePersistentLanguage();
   const activeLanguage = value ?? storedLanguage;
@@ -25,7 +25,7 @@ export default function LanguageSwitch({
       return;
     }
 
-    const normalizedLanguage = language === "en" ? "en" : "ru";
+    const normalizedLanguage = language;
 
     if (onChange) {
       onChange(normalizedLanguage);
@@ -36,7 +36,7 @@ export default function LanguageSwitch({
   };
 
   return (
-    <div className={styles.languageSwitch} aria-label="Language switcher">
+    <div className={styles.languageSwitch} aria-label={activeLanguage === "kz" ? "Тілді таңдау" : activeLanguage === "ru" ? "Выбор языка" : "Language switcher"}>
       {languages.map((language, index) => {
         const isActive = activeLanguage === language;
         const isDisabled = disabledLanguages.includes(language);

@@ -12,6 +12,12 @@ import type { CatalogFilter } from "./catalog-data";
 import styles from "./catalog.module.css";
 
 const filterLabels = {
+  kz: {
+    all: "Барлығы",
+    profiles: "Профильдер",
+    decaf: "Декаф",
+    microlot: "Микролоттар",
+  },
   ru: {
     all: "Все",
     profiles: "Профили",
@@ -24,9 +30,10 @@ const filterLabels = {
     decaf: "Decaf",
     microlot: "Microlots",
   },
-} satisfies Record<"ru" | "en", Record<CatalogFilter, string>>;
+} satisfies Record<"ru" | "en" | "kz", Record<CatalogFilter, string>>;
 
-function getLotsLabel(count: number, language: "ru" | "en") {
+function getLotsLabel(count: number, language: "ru" | "en" | "kz") {
+  if (language === "kz") return "лот";
   if (language === "en") {
     return count === 1 ? "lot" : "lots";
   }
@@ -46,7 +53,7 @@ function getLotsLabel(count: number, language: "ru" | "en") {
 };
 
 type CatalogContentProps = {
-  initialLanguage: "ru" | "en";
+  initialLanguage: "ru" | "en" | "kz";
   items: CoffeeCatalogCardItem[];
 };
 
@@ -89,7 +96,7 @@ export default function CatalogContent({
           <Link
             href="/"
             className={styles.homeLogo}
-            aria-label={currentLanguage === "en" ? "Sketo home" : "Главная Sketo"}
+            aria-label={currentLanguage === "kz" ? "Sketo басты беті" : currentLanguage === "en" ? "Sketo home" : "Главная Sketo"}
           >
             sketo.
           </Link>
@@ -99,12 +106,12 @@ export default function CatalogContent({
         <section
           className={styles.controls}
           aria-label={
-            currentLanguage === "en" ? "Search and filters" : "Поиск и фильтры"
+            currentLanguage === "kz" ? "Іздеу және сүзгілер" : currentLanguage === "en" ? "Search and filters" : "Поиск и фильтры"
           }
         >
           <div className={styles.searchBlock}>
             <label htmlFor="catalog-search" className={styles.controlLabel}>
-              {currentLanguage === "en" ? "Search" : "Поиск"}
+              {currentLanguage === "kz" ? "Іздеу" : currentLanguage === "en" ? "Search" : "Поиск"}
             </label>
             <input
               id="catalog-search"
@@ -113,7 +120,7 @@ export default function CatalogContent({
               onChange={(event) => setSearchValue(event.target.value)}
               className={styles.searchInput}
               placeholder={
-                currentLanguage === "en"
+                currentLanguage === "kz" ? "Атауы немесе дәм ноталары" : currentLanguage === "en"
                   ? "Name or tasting notes"
                   : "Название или вкусовые ноты"
               }
@@ -122,7 +129,7 @@ export default function CatalogContent({
 
           <div className={styles.filtersBlock}>
             <span className={styles.controlLabel}>
-              {currentLanguage === "en" ? "Filters" : "Фильтры"}
+              {currentLanguage === "kz" ? "Сүзгілер" : currentLanguage === "en" ? "Filters" : "Фильтры"}
             </span>
             <div className={styles.filterRow}>
               {(Object.keys(filterLabels.ru) as CatalogFilter[]).map((filter) => {
@@ -149,7 +156,7 @@ export default function CatalogContent({
 
         <section
           className={styles.grid}
-          aria-label={currentLanguage === "en" ? "Coffee catalog" : "Каталог зерна"}
+          aria-label={currentLanguage === "kz" ? "Кофе дәндерінің каталогы" : currentLanguage === "en" ? "Coffee catalog" : "Каталог зерна"}
         >
           {filteredItems.length > 0 ? (
             filteredItems.map((item) => (
@@ -158,7 +165,7 @@ export default function CatalogContent({
           ) : (
             <div className={styles.emptyState}>
               <p className={styles.emptyStateText}>
-                {currentLanguage === "en"
+                {currentLanguage === "kz" ? "Ештеңе табылмады. Басқа атауды, дәм ноталарын немесе сүзгіні қолданып көріңіз." : currentLanguage === "en"
                   ? "Nothing found. Try another name, note, or filter."
                   : "Ничего не найдено. Попробуй другое название, ноты или фильтр."}
               </p>

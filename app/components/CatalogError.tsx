@@ -1,4 +1,6 @@
 "use client";
+import LocalizedText from "@/app/components/LocalizedText";
+
 
 import Link from "next/link";
 import { useTransition } from "react";
@@ -8,12 +10,12 @@ export default function CatalogError({ unstable_retry }: { unstable_retry: () =>
   const [pending, startTransition] = useTransition();
   return <main className={styles.page}>
     <section className={styles.panel} role="alert">
-      <h1>Не удалось загрузить каталог</h1>
-      <p>Данные временно недоступны. Попробуйте загрузить страницу ещё раз.</p>
+      <h1><LocalizedText text="Не удалось загрузить каталог" /></h1>
+      <p><LocalizedText text="Данные временно недоступны. Попробуйте загрузить страницу ещё раз." /></p>
       <button disabled={pending} onClick={() => startTransition(() => unstable_retry())}>
-        {pending ? "Загружаем…" : "Повторить загрузку"}
+        <LocalizedText text={pending ? "Загружаем…" : "Повторить загрузку"} />
       </button>
-      <Link href="/">На главную</Link>
+      <Link href="/"><LocalizedText text="На главную" /></Link>
     </section>
   </main>;
 }

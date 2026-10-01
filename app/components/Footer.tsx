@@ -4,7 +4,7 @@ import type { Language } from "./language";
 import styles from "./Footer.module.css";
 
 type FooterProps = {
-  language: Exclude<Language, "kz">;
+  language: Language;
 };
 
 export default function Footer({ language }: FooterProps) {
@@ -14,7 +14,7 @@ export default function Footer({ language }: FooterProps) {
         <Link
           href="/"
           className={styles.footerLogo}
-          aria-label={language === "en" ? "Sketo home" : "Главная Sketo"}
+          aria-label={language === "kz" ? "Sketo басты беті" : language === "en" ? "Sketo home" : "Главная Sketo"}
         >
           <Image
             src="/logo.PNG"
@@ -29,25 +29,25 @@ export default function Footer({ language }: FooterProps) {
       <div className={styles.footerColumns}>
         <div className={styles.footerColumn}>
           <p className={styles.footerTitle}>
-            {language === "en" ? "Navigation" : "Навигация"}
+            {language === "kz" ? "Навигация" : language === "en" ? "Navigation" : "Навигация"}
           </p>
           <Link href="/catalog" className={styles.footerLink}>
-            {language === "en" ? "Coffee" : "Кофе"}
+            {language === "kz" ? "Кофе" : language === "en" ? "Coffee" : "Кофе"}
           </Link>
           <Link href="/equipment" className={styles.footerLink}>
-            {language === "en" ? "Equipment" : "Оборудование"}
+            {language === "kz" ? "Жабдық" : language === "en" ? "Equipment" : "Оборудование"}
           </Link>
           <Link href="/b2b" className={styles.footerLink}>
             B2B
           </Link>
           <Link href="/academy" className={styles.footerLink}>
-            {language === "en" ? "Academy" : "Академия"}
+            {language === "kz" ? "Академия" : language === "en" ? "Academy" : "Академия"}
           </Link>
         </div>
 
         <div className={styles.footerColumn}>
           <p className={styles.footerTitle}>
-            {language === "en" ? "Social" : "Соцсети"}
+            {language === "kz" ? "Әлеуметтік желілер" : language === "en" ? "Social" : "Соцсети"}
           </p>
           <a
             href="https://www.instagram.com/sketo.coffee?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
@@ -69,10 +69,10 @@ export default function Footer({ language }: FooterProps) {
 
         <div className={styles.footerColumn}>
           <p className={styles.footerTitle}>
-            {language === "en" ? "Contact" : "Контакты"}
+            {language === "kz" ? "Байланыс" : language === "en" ? "Contact" : "Контакты"}
           </p>
           <Link href="/contacts" className={styles.footerLink}>
-            {language === "en" ? "Contact page" : "Страница контактов"}
+            {language === "kz" ? "Байланыс беті" : language === "en" ? "Contact page" : "Страница контактов"}
           </Link>
           <a
             href="https://maps.app.goo.gl/cFffiJuC9Q692hYv6"
@@ -86,7 +86,7 @@ export default function Footer({ language }: FooterProps) {
             +7 747 383 5398
           </a>
           <p className={styles.footerText}>
-            {language === "en"
+            {language === "kz" ? "Астана, Мұхтар Әуезов көшесі, 2" : language === "en"
               ? "Astana, 2 Mukhtar Auezov St."
               : "Астана, ул. Мухтара Ауэзова, 2"}
           </p>

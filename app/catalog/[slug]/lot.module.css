@@ -45,6 +45,8 @@
 
 .mediaPanel {
   position: relative;
+  align-self: stretch;
+  height: 100%;
   min-height: 36rem;
   perspective: 1000px;
   overflow: hidden;

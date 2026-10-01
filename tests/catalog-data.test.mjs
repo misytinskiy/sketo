@@ -87,3 +87,31 @@ for (const kind of ['coffee', 'equipment']) {
     for (const entry of caches) assert.ok(entry.options.tags.includes(`${kind}-catalog`));
   });
 }
+
+for (const kind of ['coffee', 'equipment']) {
+  test(`${kind}: Kazakh card and detail use database copy, with no static resurrection`, async () => {
+    const translated = { ...row, translations: [...row.translations, {
+      locale: 'kz', name: 'Қазақша кофе', size: '250 г', notes: 'Шоколад',
+      description: 'Қазақша сипаттама', category: 'Кофемашина', statusLabel: 'Қолда бар',
+    }], details: [{ locale: 'kz', kind: 'detail', label: 'Ел', value: 'Бразилия' }] };
+    const { api } = setup(kind, translated);
+    const item = await api[kind === 'coffee' ? 'getCoffeeCatalogItemBySlug' : 'getEquipmentItemBySlug'](row.slug);
+    assert.equal(item.translations.kz.description, 'Қазақша сипаттама');
+    assert.equal(item.translations.kz.details[0].label, 'Ел');
+    assert.equal(item.translations.ru.details.length, 0);
+  });
+  test(`${kind}: missing Kazakh database translation falls back to Russian`, async () => {
+    const { api } = setup(kind, row);
+    const item = await api[kind === 'coffee' ? 'getCoffeeCatalogItemBySlug' : 'getEquipmentItemBySlug'](row.slug);
+    assert.equal(item.translations.kz.description, row.translations[0].description);
+  });
+}
+
+for (const kind of ['coffee', 'equipment']) test(`${kind}: detail exposes localized SEO overrides with Kazakh fallback`, async () => {
+  const translated = { ...row, translations: [{ ...row.translations[0], seoTitle: 'SEO title', seoDescription: 'SEO description' }] };
+  const { api } = setup(kind, translated);
+  const item = await api[kind === 'coffee' ? 'getCoffeeCatalogItemBySlug' : 'getEquipmentItemBySlug'](row.slug);
+  assert.equal(item.translations.ru.seoTitle, 'SEO title');
+  assert.equal(item.translations.kz.seoDescription, 'SEO description');
+  assert.equal(item.translations.en.seoTitle, '');
+});

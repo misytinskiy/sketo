@@ -16,6 +16,7 @@ vm.runInNewContext(ts.transpileModule(readFileSync('lib/supabase/media-validatio
 function setup(product, options = {}) {
   product = { ...product };
   const writes = [];
+  const insertedRows = [];
   let snapshots = 0;
   let previousState = {};
   const cleanupJobs = [];
@@ -37,7 +38,7 @@ function setup(product, options = {}) {
       const commit = () => { if (options.triggerTime) values.updatedAt = options.triggerTime; writes.push(values); Object.assign(product, values); };
       return { then: (resolve) => { commit(); resolve(); }, returning: async () => { commit(); return [{ updatedAt: product.updatedAt }]; } };
     } }) }),
-    insert: () => ({ values: () => ({ returning: async () => [{ id: "asset" }] }) }),
+    insert: (table) => ({ values: (values) => { insertedRows.push({ table, values }); return { returning: async () => [{ id: "asset" }] }; } }),
     delete: (target) => {
       assert.notEqual(target, tables.products, 'Product and revision history must survive deletion');
       return { where: async () => {} };
@@ -53,6 +54,7 @@ function setup(product, options = {}) {
   const tables = new Proxy({}, { get: (target, key) => target[key] ??= new Proxy({}, { get: (_, column) => `${String(key)}.${String(column)}` }) });
   const exports = {};
   const modules = {
+    "@/lib/staff-auth": { requireStaff: async () => ({ id: "staff", role: "staff" }) },
     'node:buffer': buffer,
     'sharp': { default: sharp },
     '@/lib/supabase/media-validation': validation,
@@ -91,7 +93,7 @@ function setup(product, options = {}) {
     data.set('kind', 'coffee'); data.set('slug', 'sample'); data.set('version', product.updatedAt.toISOString());
     ids.forEach((id) => data.append('imageIds', id));
     return exports.updateProductMediaOrder(data);
-  }, invalidatedTags, writes, cleanupJobs, cleanupCalls: () => cleanupCalls, uploaded: () => uploaded, snapshots: () => snapshots };
+  }, insertedRows, invalidatedTags, writes, cleanupJobs, cleanupCalls: () => cleanupCalls, uploaded: () => uploaded, snapshots: () => snapshots };
 }
 const base = { id: 'test', slug: 'sample', type: 'coffee', isPublished: false, editorialState: 'draft', updatedAt: new Date('2026-09-07T00:00:00Z') };
 
@@ -205,6 +207,7 @@ function cleanupSetup({ referenced = false, failStorage = false } = {}) {
   };
   const exports = {};
   const modules = {
+    "@/lib/staff-auth": { requireStaff: async () => ({ id: "staff", role: "staff" }) },
     'drizzle-orm': { and: () => null, eq: () => null, inArray: () => null, sql: () => null },
     '@/lib/db': { db }, '@/lib/db/schema': tables, '@/lib/db/editor': {},
     './admin': { createAdminClient: () => ({ storage: { from: () => ({ remove: async () => { removeCalls++; return { error: failStorage ? new Error('offline') : null }; } }) } }) },
@@ -225,7 +228,9 @@ test('cleanup failure keeps its durable job pending after three attempts', async
   const s = cleanupSetup({ failStorage: true });
   assert.equal(await s.run(), 1);
   assert.equal(s.removeCalls(), 3);
-  assert.equal(s.completed.length, 0);
+  assert.equal(s.completed.length, 1);
+  assert.equal(s.completed[0].cleanupPending, true);
+  assert.equal(s.completed[0].cleanupFailed, true);
 });
 test('unreferenced file is removed and cleanup job completed', async () => {
   const s = cleanupSetup();
@@ -272,6 +277,7 @@ test('retrying product creation with the same request does not create a duplicat
     transaction: async (callback) => callback(db),
   };
   const modules = {
+    "@/lib/staff-auth": { requireStaff: async () => ({ id: "staff", role: "staff" }) },
     'drizzle-orm': { and: () => null, asc: () => null, eq: () => null, like: () => null, or: () => null, sql: () => null },
     'next/cache': { updateTag: () => {}, revalidatePath: () => {} },
     '@/lib/db': { db }, '@/lib/db/schema': tables,
@@ -355,6 +361,7 @@ for (const stale of [false, true]) test(`bulk restore ${stale ? 'rejects stale v
     transaction: async (callback) => callback(db),
   };
   const modules = {
+    "@/lib/staff-auth": { requireStaff: async () => ({ id: "staff", role: "staff" }) },
     'drizzle-orm': { and: () => null, asc: () => null, eq: () => null, inArray: () => null, or: () => null },
     'next/cache': { updateTag: (tag) => tags.push(tag), revalidatePath: () => {} },
     '@/lib/db': { db }, '@/lib/db/schema': { products: {}, auditLogs: {} },
@@ -374,4 +381,43 @@ for (const stale of [false, true]) test(`bulk restore ${stale ? 'rejects stale v
     assert.equal(snapshots[0].length, 2);
     assert.deepEqual(tags, ['staff-products', 'coffee-catalog']);
   }
+});
+
+for (const kind of ['coffee', 'equipment']) {
+  test(`${kind}: staff saves Kazakh copy and locale-specific collections`, async () => {
+    const s = setup({ ...base, type: kind });
+    const fields = {
+      kind, titleKz: 'Қазақша атауы', descriptionKz: 'Қазақша сипаттамасы',
+      titleRu: 'Русское название', descriptionRu: 'Описание',
+      sizeKz: '250 г', notesKz: 'Шоколад', categoryKz: 'Кофемашина',
+      brand: 'la-marzocco', equipmentType: 'espresso-machine',
+      [`${kind}DetailKzLabel`]: 'Ел', [`${kind}DetailKzValue`]: 'Бразилия',
+      equipmentFeatureKzTitle: 'Қос бойлер', equipmentFeatureKzDescription: 'Тұрақты температура',
+      equipmentSpecificationKzLabel: 'Қуаты', equipmentSpecificationKzValue: '1600 W',
+    };
+    assert.equal((await s.run('save_draft', fields)).status, 'success');
+    const rows = s.insertedRows.flatMap(({ values }) => Array.isArray(values) ? values : [values]);
+    const translation = rows.find(row => row.locale === 'kz' && row.name);
+    assert.equal(translation.name, fields.titleKz);
+    assert.equal(translation.description, fields.descriptionKz);
+    assert.ok(rows.some(row => row.locale === 'kz' && row.label === 'Ел' && row.value === 'Бразилия'));
+    if (kind === 'equipment') {
+      assert.equal(translation.statusLabel, 'Қолда бар');
+      assert.ok(rows.some(row => row.locale === 'kz' && row.title === 'Қос бойлер'));
+      assert.ok(rows.some(row => row.locale === 'kz' && row.kind === 'specification' && row.label === 'Қуаты'));
+    }
+  });
+}
+
+test('editor saves SEO fields per language and validates their lengths', async () => {
+  const s = setup(base);
+  const result = await s.run('save_draft', { seoTitleRu: 'Название для поиска', seoDescriptionKz: 'Қазақша сипаттама' });
+  assert.equal(result.status, 'success');
+  assert.equal(s.insertedRows.find((row) => row.values.locale === 'ru').values.seoTitle, 'Название для поиска');
+  assert.equal(s.insertedRows.find((row) => row.values.locale === 'kz').values.seoDescription, 'Қазақша сипаттама');
+  const bad = setup(base);
+  const rejected = await bad.run('save_draft', { seoTitleRu: 'a'.repeat(101) });
+  assert.equal(rejected.status, 'error');
+  assert.ok(rejected.fieldErrors.seoTitleRu);
+  assert.equal(bad.writes.length, 0);
 });

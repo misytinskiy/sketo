@@ -11,18 +11,21 @@ import {
 } from "../catalog-data";
 import LotEditorial from "./LotEditorial";
 import LotMedia from "./LotMedia";
+import ProductOrderButton from "../../components/ProductOrderButton";
 import styles from "./lot.module.css";
 
 type LotPageClientProps = {
+  productUrl: string;
   item: CatalogItem;
   itemIndex: number;
-  initialLanguage: "ru" | "en";
+  initialLanguage: "ru" | "en" | "kz";
 };
 
 export default function LotPageClient({
   item,
   itemIndex,
   initialLanguage,
+  productUrl,
 }: LotPageClientProps) {
   const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const currentLanguage = getContentLanguage(language);
@@ -35,7 +38,7 @@ export default function LotPageClient({
           <Link
             href="/"
             className={styles.homeLogo}
-            aria-label={currentLanguage === "en" ? "Sketo home" : "Главная Sketo"}
+            aria-label={currentLanguage === "kz" ? "Sketo басты беті" : currentLanguage === "en" ? "Sketo home" : "Главная Sketo"}
           >
             sketo.
           </Link>
@@ -44,16 +47,16 @@ export default function LotPageClient({
 
         <section className={styles.layout}>
           <Link href="/catalog" className={styles.backLink}>
-            {currentLanguage === "en" ? "Back to catalog" : "Назад в каталог"}
+            {currentLanguage === "kz" ? "Каталогқа оралу" : currentLanguage === "en" ? "Back to catalog" : "Назад в каталог"}
           </Link>
 
           <div className={styles.techMeta}>
             <p className={styles.techMetaText}>
-              {currentLanguage === "en" ? "LOT" : "ЛОТ"}{" "}
+              {currentLanguage === "kz" ? "ЛОТ" : currentLanguage === "en" ? "LOT" : "ЛОТ"}{" "}
               {(itemIndex + 1).toString().padStart(2, "0")}
             </p>
             <p className={styles.techMetaText}>
-              {currentLanguage === "en" ? "ARTICLE" : "АРТИКУЛ"} /{" "}
+              {currentLanguage === "kz" ? "АРТИКУЛ" : currentLanguage === "en" ? "ARTICLE" : "АРТИКУЛ"} /{" "}
               {item.slug.toUpperCase()}
             </p>
             <p className={styles.techMetaText}>SKETO COFFEE COMPANY</p>
@@ -72,21 +75,21 @@ export default function LotPageClient({
 
             <div className={styles.descriptionCard}>
               <p className={styles.sectionLabel}>
-                {currentLanguage === "en" ? "Description" : "Описание"}
+                {currentLanguage === "kz" ? "Сипаттама" : currentLanguage === "en" ? "Description" : "Описание"}
               </p>
               <p className={styles.description}>{content.description}</p>
             </div>
 
             <div className={styles.notesCard}>
               <p className={styles.sectionLabel}>
-                {currentLanguage === "en" ? "Notes" : "Ноты"}
+                {currentLanguage === "kz" ? "Дәм ноталары" : currentLanguage === "en" ? "Notes" : "Ноты"}
               </p>
               <p className={styles.notesText}>{content.notes}</p>
             </div>
 
             <div className={styles.detailsCard}>
               <p className={styles.sectionLabel}>
-                {currentLanguage === "en" ? "Details" : "Детали"}
+                {currentLanguage === "kz" ? "Мәліметтер" : currentLanguage === "en" ? "Details" : "Детали"}
               </p>
               <div className={styles.detailsList}>
                 {content.details.map((detail) => (
@@ -100,12 +103,14 @@ export default function LotPageClient({
 
             <div className={styles.descriptionCard}>
               <p className={styles.sectionLabel}>
-                {currentLanguage === "en" ? "Price / Weight" : "Цена / Вес"}
+                {currentLanguage === "kz" ? "Баға / Салмақ" : currentLanguage === "en" ? "Price / Weight" : "Цена / Вес"}
               </p>
               <div className={styles.priceLine}>
                 <p className={styles.price}>{item.price}</p>
                 <p className={styles.size}>{content.size}</p>
               </div>
+              <ProductOrderButton kind="coffee" language={currentLanguage} name={content.name}
+                slug={item.slug} size={content.size} price={item.price} productUrl={productUrl} />
             </div>
           </div>
         </section>

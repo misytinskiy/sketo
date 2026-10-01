@@ -83,6 +83,8 @@
 
 .mediaColumn {
   display: grid;
+  align-self: stretch;
+  align-content: space-between;
   gap: 1rem;
 }
 
@@ -185,8 +187,14 @@
 
 .infoPanel {
   display: grid;
+  align-self: stretch;
   align-content: start;
   gap: 1.5rem;
+}
+
+.orderAction {
+  align-self: end;
+  margin-top: auto;
 }
 
 .headline {

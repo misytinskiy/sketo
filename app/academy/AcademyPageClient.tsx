@@ -1,4 +1,6 @@
 "use client";
+import LocalizedText from "@/app/components/LocalizedText";
+
 
 import Image from "next/image";
 import Link from "next/link";
@@ -20,6 +22,178 @@ const heroFacts = [
 ] as const;
 
 const content = {
+  kz: {
+    back: "артқа",
+    lead:
+      "Баристаларға, үйде кофе дайындайтын әуесқойларға және жай рецепт емес, кофені жүйелі түсінуді қалайтын командаларға арналған оқу.",
+    introPrimary: "жазылу",
+    introSecondary: "каталогқа өту",
+    introText: "Sketo Academy — сіздің кофе тарихыңыз басталатын орын.",
+    audienceLeftTitle: "Кімге?",
+    audienceRightTitle: "Не үшін?",
+    audience: [
+      "бастаушы баристаларға",
+      "жұмыс істеп жүрген мамандарға",
+      "үйде кофе ішуді ұнататындарға",
+      "командалар мен компанияларға",
+    ],
+    principles: [
+      "дәмді түсіну",
+      "экстракцияны бақылау",
+      "жабдықпен сенімді жұмыс істеу",
+      "индустрия тілінде сөйлеу",
+    ],
+    courseDisplayLabel: "НАҚТЫ ДАҒДЫЛАРҒА АРНАЛҒАН ОҚУ ЖҮЙЕСІ",
+    courseDisplayLines: [
+      "НАҚТЫ",
+      "ДАҒДЫЛАРҒА",
+      "АРНАЛҒАН",
+      "ОҚУ",
+      "ЖҮЙЕСІ",
+    ],
+    courseIntroTexts: [
+      "Академия бағдарламалары жаңадан бастағандарға мамандықты нөлден меңгеруге, ал тәжірибелі баристаларға тұрақты практика, дәмді тану және жабдықты түсіну арқылы келесі деңгейге көтерілуге көмектеседі.",
+      "Әр курсты ашып, кімге арналғанын, қандай форматта өтетінін және қандай дағдылар беретінін көре аласыз.",
+    ],
+    courses: [
+      {
+        title: "Бариста дағдылары",
+        level: "бастапқы",
+        format: "офлайн",
+        price: "50 000 ₸",
+        lead: "Мамандыққа енді қадам басып, эспрессо мен сүтпен сенімді жұмыс істегісі келетіндерге арналған негіз.",
+        details: [
+          "экстракция мен рецептура негіздері",
+          "эспрессо және сүтті сусындар",
+          "жұмыс орны және негізгі жұмыс тәртібі",
+          "дәмді және жиі кездесетін қателерді түсіну",
+        ],
+      },
+      {
+        title: "Бариста дағдылары",
+        level: "орта",
+        format: "офлайн",
+        price: "80 000 ₸",
+        lead: "Жұмыс істеп жүрген баристаларға арналған келесі деңгей: тұрақтылық, жылдамдық және дәммен дәлірек жұмыс істеу.",
+        details: [
+          "эспрессоны терең баптау",
+          "ауысым бойы нәтижені тұрақты ұстау",
+          "сенсорика және кеседегі кофені бағалау",
+          "жылдамдық, тазалық және сервис стандарттары",
+        ],
+      },
+      {
+        title: "Баламалы дайындау",
+        level: "бастапқы",
+        format: "офлайн",
+        price: "50 000 ₸",
+        lead: "Қолмен кофе дайындауға кіріспе: негізгі қағидалардан рецепт бойынша сенімді дайындауға дейін.",
+        details: [
+          "су, ұнтақтау және арақатынастар",
+          "воронка және негізгі дайындау әдістері",
+          "рецептті түсіну және түзету",
+          "дәм, теңгерім және кеседегі тазалық",
+        ],
+      },
+      {
+        title: "Баламалы дайындау",
+        level: "орта",
+        format: "офлайн",
+        price: "80 000 ₸",
+        lead: "Баламалы әдістермен тереңірек жұмыс істеп, экстракцияны саналы басқарғысы келетіндерге арналған курс.",
+        details: [
+          "күрделі рецептер және калибрлеу",
+          "қышқылдық пен қоюлықты басқару",
+          "әдістер мен сүзгілерді салыстыру",
+          "сенсорлық талдау және ұсынуды түзету",
+        ],
+      },
+      {
+        title: "Үйде кофе дайындау",
+        level: "негіз",
+        format: "қысқа курс",
+        price: "15 000 ₸",
+        lead: "Үйге арналған ықшам формат: кәсіби барсыз дәмді кофе дайындау жолы.",
+        details: [
+          "үйде кофе дайындауға арналған жабдық",
+          "қарапайым әрі тиімді рецептер",
+          "жиі кездесетін қателер және олардан сақтану",
+          "дәмді өз талғамыңызға бейімдеу",
+        ],
+      },
+    ],
+    mentorsEyebrow: "тәлімгерлер",
+    mentorLabels: {
+      background: "тәжірибе",
+      focus: "негізгі бағыт",
+      note: "қосымша",
+    },
+    mentors: [
+      {
+        name: "Нұржігіт Тұрғын",
+        role: "бас тәлімгер / сенсорика / жарысқа дайындық",
+        image: "/photo/academy/mentors/nurdzhigit.JPEG",
+        stats: [
+          "кофе индустриясында 5 жылдан астам тәжірибе",
+          "шеф-бариста, жаттықтырушы, сапа бақылаушысы",
+          "evolved q-grader",
+          "sca-ның 3 кәсіби модулі",
+        ],
+        focus: [
+          "жарыстарға дайындық",
+          "сенсорика және дәмді бағалау",
+          "бар командасын оқыту стандарттары",
+        ],
+        note: "Бариста чемпионаттарының қатысушысы және жүлдегері. Баристаларды жарыстарға дайындайды және чемпионаттарда төрелік етеді.",
+      },
+      {
+        name: "Ануар Асланұлы",
+        role: "тәлімгер / қуыру / сапаны бақылау / жұмыс процестері",
+        image: "/photo/academy/mentors/anuar.JPEG",
+        stats: [
+          "индустрияда 5 жылдан астам тәжірибе",
+          "шеф-бариста, жаттықтырушы, сапа бақылаушысы, қуырушы",
+          "кофе чемпионаттарына қатысқан",
+        ],
+        focus: [
+          "қуыру және сапаны бақылау",
+          "дәм мен экстракцияны баптау",
+          "кофехананың жұмыс процестері",
+        ],
+        note: "Тбилисиде 2,5 жыл жұмыс істеп, Probarista кофеханасын ашуға қатысқан.",
+      },
+    ],
+    faq: [
+      {
+        question: "Оқуды бастау үшін тәжірибе қажет пе?",
+        answer:
+          "Жоқ. Бастапқы курстар мамандыққа енді кірісіп жатқан немесе кофені тереңірек түсінгісі келетін адамдарға арналған.",
+      },
+      {
+        question: "Тәжірибелі баристаларға арналған оқу бар ма?",
+        answer:
+          "Иә. Орта және жоғары деңгей модульдері білімді жүйелеуге, дәм сапасын және жабдықпен жұмысты жақсартуға көмектеседі.",
+      },
+      {
+        question: "Команданы оқытуға бола ма?",
+        answer:
+          "Иә. Кафе, мейрамхана немесе бренд командасы үшін корпоративтік оқу форматын құра аламыз.",
+      },
+      {
+        question: "Бір курс қанша уақытқа созылады?",
+        answer:
+          "Ұзақтығы бағдарлама мен деңгейге байланысты. Қысқа интенсивтер бір блоктан тұрады, ал бастапқы және орта деңгей курстары практикасы бар кеңейтілген құрылыммен өтеді.",
+      },
+      {
+        question: "Оқудан кейін сертификат беріле ме?",
+        answer:
+          "Курс аяқталған соң бағдарламадан өткеніңізді растап, меңгерген дағдыларыңызды тіркейміз. Растау форматы нақты модульге байланысты.",
+      },
+    ],
+    finalTitle: "Кофе туралы\nбіліміңіздің негізін қалаңыз",
+    finalText:
+      "Мамандыққа түсінікті қадам, жүйелі практика немесе командаға оқу қажет болса, Sketo Academy қазіргі деңгейіңіз бен мақсаттарыңызға сай бағыт құруға көмектеседі.",
+  },
   ru: {
     back: "назад",
     lead:
@@ -361,7 +535,7 @@ const content = {
 } as const;
 
 type AcademyPageClientProps = {
-  initialLanguage: "ru" | "en";
+  initialLanguage: "ru" | "en" | "kz";
 };
 
 export default function AcademyPageClient({
@@ -388,18 +562,17 @@ export default function AcademyPageClient({
 
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>academy as system</p>
+            <p className={styles.eyebrow}><LocalizedText text="academy as system" /></p>
             <h1 className={styles.title}>
               sketo.
               <br />
-              academy
-            </h1>
+              <LocalizedText text="academy" /></h1>
             <p className={styles.lead}>{copy.lead}</p>
           </div>
           <div className={styles.heroInfoStack}>
             {heroFacts.map((item) => (
               <span key={item} className={styles.heroInfoItem}>
-                {item}
+                <LocalizedText text={item} />
               </span>
             ))}
           </div>
@@ -458,7 +631,7 @@ export default function AcademyPageClient({
 
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <p className={styles.eyebrow}>sketo academy program</p>
+          <p className={styles.eyebrow}><LocalizedText text="sketo academy program" /></p>
         </div>
         <AcademyCourseShowcase
           courses={copy.courses}
@@ -535,7 +708,7 @@ export default function AcademyPageClient({
 
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <p className={styles.eyebrow}>faq</p>
+          <p className={styles.eyebrow}><LocalizedText text="faq" /></p>
         </div>
         <AcademyFaq items={copy.faq} />
       </section>
@@ -543,7 +716,7 @@ export default function AcademyPageClient({
       <section className={`${styles.section} ${styles.finalCtaSection}`}>
         <div className={styles.finalCtaGrid}>
           <div className={styles.finalCtaCopy}>
-            <p className={styles.eyebrow}>next step</p>
+            <p className={styles.eyebrow}><LocalizedText text="next step" /></p>
             <h2 className={styles.finalCtaTitle}>
               {copy.finalTitle.split("\n").map((line) => (
                 <span key={line}>

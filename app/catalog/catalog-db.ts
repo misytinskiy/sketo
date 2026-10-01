@@ -7,7 +7,7 @@ import { resolveCoffeeStorageUrl } from "@/lib/supabase/storage-public";
 import type { CatalogItem } from "./catalog-data";
 
 export type CoffeeCatalogCardItem = Omit<CatalogItem, "translations"> & {
-  translations: Record<"ru" | "en", Pick<CatalogItem["translations"]["ru"], "name" | "size" | "notes">>;
+  translations: Record<"ru" | "en" | "kz", Pick<CatalogItem["translations"]["ru"], "name" | "size" | "notes">>;
 };
 const published = and(eq(products.type, "coffee"), eq(products.isPublished, true));
 const cacheOptions = { tags: ["products", "coffee-catalog"], revalidate: 300 };
@@ -21,17 +21,18 @@ export const coffeeCardQuery = {
 } satisfies NonNullable<Parameters<typeof db.query.products.findMany>[0]>;
 
 function mapCard(row: Awaited<ReturnType<typeof loadCards>>[number]): CoffeeCatalogCardItem {
-  const translation = (locale: "ru" | "en") => {
-    const value = row.translations.find((entry) => entry.locale === locale);
+  const translation = (locale: "ru" | "en" | "kz") => {
+    const value = row.translations.find((entry) => entry.locale === locale)
+      ?? (locale === "kz" ? row.translations.find((entry) => entry.locale === "ru") : undefined);
     return { name: value?.name ?? row.name ?? row.slug, size: value?.size ?? "", notes: value?.notes ?? "" };
   };
   return { slug: row.slug, image: resolveCoffeeStorageUrl(row.imageUrl),
     price: row.priceDisplay ?? "", filters: (row.filters ?? []).filter((filter): filter is "profiles" | "decaf" | "microlot" => ["profiles", "decaf", "microlot"].includes(filter)),
-    translations: { ru: translation("ru"), en: translation("en") } };
+    translations: { ru: translation("ru"), en: translation("en"), kz: translation("kz") } };
 }
 async function loadCards() { return db.query.products.findMany(coffeeCardQuery); }
 export const getCoffeeCatalogItems = cache(unstable_cache(
-  async () => (await loadCards()).map(mapCard), ["coffee-catalog-cards-v2"], cacheOptions,
+  async () => (await loadCards()).map(mapCard), ["coffee-catalog-cards-v3-kz"], cacheOptions,
 ));
 
 export const coffeeDetailRelations = {
@@ -46,24 +47,29 @@ async function loadDetail(slug: string, preview = false): Promise<CatalogItem | 
   });
   if (!row) return null;
   const card = mapCard(row);
-  const translation = (locale: "ru" | "en") => ({
+  // Fall back only when the locale is absent; empty saved collections stay empty.
+  const detailLocale = (locale: "ru" | "en" | "kz") =>
+    locale === "kz" && !row.translations.some((entry) => entry.locale === "kz") ? "ru" : locale;
+  const translation = (locale: "ru" | "en" | "kz") => ({
     ...card.translations[locale],
-    description: row.translations.find((entry) => entry.locale === locale)?.description ?? "",
-    details: row.details.filter((entry) => entry.locale === locale && entry.kind === "detail").map(({ label, value }) => ({ label, value })),
+    seoTitle: row.translations.find((entry) => entry.locale === detailLocale(locale))?.seoTitle ?? "",
+    seoDescription: row.translations.find((entry) => entry.locale === detailLocale(locale))?.seoDescription ?? "",
+    description: row.translations.find((entry) => entry.locale === detailLocale(locale))?.description ?? "",
+    details: row.details.filter((entry) => entry.locale === detailLocale(locale) && entry.kind === "detail").map(({ label, value }) => ({ label, value })),
 
   });
 
-  return { ...card, translations: { ru: translation("ru"), en: translation("en") } };
+  return { ...card, translations: { ru: translation("ru"), en: translation("en"), kz: translation("kz") } };
 }
 export const getCoffeeCatalogItemBySlug = cache(unstable_cache(
-  (slug: string) => loadDetail(slug), ["coffee-product-detail-v2"], cacheOptions,
+  (slug: string) => loadDetail(slug), ["coffee-product-detail-v4-seo"], cacheOptions,
 ));
 // Preview deliberately bypasses the public cache and publication filter.
 export async function getCoffeePreviewItem(slug: string) { return loadDetail(slug, true); }
 
 const getSlugs = cache(unstable_cache(
   () => db.select({ slug: products.slug }).from(products).where(published).orderBy(asc(products.sortOrder), asc(products.slug)),
-  ["coffee-catalog-slugs-v2"], cacheOptions,
+  ["coffee-catalog-slugs-v3-kz"], cacheOptions,
 ));
 export async function getCoffeeCatalogItemIndex(slug: string) {
   return (await getSlugs()).findIndex((item) => item.slug === slug);

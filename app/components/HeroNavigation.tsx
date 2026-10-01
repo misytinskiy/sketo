@@ -9,33 +9,33 @@ import styles from "../page.module.css";
 const navItems = [
   {
     id: "coffee",
-    label: { ru: "Кофе", en: "Coffee" },
+    label: { kz: "Кофе", ru: "Кофе", en: "Coffee" },
     href: "/catalog",
     image: "/photo/1.JPG",
   },
   {
     id: "equipment",
-    label: { ru: "Оборудование", en: "Equipment" },
+    label: { kz: "Жабдық", ru: "Оборудование", en: "Equipment" },
     href: "/equipment",
     image: "/photo/2.JPG",
   },
-  { id: "b2b", label: { ru: "B2B", en: "B2B" }, href: "/b2b", image: "/photo/3.JPG" },
+  { id: "b2b", label: { kz: "B2B", ru: "B2B", en: "B2B" }, href: "/b2b", image: "/photo/3.JPG" },
   {
     id: "academy",
-    label: { ru: "Академия", en: "Academy" },
+    label: { kz: "Академия", ru: "Академия", en: "Academy" },
     href: "/academy",
     image: "/photo/4.JPG",
   },
   {
     id: "contacts",
-    label: { ru: "Контакты", en: "Contacts" },
+    label: { kz: "Байланыс", ru: "Контакты", en: "Contacts" },
     href: "/contacts",
     image: "/photo/5.JPG",
   },
 ] as const;
 
 type HeroNavigationProps = {
-  language?: "ru" | "en";
+  language?: "ru" | "en" | "kz";
 };
 
 export default function HeroNavigation({
@@ -135,7 +135,7 @@ export default function HeroNavigation({
 
       <nav
         className={styles.nav}
-        aria-label={language === "en" ? "Main navigation" : "Основная навигация"}
+        aria-label={language === "kz" ? "Негізгі навигация" : language === "en" ? "Main navigation" : "Основная навигация"}
         onMouseLeave={deactivateActiveItem}
       >
         {navItems.map((item, index) => {

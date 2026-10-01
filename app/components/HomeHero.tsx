@@ -1,4 +1,6 @@
 "use client";
+import LocalizedText from "@/app/components/LocalizedText";
+
 
 import {
   useLayoutEffect,
@@ -85,46 +87,11 @@ export default function HomeHero({
         return getDesktopInset();
       };
 
-      const getLogoTargetMetrics = () => {
-        const rect = logoWrap.getBoundingClientRect();
-        const inset = getDesktopInset();
-        const topInset = getDesktopTopInset();
-        const targetWidth = gsap.utils.clamp(96, 142, window.innerWidth * 0.082);
-        const scale = targetWidth / rect.width;
-
-        return {
-          rect,
-          inset,
-          topInset,
-          scale,
-          targetHeight: rect.height * scale,
-        };
-      };
-
-      const logoTweenValues = () => {
-        const { rect, inset, topInset, scale } = getLogoTargetMetrics();
-
-        return {
-          x: inset - rect.left,
-          y: topInset - rect.top,
-          scale,
-          force3D: true,
-        };
-      };
-
-      const topBarTweenValues = () => {
-        const rect = topBar.getBoundingClientRect();
-        const rightInset = getDesktopInset();
-        const { topInset, targetHeight } = getLogoTargetMetrics();
-        const targetTop = topInset + targetHeight / 2 - rect.height / 2;
-
-        return {
-          x: window.innerWidth - rightInset - rect.right - rect.width / 2,
-          y: targetTop - rect.top,
-          xPercent: 0,
-          force3D: true,
-        };
-      };
+      // Layout metrics exclude GSAP transforms, so refreshing mid-animation
+      // never uses an already translated or scaled rectangle as its starting point.
+      const getLogoScale = () =>
+        gsap.utils.clamp(96, 142, document.documentElement.clientWidth * 0.082) /
+        Math.max(1, logoWrap.offsetWidth);
 
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -137,22 +104,51 @@ export default function HomeHero({
       });
 
       timeline
-        .to(
+        .fromTo(
           logoWrap,
+          { x: 0, y: 0, scale: 1 },
           {
-            ...logoTweenValues(),
+            x: () => getDesktopInset() - logoWrap.offsetLeft,
+            y: () => getDesktopTopInset() - logoWrap.offsetTop,
+            scale: getLogoScale,
+            force3D: true,
             ease: "none",
           },
           0,
         )
-        .to(
+        .fromTo(
           topBar,
+          { x: 0, y: 0, xPercent: -50 },
           {
-            ...topBarTweenValues(),
+            x: () => document.documentElement.clientWidth - getDesktopInset() -
+              topBar.offsetLeft - topBar.offsetWidth / 2,
+            y: () => getDesktopTopInset() +
+              logoWrap.offsetHeight * getLogoScale() / 2 -
+              topBar.offsetHeight / 2 - topBar.offsetTop,
+            xPercent: -50,
+            force3D: true,
             ease: "none",
           },
           0,
         );
+
+      // Refresh during resizing, including changes caused by loaded fonts.
+      let frame = 0;
+      let disposed = false;
+      const refresh = () => {
+        if (disposed || frame) return;
+        frame = window.requestAnimationFrame(() => {
+          frame = 0;
+          ScrollTrigger.refresh();
+          // Do not let scrub smoothing keep stale coordinates outside the viewport.
+          timeline.progress(timeline.scrollTrigger?.progress ?? 0);
+        });
+      };
+      const observer = new ResizeObserver(refresh);
+      observer.observe(logoWrap);
+      observer.observe(topBar);
+      window.addEventListener("resize", refresh);
+      void document.fonts.ready.then(refresh);
 
       if (quoteSection) {
         ScrollTrigger.create({
@@ -165,6 +161,13 @@ export default function HomeHero({
           },
         });
       }
+      return () => {
+        disposed = true;
+        window.cancelAnimationFrame(frame);
+        observer.disconnect();
+        window.removeEventListener("resize", refresh);
+      };
+
     });
 
     return () => {
@@ -210,7 +213,7 @@ export default function HomeHero({
       </div>
 
       {!isDesktop ? (
-        <p className={styles.heroTagline}>coffee and all about.</p>
+        <p className={styles.heroTagline}><LocalizedText text="coffee and all about." /></p>
       ) : null}
     </section>
   );

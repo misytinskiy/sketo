@@ -5,7 +5,7 @@ import { equipmentItems } from "../app/catalog/equipment/equipment-data";
 import { createAdminClient } from "../lib/supabase/admin";
 import type { ProductStatus } from "../lib/db/schema";
 
-const LOCALES = ["ru", "en"] as const;
+const LOCALES = ["ru", "en", "kz"] as const;
 
 function parsePrice(price: string) {
   const match = price.match(/^([A-Z]{3})\s*([\d,]+)/);
