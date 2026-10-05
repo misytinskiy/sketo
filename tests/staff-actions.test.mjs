@@ -27,6 +27,7 @@ function setup(product, options = {}) {
     query: {
       products: { findFirst: async () => options.slugAvailable ? undefined : product },
       productTranslations: { findFirst: async () => null },
+      mediaAssets: { findFirst: async () => options.mediaAsset ?? null },
     },
     select: () => ({ from: (table) => {
       const data = table === tables.productImages ? (options.images ?? []) : [];
@@ -73,7 +74,12 @@ function setup(product, options = {}) {
     },
     '@/lib/db/schema': tables,
     '@/lib/supabase/admin': { createAdminClient: () => ({ storage: { from: () => ({ upload: async () => { uploaded++; return { error: options.uploadFailure ? new Error('Storage unavailable') : null }; } }) } }) },
-    '@/lib/supabase/storage-public': { normalizeStorageObjectPath: (_, path) => path, getStorageBucketName: () => 'catalog', resolveCoffeeStorageUrl: (path) => path },
+    '@/lib/supabase/storage-public': {
+      normalizeStorageObjectPath: (_, path) => path,
+      getStorageBucketName: (kind) => kind === 'coffee' ? 'catalog' : 'equipment',
+      resolveCoffeeStorageUrl: (path) => path,
+      resolveEquipmentStorageUrl: (path) => path,
+    },
   };
   const source = readFileSync('app/staff/edit/[kind]/[slug]/actions.ts', 'utf8');
   vm.runInNewContext(ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2017 } }).outputText, {
@@ -84,16 +90,16 @@ function setup(product, options = {}) {
     for (const [key, value] of Object.entries({ kind: 'coffee', slug: 'sample', intent, status: 'in_stock', version: product.updatedAt.toISOString(), ...fields })) data.set(key, value);
     previousState = await exports.submitEditorForm(previousState, data);
     return previousState;
-  }, upload: async (file) => {
+  }, upload: async (file, kind = 'coffee') => {
     const data = new FormData();
-    data.set('kind', 'coffee'); data.set('slug', 'sample'); data.set('version', product.updatedAt.toISOString()); data.set('files', file);
+    data.set('kind', kind); data.set('slug', 'sample'); data.set('version', product.updatedAt.toISOString()); data.set('files', file);
     return exports.uploadProductMedia(data);
   }, reorder: async (ids) => {
     const data = new FormData();
     data.set('kind', 'coffee'); data.set('slug', 'sample'); data.set('version', product.updatedAt.toISOString());
     ids.forEach((id) => data.append('imageIds', id));
     return exports.updateProductMediaOrder(data);
-  }, insertedRows, invalidatedTags, writes, cleanupJobs, cleanupCalls: () => cleanupCalls, uploaded: () => uploaded, snapshots: () => snapshots };
+  }, tables, insertedRows, invalidatedTags, writes, cleanupJobs, cleanupCalls: () => cleanupCalls, uploaded: () => uploaded, snapshots: () => snapshots };
 }
 const base = { id: 'test', slug: 'sample', type: 'coffee', isPublished: false, editorialState: 'draft', updatedAt: new Date('2026-09-07T00:00:00Z') };
 
@@ -250,6 +256,27 @@ test('valid upload commits media and advances editor version', async () => {
   assert.match(s.writes[0].imageUrl, /\.webp$/);
   assert.equal(s.snapshots(), 1);
 });
+test('coffee upload replaces the existing photo and queues the old file for cleanup', async () => {
+  const s = setup(base, { images: [{ id: 'old-image', url: 'coffee/sample/old.webp', sortOrder: 0, isPrimary: true }], mediaAsset: { id: 'old-asset' } });
+  const bytes = await sharp({ create: { width: 2, height: 2, channels: 3, background: '#ffffff' } }).png().toBuffer();
+  const result = await s.upload(new File([bytes], 'new.png', { type: 'image/png' }));
+  assert.equal(result.status, 'success');
+  assert.equal(s.cleanupJobs.includes('coffee/sample/old.webp'), true);
+  const imageInsert = s.insertedRows.find((entry) => entry.table === s.tables.productImages);
+  assert.equal(imageInsert.values.length, 1);
+  assert.equal(imageInsert.values[0].sortOrder, 0);
+  assert.equal(imageInsert.values[0].isPrimary, true);
+});
+test('equipment upload keeps gallery behavior and does not clean existing photos', async () => {
+  const s = setup({ ...base, type: 'equipment' }, { images: [{ id: 'old-image', url: 'equipment/sample/old.webp', sortOrder: 0, isPrimary: true }] });
+  const bytes = await sharp({ create: { width: 2, height: 2, channels: 3, background: '#ffffff' } }).png().toBuffer();
+  const result = await s.upload(new File([bytes], 'new.png', { type: 'image/png' }), 'equipment');
+  assert.equal(result.status, 'success');
+  assert.equal(s.cleanupJobs.includes('equipment/sample/old.webp'), false);
+  const imageInsert = s.insertedRows.find((entry) => entry.table === s.tables.productImages);
+  assert.equal(imageInsert.values[0].sortOrder, 1);
+  assert.equal(imageInsert.values[0].isPrimary, false);
+});
 test('audit failure after upload rolls back media and triggers cleanup', async () => {
   const s = setup(base, { auditFailure: true });
   const bytes = await sharp({ create: { width: 2, height: 2, channels: 3, background: '#ffffff' } }).png().toBuffer();
@@ -400,9 +427,9 @@ for (const kind of ['coffee', 'equipment']) {
     const translation = rows.find(row => row.locale === 'kz' && row.name);
     assert.equal(translation.name, fields.titleKz);
     assert.equal(translation.description, fields.descriptionKz);
+    assert.equal(translation.statusLabel, 'Қолда бар');
     assert.ok(rows.some(row => row.locale === 'kz' && row.label === 'Ел' && row.value === 'Бразилия'));
     if (kind === 'equipment') {
-      assert.equal(translation.statusLabel, 'Қолда бар');
       assert.ok(rows.some(row => row.locale === 'kz' && row.title === 'Қос бойлер'));
       assert.ok(rows.some(row => row.locale === 'kz' && row.kind === 'specification' && row.label === 'Қуаты'));
     }

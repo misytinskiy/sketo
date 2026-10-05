@@ -146,7 +146,7 @@ export async function createStaffProduct(formData: FormData) {
         notes: kind === "coffee" ? "" : null,
         category: kind === "equipment" ? "Жаңа санат" : null,
         description: "",
-        statusLabel: kind === "equipment" ? "Қолда бар" : null,
+        statusLabel: "Қолда бар",
       },
       {
         productId: product.id,
@@ -156,7 +156,7 @@ export async function createStaffProduct(formData: FormData) {
         notes: kind === "coffee" ? "" : null,
         category: kind === "equipment" ? "Новая категория" : null,
         description: "",
-        statusLabel: kind === "equipment" ? "В наличии" : null,
+        statusLabel: "В наличии",
       },
       {
         productId: product.id,
@@ -166,7 +166,7 @@ export async function createStaffProduct(formData: FormData) {
         notes: kind === "coffee" ? "" : null,
         category: kind === "equipment" ? "New category" : null,
         description: "",
-        statusLabel: kind === "equipment" ? "In stock" : null,
+        statusLabel: "In stock",
       },
     ]);
 

@@ -10,6 +10,7 @@ export type CatalogDetailField = {
 type CatalogTranslation = {
   seoTitle?: string;
   seoDescription?: string;
+  status?: string;
   name: string;
   size: string;
   notes: string;

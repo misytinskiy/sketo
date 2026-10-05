@@ -32,6 +32,7 @@ export default function EditorMediaManager({
   items,
   title,
 }: EditorMediaManagerProps) {
+  const singlePhoto = kind === "coffee";
   const router = useRouter();
   const { version, setVersion } = useEditorVersion();
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -50,6 +51,12 @@ export default function EditorMediaManager({
   function stageFiles(files: FileList | null) {
     if (!files?.length || isPending) return;
     const selected = Array.from(files);
+    if (singlePhoto) {
+      if (selected.length !== 1) { setSelectionError("Для кофе выберите одно изображение."); return; }
+      setSelectionError("");
+      handleUpload(selected);
+      return;
+    }
     if (selected.length + queued.length > MAX_UPLOAD_FILES) { setSelectionError("Выберите не более 10 изображений за раз."); return; }
     for (const file of selected) {
       const error = validateImageFile(file);
@@ -85,6 +92,10 @@ export default function EditorMediaManager({
   function handleUpload(files: FileList | File[] | null) {
     if (!files?.length || isPending) return;
     const selected = Array.from(files);
+    if (singlePhoto && selected.length !== 1) {
+      setSelectionError("Для кофе выберите одно изображение.");
+      return;
+    }
     if (selected.length > MAX_UPLOAD_FILES) {
       setSelectionError("Выберите не более 10 изображений за раз.");
       return;
@@ -93,7 +104,7 @@ export default function EditorMediaManager({
       const error = validateImageFile(file);
       if (error) { setSelectionError(`${file.name}: ${error}`); return; }
     }
-    startMediaTask("Загружаем изображения…", async (reportProgress) => {
+    startMediaTask(singlePhoto ? "Загружаем фото…" : "Загружаем изображения…", async (reportProgress) => {
       const failed: File[] = [];
       const errors: string[] = [];
       let completed = 0;
@@ -171,25 +182,27 @@ export default function EditorMediaManager({
       <div className={styles.sectionTopline}>
         <span className={styles.sectionLabel}>Медиа</span>
         <span className={styles.sidebarValue}>
-          {items.length} {items.length === 1 ? "изображение" : "изображений"}
+          {singlePhoto ? (items.length ? "Фото загружено" : "Нет изображения") : `${items.length} ${items.length === 1 ? "изображение" : "изображений"}`}
         </span>
       </div>
 
-      <p>Перетащите фото на нужную позицию — порядок сохранится автоматически. Первое фото станет главным.</p>
-      <p>JPEG, PNG или WebP · до 5 МБ и 25 Мп на файл · до 10 файлов за выбор.</p>
+      {singlePhoto
+        ? <p>Загрузите одно главное фото товара. Новое изображение автоматически заменит текущее.</p>
+        : <p>Перетащите фото на нужную позицию — порядок сохранится автоматически. Первое фото станет главным.</p>}
+      <p>{singlePhoto ? "JPEG, PNG или WebP · до 5 МБ и 25 Мп." : "JPEG, PNG или WebP · до 5 МБ и 25 Мп на файл · до 10 файлов за выбор."}</p>
       {failedFiles.length > 0 && <button type="button" className={styles.secondaryAction} disabled={isPending} onClick={() => handleUpload(failedFiles)}>Повторить неудачные загрузки ({failedFiles.length})</button>}
       <MediaCleanupNotice revision={cleanupRevision} disabled={isPending} />
       <input
         ref={inputRef}
         type="file"
         accept="image/jpeg,image/png,image/webp"
-        multiple
+        multiple={!singlePhoto}
         className={styles.mediaInput}
         onChange={(event) => stageFiles(event.target.files)}
       />
 
       {selectionError && <p className={styles.fieldError} role="alert">{selectionError}</p>}
-      {queued.length > 0 && <div className={styles.pendingPhotos}>
+      {!singlePhoto && queued.length > 0 && <div className={styles.pendingPhotos}>
         <p>Готовы к загрузке: {queued.length}. Фотографии ещё не сохранены.</p>
         <div className={styles.mediaManagerGrid}>{queued.map((item) => <article key={item.url} className={styles.mediaItemCard}>
           <div className={styles.mediaManagerFrame}><Image src={item.url} alt={item.file.name} fill unoptimized sizes="240px" className={styles.mediaImage} /></div>
@@ -198,7 +211,7 @@ export default function EditorMediaManager({
         <button type="button" className={styles.primaryAction} disabled={isPending} onClick={() => { handleUpload(queued.map((item) => item.file)); replaceQueue([]); }}>Загрузить ({queued.length})</button>
         <button type="button" className={styles.secondaryAction} disabled={isPending} onClick={() => replaceQueue([])}>Отменить выбор</button>
       </div>}
-      <div className={styles.mediaManagerGrid}>
+      <div className={`${styles.mediaManagerGrid} ${singlePhoto ? styles.singleMediaManager : ""}`}>
         <button
           type="button"
           className={`${styles.mediaAddCard} ${dragActive ? styles.dropActive : ""}`}
@@ -209,13 +222,13 @@ export default function EditorMediaManager({
           disabled={isPending}
         >
           <span className={styles.mediaAddIcon}>{isPending ? <ActionSpinner /> : "+"}</span>
-          <span className={styles.mediaAddTitle}>{isPending ? "Дождитесь завершения…" : <>Перетащите файлы сюда<br />или выберите изображения</>}</span>
+          <span className={styles.mediaAddTitle}>{isPending ? "Дождитесь завершения…" : singlePhoto ? <>{items.length ? "Заменить фото" : "Загрузить фото"}<br />или перетащить сюда</> : <>Перетащите файлы сюда<br />или выберите изображения</>}</span>
         </button>
 
-        {items.map((item, index) => (
+        {(singlePhoto ? items.slice(0, 1) : items).map((item, index) => (
           <article key={item.id}
             className={`${styles.mediaItemCard} ${draggedId === item.id ? styles.mediaDragging : ""} ${dropTarget === item.id ? styles.mediaDropTarget : ""}`}
-            draggable={!isPending && items.length > 1}
+            draggable={!singlePhoto && !isPending && items.length > 1}
             onDragStart={(event) => {
               if (isPending) { event.preventDefault(); return; }
               event.dataTransfer.effectAllowed = "move";
@@ -242,7 +255,7 @@ export default function EditorMediaManager({
           >
             <div className={styles.mediaManagerFrame}>
               {isPending && activeImageId === item.id && <div className={styles.mediaBusyOverlay}><ActionSpinner /><span>{taskLabel}</span></div>}
-              {index === 0 && <span className={styles.primaryBadge}>★ Главное фото</span>}
+              {index === 0 && <span className={styles.primaryBadge}>{singlePhoto ? "Фото товара" : "★ Главное фото"}</span>}
               <Image
                 src={item.url}
                 draggable={false}
@@ -253,7 +266,7 @@ export default function EditorMediaManager({
               />
             </div>
 
-            <div className={styles.mediaItemToolbar}>
+            {!singlePhoto && <div className={styles.mediaItemToolbar}>
               <span className={styles.mediaItemMeta}>
                 {index === 0 ? "Главное изображение" : `Кадр ${index + 1}`}
               </span>
@@ -270,7 +283,7 @@ export default function EditorMediaManager({
               >
                 ×
               </button>
-            </div>
+            </div>}
           </article>
         ))}
       </div>

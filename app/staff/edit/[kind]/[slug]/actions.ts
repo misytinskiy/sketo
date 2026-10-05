@@ -138,6 +138,15 @@ function isInlineImage(path: string) {
   return /^data:/i.test(path);
 }
 
+function getManagedStoragePath(kind: ProductType, value: string) {
+  if (!value || isInlineImage(value)) return "";
+  if (!/^https?:/i.test(value)) return normalizeStorageObjectPath(kind, value);
+  const base = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/+$/, "");
+  const bucket = getStorageBucketName(kind);
+  const prefix = `${base}/storage/v1/object/public/${bucket}/`;
+  return base && value.startsWith(prefix) ? decodeURIComponent(value.slice(prefix.length)) : "";
+}
+
 async function saveTranslation(
   tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
   productId: string,
@@ -319,11 +328,21 @@ export async function uploadProductMedia(formData: FormData): Promise<EditorActi
       version = updatedAt.toISOString();
       const existingImages = await tx.select().from(productImages).where(eq(productImages.productId, product.id))
         .orderBy(asc(productImages.sortOrder), asc(productImages.id));
-      const shouldReplacePlaceholder = existingImages.length === 1 && isInlineImage(existingImages[0].url);
+      const replaceCoffeePhoto = kind === "coffee";
+      const shouldReplacePlaceholder = !replaceCoffeePhoto && existingImages.length === 1 && isInlineImage(existingImages[0].url);
       await createProductRevisionSnapshot({ productId: product.id, note: "Загрузка изображения" }, tx);
-      const baseSortOrder = shouldReplacePlaceholder ? 0 : existingImages.length;
+      const baseSortOrder = replaceCoffeePhoto || shouldReplacePlaceholder ? 0 : existingImages.length;
 
-      if (shouldReplacePlaceholder) {
+      if (replaceCoffeePhoto) {
+        for (const image of existingImages) {
+          const oldPath = getManagedStoragePath(kind, image.url);
+          if (!oldPath) continue;
+          const asset = await tx.query.mediaAssets.findFirst({ where: and(eq(mediaAssets.bucket, bucket), eq(mediaAssets.path, oldPath)) });
+          if (asset) await tx.delete(productMedia).where(and(eq(productMedia.productId, product.id), eq(productMedia.mediaAssetId, asset.id)));
+          cleanupIds.push((await queueMediaCleanup(kind, oldPath, tx)).id);
+        }
+        await tx.delete(productImages).where(eq(productImages.productId, product.id));
+      } else if (shouldReplacePlaceholder) {
         await tx
           .delete(productImages)
           .where(eq(productImages.id, existingImages[0].id));
@@ -348,7 +367,7 @@ export async function uploadProductMedia(formData: FormData): Promise<EditorActi
           productId: product.id,
           url: item.path,
           sortOrder: baseSortOrder + index,
-          isPrimary: (shouldReplacePlaceholder || existingImages.length === 0) && index === 0,
+          isPrimary: (replaceCoffeePhoto || shouldReplacePlaceholder || existingImages.length === 0) && index === 0,
         })),
       );
 
@@ -357,11 +376,11 @@ export async function uploadProductMedia(formData: FormData): Promise<EditorActi
           productId: product.id,
           mediaAssetId: asset.id,
           role:
-            (shouldReplacePlaceholder || existingImages.length === 0) && index === 0
+            (replaceCoffeePhoto || shouldReplacePlaceholder || existingImages.length === 0) && index === 0
               ? ("hero" as const)
               : ("gallery" as const),
           sortOrder: baseSortOrder + index,
-          isPrimary: (shouldReplacePlaceholder || existingImages.length === 0) && index === 0,
+          isPrimary: (replaceCoffeePhoto || shouldReplacePlaceholder || existingImages.length === 0) && index === 0,
         })),
       );
 
@@ -369,13 +388,13 @@ export async function uploadProductMedia(formData: FormData): Promise<EditorActi
         const [saved] = await tx
           .update(products)
           .set({
-            imageUrl: (shouldReplacePlaceholder || existingImages.length === 0) ? uploads[0].path : product.imageUrl,
+            imageUrl: (replaceCoffeePhoto || shouldReplacePlaceholder || existingImages.length === 0) ? uploads[0].path : product.imageUrl,
             updatedAt,
           })
           .where(eq(products.id, product.id)).returning({ updatedAt: products.updatedAt });
       version = saved.updatedAt.toISOString();
       }
-      await appendAuditLog({ entityType: "product", entityId: product.id, action: "upload", summary: `Изображение загружено для ${slug}`, diff: { uploaded: path } }, tx);
+      await appendAuditLog({ entityType: "product", entityId: product.id, action: "upload", summary: `${replaceCoffeePhoto ? "Главное изображение заменено" : "Изображение загружено"} для ${slug}`, diff: { uploaded: path } }, tx);
     });
     committed = true;
   } catch (error) {
@@ -595,6 +614,7 @@ async function submitEditorTransaction(
         size: sizeRu,
         notes: notesRu,
         description: descriptionRu,
+        statusLabel: getStatusLabel(status, "ru"),
       });
 
       await saveTranslation(tx, product.id, "en", {
@@ -603,6 +623,7 @@ async function submitEditorTransaction(
         size: sizeEn,
         notes: notesEn,
         description: descriptionEn,
+        statusLabel: getStatusLabel(status, "en"),
       });
       await saveTranslation(tx, product.id, "kz", {
         ...readSeoFields(formData, "Kz"),
@@ -610,6 +631,7 @@ async function submitEditorTransaction(
         size: sizeKz,
         notes: notesKz,
         description: descriptionKz,
+        statusLabel: getStatusLabel(status, "kz"),
       });
 
       await replaceDetailsForLocale(tx, product.id, "ru", "detail", detailsRu);

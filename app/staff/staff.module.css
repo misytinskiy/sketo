@@ -41,17 +41,22 @@
   position: fixed;
   inset: 0;
   z-index: 130;
-  display: grid;
-  place-items: center;
-  padding: 1rem;
+  overflow: auto;
   background: rgba(45, 49, 52, 0.22);
   backdrop-filter: blur(4px);
 }
 
 .confirmModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: grid;
   gap: 1.25rem;
-  width: min(100%, 26rem);
+  box-sizing: border-box;
+  width: min(26rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   padding: 1.15rem;
   border: 1px solid rgba(45, 49, 52, 0.14);
   background: #f2f0eb;
@@ -147,7 +152,6 @@
 .resultsCount,
 .selectedCount,
 .backLink,
-.staffBadge,
 .status,
 .filterChip,
 .searchInput,
@@ -179,13 +183,6 @@
 .backLink:hover,
 .backLink:focus-visible {
   opacity: 1;
-}
-
-.staffBadge {
-  border: 1px solid #2d3134;
-  padding: 0.45rem 0.75rem;
-  font-size: 10px;
-  line-height: 1;
 }
 
 .overviewGrid {
@@ -997,20 +994,78 @@
   }
 
   .row {
-    grid-template-columns: 1fr;
+    position: relative;
+    grid-template-columns: clamp(4.75rem, 24vw, 5.5rem) minmax(0, 1fr);
+    gap: 0.85rem 1rem;
+    padding: 0.85rem;
   }
 
   .checkboxWrap {
-    order: 0;
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    z-index: 1;
+    width: 1.3rem;
+    height: 1.3rem;
   }
 
   .thumb {
-    width: 5.5rem;
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
   }
 
-  .rowBody,
+  .rowBody {
+    grid-column: 2;
+    grid-row: 1;
+    gap: 0.65rem;
+    padding-right: 1.85rem;
+  }
+
+  .tableRow {
+    grid-template-columns: repeat(2, max-content);
+    justify-content: start;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .tableRow .tableColMain,
+  .tableRow .tableCol:nth-child(2) {
+    grid-column: 1 / -1;
+  }
+
+  .rowTitle {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .status,
+  .editorialBadge {
+    padding: 0.4rem 0.5rem;
+  }
+
   .rowActions {
-    grid-column: auto;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    min-width: 0;
+    margin-top: 0.1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(45, 49, 52, 0.12);
+  }
+
+  .rowActions .secondaryButton,
+  .rowActions .textAction,
+  .rowActions .textActionDisabled,
+  .rowActions .primaryButton,
+  .rowActions .secondaryButtonDanger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 2rem;
+    padding: 0.65rem 0.5rem;
   }
 
   .workspaceNav,
@@ -1022,8 +1077,148 @@
 
 .archiveTabs { display: flex; gap: 12px; margin: 24px 0; }
 
-.permanentDeleteDialog { width: min(540px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; border: 1px solid #ddd; border-radius: 12px; padding: 24px; color: #2d3134; background: #f2f0eb; }
-.permanentDeleteDialog::backdrop { background: #0008; }
-.permanentDeleteDialog form, .permanentDeleteDialog label { display: grid; gap: 16px; }
-.permanentDeleteDialog p { line-height: 1.5; }
-.permanentDeleteActions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; }
+.permanentDeleteDialog {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: min(540px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: 0;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 24px;
+  color: #2d3134;
+  background: #f2f0eb;
+}
+
+.permanentDeleteDialog::backdrop {
+  background: #0008;
+}
+
+.permanentDeleteDialog form,
+.permanentDeleteDialog label {
+  display: grid;
+  gap: 16px;
+}
+
+.permanentDeleteDialog p {
+  line-height: 1.5;
+}
+
+.permanentDeleteActions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.permanentDeleteActions > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (max-width: 900px) and (hover: none),
+  (max-width: 900px) and (pointer: coarse) {
+  .homeLogo:hover {
+    transform: none;
+  }
+
+  .homeLogo:active {
+    transform: scale(0.98);
+  }
+
+  .backLink:hover {
+    opacity: 0.62;
+  }
+
+  .backLink:active {
+    opacity: 1;
+  }
+
+  .primaryButton:hover {
+    transform: none;
+    border-color: #ce1616;
+    background: #ce1616;
+  }
+
+  .secondaryButton:hover,
+  .textAction:hover,
+  .selectAllButton:hover,
+  .filterChip:hover {
+    transform: none;
+    border-color: #2d3134;
+  }
+
+  .secondaryButtonDanger:hover {
+    transform: none;
+    border-color: rgba(206, 22, 22, 0.4);
+  }
+
+  .filterChipActive:hover {
+    border-color: #ce1616;
+    background: #ce1616;
+    color: #f2f0eb;
+  }
+
+  .primaryButton:active:not(:disabled),
+  .secondaryButton:active:not(:disabled),
+  .secondaryButtonDanger:active:not(:disabled),
+  .textAction:active,
+  .selectAllButton:active:not(:disabled),
+  .filterChip:active:not(:disabled) {
+    transform: scale(0.98);
+    transition-duration: 80ms;
+  }
+
+  .secondaryButton:active:not(:disabled),
+  .secondaryButtonDanger:active:not(:disabled),
+  .textAction:active,
+  .selectAllButton:active:not(:disabled) {
+    background: rgba(45, 49, 52, 0.07);
+  }
+
+  .workspaceButton:hover {
+    border-color: rgba(45, 49, 52, 0.16);
+  }
+
+  .workspaceButtonActive:hover {
+    border-color: #2d3134;
+  }
+
+  .workspaceButton:active {
+    transform: scale(0.99);
+    background: rgba(45, 49, 52, 0.07);
+  }
+
+  .workspaceButtonActive:active {
+    background: #2d3134;
+  }
+
+  .sortMenuButton:hover {
+    color: #2d3134;
+    border-color: #2d3134;
+  }
+
+  .sortMenuButton:active {
+    color: #ce1616;
+    border-color: #ce1616;
+  }
+
+  .sortMenuOption:hover {
+    background: transparent;
+    color: #2d3134;
+  }
+
+  .sortMenuOption:active {
+    background: rgba(206, 22, 22, 0.08);
+    color: #ce1616;
+  }
+
+  .sortMenuOptionActive:hover,
+  .sortMenuOptionActive:active {
+    background: #2d3134;
+    color: #f2f0eb;
+  }
+}

@@ -1223,27 +1223,37 @@ const equipmentKzSpecifications = useDynamicRows<LabelValueRow>(
 
         </>
       )}
-      <AnimatedDetails className={`${styles.fieldCard} ${styles.collapsible}`} title="SEO: поиск и превью ссылок">
-        <p className={styles.fieldHint}>Пустые поля заполняются автоматически из названия и описания товара. Изменения применяются после сохранения.</p>
-        {(["ru", "en", "kz"] as const).map((locale) => {
-          const suffix = { ru: "Ru", en: "En", kz: "Kz" }[locale];
-          return <div key={locale} className={styles.formGrid}>
-            <label className={styles.fieldCard}>
-              <span className={styles.fieldLabel}>SEO-заголовок · {locale.toUpperCase()}</span>
-              <input name={`seoTitle${suffix}`} defaultValue={product.translations[locale].seoTitle ?? ""}
-                maxLength={100} className={styles.textInput} placeholder="Автоматически"
-                aria-invalid={Boolean(fieldErrors[`seoTitle${suffix}`])} aria-describedby={`error-seoTitle${suffix}`} />
-              {fieldError(`seoTitle${suffix}`)}
-            </label>
-            <label className={styles.fieldCard}>
-              <span className={styles.fieldLabel}>SEO-описание · {locale.toUpperCase()}</span>
-              <textarea name={`seoDescription${suffix}`} defaultValue={product.translations[locale].seoDescription ?? ""}
-                maxLength={180} rows={3} className={styles.textArea} placeholder="Автоматически"
-                aria-invalid={Boolean(fieldErrors[`seoDescription${suffix}`])} aria-describedby={`error-seoDescription${suffix}`} />
-              {fieldError(`seoDescription${suffix}`)}
-            </label>
-          </div>;
-        })}
+      <AnimatedDetails className={`${styles.sectionBlock} ${styles.seoSection} ${styles.collapsible}`} title="SEO: поиск и превью ссылок">
+        <div className={styles.seoIntro}>
+          <p className={styles.fieldHint}>Пустые поля автоматически заполняются из названия и описания товара.</p>
+          <span className={styles.seoSaveHint}>Применяется после сохранения</span>
+        </div>
+        <div className={styles.seoLocaleGrid}>
+          {(["ru", "en", "kz"] as const).map((locale, index) => {
+            const suffix = { ru: "Ru", en: "En", kz: "Kz" }[locale];
+            return <section key={locale} className={styles.seoLocaleCard} aria-labelledby={`seo-locale-${locale}`}>
+              <header className={styles.seoLocaleHeader}>
+                <span className={styles.seoLocaleIndex}>{String(index + 1).padStart(2, "0")}</span>
+                <h3 id={`seo-locale-${locale}`}>{copy.localeSection[locale]}</h3>
+                <span className={styles.seoLocaleCode}>{locale.toUpperCase()}</span>
+              </header>
+              <label className={styles.seoField}>
+                <span className={styles.seoFieldHeader}><span>Заголовок</span><span>до 100</span></span>
+                <input name={`seoTitle${suffix}`} defaultValue={product.translations[locale].seoTitle ?? ""}
+                  maxLength={100} className={styles.textInput} placeholder="Автоматически из названия"
+                  aria-invalid={Boolean(fieldErrors[`seoTitle${suffix}`])} aria-describedby={`error-seoTitle${suffix}`} />
+                {fieldError(`seoTitle${suffix}`)}
+              </label>
+              <label className={styles.seoField}>
+                <span className={styles.seoFieldHeader}><span>Описание</span><span>до 180</span></span>
+                <textarea name={`seoDescription${suffix}`} defaultValue={product.translations[locale].seoDescription ?? ""}
+                  maxLength={180} rows={4} className={styles.textArea} placeholder="Автоматически из описания"
+                  aria-invalid={Boolean(fieldErrors[`seoDescription${suffix}`])} aria-describedby={`error-seoDescription${suffix}`} />
+                {fieldError(`seoDescription${suffix}`)}
+              </label>
+            </section>;
+          })}
+        </div>
       </AnimatedDetails>
       </fieldset>
     </form>

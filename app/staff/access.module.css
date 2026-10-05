@@ -968,17 +968,17 @@
   }
 
   .loginIntro {
-    padding: 3.5rem 0 2.5rem;
+    padding: 3rem 0 2.5rem;
   }
 
   .loginTitle {
     margin-top: 1.2rem;
-    font-size: clamp(4rem, 21vw, 6.5rem);
+    font-size: 18vw;
     line-height: 0.8;
   }
 
   .loginPanel {
-    padding: 2.5rem 0 3.5rem;
+    padding: 2rem 0 3.5rem;
   }
 
   .loginPanelHeader {
@@ -1010,5 +1010,89 @@
   .loginSubmit::before,
   .loginField input {
     transition: none;
+  }
+}
+
+@media (max-width: 900px) and (hover: none),
+  (max-width: 900px) and (pointer: coarse) {
+  .staffNavLink:hover {
+    opacity: 0.48;
+  }
+
+  .staffNavLinkActive:hover {
+    opacity: 1;
+  }
+
+  .staffLogout:hover,
+  .memberSubmit:hover,
+  .loginSubmit:hover:not(:disabled) {
+    color: #2d3134;
+    transform: none;
+  }
+
+  .staffLogout:hover::before,
+  .memberSubmit:hover::before,
+  .loginSubmit:hover:not(:disabled)::before {
+    transform: translateY(110%);
+  }
+
+  .staffLogout:active:not(:disabled),
+  .memberSubmit:active:not(:disabled),
+  .loginSubmit:active:not(:disabled),
+  .memberDanger:active:not(:disabled) {
+    transform: scale(0.98);
+    background: rgba(45, 49, 52, 0.08);
+    transition-duration: 80ms;
+  }
+
+  .loginLogo:hover {
+    transform: none;
+  }
+
+  .loginLogo:active {
+    transform: scale(0.98);
+  }
+
+  .passwordLink:hover {
+    color: inherit;
+  }
+
+  .passwordLink:active {
+    color: #ce1616;
+  }
+
+  .memberSelectTrigger:hover {
+    border-bottom-color: rgba(45, 49, 52, 0.44);
+  }
+
+  .memberSelect[data-open="true"] .memberSelectTrigger:hover {
+    border-bottom-color: #ce1616;
+  }
+
+  .memberSelectTrigger:active,
+  .memberSelectOption:active {
+    background: rgba(206, 22, 22, 0.08);
+  }
+
+  .memberSelectOption:hover {
+    background: transparent;
+    color: #2d3134;
+  }
+
+  .memberSelectOptionActive:hover,
+  .memberSelectOptionActive:active {
+    background: #2d3134;
+    color: #f2f0eb;
+  }
+
+  .deleteMember summary:hover {
+    color: inherit;
+    opacity: 0.54;
+  }
+
+  .deleteMember[open] summary:hover,
+  .deleteMember summary:active {
+    color: #ce1616;
+    opacity: 1;
   }
 }

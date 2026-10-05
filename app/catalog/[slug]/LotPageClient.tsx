@@ -103,11 +103,12 @@ export default function LotPageClient({
 
             <div className={styles.descriptionCard}>
               <p className={styles.sectionLabel}>
-                {currentLanguage === "kz" ? "Баға / Салмақ" : currentLanguage === "en" ? "Price / Weight" : "Цена / Вес"}
+                {currentLanguage === "kz" ? "Баға / Салмақ / Мәртебе" : currentLanguage === "en" ? "Price / Weight / Status" : "Цена / Вес / Статус"}
               </p>
               <div className={styles.priceLine}>
                 <p className={styles.price}>{item.price}</p>
                 <p className={styles.size}>{content.size}</p>
+                <p className={styles.size}>{content.status}</p>
               </div>
               <ProductOrderButton kind="coffee" language={currentLanguage} name={content.name}
                 slug={item.slug} size={content.size} price={item.price} productUrl={productUrl} />

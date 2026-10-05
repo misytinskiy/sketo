@@ -91,7 +91,6 @@ const copy = {
     confirm: "Удалить",
     message: (count: number) => `Переместить ${count} ${getCountLabel(count)} в архив / корзину? Товары можно будет восстановить в редакторе.`,
   },
-  staff: "Сотрудник",
   metrics: {
     total: "Всего позиций",
     coffee: "Кофе",
@@ -653,7 +652,6 @@ export default function StaffPageClient({
               <Link href="/" className={styles.backLink}>
                 {copy.backToSite}
               </Link>
-              <div className={styles.staffBadge}>{copy.staff}</div>
             </div>
           </div>
 

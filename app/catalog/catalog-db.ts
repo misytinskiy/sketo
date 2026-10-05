@@ -7,14 +7,14 @@ import { resolveCoffeeStorageUrl } from "@/lib/supabase/storage-public";
 import type { CatalogItem } from "./catalog-data";
 
 export type CoffeeCatalogCardItem = Omit<CatalogItem, "translations"> & {
-  translations: Record<"ru" | "en" | "kz", Pick<CatalogItem["translations"]["ru"], "name" | "size" | "notes">>;
+  translations: Record<"ru" | "en" | "kz", Pick<CatalogItem["translations"]["ru"], "name" | "size" | "notes" | "status">>;
 };
 const published = and(eq(products.type, "coffee"), eq(products.isPublished, true));
 const cacheOptions = { tags: ["products", "coffee-catalog"], revalidate: 300 };
 
 // One SQL statement, with only the fields needed by the listing.
 export const coffeeCardQuery = {
-  columns: { slug: true, name: true, imageUrl: true, priceDisplay: true, filters: true },
+  columns: { slug: true, name: true, imageUrl: true, priceDisplay: true, filters: true, status: true },
   where: published,
   orderBy: [asc(products.sortOrder), asc(products.slug)],
   with: { translations: { columns: { locale: true, name: true, size: true, notes: true } } },
@@ -24,7 +24,12 @@ function mapCard(row: Awaited<ReturnType<typeof loadCards>>[number]): CoffeeCata
   const translation = (locale: "ru" | "en" | "kz") => {
     const value = row.translations.find((entry) => entry.locale === locale)
       ?? (locale === "kz" ? row.translations.find((entry) => entry.locale === "ru") : undefined);
-    return { name: value?.name ?? row.name ?? row.slug, size: value?.size ?? "", notes: value?.notes ?? "" };
+    const status = {
+      ru: { in_stock: "В наличии", out_of_stock: "Нет в наличии", preorder: "Под заказ" },
+      en: { in_stock: "In stock", out_of_stock: "Out of stock", preorder: "On request" },
+      kz: { in_stock: "Қолда бар", out_of_stock: "Қолда жоқ", preorder: "Тапсырыспен" },
+    }[locale][row.status];
+    return { name: value?.name ?? row.name ?? row.slug, size: value?.size ?? "", notes: value?.notes ?? "", status };
   };
   return { slug: row.slug, image: resolveCoffeeStorageUrl(row.imageUrl),
     price: row.priceDisplay ?? "", filters: (row.filters ?? []).filter((filter): filter is "profiles" | "decaf" | "microlot" => ["profiles", "decaf", "microlot"].includes(filter)),
@@ -32,7 +37,7 @@ function mapCard(row: Awaited<ReturnType<typeof loadCards>>[number]): CoffeeCata
 }
 async function loadCards() { return db.query.products.findMany(coffeeCardQuery); }
 export const getCoffeeCatalogItems = cache(unstable_cache(
-  async () => (await loadCards()).map(mapCard), ["coffee-catalog-cards-v3-kz"], cacheOptions,
+  async () => (await loadCards()).map(mapCard), ["coffee-catalog-cards-v4-status"], cacheOptions,
 ));
 
 export const coffeeDetailRelations = {
@@ -62,7 +67,7 @@ async function loadDetail(slug: string, preview = false): Promise<CatalogItem | 
   return { ...card, translations: { ru: translation("ru"), en: translation("en"), kz: translation("kz") } };
 }
 export const getCoffeeCatalogItemBySlug = cache(unstable_cache(
-  (slug: string) => loadDetail(slug), ["coffee-product-detail-v4-seo"], cacheOptions,
+  (slug: string) => loadDetail(slug), ["coffee-product-detail-v5-status"], cacheOptions,
 ));
 // Preview deliberately bypasses the public cache and publication filter.
 export async function getCoffeePreviewItem(slug: string) { return loadDetail(slug, true); }
