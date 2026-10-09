@@ -2,14 +2,48 @@
 import type { CoffeeCatalogCardItem } from "./catalog-db";
 
 import Link from "next/link";
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useMemo } from "react";
 import Footer from "../components/Footer";
+import CatalogSkeleton from "../components/CatalogSkeleton";
 import LanguageSwitch from "../components/LanguageSwitch";
 import { getContentLanguage } from "../components/language";
 import usePersistentLanguage from "../components/usePersistentLanguage";
 import CatalogCard from "./CatalogCard";
 import type { CatalogFilter } from "./catalog-data";
+import useCatalogViewState from "./useCatalogViewState";
 import styles from "./catalog.module.css";
+
+const INITIAL_CATALOG_SIZE = 8;
+const CATALOG_VIEW_STORAGE_KEY = "sketo:catalog:coffee-view:v1";
+
+type CoffeeCatalogViewState = {
+  activeFilter: CatalogFilter;
+  searchValue: string;
+  isExpanded: boolean;
+};
+
+const initialCatalogViewState: CoffeeCatalogViewState = {
+  activeFilter: "all",
+  searchValue: "",
+  isExpanded: false,
+};
+
+function parseCatalogViewState(value: unknown): CoffeeCatalogViewState | null {
+  if (!value || typeof value !== "object") return null;
+
+  const candidate = value as Partial<CoffeeCatalogViewState>;
+  const validFilters: CatalogFilter[] = ["all", "profiles", "decaf", "microlot"];
+
+  if (
+    !validFilters.includes(candidate.activeFilter as CatalogFilter) ||
+    typeof candidate.searchValue !== "string" ||
+    typeof candidate.isExpanded !== "boolean"
+  ) {
+    return null;
+  }
+
+  return candidate as CoffeeCatalogViewState;
+}
 
 const filterLabels = {
   kz: {
@@ -62,8 +96,12 @@ export default function CatalogContent({
   items,
 }: CatalogContentProps) {
   const [language, setLanguage] = usePersistentLanguage(initialLanguage);
-  const [activeFilter, setActiveFilter] = useState<CatalogFilter>("all");
-  const [searchValue, setSearchValue] = useState("");
+  const { state, setState, saveScrollPosition, isRestored } = useCatalogViewState({
+    storageKey: CATALOG_VIEW_STORAGE_KEY,
+    initialState: initialCatalogViewState,
+    parse: parseCatalogViewState,
+  });
+  const { activeFilter, searchValue, isExpanded } = state;
   const deferredSearch = useDeferredValue(searchValue);
   const currentLanguage = getContentLanguage(language);
 
@@ -88,6 +126,14 @@ export default function CatalogContent({
     filteredItems.length,
     currentLanguage
   )}`;
+  const visibleItems = isExpanded
+    ? filteredItems
+    : filteredItems.slice(0, INITIAL_CATALOG_SIZE);
+  const hasMoreItems = filteredItems.length > INITIAL_CATALOG_SIZE && !isExpanded;
+
+  // Mount the filter buttons with their restored styles, avoiding a transition
+  // from the server's default selection (including streamed HTML before hydration).
+  if (!isRestored) return <CatalogSkeleton filterCounts={[4]} />;
 
   return (
     <main className={styles.page}>
@@ -117,7 +163,13 @@ export default function CatalogContent({
               id="catalog-search"
               type="search"
               value={searchValue}
-              onChange={(event) => setSearchValue(event.target.value)}
+              onChange={(event) => {
+                setState((current) => ({
+                  ...current,
+                  searchValue: event.target.value,
+                  isExpanded: false,
+                }));
+              }}
               className={styles.searchInput}
               placeholder={
                 currentLanguage === "kz" ? "Атауы немесе дәм ноталары" : currentLanguage === "en"
@@ -139,7 +191,13 @@ export default function CatalogContent({
                   <button
                     key={filter}
                     type="button"
-                    onClick={() => setActiveFilter(filter)}
+                    onClick={() => {
+                      setState((current) => ({
+                        ...current,
+                        activeFilter: filter,
+                        isExpanded: false,
+                      }));
+                    }}
                     className={`${styles.filterChip} ${
                       isActive ? styles.filterChipActive : ""
                     }`}
@@ -155,12 +213,18 @@ export default function CatalogContent({
         </section>
 
         <section
+          id="coffee-catalog-grid"
           className={styles.grid}
           aria-label={currentLanguage === "kz" ? "Кофе дәндерінің каталогы" : currentLanguage === "en" ? "Coffee catalog" : "Каталог зерна"}
         >
           {filteredItems.length > 0 ? (
-            filteredItems.map((item) => (
-              <CatalogCard key={item.slug} item={item} language={currentLanguage} />
+            visibleItems.map((item) => (
+              <CatalogCard
+                key={item.slug}
+                item={item}
+                language={currentLanguage}
+                onNavigate={saveScrollPosition}
+              />
             ))
           ) : (
             <div className={styles.emptyState}>
@@ -172,6 +236,26 @@ export default function CatalogContent({
             </div>
           )}
         </section>
+
+        {hasMoreItems ? (
+          <div className={styles.catalogMore}>
+            <button
+              type="button"
+              className={styles.catalogMoreButton}
+              aria-controls="coffee-catalog-grid"
+              aria-expanded={isExpanded}
+              onClick={() => setState((current) => ({ ...current, isExpanded: true }))}
+            >
+              <span className={styles.catalogMoreLabel}>
+                {currentLanguage === "kz"
+                  ? "Барлығын көрсету"
+                  : currentLanguage === "en"
+                    ? "Show all"
+                    : "Показать всё"}
+              </span>
+            </button>
+          </div>
+        ) : null}
       </div>
 
       <Footer language={currentLanguage} />

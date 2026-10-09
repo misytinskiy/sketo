@@ -43,6 +43,9 @@ export default function Footer({ language }: FooterProps) {
           <Link href="/academy" className={styles.footerLink}>
             {language === "kz" ? "Академия" : language === "en" ? "Academy" : "Академия"}
           </Link>
+          <Link href="/info" className={styles.footerLink}>
+            {language === "kz" ? "Сатып алушыларға ақпарат" : language === "en" ? "Customer information" : "Информация для покупателей"}
+          </Link>
         </div>
 
         <div className={styles.footerColumn}>

@@ -254,16 +254,21 @@
 }
 
 .featuresGrid {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 2rem 3rem;
+}
 
-  background-image:
-  linear-gradient(rgba(242, 240, 235, 0.88), rgba(242, 240, 235, 0.9)),
-  url("/photo/eqBg.png");
-background-position: center ;
-background-repeat: no-repeat;
-background-size: 20%;
+.featuresGrid::before {
+  position: absolute;
+  inset: 0 40%;
+  z-index: -1;
+  background: url("/photo/eqBg.png") center / contain no-repeat;
+  content: "";
+  opacity: 0.1;
+  pointer-events: none;
 }
 
 .featureCard {
@@ -364,13 +369,10 @@ background-size: 20%;
   .featuresGrid {
     grid-template-columns: 1fr;
     gap: 1.4rem;
-    background-size: 50%;
   }
 
-  .sectionBlockFeatures {
-    background-position: center;
-    background-size:70%;
-
+  .featuresGrid::before {
+    inset-inline: 25%;
   }
 
   .techMeta {

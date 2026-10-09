@@ -135,6 +135,68 @@
   gap: 2.5rem 1rem;
 }
 
+.catalogMore {
+  display: flex;
+  justify-content: center;
+  padding-top: 3rem;
+}
+
+.catalogMoreButton {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 20rem);
+  min-width: 0;
+  min-height: 3rem;
+  overflow: hidden;
+  border: 1px solid rgba(45, 49, 52, 0.7);
+  border-radius: 999px;
+  padding: 0.65rem 1.35rem;
+  background: transparent;
+  color: #2d3134;
+  font-family: var(--font-activist);
+  font-size: 13px;
+  line-height: 1;
+  text-align: center;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.catalogMoreButton::before {
+  position: absolute;
+  inset: -8%;
+  z-index: 0;
+  border-radius: inherit;
+  background: #2d3134;
+  content: "";
+  transform: translate3d(0, 110%, 0);
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.catalogMoreButton:hover,
+.catalogMoreButton:focus-visible {
+  color: #f2f0eb;
+  transform: translateY(-2px);
+}
+
+.catalogMoreButton:hover::before,
+.catalogMoreButton:focus-visible::before {
+  transform: translate3d(0, 0, 0);
+}
+
+.catalogMoreButton:focus-visible {
+  outline: 2px solid #ce1616;
+  outline-offset: 4px;
+}
+
+.catalogMoreLabel {
+  position: relative;
+  z-index: 1;
+}
+
 .cardLink {
   display: block;
 }
@@ -294,6 +356,10 @@
     grid-template-columns: 1fr;
   }
 
+  .catalogMore {
+    padding-top: 2rem;
+  }
+
   .content {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -385,5 +451,12 @@
   .emptyStateText {
     max-width: 22rem;
     font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalogMoreButton,
+  .catalogMoreButton::before {
+    transition: none;
   }
 }

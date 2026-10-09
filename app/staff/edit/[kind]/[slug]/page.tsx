@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getEditorProductFormBySlug } from "@/lib/db/editor";
-import type { EquipmentBrand } from "@/lib/db/schema";
+import type { EquipmentBrand, EquipmentType } from "@/lib/db/schema";
 import { getCatalogItemContent } from "../../../../catalog/catalog-data";
 import { equipmentBrandLabels } from "../../../../catalog/equipment/equipment-data";
 import { EditorVersionProvider } from "./EditorVersionContext";
@@ -45,10 +45,15 @@ const copy = {
   },
 } as const;
 
-function getEquipmentTypeLabel(type: "grinder" | "espresso-machine") {
-  return type === "grinder"
-    ? copy.labels.grinder
-    : copy.labels.espressoMachine;
+function getEquipmentTypeLabel(type: EquipmentType) {
+  const labels: Record<EquipmentType, string> = {
+    grinder: copy.labels.grinder,
+    "espresso-machine": copy.labels.espressoMachine,
+    tamper: "Автотемпер",
+    "steam-module": "Паровой модуль",
+    accessory: "Аксессуар",
+  };
+  return labels[type];
 }
 
 type EditorFormProduct = NonNullable<

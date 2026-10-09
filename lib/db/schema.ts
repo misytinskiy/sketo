@@ -24,10 +24,17 @@ export const equipmentBrandEnum = pgEnum("equipment_brand", [
   "balenare",
   "allround",
   "victoria-arduino",
+  "nuova-simonelli",
+  "eureka",
+  "modbar",
+  "puqpress",
 ]);
 export const equipmentTypeEnum = pgEnum("equipment_type", [
   "grinder",
   "espresso-machine",
+  "tamper",
+  "steam-module",
+  "accessory",
 ]);
 export const localeEnum = pgEnum("locale", ["ru", "en", "kz"]);
 export const detailKindEnum = pgEnum("detail_kind", ["detail", "specification"]);

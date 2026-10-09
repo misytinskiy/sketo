@@ -20,8 +20,8 @@ export function validateProductFields(data: FormData, kind: "coffee" | "equipmen
   }
   if (!["in_stock", "out_of_stock", "preorder"].includes(value("status"))) errors.status = "Выберите наличие товара.";
   if (kind === "equipment") {
-    if (!["la-marzocco", "mahlkonig", "anfim", "mazzer", "balenare", "allround", "victoria-arduino"].includes(value("brand"))) errors.brand = "Укажите поддерживаемый бренд оборудования.";
-    if (!["grinder", "espresso-machine"].includes(value("equipmentType"))) errors.equipmentType = "Выберите тип оборудования.";
+    if (!["la-marzocco", "mahlkonig", "anfim", "mazzer", "balenare", "allround", "victoria-arduino", "nuova-simonelli", "eureka", "modbar", "puqpress"].includes(value("brand"))) errors.brand = "Укажите поддерживаемый бренд оборудования.";
+    if (!["grinder", "espresso-machine", "tamper", "steam-module", "accessory"].includes(value("equipmentType"))) errors.equipmentType = "Выберите тип оборудования.";
   }
   return errors;
 }

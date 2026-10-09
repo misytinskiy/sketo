@@ -121,6 +121,9 @@ const copy = {
   equipmentTypes: {
     grinder: "Кофемолка",
     "espresso-machine": "Кофемашина",
+    tamper: "Автотемпер",
+    "steam-module": "Паровой модуль",
+    accessory: "Аксессуар",
   },
   translationReady: "RU / EN / KZ",
   translationMissing: "Один язык",
@@ -734,6 +737,9 @@ const equipmentKzSpecifications = useDynamicRows<LabelValueRow>(
                       value: "espresso-machine",
                       label: copy.equipmentTypes["espresso-machine"],
                     },
+                    { value: "tamper", label: copy.equipmentTypes.tamper },
+                    { value: "steam-module", label: copy.equipmentTypes["steam-module"] },
+                    { value: "accessory", label: copy.equipmentTypes.accessory },
                   ]}
                   onChange={(value) => { setEquipmentTypeValue(value); setDirty(true); }}
                 />

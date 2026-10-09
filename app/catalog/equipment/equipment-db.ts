@@ -1,4 +1,4 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, sql } from "drizzle-orm";
 import { unstable_cache } from "next/cache";
 import { cache } from "react";
 import { db } from "@/lib/db";
@@ -12,11 +12,21 @@ export type EquipmentCatalogCardItem = Omit<EquipmentItem, "translations" | "ima
 const published = and(eq(products.type, "equipment"), eq(products.isPublished, true));
 const cacheOptions = { tags: ["products", "equipment-catalog"], revalidate: 300 };
 
+// Group machines, grinders, then accessories; preserve editorial order within each brand.
+// Cast the brand to text so PostgreSQL uses alphabetical rather than enum declaration order.
+const catalogOrder = [
+  asc(sql`case coalesce(${products.equipmentType}::text, 'espresso-machine')
+    when 'espresso-machine' then 0 when 'grinder' then 1 else 2 end`),
+  asc(sql`coalesce(${products.brand}::text, 'la-marzocco')`),
+  asc(products.sortOrder),
+  asc(products.slug),
+];
+
 // One SQL statement for cards. Description is retained for the existing client-side search.
 export const equipmentCardQuery = {
   columns: { slug: true, name: true, imageUrl: true, brand: true, equipmentType: true },
   where: published,
-  orderBy: [asc(products.sortOrder), asc(products.slug)],
+  orderBy: catalogOrder,
   with: { translations: { columns: { locale: true, category: true, statusLabel: true, description: true } } },
 } satisfies NonNullable<Parameters<typeof db.query.products.findMany>[0]>;
 
@@ -32,7 +42,7 @@ function mapCard(row: Awaited<ReturnType<typeof loadCards>>[number]): EquipmentC
 }
 async function loadCards() { return db.query.products.findMany(equipmentCardQuery); }
 export const getEquipmentCatalogItems = cache(unstable_cache(
-  async () => (await loadCards()).map(mapCard), ["equipment-catalog-cards-v3-kz"], cacheOptions,
+  async () => (await loadCards()).map(mapCard), ["equipment-catalog-cards-v4-type-brand"], cacheOptions,
 ));
 
 export const equipmentDetailRelations = {
@@ -72,8 +82,8 @@ export const getEquipmentItemBySlug = cache(unstable_cache(
 export async function getEquipmentPreviewItem(slug: string) { return loadDetail(slug, true); }
 
 const getSlugs = cache(unstable_cache(
-  () => db.select({ slug: products.slug }).from(products).where(published).orderBy(asc(products.sortOrder), asc(products.slug)),
-  ["equipment-catalog-slugs-v3-kz"], cacheOptions,
+  () => db.select({ slug: products.slug }).from(products).where(published).orderBy(...catalogOrder),
+  ["equipment-catalog-slugs-v4-type-brand"], cacheOptions,
 ));
 export async function getEquipmentItemIndex(slug: string) {
   return (await getSlugs()).findIndex((item) => item.slug === slug);

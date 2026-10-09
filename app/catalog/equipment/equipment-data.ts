@@ -6,9 +6,13 @@ export type EquipmentBrand =
   | "mazzer"
   | "balenare"
   | "allround"
-  | "victoria-arduino";
+  | "victoria-arduino"
+  | "nuova-simonelli"
+  | "eureka"
+  | "modbar"
+  | "puqpress";
 
-export type EquipmentType = "all" | "grinder" | "espresso-machine";
+export type EquipmentType = "all" | "grinder" | "espresso-machine" | "tamper" | "steam-module" | "accessory";
 
 export type EquipmentLanguage = "ru" | "en" | "kz";
 
@@ -56,6 +60,10 @@ export const equipmentBrandLabels: Record<
     balenare: "Balenare",
     allround: "Allround",
     "victoria-arduino": "Victoria Arduino",
+    "nuova-simonelli": "Nuova Simonelli",
+    eureka: "Eureka",
+    modbar: "Modbar",
+    puqpress: "PUQpress",
   },
   ru: {
     all: "Все",
@@ -66,6 +74,10 @@ export const equipmentBrandLabels: Record<
     balenare: "Balenare",
     allround: "Allround",
     "victoria-arduino": "Victoria Arduino",
+    "nuova-simonelli": "Nuova Simonelli",
+    eureka: "Eureka",
+    modbar: "Modbar",
+    puqpress: "PUQpress",
   },
   en: {
     all: "All",
@@ -76,6 +88,10 @@ export const equipmentBrandLabels: Record<
     balenare: "Balenare",
     allround: "Allround",
     "victoria-arduino": "Victoria Arduino",
+    "nuova-simonelli": "Nuova Simonelli",
+    eureka: "Eureka",
+    modbar: "Modbar",
+    puqpress: "PUQpress",
   },
 };
 
@@ -87,16 +103,25 @@ export const equipmentTypeLabels: Record<
     all: "Барлығы",
     grinder: "Кофе тартқыштар",
     "espresso-machine": "Кофемашиналар",
+    tamper: "Автоматты темперлер",
+    "steam-module": "Бу модульдері",
+    accessory: "Керек-жарақтар",
   },
   ru: {
     all: "Все",
     grinder: "Кофемолки",
     "espresso-machine": "Кофемашины",
+    tamper: "Автотемперы",
+    "steam-module": "Паровые модули",
+    accessory: "Аксессуары",
   },
   en: {
     all: "All",
     grinder: "Grinders",
     "espresso-machine": "Espresso machines",
+    tamper: "Automatic tampers",
+    "steam-module": "Steam modules",
+    accessory: "Accessories",
   },
 };
 

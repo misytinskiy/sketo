@@ -7,13 +7,18 @@ import styles from "./catalog.module.css";
 type CatalogCardProps = {
   item: CoffeeCatalogCardItem;
   language: CatalogLanguage;
+  onNavigate?: () => void;
 };
 
-export default function CatalogCard({ item, language }: CatalogCardProps) {
+export default function CatalogCard({ item, language, onNavigate }: CatalogCardProps) {
   const content = item.translations[language];
 
   return (
-    <Link href={`/catalog/${item.slug}`} className={styles.cardLink}>
+    <Link
+      href={`/catalog/${item.slug}`}
+      className={styles.cardLink}
+      onNavigate={onNavigate}
+    >
       <article className={styles.card}>
         <div className={styles.imagePanel}>
           <Image

@@ -5,6 +5,7 @@ import {
   products,
   productTranslations,
   type EditorialState,
+  type EquipmentBrand,
 } from "@/lib/db/schema";
 import {
   resolveCoffeeStorageUrl,
@@ -25,15 +26,7 @@ type ProductRow = {
   editorialState: EditorialState;
   imageUrl: string;
   priceDisplay: string | null;
-  brand:
-    | "la-marzocco"
-    | "mahlkonig"
-    | "anfim"
-    | "mazzer"
-    | "balenare"
-    | "allround"
-    | "victoria-arduino"
-    | null;
+  brand: EquipmentBrand | null;
   updatedAt: Date | null;
   sortOrder: number;
 };

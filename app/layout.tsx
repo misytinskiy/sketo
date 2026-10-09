@@ -3,6 +3,7 @@ import { Commissioner } from "next/font/google";
 import { getInitialLanguage } from "./components/getInitialLanguage";
 import LanguageProvider from "./components/LanguageProvider";
 import SmoothScroll from "./components/SmoothScroll";
+import "react-loading-skeleton/dist/skeleton.css";
 import "./globals.css";
 import { getSiteUrl } from "@/lib/site-url";
 

@@ -8,6 +8,11 @@
   color: #2d3134;
 }
 
+.footerLink:focus-visible {
+  outline: 2px solid #ce1616;
+  outline-offset: 5px;
+}
+
 .footerBrand {
   display: flex;
   align-items: flex-start;

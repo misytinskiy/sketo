@@ -12,16 +12,22 @@ import styles from "./equipment.module.css";
 type EquipmentCatalogCardProps = {
   item: EquipmentCatalogCardItem;
   language: EquipmentLanguage;
+  onNavigate?: () => void;
 };
 
 export default function EquipmentCatalogCard({
   item,
   language,
+  onNavigate,
 }: EquipmentCatalogCardProps) {
   const content = item.translations[language];
 
   return (
-    <Link href={`/equipment/${item.slug}`} className={styles.cardLink}>
+    <Link
+      href={`/equipment/${item.slug}`}
+      className={styles.cardLink}
+      onNavigate={onNavigate}
+    >
       <article className={styles.card}>
         <div className={styles.imagePanel}>
           <Image

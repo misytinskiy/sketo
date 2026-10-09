@@ -2,8 +2,9 @@
 import type { EquipmentCatalogCardItem } from "./equipment-db";
 
 import Link from "next/link";
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useMemo } from "react";
 import Footer from "../../components/Footer";
+import CatalogSkeleton from "../../components/CatalogSkeleton";
 import LanguageSwitch from "../../components/LanguageSwitch";
 import { getContentLanguage } from "../../components/language";
 import usePersistentLanguage from "../../components/usePersistentLanguage";
@@ -15,6 +16,44 @@ import {
   equipmentTypeLabels,
 } from "./equipment-data";
 import styles from "./equipment.module.css";
+import useCatalogViewState from "../useCatalogViewState";
+
+const INITIAL_CATALOG_SIZE = 8;
+const EQUIPMENT_VIEW_STORAGE_KEY = "sketo:catalog:equipment-view:v1";
+const HIDDEN_PUBLIC_BRANDS = new Set<EquipmentBrand>(["balenare", "allround"]);
+
+type EquipmentCatalogViewState = {
+  activeBrand: EquipmentBrand;
+  activeType: EquipmentType;
+  searchValue: string;
+  isExpanded: boolean;
+};
+
+const initialCatalogViewState: EquipmentCatalogViewState = {
+  activeBrand: "all",
+  activeType: "all",
+  searchValue: "",
+  isExpanded: false,
+};
+
+function parseCatalogViewState(value: unknown): EquipmentCatalogViewState | null {
+  if (!value || typeof value !== "object") return null;
+
+  const candidate = value as Partial<EquipmentCatalogViewState>;
+  const validBrands = Object.keys(equipmentBrandLabels.ru) as EquipmentBrand[];
+  const validTypes = Object.keys(equipmentTypeLabels.ru) as EquipmentType[];
+
+  if (
+    !validBrands.includes(candidate.activeBrand as EquipmentBrand) ||
+    !validTypes.includes(candidate.activeType as EquipmentType) ||
+    typeof candidate.searchValue !== "string" ||
+    typeof candidate.isExpanded !== "boolean"
+  ) {
+    return null;
+  }
+
+  return candidate as EquipmentCatalogViewState;
+}
 
 function getItemsLabel(count: number, language: "ru" | "en" | "kz") {
   if (language === "kz") return "тауар";
@@ -46,19 +85,40 @@ export default function EquipmentCatalogContent({
   items,
 }: EquipmentCatalogContentProps) {
   const [language, setLanguage] = usePersistentLanguage(initialLanguage);
-  const [activeBrand, setActiveBrand] = useState<EquipmentBrand>("all");
-  const [activeType, setActiveType] = useState<EquipmentType>("all");
-  const [searchValue, setSearchValue] = useState("");
+  const { state, setState, saveScrollPosition, isRestored } = useCatalogViewState({
+    storageKey: EQUIPMENT_VIEW_STORAGE_KEY,
+    initialState: initialCatalogViewState,
+    parse: parseCatalogViewState,
+  });
+  const { activeBrand, activeType, searchValue, isExpanded } = state;
   const deferredSearch = useDeferredValue(searchValue);
   const currentLanguage = getContentLanguage(language);
+  const availableBrands = useMemo(
+    () =>
+      (Object.keys(equipmentBrandLabels.ru) as EquipmentBrand[]).filter(
+        (brand) =>
+          !HIDDEN_PUBLIC_BRANDS.has(brand) &&
+          (brand === "all" || items.some((item) => item.brand === brand)),
+      ),
+    [items],
+  );
+  const availableTypes = useMemo(
+    () =>
+      (Object.keys(equipmentTypeLabels.ru) as EquipmentType[]).filter(
+        (type) => type === "all" || items.some((item) => item.type === type),
+      ),
+    [items],
+  );
+  const selectedBrand = availableBrands.includes(activeBrand) ? activeBrand : "all";
+  const selectedType = availableTypes.includes(activeType) ? activeType : "all";
 
   const filteredItems = useMemo(() => {
     const normalizedSearch = deferredSearch.trim().toLowerCase();
 
     return items.filter((item) => {
       const content = item.translations[currentLanguage];
-      const matchesBrand = activeBrand === "all" || item.brand === activeBrand;
-      const matchesType = activeType === "all" || item.type === activeType;
+      const matchesBrand = selectedBrand === "all" || item.brand === selectedBrand;
+      const matchesType = selectedType === "all" || item.type === selectedType;
       const matchesSearch =
         normalizedSearch.length === 0 ||
         `${item.name} ${content.category} ${content.description} ${
@@ -69,12 +129,18 @@ export default function EquipmentCatalogContent({
 
       return matchesBrand && matchesType && matchesSearch;
     });
-  }, [activeBrand, activeType, currentLanguage, deferredSearch, items]);
+  }, [currentLanguage, deferredSearch, items, selectedBrand, selectedType]);
 
   const resultsLabel = `${filteredItems.length} ${getItemsLabel(
     filteredItems.length,
     currentLanguage,
   )}`;
+  const visibleItems = isExpanded
+    ? filteredItems
+    : filteredItems.slice(0, INITIAL_CATALOG_SIZE);
+  const hasMoreItems = filteredItems.length > INITIAL_CATALOG_SIZE && !isExpanded;
+
+  if (!isRestored) return <CatalogSkeleton filterCounts={[10, 6]} />;
 
   return (
     <main className={styles.page}>
@@ -106,7 +172,13 @@ export default function EquipmentCatalogContent({
               id="equipment-search"
               type="search"
               value={searchValue}
-              onChange={(event) => setSearchValue(event.target.value)}
+              onChange={(event) => {
+                setState((current) => ({
+                  ...current,
+                  searchValue: event.target.value,
+                  isExpanded: false,
+                }));
+              }}
               className={styles.searchInput}
               placeholder={
                 currentLanguage === "kz" ? "Модель немесе санат" : currentLanguage === "en"
@@ -121,15 +193,21 @@ export default function EquipmentCatalogContent({
               {currentLanguage === "kz" ? "Брендтер" : currentLanguage === "en" ? "Brands" : "Бренды"}
             </span>
             <div className={styles.filterRow}>
-              {(Object.keys(equipmentBrandLabels.ru) as EquipmentBrand[]).map(
+              {availableBrands.map(
                 (brand) => {
-                  const isActive = activeBrand === brand;
+                  const isActive = selectedBrand === brand;
 
                   return (
                     <button
                       key={brand}
                       type="button"
-                      onClick={() => setActiveBrand(brand)}
+                      onClick={() => {
+                        setState((current) => ({
+                          ...current,
+                          activeBrand: brand,
+                          isExpanded: false,
+                        }));
+                      }}
                       className={`${styles.filterChip} ${
                         isActive ? styles.filterChipActive : ""
                       }`}
@@ -147,15 +225,21 @@ export default function EquipmentCatalogContent({
               {currentLanguage === "kz" ? "Түрі" : currentLanguage === "en" ? "Type" : "Тип"}
             </span>
             <div className={styles.filterRow}>
-              {(Object.keys(equipmentTypeLabels.ru) as EquipmentType[]).map(
+              {availableTypes.map(
                 (type) => {
-                  const isActive = activeType === type;
+                  const isActive = selectedType === type;
 
                   return (
                     <button
                       key={type}
                       type="button"
-                      onClick={() => setActiveType(type)}
+                      onClick={() => {
+                        setState((current) => ({
+                          ...current,
+                          activeType: type,
+                          isExpanded: false,
+                        }));
+                      }}
                       className={`${styles.filterChip} ${
                         isActive ? styles.filterChipActive : ""
                       }`}
@@ -172,17 +256,19 @@ export default function EquipmentCatalogContent({
         </section>
 
         <section
+          id="equipment-catalog-grid"
           className={styles.grid}
           aria-label={
             currentLanguage === "kz" ? "Жабдық каталогы" : currentLanguage === "en" ? "Equipment catalog" : "Каталог оборудования"
           }
         >
           {filteredItems.length > 0 ? (
-            filteredItems.map((item) => (
+            visibleItems.map((item) => (
               <EquipmentCatalogCard
                 key={item.slug}
                 item={item}
                 language={currentLanguage}
+                onNavigate={saveScrollPosition}
               />
             ))
           ) : (
@@ -195,6 +281,26 @@ export default function EquipmentCatalogContent({
             </div>
           )}
         </section>
+
+        {hasMoreItems ? (
+          <div className={styles.catalogMore}>
+            <button
+              type="button"
+              className={styles.catalogMoreButton}
+              aria-controls="equipment-catalog-grid"
+              aria-expanded={isExpanded}
+              onClick={() => setState((current) => ({ ...current, isExpanded: true }))}
+            >
+              <span className={styles.catalogMoreLabel}>
+                {currentLanguage === "kz"
+                  ? "Барлығын көрсету"
+                  : currentLanguage === "en"
+                    ? "Show all"
+                    : "Показать всё"}
+              </span>
+            </button>
+          </div>
+        ) : null}
       </div>
 
       <Footer language={currentLanguage} />
