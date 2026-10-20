@@ -22,7 +22,7 @@ function authSetup({ user = { id: 'auth-id' }, error = null, role = 'editor', ac
     'server-only': {}, react: { cache: (fn) => fn }, 'drizzle-orm': orm,
     'next/navigation': { redirect: (path) => { throw new Error(`redirect:${path}`); } },
     '@/lib/db/schema': { staffMembers: { userId: 'user_id' } },
-    '@/lib/db': { db: { query: { staffMembers: { findFirst: async () => { reads++; return member; } } } } },
+    '@/lib/db/bounded': { withBoundedDatabase: (_lane, run) => run({ query: { staffMembers: { findFirst: async () => { reads++; return member; } } } }) },
     '@/lib/supabase/server': { createClient: async () => ({ auth: { getUser: async () => ({ data: { user }, error }) } }) },
   });
   return { ...auth, reads: () => reads, revoke: () => { member.isActive = false; } };

@@ -405,6 +405,20 @@
   }
 }
 
+@media (min-width: 641px) and (max-width: 760px) {
+  .nav {
+    gap: 0.75rem;
+  }
+
+  .navItem {
+    gap: 0;
+  }
+
+  .navNumber {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
   .topBar {
     align-items: flex-start;

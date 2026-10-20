@@ -268,10 +268,12 @@
 
 .price {
   font-family: var(--font-basis-mono);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1;
+  color: #ce1616;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
- 
 }
 
 .size {

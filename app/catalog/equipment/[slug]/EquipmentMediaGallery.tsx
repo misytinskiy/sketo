@@ -8,12 +8,14 @@ type EquipmentMediaGalleryProps = {
   images: string[];
   name: string;
   language: "ru" | "en" | "kz";
+  unoptimized?: boolean;
 };
 
 export default function EquipmentMediaGallery({
   images,
   name,
   language,
+  unoptimized,
 }: EquipmentMediaGalleryProps) {
   const galleryImages = images.slice(0, 6);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -86,6 +88,7 @@ export default function EquipmentMediaGallery({
             }
             fill
             priority
+            unoptimized={unoptimized}
             sizes="(max-width: 980px) 100vw, 54vw"
             className={styles.mediaImage}
           />

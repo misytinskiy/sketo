@@ -1,0 +1,130 @@
+.controls { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto; }
+.controls button { cursor: pointer; }
+.categories { grid-column: 1 / -1; }
+.cardContent { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.cardName, .cardColors { grid-column: 1 / -1; }
+.cardColors { display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; opacity: .7; }
+.colorPreview { display: inline-block; width: 10px; height: 10px; border: 1px solid #2d313450; border-radius: 50%; }
+.empty { min-height: 40vh; }
+.stageContext { margin-bottom: 2.25rem; border-top: 1px solid #2d3134; border-bottom: 1px solid #2d3134; }
+.stageContextHead { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2rem; padding: 1.5rem 0 2rem; }
+.stageEyebrow, .stageDescription, .stageCount { font-family: var(--font-basis-mono); text-transform: uppercase; }
+.stageEyebrow { margin-bottom: 1rem; font-size: 11px; letter-spacing: .12em; opacity: .55; }
+.stageTitle { color: #ce1616; font: 800 clamp(2.5rem, 5vw, 5.75rem)/.88 var(--font-commissioner-display); letter-spacing: -.045em; text-transform: uppercase; }
+.stageDescription { max-width: 52rem; margin-top: 1.1rem; font-size: 11px; line-height: 1.55; }
+.stageCount { padding-bottom: .15rem; font-size: 11px; white-space: nowrap; opacity: .58; }
+.stageTabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid #2d31342f; }
+.stageTab { position: relative; display: grid; grid-template-columns: 2rem minmax(0, 1fr); align-items: center; gap: .8rem; min-height: 58px; padding: .9rem 1rem; border-right: 1px solid #2d31342f; font: 11px/1.2 var(--font-basis-mono); text-transform: uppercase; transition: color 180ms, background-color 180ms; }
+.stageTab:last-child { border-right: 0; }
+.stageTab::after { content: ""; position: absolute; right: 1rem; bottom: -1px; left: 1rem; height: 2px; background: #ce1616; transform: scaleX(0); transition: transform 180ms; }
+.stageTab:hover { background: #2d313407; color: #ce1616; }
+.stageTabActive { color: #ce1616; }
+.stageTabActive::after { transform: scaleX(1); }
+.stageTabNumber { opacity: .55; }
+.stageTabActive .stageTabNumber { opacity: 1; }
+.stageTabAll { grid-template-columns: 1rem minmax(0, 1fr); }
+.colorOptions { display: flex; flex-wrap: wrap; gap: .6rem; }
+.colorOption { display: inline-flex; align-items: center; gap: .6rem; padding: .65rem .85rem; border: 1px solid #2d313440; background: transparent; color: inherit; font: 12px var(--font-basis-mono); cursor: pointer; transition: border-color 180ms, color 180ms; }
+.colorOption:hover, .colorActive { border-color: #ce1616; color: #ce1616; }
+.swatch { width: 16px; height: 16px; border: 1px solid #2d313450; border-radius: 50%; }
+.colorPalette { display: inline-flex; width: max-content; }
+.colorSwatchOption { position: relative; display: grid; place-items: center; width: 44px; height: 40px; padding: 0; border: 0; background: transparent; cursor: pointer; transition: background-color 180ms; }
+
+.colorSwatchOption::after { content: ""; position: absolute; right: 7px; bottom: -1px; left: 7px; height: 2px; background: #ce1616; transform: scaleX(0); transition: transform 180ms; }
+.colorSwatchOption .swatch { width: 20px; height: 20px; }
+.colorSwatchOption:hover { background: #2d313408; }
+.colorSwatchActive::after { transform: scaleX(1); }
+.purchase { display: grid; gap: .9rem; padding-top: 1rem; border-top: 1px solid #2d3134; }
+.priceLine { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.productPrice, .priceMeta { font: 12px/1 var(--font-basis-mono); text-transform: uppercase; }
+.productPrice { color: #ce1616; font-size: 14px; font-weight: 700; letter-spacing: -.02em; }
+.priceMeta { text-align: right; }
+.workflow { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); margin-top: 5rem; border-top: 1px solid #2d313440; border-bottom: 1px solid #2d313440; }
+.artPlaceholder { position: relative; display: flex; align-items: center; justify-content: center; min-height: 580px; border-right: 1px solid #2d313440; overflow: hidden; background-image: linear-gradient(#2d31340a 1px, transparent 1px), linear-gradient(90deg, #2d31340a 1px, transparent 1px); background-size: 48px 48px; }
+.artCorner, .artBottom { position: absolute; left: 1.5rem; font: 11px var(--font-basis-mono); letter-spacing: .12em; opacity: .5; }
+.artCorner { top: 1.5rem; }
+.artBottom { bottom: 1.5rem; }
+.artCenter { display: grid; justify-items: center; gap: 1rem; font: 12px var(--font-basis-mono); text-transform: uppercase; }
+.artCenter p { opacity: .45; font-size: 10px; }
+.artSymbol { font: 800 clamp(10rem, 24vw, 24rem)/.8 var(--font-commissioner-display); color: #ce1616; opacity: .12; }
+.workflowContent { padding: 2rem 0 0 2rem; }
+.workflowArt { background-image: none; }
+.interactiveArt { display: block; width: 100%; height: auto; overflow: visible; }
+.artGroup { cursor: pointer; outline: none; }
+.artLayer { opacity: .28; transition: opacity 260ms ease; pointer-events: none; }
+.artGroup[data-active="true"] .artLayer, .artGroup:hover .artLayer, .artGroup:focus-visible .artLayer { opacity: 1; }
+.artTarget { fill: transparent; stroke: transparent; stroke-width: 2; pointer-events: all; }
+.artGroup:focus-visible .artTarget { stroke: #ce1616; stroke-dasharray: 6 5; }
+.artHint { position: absolute; bottom: 1rem; left: 1rem; right: 1rem; text-align: center; font: 10px/1.5 var(--font-basis-mono); text-transform: uppercase; color: #777873; pointer-events: none; }
+.workflowArt img { object-fit: contain; }
+.workflowChoices { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; border-bottom: 1px solid #2d313440; }
+.workflowChoices button { min-height: 44px; padding: .5rem 0; background: transparent; border: 0; color: #777873; font: 700 13px var(--font-commissioner-display); text-transform: uppercase; cursor: pointer; }
+.workflowChoices button[aria-pressed="true"], .workflowChoices button:hover { color: #ce1616; }
+.workflowChoices button:focus-visible, .workflowProduct:focus-visible { outline: 2px solid #ce1616; outline-offset: 3px; }
+.workflowResults { display: grid; min-height: 320px; }
+/* All panels contribute to the same grid row: the tallest sets its height,
+   including wrapped translations and mobile text. Inactive links are inert. */
+.workflowPanel { grid-area: 1 / 1; min-width: 0; align-self: start; visibility: hidden; pointer-events: none; }
+.workflowPanel[data-active="true"] { visibility: visible; pointer-events: auto; }
+.workflowProduct { display: grid; grid-template-columns: 80px minmax(0, 1fr) 20px; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #2d313425; cursor: pointer; }
+.workflowProduct:last-child { border-bottom: 0; }
+.workflowImage { position: relative; width: 80px; height: 80px; }
+.workflowImage img { object-fit: contain; }
+.workflowProduct h3 { font: 700 16px/1.25 var(--font-commissioner-display); }
+.workflowProduct:hover h3 { color: #ce1616; }
+.workflowProduct p { margin-top: .35rem; font-size: 12px; line-height: 1.5; color: #777873; }
+.workflowPrice { display: block; margin-top: .5rem; font: 12px var(--font-basis-mono); }
+.workflowEmpty { padding: 2rem 0; max-width: 32rem; font-size: 14px; line-height: 1.6; color: #777873; }
+.eyebrow { margin-bottom: 1rem; font: 11px var(--font-basis-mono); letter-spacing: .15em; opacity: .55; }
+.workflowTitle { max-width: 11ch; font: 800 clamp(2.4rem, 4vw, 4.75rem)/.9 var(--font-commissioner-display); text-transform: uppercase; letter-spacing: -.05em; overflow-wrap: anywhere; }
+.workflowLead { max-width: 43rem; margin: 1rem 0 2rem; font: 12px/1.65 var(--font-basis-mono); text-transform: uppercase; }
+.stepLink { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr) 1.5rem; align-items: center; gap: 1.25rem; padding: 1.5rem .5rem 1.5rem 0; border-top: 1px solid #2d313440; cursor: pointer; }
+.stepNumber { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; background: #ce1616; color: #f2f0eb; font: 12px var(--font-basis-mono); }
+.stepLink h3 { font: 700 1.15rem var(--font-commissioner-display); text-transform: uppercase; letter-spacing: .04em; transition: color 180ms; }
+.stepLink p { max-width: 32rem; margin-top: .5rem; font: 11px/1.5 var(--font-basis-mono); opacity: .65; }
+.stepArrow { font-size: 1.5rem; transition: transform 180ms; }
+.stepLink:hover h3 { color: #ce1616; }
+.stepLink:hover .stepArrow { transform: translateX(4px); }
+.related { margin-top: 3rem; }
+.help { display: grid; grid-template-columns: minmax(0, 1fr) minmax(22rem, 34rem); align-items: end; gap: 1rem; margin-top: 5rem; padding: 1.5rem 0; border-top: 1px solid #2d313424; }
+.helpCopy, .helpContent { display: grid; align-content: start; gap: 1rem; }
+.helpEyebrow { font: 11px/1 var(--font-basis-mono); letter-spacing: .15em; opacity: .55; }
+.helpTitle { margin: 0; font: 800 clamp(2.8rem, 5vw, 5.4rem)/.92 var(--font-commissioner-display); letter-spacing: -.05em; text-transform: uppercase; }
+.helpTitle span { display: block; }
+.helpContent { min-width: 0; }
+.helpContent p { max-width: 28rem; color: #2d3134b8; font: 12px/1.45 var(--font-basis-mono); text-transform: uppercase; }
+.helpLink { display: inline-flex; justify-self: start; width: fit-content; font: 1rem/1 var(--font-activist); letter-spacing: -.03em; text-transform: uppercase; cursor: pointer; transition: transform 180ms ease; }
+.helpLink:hover { transform: translateY(-1px); }
+.helpLink:focus-visible { outline: 2px solid #ce1616; outline-offset: 5px; }
+.relatedHeader { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid #2d313440; }
+.relatedHeader h2 { font: 800 clamp(1.6rem, 3vw, 3rem)/1 var(--font-commissioner-display); text-transform: uppercase; }
+.relatedHeader a { font: 12px var(--font-basis-mono); }
+.relatedHeader a:hover { color: #ce1616; }
+.relatedGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; margin-top: 2rem; }
+.colorOption:focus-visible, .colorSwatchOption:focus-visible, .stepLink:focus-visible, .relatedHeader a:focus-visible { outline: 2px solid #ce1616; outline-offset: 4px; }
+@media (max-width: 980px) {
+  .help { grid-template-columns: 1fr; }
+  .helpTitle { font-size: clamp(2.4rem, 7vw, 4.75rem); }
+  .helpContent { gap: 1rem; }
+  .controls { grid-template-columns: 1fr; }
+  .stageTabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stageTab:nth-child(2) { border-right: 0; }
+  .stageTab:nth-child(-n + 2) { border-bottom: 1px solid #2d31342f; }
+  .workflow { grid-template-columns: 1fr; margin-top: 3rem; }
+  .artPlaceholder { min-height: 320px; border-right: 0; border-bottom: 1px solid #2d313440; }
+  .workflowContent { padding: 2rem 0 0; }
+  .workflowTitle { max-width: 14ch; font-size: clamp(3rem, 9vw, 5rem); }
+}
+@media (max-width: 640px) {
+  .stageContextHead { grid-template-columns: 1fr; gap: 1rem; padding-bottom: 1.5rem; }
+  .stageTitle { font-size: clamp(2.5rem, 15vw, 4.5rem); }
+  .stageCount { justify-self: start; }
+  .stageTab { grid-template-columns: 1.6rem minmax(0, 1fr); min-height: 54px; padding-inline: .7rem; font-size: 10px; }
+  .cardContent { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .techMeta { display: flex; flex-wrap: wrap; }
+  .artPlaceholder { min-height: 280px; }
+  .stepLink { gap: .8rem; padding-block: 1.25rem; }
+  .relatedHeader { align-items: start; flex-direction: column; }
+  .relatedGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+@media (prefers-reduced-motion: reduce) { .stepArrow, .stepLink h3, .colorOption, .colorSwatchOption, .helpLink, .artLayer { transition: none; } }

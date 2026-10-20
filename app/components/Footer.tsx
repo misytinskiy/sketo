@@ -37,6 +37,9 @@ export default function Footer({ language }: FooterProps) {
           <Link href="/equipment" className={styles.footerLink}>
             {language === "kz" ? "Жабдық" : language === "en" ? "Equipment" : "Оборудование"}
           </Link>
+          <Link href="/accessories" className={styles.footerLink}>
+            {language === "kz" ? "Аксессуарлар" : language === "en" ? "Accessories" : "Аксессуары"}
+          </Link>
           <Link href="/b2b" className={styles.footerLink}>
             B2B
           </Link>

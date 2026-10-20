@@ -9,13 +9,16 @@ import SplitCatalogPromo from "./components/SplitCatalogPromo";
 import { getContentLanguage } from "./components/language";
 import usePersistentLanguage from "./components/usePersistentLanguage";
 import styles from "./page.module.css";
+import type { ReactNode } from "react";
 
 type HomePageClientProps = {
   initialLanguage: "ru" | "en" | "kz";
+  productShelves?: ReactNode;
 };
 
 export default function HomePageClient({
   initialLanguage,
+  productShelves,
 }: HomePageClientProps) {
   const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const currentLanguage = getContentLanguage(language);
@@ -35,7 +38,9 @@ export default function HomePageClient({
       </section>
 
       <AboutSketo language={currentLanguage} />
+
       <SplitCatalogPromo language={currentLanguage} />
+      {productShelves}
       <MatchaFeature language={currentLanguage} />
       <SeasonalMenu language={currentLanguage} />
       <Footer language={currentLanguage} />

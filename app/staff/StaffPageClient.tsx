@@ -24,6 +24,9 @@ import {
 } from "./actions";
 import styles from "./staff.module.css";
 import useStaffPreference from "./useStaffPreference";
+import AccessoriesClient from "./accessories/AccessoriesClient";
+import { createAccessory } from "./accessories/create-action";
+import useAccessories from "./accessories/useAccessories";
 import type {
   StaffEditorialState,
   StaffProductRecord,
@@ -33,7 +36,7 @@ import type {
 type ProductStatus = "all" | StaffProductStatus;
 type EditorialFilter = "all" | StaffEditorialState;
 type SortMode = "name" | "status";
-type WorkspaceMode = "coffee" | "equipment";
+type WorkspaceMode = "coffee" | "equipment" | "accessories";
 
 type StaffProduct = StaffProductRecord & {
   name: string;
@@ -54,6 +57,7 @@ const copy = {
   workspaceTabs: {
     coffee: "Кофе",
     equipment: "Оборудование",
+    accessories: "Аксессуары",
   },
   statusTabs: {
     all: "Любой статус",
@@ -206,8 +210,9 @@ function getServerSnapshot() {
 export default function StaffPageClient({
   products: sourceProducts,
 }: StaffPageClientProps) {
+  const { accessories, accessoriesError, accessoriesLoading, retryAccessories } = useAccessories(sourceProducts);
   const [listView, setListView] = useStaffPreference("list", "active", ["active", "archive"]);
-  const [workspaceMode, setWorkspaceMode] = useStaffPreference<WorkspaceMode>("catalog", "coffee", ["coffee", "equipment"]);
+  const [workspaceMode, setWorkspaceMode] = useStaffPreference<WorkspaceMode>("catalog", "coffee", ["coffee", "equipment", "accessories"]);
   const [activeStatus, setActiveStatus] = useStaffPreference<ProductStatus>("status", "all", Object.keys(copy.statusTabs) as ProductStatus[]);
   const [activeEditorial, setActiveEditorial] = useStaffPreference<EditorialFilter>("editorial", "all", Object.keys(copy.editorialTabs).filter((value) => value !== "archived") as EditorialFilter[]);
   const [sortMode, setSortMode] = useStaffPreference<SortMode>("sort", "status", Object.keys(copy.sort) as SortMode[]);
@@ -284,11 +289,11 @@ export default function StaffPageClient({
 
   const metrics = useMemo(
     () => ({
-      total: products.length,
+      total: products.length + accessories.length,
       coffee: products.filter((product) => product.kind === "coffee").length,
       equipment: products.filter((product) => product.kind === "equipment").length,
     }),
-    [products],
+    [products, accessories],
   );
 
   const filteredProducts = useMemo(() => {
@@ -439,7 +444,7 @@ export default function StaffPageClient({
     }
 
     const label =
-      kind === "coffee" ? copy.loading.createCoffee : copy.loading.createEquipment;
+      kind === "accessories" ? "Открываем новую карточку аксессуара" : kind === "coffee" ? copy.loading.createCoffee : copy.loading.createEquipment;
 
 
 
@@ -450,7 +455,7 @@ export default function StaffPageClient({
         formData.set("kind", kind);
         createRequests.current[kind] ??= crypto.randomUUID();
         formData.set("requestId", createRequests.current[kind]!);
-        const result = await createStaffProduct(formData);
+        const result = await (kind === "accessories" ? createAccessory(formData) : createStaffProduct(formData));
         notify({ status: "success", message: "Товар создан. Можно заполнить карточку." });
         router.push(result.href, { scroll: false });
       } catch {
@@ -658,7 +663,7 @@ export default function StaffPageClient({
           <div className={styles.overviewGrid}>
             <article className={styles.metricCard}>
               <p className={styles.metricLabel}>{copy.metrics.total}</p>
-              <p className={styles.metricValue}>{metrics.total}</p>
+              <p className={styles.metricValue}>{accessoriesLoading ? "…" : accessoriesError ? "—" : metrics.total}</p>
             </article>
             <article className={styles.metricCard}>
               <p className={styles.metricLabel}>{copy.metrics.coffee}</p>
@@ -668,9 +673,19 @@ export default function StaffPageClient({
               <p className={styles.metricLabel}>{copy.metrics.equipment}</p>
               <p className={styles.metricValue}>{metrics.equipment}</p>
             </article>
+            <article className={styles.metricCard}>
+              <p className={styles.metricLabel}>Аксессуары</p>
+              <p className={styles.metricValue}>{accessoriesLoading ? "…" : accessoriesError ? "—" : accessories.length}</p>
+            </article>
           </div>
 
           <div className={styles.primaryActions}>
+            <button type="button" className={styles.primaryButton}
+              disabled={Boolean(pendingNavigationLabel) || isCreating}
+              onClick={() => submitCreateProduct("accessories")}>
+              {isCreating && creatingKind === "accessories" && <ActionSpinner />}
+              {isCreating && creatingKind === "accessories" ? "Создаём…" : "Добавить аксессуар"}
+            </button>
             <form
               onSubmit={(event) => {
                 event.preventDefault();
@@ -824,7 +839,11 @@ export default function StaffPageClient({
           </div>
         </section>
 
-        <section className={styles.listSection} aria-label="Кабинет">
+        {workspaceMode === "accessories" ? (
+          accessoriesLoading ? <div className={styles.emptyState} role="status"><p>Загружаем аксессуары…</p></div> :
+          accessoriesError ? <div className={styles.emptyState} role="alert"><p>{accessoriesError}</p><button className={styles.secondaryButton} onClick={retryAccessories}>Повторить загрузку</button></div> :
+          <AccessoriesClient key={`${listView}:${activeStatus}:${activeEditorial}:${searchValue}`} products={accessories} query={searchValue} state={activeEditorial} listView={listView} status={activeStatus} sort={sortMode} onRefresh={retryAccessories} />
+        ) : <section className={styles.listSection} aria-label="Кабинет">
           <div className={styles.listToolbar}>
             <button
               type="button"
@@ -893,7 +912,7 @@ export default function StaffPageClient({
               ) : null}
             </div>
           )}
-        </section>
+        </section>}
       </div>
     </main>
   );

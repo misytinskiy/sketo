@@ -1,0 +1,3157 @@
+[
+  {
+    "slug": "muvna-mach-m8-set",
+    "name": "MUVNA Mach M8 — комплект ручной кофемашины",
+    "category": "coffee-makers",
+    "description": "Ручная кофемашина Mach M8 для приготовления эспрессо с механическим управлением давлением. В прайсе представлена комплектом.",
+    "attributes": {},
+    "sort_order": 0,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "MK2673",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 1058000,
+        "stock_quantity": 2,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 1,
+        "source_name": "Mach M8 manual coffee machine- set"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-mammoth",
+    "name": "Кофемолка MUVNA Mammoth",
+    "category": "grinders",
+    "description": "Электрическая кофемолка Mammoth для помола кофейных зёрен перед приготовлением напитка.",
+    "attributes": {},
+    "sort_order": 1,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "G2888",
+        "color_code": "silver",
+        "color_label": "Серебристый",
+        "retail_price": 1690500,
+        "stock_quantity": 1,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 2,
+        "source_name": "Mammoth grinder - silver"
+      },
+      {
+        "sku": "G2899",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 1690500,
+        "stock_quantity": 1,
+        "sort_order": 1,
+        "source_page": 1,
+        "source_row": 3,
+        "source_name": "Mammoth grinder - black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-mobius-58-18-titanium",
+    "name": "Корзина MUVNA Mobius 58 мм, 18 г — титановое покрытие",
+    "category": "baskets",
+    "description": "Фильтр-корзина для приготовления эспрессо. Диаметр 58 мм, номинальная дозировка 18 г; доступны два цвета титанового покрытия.",
+    "attributes": {
+      "diameter_mm": 58,
+      "dose_g": 18,
+      "finish": "titanium coating"
+    },
+    "sort_order": 2,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "FP2349",
+        "color_code": "titanium-black",
+        "color_label": "Титановый чёрный",
+        "retail_price": 13685,
+        "stock_quantity": 3,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 4,
+        "source_name": "Mobius filter basket - Titanium black-58mm-18g"
+      },
+      {
+        "sku": "FP2343",
+        "color_code": "titanium-gold",
+        "color_label": "Титановый золотистый",
+        "retail_price": 13685,
+        "stock_quantity": 3,
+        "sort_order": 1,
+        "source_page": 1,
+        "source_row": 5,
+        "source_name": "Mobius filter basket - Titanium gold-58mm-18g"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-mobius-58-18-natural",
+    "name": "Корзина MUVNA Mobius 58 мм, 18 г — сталь",
+    "category": "baskets",
+    "description": "Фильтр-корзина для приготовления эспрессо, в исполнении без цветного титанового покрытия.",
+    "attributes": {
+      "diameter_mm": 58,
+      "dose_g": 18
+    },
+    "sort_order": 3,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "FB2298",
+        "color_code": "natural",
+        "color_label": "Натуральный",
+        "retail_price": 11730,
+        "stock_quantity": 3,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 6,
+        "source_name": "Mobius filter basket - natural color-58mm-18g"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-angel-6-acrylic",
+    "name": "MUVNA Angel — 6 контейнеров, акриловая подставка",
+    "category": "storage",
+    "description": "Набор контейнеров для хранения отдельных порций кофейного зерна на общей подставке.",
+    "attributes": {
+      "tube_count": 6,
+      "base_material": "acrylic"
+    },
+    "sort_order": 4,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "GC2398",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 29325,
+        "stock_quantity": 1,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 7,
+        "source_name": "canister - 6 tubes-acrylic base"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-angel-12-acrylic",
+    "name": "MUVNA Angel — 12 контейнеров, акриловая подставка",
+    "category": "storage",
+    "description": "Набор контейнеров для хранения отдельных порций кофейного зерна на общей подставке.",
+    "attributes": {
+      "tube_count": 12,
+      "base_material": "acrylic"
+    },
+    "sort_order": 5,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "GC2399",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 48875,
+        "stock_quantity": 1,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 8,
+        "source_name": "canister - 12 tubes-acrylic base"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-angel-6-walnut",
+    "name": "MUVNA Angel — 6 контейнеров, ореховая подставка",
+    "category": "storage",
+    "description": "Набор контейнеров для хранения отдельных порций кофейного зерна на общей подставке.",
+    "attributes": {
+      "tube_count": 6,
+      "base_material": "walnut"
+    },
+    "sort_order": 6,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "GC2598",
+        "color_code": "walnut",
+        "color_label": "Орех",
+        "retail_price": 39100,
+        "stock_quantity": 1,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 9,
+        "source_name": "canister - 6 tubes- walnut base"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-angel-12-walnut",
+    "name": "MUVNA Angel — 12 контейнеров, ореховая подставка",
+    "category": "storage",
+    "description": "Набор контейнеров для хранения отдельных порций кофейного зерна на общей подставке.",
+    "attributes": {
+      "tube_count": 12,
+      "base_material": "walnut"
+    },
+    "sort_order": 7,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "GC2599",
+        "color_code": "walnut",
+        "color_label": "Орех",
+        "retail_price": 58650,
+        "stock_quantity": 1,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 10,
+        "source_name": "canister - 12 tubes- walnut base"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-ti-art-600-silver",
+    "name": "Питчер MUVNA Ti-Art 600 мл — серебристый",
+    "category": "milk-tools",
+    "description": "Питчер Ti-Art для работы с молоком и выполнения латте-арта.",
+    "attributes": {
+      "volume_ml": 600
+    },
+    "sort_order": 8,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "P2460",
+        "color_code": "silver",
+        "color_label": "Серебристый",
+        "retail_price": 42320,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 13,
+        "source_name": "Latte Art Pitcher Ti-Art Silver-600ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-ti-art-600-purple",
+    "name": "Питчер MUVNA Ti-Art 600 мл — фиолетовый",
+    "category": "milk-tools",
+    "description": "Питчер Ti-Art для работы с молоком и выполнения латте-арта.",
+    "attributes": {
+      "volume_ml": 600
+    },
+    "sort_order": 9,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "P2464",
+        "color_code": "purple",
+        "color_label": "Фиолетовый",
+        "retail_price": 53820,
+        "stock_quantity": 2,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 14,
+        "source_name": "Latte Art Pitcher Ti-Art Purple-600ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-dbw-600-natural",
+    "name": "Питчер MUVNA DBW 600 мл",
+    "category": "milk-tools",
+    "description": "Питчер DBW с носиком для направленного налива молока при выполнении латте-арта.",
+    "attributes": {
+      "volume_ml": 600
+    },
+    "sort_order": 10,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "P2726",
+        "color_code": "natural",
+        "color_label": "Натуральный",
+        "retail_price": 11788,
+        "stock_quantity": 2,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 15,
+        "source_name": "Latte Art Pitcher DBW-natural-600ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-b-type-600-natural",
+    "name": "Питчер MUVNA B-type 600 мл — натуральная сталь",
+    "category": "milk-tools",
+    "description": "Питчер для вспенивания и налива молока при приготовлении кофейных напитков.",
+    "attributes": {
+      "volume_ml": 600
+    },
+    "sort_order": 11,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "P2011",
+        "color_code": "natural",
+        "color_label": "Натуральный",
+        "retail_price": 12305,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 16,
+        "source_name": "Latte Art Pitcher natural color-600ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-b-type-600-coated",
+    "name": "Питчер MUVNA B-type 600 мл — цветное исполнение",
+    "category": "milk-tools",
+    "description": "Питчер для вспенивания и налива молока при приготовлении кофейных напитков.",
+    "attributes": {
+      "volume_ml": 600
+    },
+    "sort_order": 12,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "P2017",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 13570,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 17,
+        "source_name": "Latte Art Pitcher black-600ml"
+      },
+      {
+        "sku": "P2019",
+        "color_code": "silver",
+        "color_label": "Серебристый",
+        "retail_price": 13570,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 1,
+        "source_row": 18,
+        "source_name": "Latte Art Pitcher silver-600ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-b-type-350-natural",
+    "name": "Питчер MUVNA B-type 350 мл — натуральная сталь",
+    "category": "milk-tools",
+    "description": "Питчер для вспенивания и налива молока при приготовлении кофейных напитков.",
+    "attributes": {
+      "volume_ml": 350
+    },
+    "sort_order": 13,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "P2092",
+        "color_code": "natural",
+        "color_label": "Натуральный",
+        "retail_price": 10293,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 19,
+        "source_name": "Latte Art Pitcher natural color-350ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-b-type-350-black",
+    "name": "Питчер MUVNA B-type 350 мл — цветное исполнение",
+    "category": "milk-tools",
+    "description": "Питчер для вспенивания и налива молока при приготовлении кофейных напитков.",
+    "attributes": {
+      "volume_ml": 350
+    },
+    "sort_order": 14,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "P2095",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 11615,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 20,
+        "source_name": "Latte Art Pitcher black-350ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-latte-art-pen",
+    "name": "Перо MUVNA для латте-арта",
+    "category": "milk-tools",
+    "description": "Инструмент для нанесения деталей рисунка на поверхности молочной пены.",
+    "attributes": {},
+    "sort_order": 15,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "CN2780",
+        "color_code": "silver",
+        "color_label": "Серебристый",
+        "retail_price": 12535,
+        "stock_quantity": 3,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 22,
+        "source_name": "latte art etching pen - sliver"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-angled-knock-box",
+    "name": "Нок-бокс MUVNA Angled",
+    "category": "tamping-stations",
+    "description": "Контейнер для выбивания отработанной кофейной таблетки из портафильтра. Модель со скошенным верхом.",
+    "attributes": {},
+    "sort_order": 16,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "GB2081",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 8740,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 23,
+        "source_name": "Angled knock box - black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-knock-box",
+    "name": "Нок-бокс MUVNA",
+    "category": "tamping-stations",
+    "description": "Контейнер для сбора отработанных кофейных таблеток после приготовления эспрессо.",
+    "attributes": {},
+    "sort_order": 17,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "GB2083",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 8740,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 24,
+        "source_name": "Knock Box - black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-adjustable-tamper-5835",
+    "name": "Темпер MUVNA Infinitely Adjustable 58,35 мм",
+    "category": "tampers",
+    "description": "Темпер с регулируемой глубиной и рифлёным основанием для уплотнения молотого кофе.",
+    "attributes": {
+      "diameter_mm": 58.35,
+      "base": "threaded"
+    },
+    "sort_order": 18,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2361T",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 12535,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 25,
+        "source_name": "black 58.35mm-thread base"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-constant-pressure-tamper-58",
+    "name": "Темпер MUVNA Constant Pressure 58 мм",
+    "category": "tampers",
+    "description": "Темпер для формирования кофейной таблетки. Версия с рифлёным основанием диаметром 58 мм.",
+    "attributes": {
+      "diameter_mm": 58,
+      "base": "threaded"
+    },
+    "sort_order": 19,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2245T",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 6670,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 26,
+        "source_name": "threaded base-58mm-black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-gravity-pentagonal-58",
+    "name": "Разравниватель MUVNA Gravity 58 мм, пять лопастей",
+    "category": "distributors",
+    "description": "Инструмент для распределения молотого кофе в корзине перед темперовкой. Основание с пятью лопастями.",
+    "attributes": {
+      "diameter_mm": 58,
+      "paddles": 5
+    },
+    "sort_order": 20,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2289L5",
+        "color_code": "silver",
+        "color_label": "Серебристый",
+        "retail_price": 15525,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 30,
+        "source_name": "pentagonal base 58mm-silver"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-v2-distributor-58",
+    "name": "Разравниватель MUVNA V2 58 мм",
+    "category": "distributors",
+    "description": "Разравниватель кофейного слоя с четырёхлопастным основанием.",
+    "attributes": {
+      "diameter_mm": 58,
+      "paddles": 4
+    },
+    "sort_order": 21,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2207L4",
+        "color_code": "silver",
+        "color_label": "Серебристый",
+        "retail_price": 10350,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 32,
+        "source_name": "four-sided paddle-shaped base 58mm-silver"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-gripped-distributor-58-white",
+    "name": "Разравниватель MUVNA Gripped 58 мм",
+    "category": "distributors",
+    "description": "Разравниватель молотого кофе с трёхлопастным основанием для подготовки корзины к темперовке.",
+    "attributes": {
+      "diameter_mm": 58,
+      "paddles": 3
+    },
+    "sort_order": 22,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2064",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 23115,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 33,
+        "source_name": "triangular paddle-shaped base white-58mm"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-walnut-distributor-58",
+    "name": "Разравниватель MUVNA Walnut 58 мм",
+    "category": "distributors",
+    "description": "Разравниватель с деревянной верхней частью и четырёхлопастным основанием.",
+    "attributes": {
+      "diameter_mm": 58,
+      "paddles": 4
+    },
+    "sort_order": 23,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2127L4",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 10350,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 34,
+        "source_name": "four-sided paddle-shaped base -58mm"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-titan-5835",
+    "name": "Разравниватель MUVNA Titan 58,35 мм",
+    "category": "distributors",
+    "description": "Гравитационный разравниватель для подготовки равномерного слоя молотого кофе.",
+    "attributes": {
+      "diameter_mm": 58.35
+    },
+    "sort_order": 24,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2654L4",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 23115,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 35,
+        "source_name": "Titan Distributor-58.35mm"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-click-tamper-5835",
+    "name": "Темпер MUVNA Click 58,35 мм",
+    "category": "tampers",
+    "description": "Пружинный темпер с тактильным щелчком при завершении нажатия.",
+    "attributes": {
+      "diameter_mm": 58.35
+    },
+    "sort_order": 25,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2653T",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 25070,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 36,
+        "source_name": "Click Tamper-58.35mm"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-tivat-160",
+    "name": "Стакан MUVNA Tivat 160 мл",
+    "category": "drinkware",
+    "description": "Стеклянный стакан для подачи кофе и других напитков.",
+    "attributes": {
+      "volume_ml": 160
+    },
+    "sort_order": 26,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BZ2282",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 3220,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 39,
+        "source_name": "gray-160ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-tivat-220",
+    "name": "Стакан MUVNA Tivat 220 мл",
+    "category": "drinkware",
+    "description": "Стеклянный стакан для подачи кофе и других напитков.",
+    "attributes": {
+      "volume_ml": 220
+    },
+    "sort_order": 27,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BZ2283",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 3680,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 40,
+        "source_name": "gray-220ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-tivat-320",
+    "name": "Стакан MUVNA Tivat 320 мл",
+    "category": "drinkware",
+    "description": "Стеклянный стакан для подачи кофе и других напитков.",
+    "attributes": {
+      "volume_ml": 320
+    },
+    "sort_order": 28,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BZ2284",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 4485,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 41,
+        "source_name": "gray-320ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-xingyu-100-coated",
+    "name": "Молочник MUVNA Xingyu 100 мл — цветное исполнение",
+    "category": "drinkware",
+    "description": "Небольшой стальной сосуд с носиком для подачи и аккуратного переливания напитка.",
+    "attributes": {
+      "volume_ml": 100
+    },
+    "sort_order": 29,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "G2430",
+        "color_code": "silver",
+        "color_label": "Серебристый",
+        "retail_price": 4140,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 42,
+        "source_name": "silver-100ml"
+      },
+      {
+        "sku": "G2429",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 4140,
+        "stock_quantity": 15,
+        "sort_order": 1,
+        "source_page": 2,
+        "source_row": 43,
+        "source_name": "black-100ml"
+      },
+      {
+        "sku": "G2426",
+        "color_code": "yellow",
+        "color_label": "Жёлтый",
+        "retail_price": 4140,
+        "stock_quantity": 15,
+        "sort_order": 2,
+        "source_page": 2,
+        "source_row": 44,
+        "source_name": "yellow-100ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-xingyu-100-natural",
+    "name": "Молочник MUVNA Xingyu 100 мл — сталь",
+    "category": "drinkware",
+    "description": "Небольшой сосуд с носиком для подачи эспрессо или молока.",
+    "attributes": {
+      "volume_ml": 100
+    },
+    "sort_order": 30,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "G2424",
+        "color_code": "natural",
+        "color_label": "Натуральный",
+        "retail_price": 3565,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 45,
+        "source_name": "natural color-100ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-kare-280",
+    "name": "Кофейная пара MUVNA Kare 280 мл",
+    "category": "drinkware",
+    "description": "Керамическая чашка с блюдцем для подачи кофейных напитков.",
+    "attributes": {
+      "volume_ml": 280
+    },
+    "sort_order": 31,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BP2575",
+        "color_code": "orange",
+        "color_label": "Оранжевый",
+        "retail_price": 6785,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 46,
+        "source_name": "orange-280ml"
+      },
+      {
+        "sku": "BP2573",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 6785,
+        "stock_quantity": 10,
+        "sort_order": 1,
+        "source_page": 2,
+        "source_row": 47,
+        "source_name": "white-280ml"
+      },
+      {
+        "sku": "BZ2764",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 6785,
+        "stock_quantity": 20,
+        "sort_order": 2,
+        "source_page": 2,
+        "source_row": 48,
+        "source_name": "balck-280ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-tasting-bowl-120",
+    "name": "Дегустационная чаша MUVNA 120 мл",
+    "category": "drinkware",
+    "description": "Керамическая чаша без ручки для дегустации кофе.",
+    "attributes": {
+      "volume_ml": 120
+    },
+    "sort_order": 32,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "G2655",
+        "color_code": "pink",
+        "color_label": "Розовый",
+        "retail_price": 4140,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 49,
+        "source_name": "pink"
+      },
+      {
+        "sku": "G2656",
+        "color_code": "blue",
+        "color_label": "Голубой",
+        "retail_price": 4140,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 2,
+        "source_row": 50,
+        "source_name": "blue"
+      },
+      {
+        "sku": "G2657",
+        "color_code": "purple",
+        "color_label": "Фиолетовый",
+        "retail_price": 4140,
+        "stock_quantity": 5,
+        "sort_order": 2,
+        "source_page": 2,
+        "source_row": 51,
+        "source_name": "purple"
+      },
+      {
+        "sku": "G2658",
+        "color_code": "green",
+        "color_label": "Зелёный",
+        "retail_price": 4140,
+        "stock_quantity": 5,
+        "sort_order": 3,
+        "source_page": 2,
+        "source_row": 52,
+        "source_name": "green"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-tasting-cup-crystalline",
+    "name": "Дегустационная чашка MUVNA — кристаллическая глазурь",
+    "category": "drinkware",
+    "description": "Чашка для дегустации кофе с кристаллической отделкой поверхности.",
+    "attributes": {
+      "finish": "crystalline"
+    },
+    "sort_order": 33,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "G2765",
+        "color_code": "green",
+        "color_label": "Зелёный",
+        "retail_price": 23000,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 53,
+        "source_name": "crystalline finish-green"
+      },
+      {
+        "sku": "G2766",
+        "color_code": "soft-pink",
+        "color_label": "Нежно-розовый",
+        "retail_price": 23000,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 2,
+        "source_row": 54,
+        "source_name": "crystalline finish-soft pink"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-tasting-cup",
+    "name": "Дегустационная чашка MUVNA",
+    "category": "drinkware",
+    "description": "Чашка для подачи и дегустации кофе в трёх цветовых исполнениях.",
+    "attributes": {},
+    "sort_order": 34,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "G2767",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 12535,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 55,
+        "source_name": "White"
+      },
+      {
+        "sku": "G2769",
+        "color_code": "orange",
+        "color_label": "Оранжевый",
+        "retail_price": 12535,
+        "stock_quantity": 10,
+        "sort_order": 1,
+        "source_page": 2,
+        "source_row": 56,
+        "source_name": "orange"
+      },
+      {
+        "sku": "G2768",
+        "color_code": "light-yellow",
+        "color_label": "Светло-жёлтый",
+        "retail_price": 12535,
+        "stock_quantity": 10,
+        "sort_order": 2,
+        "source_page": 2,
+        "source_row": 57,
+        "source_name": "light yellow"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-electric-kettle-600-uk-white",
+    "name": "Электрический чайник MUVNA 600 мл, UK — белый",
+    "category": "kettles",
+    "description": "Чайник с регулировкой температуры для приготовления кофе. В прайсе указана британская вилка UK.",
+    "attributes": {
+      "volume_ml": 600,
+      "plug": "UK"
+    },
+    "sort_order": 35,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BK2714",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 61525,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 58,
+        "source_name": "temperature-controlled electric kettle 600ml-white-UK PLUG"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-electric-kettle-600-uk-black",
+    "name": "Электрический чайник MUVNA 600 мл, UK — чёрный",
+    "category": "kettles",
+    "description": "Чайник с регулировкой температуры для приготовления кофе. В прайсе указана британская вилка UK.",
+    "attributes": {
+      "volume_ml": 600,
+      "plug": "UK"
+    },
+    "sort_order": 36,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BK2779",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 52296,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 59,
+        "source_name": "temperature-controlled electric kettle 600ml-black-UK PLUG"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-filter-paper-v02",
+    "name": "Бумажные фильтры MUVNA V02",
+    "category": "filters",
+    "description": "Отбеленные бумажные фильтры для приготовления кофе в воронке формата V02.",
+    "attributes": {
+      "size": "V02"
+    },
+    "sort_order": 37,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "FP2371",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 3795,
+        "stock_quantity": 80,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 62,
+        "source_name": "bleached filter paperV02"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-cake-filter-paper",
+    "name": "Бумажные фильтры MUVNA Cake, 2–4 порции",
+    "category": "filters",
+    "description": "Бумажные фильтры для воронок Cake на 2–4 порции.",
+    "attributes": {
+      "servings": "2–4"
+    },
+    "sort_order": 38,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "FP2683",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 2300,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 63,
+        "source_name": "Cake filter paper for 2-4 servings"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-xingchuan-v01",
+    "name": "Воронка MUVNA XingChuan V01",
+    "category": "drippers",
+    "description": "Керамическая воронка для ручного приготовления фильтр-кофе.",
+    "attributes": {
+      "size": "V01"
+    },
+    "sort_order": 39,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "FC2530",
+        "color_code": "pink",
+        "color_label": "Розовый",
+        "retail_price": 7705,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 64,
+        "source_name": "pink"
+      },
+      {
+        "sku": "FC2439",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 7705,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 3,
+        "source_row": 65,
+        "source_name": "white"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-xingwo-v01",
+    "name": "Воронка MUVNA XingWo V01",
+    "category": "drippers",
+    "description": "Керамическая воронка со спиральными рёбрами для ручного заваривания кофе.",
+    "attributes": {
+      "size": "V01"
+    },
+    "sort_order": 40,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "FC2531",
+        "color_code": "purple",
+        "color_label": "Фиолетовый",
+        "retail_price": 9660,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 66,
+        "source_name": "purple"
+      },
+      {
+        "sku": "FC2521",
+        "color_code": "pink",
+        "color_label": "Розовый",
+        "retail_price": 9660,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 3,
+        "source_row": 67,
+        "source_name": "pink"
+      },
+      {
+        "sku": "FC2442",
+        "color_code": "blue",
+        "color_label": "Голубой",
+        "retail_price": 9660,
+        "stock_quantity": 5,
+        "sort_order": 2,
+        "source_page": 3,
+        "source_row": 68,
+        "source_name": "blue"
+      },
+      {
+        "sku": "FC2441",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 9660,
+        "stock_quantity": 5,
+        "sort_order": 3,
+        "source_page": 3,
+        "source_row": 69,
+        "source_name": "white"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-cake-01",
+    "name": "Воронка MUVNA Cake 01",
+    "category": "drippers",
+    "description": "Керамическая воронка для заваривания фильтр-кофе с бумажными фильтрами Cake.",
+    "attributes": {
+      "servings": 2
+    },
+    "sort_order": 41,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "FC2641",
+        "color_code": "blue",
+        "color_label": "Голубой",
+        "retail_price": 8625,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 70,
+        "source_name": "Blue-for 2 persons"
+      },
+      {
+        "sku": "FC2643",
+        "color_code": "pink",
+        "color_label": "Розовый",
+        "retail_price": 8625,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 3,
+        "source_row": 72,
+        "source_name": "Pink-for 2 persons"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-cake-02",
+    "name": "Воронка MUVNA Cake 02",
+    "category": "drippers",
+    "description": "Керамическая воронка для заваривания фильтр-кофе с бумажными фильтрами Cake.",
+    "attributes": {
+      "servings": 4
+    },
+    "sort_order": 42,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "FC2642",
+        "color_code": "blue",
+        "color_label": "Голубой",
+        "retail_price": 9775,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 71,
+        "source_name": "Blue-for 4 persons"
+      },
+      {
+        "sku": "FC2644",
+        "color_code": "pink",
+        "color_label": "Розовый",
+        "retail_price": 9775,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 3,
+        "source_row": 73,
+        "source_name": "Pink-for 4 persons"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-li-v60-colorful",
+    "name": "Стеклянная воронка MUVNA LI V60 — мультиколор",
+    "category": "drippers",
+    "description": "Стеклянная воронка для ручного заваривания кофе.",
+    "attributes": {
+      "size": "V60"
+    },
+    "sort_order": 43,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "FC2718",
+        "color_code": "colorful",
+        "color_label": "Мультиколор",
+        "retail_price": 6670,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 74,
+        "source_name": "colorful"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-li-v60-transparent",
+    "name": "Стеклянная воронка MUVNA LI V60 — прозрачная",
+    "category": "drippers",
+    "description": "Стеклянная воронка для ручного заваривания кофе.",
+    "attributes": {
+      "size": "V60"
+    },
+    "sort_order": 44,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "FC2717",
+        "color_code": "transparent",
+        "color_label": "Прозрачный",
+        "retail_price": 5980,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 75,
+        "source_name": "transparent"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-li-v60-stand-walnut",
+    "name": "Подставка MUVNA LI V60, орех",
+    "category": "drippers",
+    "description": "Деревянная подставка для воронки MUVNA LI V60.",
+    "attributes": {
+      "material": "walnut"
+    },
+    "sort_order": 45,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "FC2720",
+        "color_code": "walnut",
+        "color_label": "Орех",
+        "retail_price": 3795,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 76,
+        "source_name": "wooden stand-walnut"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-pour-over-gm1-set",
+    "name": "Набор MUVNA для пуровера с кофемолкой GM1",
+    "category": "sets",
+    "description": "Набор для ручного заваривания кофе с кофемолкой GM1 и принадлежностями для пуровера.",
+    "attributes": {},
+    "sort_order": 46,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "CS2636",
+        "color_code": "deep",
+        "color_label": "Тёмный",
+        "retail_price": 59685,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 77,
+        "source_name": "deep color"
+      },
+      {
+        "sku": "CS2697",
+        "color_code": "light",
+        "color_label": "Светлый",
+        "retail_price": 59685,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 3,
+        "source_row": 78,
+        "source_name": "light color"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-pour-the-seasons-plan-a",
+    "name": "MUVNA Pour the Seasons — Plan A",
+    "category": "sets",
+    "description": "Комплект для приготовления фильтр-кофе в переносном кейсе. Исполнение Plan A.",
+    "attributes": {},
+    "sort_order": 47,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "TC2750",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 213325,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 79,
+        "source_name": "Pour the seasons-Plan A-Black"
+      },
+      {
+        "sku": "TC2754",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 213325,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 3,
+        "source_row": 80,
+        "source_name": "Pour the seasons-Plan A-White"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-gm1",
+    "name": "Ручная кофемолка MUVNA GM1",
+    "category": "grinders",
+    "description": "Ручная кофемолка для помола зёрен непосредственно перед приготовлением кофе.",
+    "attributes": {},
+    "sort_order": 48,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "G2627",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 24265,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 83,
+        "source_name": "GM1 manual grinder-gray"
+      },
+      {
+        "sku": "G2629",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 24265,
+        "stock_quantity": 15,
+        "sort_order": 1,
+        "source_page": 3,
+        "source_row": 84,
+        "source_name": "GM1 manual grinder-black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-electric-grinder-plug-in",
+    "name": "Электрическая кофемолка MUVNA G2705",
+    "category": "grinders",
+    "description": "Электрическая кофемолка с сетевым питанием для помола кофейных зёрен.",
+    "attributes": {
+      "power_supply": "mains"
+    },
+    "sort_order": 49,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "G2705",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 146740,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 86,
+        "source_name": "Plug in model-black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-waffle-towel-30",
+    "name": "Вафельное полотенце MUVNA 30 × 30 см",
+    "category": "cleaning",
+    "description": "Вафельное полотенце для ухода за рабочим местом бариста.",
+    "attributes": {
+      "size_cm": "30 × 30"
+    },
+    "sort_order": 50,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "CT5063",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 920,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 87,
+        "source_name": "Waffle towel-gray-30*30"
+      },
+      {
+        "sku": "CT5062",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 920,
+        "stock_quantity": 20,
+        "sort_order": 1,
+        "source_page": 3,
+        "source_row": 88,
+        "source_name": "Waffle towel-white-30*30"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-barista-towel",
+    "name": "Полотенце бариста MUVNA",
+    "category": "cleaning",
+    "description": "Полотенце для протирки рабочего места и принадлежностей кофейного бара.",
+    "attributes": {},
+    "sort_order": 51,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "CT2291",
+        "color_code": "blue",
+        "color_label": "Голубой",
+        "retail_price": 920,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 89,
+        "source_name": "towel-blue"
+      },
+      {
+        "sku": "CT2290",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 920,
+        "stock_quantity": 20,
+        "sort_order": 1,
+        "source_page": 4,
+        "source_row": 90,
+        "source_name": "towel-gray"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-rinser-large-round",
+    "name": "Ринзер MUVNA Large — круглые отверстия",
+    "category": "rinsers",
+    "description": "Промыватель для ополаскивания питчеров и посуды на баре. Большая версия с круглыми отверстиями панели.",
+    "attributes": {
+      "version": "large",
+      "panel": "circular holes"
+    },
+    "sort_order": 52,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "CW2186",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 36800,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 91,
+        "source_name": "large-circular hole"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-rinser-medium-slots",
+    "name": "Ринзер MUVNA Medium — щелевая панель",
+    "category": "rinsers",
+    "description": "Промыватель для ополаскивания питчеров и посуды. Средняя версия со щелевой панелью.",
+    "attributes": {
+      "version": "medium",
+      "panel": "narrow slots"
+    },
+    "sort_order": 53,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "CW2189",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 33120,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 92,
+        "source_name": "medium-narrow slits"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-storage-250",
+    "name": "Контейнер MUVNA для кофе, 250 г",
+    "category": "storage",
+    "description": "Контейнер для хранения кофейного зерна. Вместимость указана производителем в граммах кофе.",
+    "attributes": {
+      "capacity_g": 250
+    },
+    "sort_order": 54,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "GC2299",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 6440,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 93,
+        "source_name": "black-250g"
+      },
+      {
+        "sku": "GC2314",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 6440,
+        "stock_quantity": 10,
+        "sort_order": 1,
+        "source_page": 4,
+        "source_row": 96,
+        "source_name": "gray-250g"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-storage-500",
+    "name": "Контейнер MUVNA для кофе, 500 г",
+    "category": "storage",
+    "description": "Контейнер для хранения кофейного зерна. Вместимость указана производителем в граммах кофе.",
+    "attributes": {
+      "capacity_g": 500
+    },
+    "sort_order": 55,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "GC2300",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 7130,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 94,
+        "source_name": "black-500g"
+      },
+      {
+        "sku": "GC2315",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 7130,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 4,
+        "source_row": 97,
+        "source_name": "gray-500g"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-storage-750",
+    "name": "Контейнер MUVNA для кофе, 750 г",
+    "category": "storage",
+    "description": "Контейнер для хранения кофейного зерна. Вместимость указана производителем в граммах кофе.",
+    "attributes": {
+      "capacity_g": 750
+    },
+    "sort_order": 56,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "GC2301",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 8050,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 95,
+        "source_name": "black-750g"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-gyro-drop-58-natural",
+    "name": "Дозатор MUVNA Gyro Coffee Drop 58 мм — сталь",
+    "category": "dosing",
+    "description": "Дозатор с поворотным механизмом для переноса молотого кофе в портафильтр.",
+    "attributes": {
+      "diameter_mm": 58
+    },
+    "sort_order": 57,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "DR2606",
+        "color_code": "natural",
+        "color_label": "Натуральный",
+        "retail_price": 28980,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 98,
+        "source_name": "natural color-58mm"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-gyro-drop-58-coated",
+    "name": "Дозатор MUVNA Gyro Coffee Drop 58 мм",
+    "category": "dosing",
+    "description": "Дозатор с поворотным механизмом для переноса молотого кофе в портафильтр.",
+    "attributes": {
+      "diameter_mm": 58
+    },
+    "sort_order": 58,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "DR2605",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 13570,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 99,
+        "source_name": "gray-58mm"
+      },
+      {
+        "sku": "DR2604",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 13570,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 4,
+        "source_row": 100,
+        "source_name": "black-58mm"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-spray-10",
+    "name": "Распылитель MUVNA Electro Spray 10 мл",
+    "category": "dosing",
+    "description": "Компактный распылитель воды для увлажнения кофейного зерна перед помолом.",
+    "attributes": {
+      "volume_ml": 10
+    },
+    "sort_order": 59,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ZQ2608",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 2933,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 101,
+        "source_name": "black-10ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-walnut-tray-long",
+    "name": "Поднос MUVNA Walnut — прямоугольный",
+    "category": "serving",
+    "description": "Деревянный поднос для подачи напитков и размещения кофейных принадлежностей.",
+    "attributes": {
+      "shape": "long",
+      "material": "walnut"
+    },
+    "sort_order": 60,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "TP2602",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 26278,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 102,
+        "source_name": "long"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-walnut-tray-square",
+    "name": "Поднос MUVNA Walnut — квадратный",
+    "category": "serving",
+    "description": "Деревянный поднос для подачи напитков и размещения кофейных принадлежностей.",
+    "attributes": {
+      "shape": "square",
+      "material": "walnut"
+    },
+    "sort_order": 61,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "TP2601",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 15295,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 103,
+        "source_name": "square"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-walnut-tray-round",
+    "name": "Поднос MUVNA Walnut — круглый",
+    "category": "serving",
+    "description": "Деревянный поднос для подачи напитков и размещения кофейных принадлежностей.",
+    "attributes": {
+      "shape": "round",
+      "material": "walnut"
+    },
+    "sort_order": 62,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "TP2600",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 14893,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 104,
+        "source_name": "round"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-silicone-tamping-mat",
+    "name": "Силиконовый коврик MUVNA для темперовки",
+    "category": "tamping-stations",
+    "description": "Коврик для размещения инструментов и защиты рабочей поверхности во время темперовки.",
+    "attributes": {
+      "material": "silicone"
+    },
+    "sort_order": 63,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "PS2318",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 7590,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 105,
+        "source_name": "silica gel tamper mat-gray"
+      },
+      {
+        "sku": "PS2317",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 7590,
+        "stock_quantity": 10,
+        "sort_order": 1,
+        "source_page": 4,
+        "source_row": 106,
+        "source_name": "silica gel tamper mat-black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-titanium-cupping-spoon",
+    "name": "Титановая ложка MUVNA для каппинга",
+    "category": "cupping",
+    "description": "Ложка для профессиональной и домашней дегустации кофе.",
+    "attributes": {
+      "material": "titanium"
+    },
+    "sort_order": 64,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "MS2721",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 16445,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 107,
+        "source_name": "100% titanium coffee spoon"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-keyring-portafilter",
+    "name": "Брелок MUVNA — портафильтр",
+    "category": "gifts",
+    "description": "Декоративный брелок в форме кофейного инструмента: портафильтр. Миниатюра, не предназначенная для приготовления кофе.",
+    "attributes": {},
+    "sort_order": 65,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "KC5317",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 2300,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 108,
+        "source_name": "portafilter"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-keyring-bottomless-portafilter",
+    "name": "Брелок MUVNA — бездонный портафильтр",
+    "category": "gifts",
+    "description": "Декоративный брелок в форме кофейного инструмента: бездонный портафильтр. Миниатюра, не предназначенная для приготовления кофе.",
+    "attributes": {},
+    "sort_order": 66,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "KC5316",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 2300,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 109,
+        "source_name": "bottomless portafilter"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-keyring-tamper",
+    "name": "Брелок MUVNA — темпер",
+    "category": "gifts",
+    "description": "Декоративный брелок в форме кофейного инструмента: темпер. Миниатюра, не предназначенная для приготовления кофе.",
+    "attributes": {},
+    "sort_order": 67,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "KC5314",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 2300,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 110,
+        "source_name": "tamper"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-keyring-siphon",
+    "name": "Брелок MUVNA — сифон",
+    "category": "gifts",
+    "description": "Декоративный брелок в форме кофейного инструмента: сифон. Миниатюра, не предназначенная для приготовления кофе.",
+    "attributes": {},
+    "sort_order": 68,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "KC5313",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 2300,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 111,
+        "source_name": "siphon pot"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-keyring-kettle",
+    "name": "Брелок MUVNA — чайник",
+    "category": "gifts",
+    "description": "Декоративный брелок в форме кофейного инструмента: чайник. Миниатюра, не предназначенная для приготовления кофе.",
+    "attributes": {},
+    "sort_order": 69,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "KC5310",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 2300,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 112,
+        "source_name": "pour-over kettle"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-keyring-ek43",
+    "name": "Брелок MUVNA — кофемолка EK43",
+    "category": "gifts",
+    "description": "Декоративный брелок в форме кофейного инструмента: кофемолка EK43. Миниатюра, не предназначенная для приготовления кофе.",
+    "attributes": {},
+    "sort_order": 70,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "KC5309",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 2300,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 113,
+        "source_name": "EK43 grinder black"
+      },
+      {
+        "sku": "KC5308",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 2300,
+        "stock_quantity": 20,
+        "sort_order": 1,
+        "source_page": 4,
+        "source_row": 114,
+        "source_name": "EK43 grinder white"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-keyring-pitcher",
+    "name": "Брелок MUVNA — питчер",
+    "category": "gifts",
+    "description": "Декоративный брелок в форме кофейного инструмента: питчер. Миниатюра, не предназначенная для приготовления кофе.",
+    "attributes": {},
+    "sort_order": 71,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "KC5307",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 2300,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 115,
+        "source_name": "latte art pitcher"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-keyring-moka",
+    "name": "Брелок MUVNA — гейзерная кофеварка",
+    "category": "gifts",
+    "description": "Декоративный брелок в форме кофейного инструмента: гейзерная кофеварка. Миниатюра, не предназначенная для приготовления кофе.",
+    "attributes": {},
+    "sort_order": 72,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "KC5306",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 2300,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 116,
+        "source_name": "moka pot"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-keyring-grinder",
+    "name": "Брелок MUVNA — кофемолка",
+    "category": "gifts",
+    "description": "Декоративный брелок в форме кофейного инструмента: кофемолка. Миниатюра, не предназначенная для приготовления кофе.",
+    "attributes": {},
+    "sort_order": 73,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "KC5305",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 2300,
+        "stock_quantity": 20,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 117,
+        "source_name": "grinder"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-dandelion-blower",
+    "name": "Груша MUVNA Dandelion для очистки",
+    "category": "cleaning",
+    "description": "Ручная воздушная груша для удаления частиц кофе с принадлежностей и труднодоступных поверхностей.",
+    "attributes": {},
+    "sort_order": 74,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ZQ2609",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 2875,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 119,
+        "source_name": "black"
+      },
+      {
+        "sku": "ZQ2610",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 2875,
+        "stock_quantity": 15,
+        "sort_order": 1,
+        "source_page": 5,
+        "source_row": 120,
+        "source_name": "gray"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-group-head-steamer",
+    "name": "Паровая щётка MUVNA для очистки группы",
+    "category": "cleaning",
+    "description": "Приспособление со щёткой и шлангом для очистки кофейной группы с использованием пара кофемашины.",
+    "attributes": {},
+    "sort_order": 75,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "B2630",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 12535,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 121,
+        "source_name": "Steam cleaner"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-magnetic-dosing-ring-58",
+    "name": "Дозировочное кольцо MUVNA 58 мм",
+    "category": "dosing",
+    "description": "Кольцо для портафильтра, помогающее удерживать молотый кофе внутри корзины при дозировании.",
+    "attributes": {
+      "diameter_mm": 58
+    },
+    "sort_order": 76,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "DR2271",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 4715,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 122,
+        "source_name": "58mm-gray"
+      },
+      {
+        "sku": "DR2274",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 4715,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 5,
+        "source_row": 123,
+        "source_name": "58mm-black"
+      },
+      {
+        "sku": "DC2397",
+        "color_code": "natural",
+        "color_label": "Натуральный",
+        "retail_price": 4715,
+        "stock_quantity": 5,
+        "sort_order": 2,
+        "source_page": 5,
+        "source_row": 124,
+        "source_name": "58mm-natural color"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-diamond-dosing-cup-58",
+    "name": "Дозировочный стакан MUVNA Diamond 58 мм",
+    "category": "dosing",
+    "description": "Стакан для приёма молотого кофе и пересыпания в портафильтр.",
+    "attributes": {
+      "diameter_mm": 58
+    },
+    "sort_order": 77,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "DC2103",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 7360,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 125,
+        "source_name": "58mm-black"
+      },
+      {
+        "sku": "DC2104",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 7360,
+        "stock_quantity": 20,
+        "sort_order": 1,
+        "source_page": 5,
+        "source_row": 126,
+        "source_name": "58mm-grey"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-espresso-ice-ball",
+    "name": "Охлаждающий шар MUVNA Espresso Ice Ball",
+    "category": "cupping",
+    "description": "Набор с металлическим шаром и держателем для контактного охлаждения кофе при проливе.",
+    "attributes": {},
+    "sort_order": 78,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "CN2638",
+        "color_code": "gold",
+        "color_label": "Золотистый",
+        "retail_price": 9660,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 127,
+        "source_name": "Gold"
+      },
+      {
+        "sku": "CN2639",
+        "color_code": "silver",
+        "color_label": "Серебристый",
+        "retail_price": 9660,
+        "stock_quantity": 15,
+        "sort_order": 1,
+        "source_page": 5,
+        "source_row": 128,
+        "source_name": "Silver"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-powder-shaker",
+    "name": "Диспенсер MUVNA для какао и корицы",
+    "category": "milk-tools",
+    "description": "Диспенсер для посыпки напитков какао, корицей и другими сухими ингредиентами.",
+    "attributes": {},
+    "sort_order": 79,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "SP2680",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 4715,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 132,
+        "source_name": "black"
+      },
+      {
+        "sku": "SP2681",
+        "color_code": "natural",
+        "color_label": "Натуральный",
+        "retail_price": 4715,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 5,
+        "source_row": 133,
+        "source_name": "natural color"
+      },
+      {
+        "sku": "SP2679",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 4715,
+        "stock_quantity": 5,
+        "sort_order": 2,
+        "source_page": 5,
+        "source_row": 131,
+        "source_name": "white"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-thermometer",
+    "name": "Термометр MUVNA",
+    "category": "milk-tools",
+    "description": "Термометр для контроля температуры при приготовлении напитков.",
+    "attributes": {},
+    "sort_order": 80,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ZQ2640",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 3910,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 134,
+        "source_name": "black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-espresso-creed-set",
+    "name": "MUVNA Espresso Creed — переносной комплект",
+    "category": "coffee-makers",
+    "description": "Переносной комплект для приготовления эспрессо.",
+    "attributes": {},
+    "sort_order": 81,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "G2788",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 190670,
+        "stock_quantity": 3,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 1,
+        "source_name": "Espresso creed - set"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-milk-frother-stick",
+    "name": "Вспениватель молока MUVNA Milk Frother Stick",
+    "category": "milk-tools",
+    "description": "Ручной электрический вспениватель для приготовления молочной пены.",
+    "attributes": {},
+    "sort_order": 82,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "P2689",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 35075,
+        "stock_quantity": 4,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 2,
+        "source_name": "milk frother stick - black"
+      },
+      {
+        "sku": "P2691",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 35075,
+        "stock_quantity": 4,
+        "sort_order": 1,
+        "source_page": 5,
+        "source_row": 3,
+        "source_name": "milk frother stick - gray"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-zero-g-mini-black",
+    "name": "Кофейные весы MUVNA Zero-G Mini",
+    "category": "scales",
+    "description": "Компактные кофейные весы с таймером для контроля рецепта по массе напитка и времени.",
+    "attributes": {},
+    "sort_order": 83,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ES2727",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 31165,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 4,
+        "source_name": "mini-black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-psyche-mini-black",
+    "name": "Кофейные весы MUVNA Psyche Mini — чёрные",
+    "category": "scales",
+    "description": "Компактные электронные весы с таймером для дозирования кофе и контроля приготовления.",
+    "attributes": {},
+    "sort_order": 84,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ES2421",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 14260,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 6,
+        "source_row": 5,
+        "source_name": "mini -black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-psyche-mini-white",
+    "name": "Кофейные весы MUVNA Psyche Mini — белые",
+    "category": "scales",
+    "description": "Компактные электронные весы с таймером для дозирования кофе и контроля приготовления.",
+    "attributes": {},
+    "sort_order": 85,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ES2420",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 11213,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 6,
+        "source_row": 6,
+        "source_name": "mini -white"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-psyche-m1",
+    "name": "Кофейные весы MUVNA Psyche M-1",
+    "category": "scales",
+    "description": "Электронные кофейные весы с таймером для взвешивания ингредиентов и контроля приготовления.",
+    "attributes": {},
+    "sort_order": 86,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ES2368",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 11213,
+        "stock_quantity": 22,
+        "sort_order": 0,
+        "source_page": 6,
+        "source_row": 7,
+        "source_name": "black"
+      },
+      {
+        "sku": "ES2369",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 11213,
+        "stock_quantity": 22,
+        "sort_order": 1,
+        "source_page": 6,
+        "source_row": 8,
+        "source_name": "white"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-mini-walnut-scale",
+    "name": "Кофейные весы MUVNA Mini Walnut",
+    "category": "scales",
+    "description": "Компактные кофейные весы в деревянном исполнении Walnut.",
+    "attributes": {
+      "material": "walnut"
+    },
+    "sort_order": 87,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ES2498",
+        "color_code": "walnut",
+        "color_label": "Орех",
+        "retail_price": 29498,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 6,
+        "source_row": 9,
+        "source_name": "mini-walnut"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-metal-scale-black",
+    "name": "Кофейные весы MUVNA Metal",
+    "category": "scales",
+    "description": "Кофейные весы с таймером в металлическом корпусе.",
+    "attributes": {},
+    "sort_order": 88,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ES2633",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 36053,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 6,
+        "source_row": 11,
+        "source_name": "black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-bean-plate-black",
+    "name": "Весы-дозатор MUVNA Bean Plate — чёрные",
+    "category": "scales",
+    "description": "Весы в форме дозировочного совка для взвешивания и пересыпания кофейных зёрен.",
+    "attributes": {
+      "material": "ABS"
+    },
+    "sort_order": 89,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ES2686",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 26278,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 6,
+        "source_row": 12,
+        "source_name": "ABS -black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-bean-plate-white",
+    "name": "Весы-дозатор MUVNA Bean Plate — белые",
+    "category": "scales",
+    "description": "Весы в форме дозировочного совка для взвешивания и пересыпания кофейных зёрен.",
+    "attributes": {
+      "material": "ABS"
+    },
+    "sort_order": 90,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ES2687",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 12535,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 6,
+        "source_row": 13,
+        "source_name": "ABS -white"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-bean-tray-walnut",
+    "name": "Весы-дозатор MUVNA Walnut",
+    "category": "scales",
+    "description": "Деревянный дозировочный совок со встроенными электронными весами.",
+    "attributes": {
+      "material": "walnut"
+    },
+    "sort_order": 91,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ES2634",
+        "color_code": "walnut",
+        "color_label": "Орех",
+        "retail_price": 38755,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 6,
+        "source_row": 14,
+        "source_name": "walnut"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-gt1-grinder",
+    "name": "Электрическая кофемолка MUVNA GT1",
+    "category": "grinders",
+    "description": "Переносная электрическая кофемолка для помола зерна перед приготовлением кофе.",
+    "attributes": {},
+    "sort_order": 92,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "G2747",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 65435,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 6,
+        "source_row": 16,
+        "source_name": "GT1 Electric grinder"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-portable-pour-over-3-in-1",
+    "name": "MUVNA Portable Pour Over 3 в 1",
+    "category": "coffee-makers",
+    "description": "Переносное устройство, объединяющее электрическую кофемолку и принадлежности для приготовления фильтр-кофе.",
+    "attributes": {},
+    "sort_order": 93,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BZ2771",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 53820,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 6,
+        "source_row": 17,
+        "source_name": "balck"
+      },
+      {
+        "sku": "BZ2772",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 53820,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 6,
+        "source_row": 18,
+        "source_name": "white"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-bottomless-portafilter-58",
+    "name": "Бездонный портафильтр MUVNA 58 мм",
+    "category": "baskets",
+    "description": "Бездонный портафильтр с двумя крепёжными выступами. Доступен в чёрном и белом исполнении.",
+    "attributes": {
+      "diameter_mm": 58
+    },
+    "sort_order": 94,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BP2554",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 14720,
+        "stock_quantity": 2,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 12,
+        "source_name": "silica gel two ears bottomless-black-58mm"
+      },
+      {
+        "sku": "BP2555",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 14720,
+        "stock_quantity": 2,
+        "sort_order": 1,
+        "source_page": 1,
+        "source_row": 11,
+        "source_name": "silica gel two ears bottomless -white-58mm"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-threaded-base-58-5835",
+    "name": "Темпер MUVNA 58/58.35mm — рифлёное основание",
+    "category": "tampers",
+    "description": "Темпер с рифлёным основанием. Размер по прайсу: 58/58.35mm.",
+    "attributes": {
+      "diameter_label": "58/58.35mm",
+      "base": "threaded"
+    },
+    "sort_order": 95,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2458T",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 22310,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 27,
+        "source_name": "black丨58/58.35mm 丨threaded base"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-x-base-58-5835",
+    "name": "Разравниватель MUVNA 58/58.35mm — X-образное основание",
+    "category": "distributors",
+    "description": "Разравниватель молотого кофе с X-образным основанием. Размер по прайсу: 58/58.35mm.",
+    "attributes": {
+      "diameter_label": "58/58.35mm",
+      "base": "X-shaped dual paddle"
+    },
+    "sort_order": 96,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2467L3",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 22310,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 1,
+        "source_row": 28,
+        "source_name": "gray丨58/58.35mm 丨 X-shaped dual paddle base"
+      },
+      {
+        "sku": "T2464L3",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 22310,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 1,
+        "source_row": 29,
+        "source_name": "black丨58/58.35mm 丨 X-shaped dual paddle base"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-four-paddle-58-gray",
+    "name": "Разравниватель MUVNA 58 мм — серый",
+    "category": "distributors",
+    "description": "Разравниватель молотого кофе с четырёхлопастным основанием. Серое исполнение.",
+    "attributes": {
+      "diameter_mm": 58,
+      "paddles": 4
+    },
+    "sort_order": 97,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2274L4",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 15410,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 31,
+        "source_name": "four-sided paddle-shaped base 58mm-gray"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-mantis-58",
+    "name": "Игольчатый разравниватель MUVNA Mantis 58 мм",
+    "category": "distributors",
+    "description": "Игольчатый разравниватель Mantis для распределения молотого кофе в корзине. Диаметр по прайсу — 58 мм.",
+    "attributes": {
+      "diameter_mm": 58
+    },
+    "sort_order": 98,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2489Z",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 22310,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 37,
+        "source_name": "Mantis needle distributor-black-58mm"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-teemo-58",
+    "name": "Игольчатый разравниватель MUVNA Teemo 58 мм",
+    "category": "distributors",
+    "description": "Игольчатый разравниватель Teemo для распределения молотого кофе в корзине. Диаметр по прайсу — 58 мм.",
+    "attributes": {
+      "diameter_mm": 58
+    },
+    "sort_order": 99,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "T2647Z",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 9660,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 2,
+        "source_row": 38,
+        "source_name": "Teemo Needle Distributor-black-58mm"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-keyring-xingchuan",
+    "name": "Брелок MUVNA — воронка XingChuan",
+    "category": "gifts",
+    "description": "Декоративный брелок в форме воронки XingChuan. Миниатюра, не предназначенная для приготовления кофе.",
+    "attributes": {},
+    "sort_order": 100,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "KC2707",
+        "color_code": "default",
+        "color_label": "Стандартный",
+        "retail_price": 2300,
+        "stock_quantity": 2,
+        "sort_order": 0,
+        "source_page": 4,
+        "source_row": 118,
+        "source_name": "xingchuan dripper"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-pour-over-kettle",
+    "name": "Чайник MUVNA Pour-Over Kettle",
+    "category": "kettles",
+    "description": "Чайник для ручного заваривания кофе методом пуровер. Чёрное и белое исполнение.",
+    "attributes": {},
+    "sort_order": 101,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BK2693",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 15525,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 60,
+        "source_name": "black"
+      },
+      {
+        "sku": "BK2694",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 15525,
+        "stock_quantity": 5,
+        "sort_order": 1,
+        "source_page": 3,
+        "source_row": 61,
+        "source_name": "white"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-pour-the-seasons-plan-b",
+    "name": "MUVNA Pour the Seasons — Plan B",
+    "category": "sets",
+    "description": "Комплект для приготовления фильтр-кофе в переносном кейсе. Включает набор Plan A и портативную электрическую кофемолку. Чёрное и белое исполнение.",
+    "attributes": {
+      "base_set": "Plan A",
+      "additional_item": "portable electric coffee grinder"
+    },
+    "sort_order": 102,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "TC2751",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 338445,
+        "stock_quantity": 2,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 81,
+        "source_name": "Pour the seasons-Plan B-Black"
+      },
+      {
+        "sku": "TC2755",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 338445,
+        "stock_quantity": 2,
+        "sort_order": 1,
+        "source_page": 3,
+        "source_row": 82,
+        "source_name": "Pour the seasons-Plan B-White"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-gm2",
+    "name": "Ручная кофемолка MUVNA GM2",
+    "category": "grinders",
+    "description": "Ручная кофемолка GM2 со складной ручкой для помола кофейных зёрен.",
+    "attributes": {
+      "foldable_handle": true
+    },
+    "sort_order": 103,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "G2489",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 55545,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 3,
+        "source_row": 85,
+        "source_name": "Black（Foldable Handle）"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-silicone-mat",
+    "name": "Силиконовый коврик MUVNA",
+    "category": "tamping-stations",
+    "description": "Силиконовый коврик для рабочего места бариста. Серое и чёрное исполнение.",
+    "attributes": {
+      "material": "silicone"
+    },
+    "sort_order": 104,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "SP2676",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 10580,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 129,
+        "source_name": "gray"
+      },
+      {
+        "sku": "SP2677",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 10580,
+        "stock_quantity": 10,
+        "sort_order": 1,
+        "source_page": 5,
+        "source_row": 130,
+        "source_name": "black"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-thermos-615",
+    "name": "Термос MUVNA 615 мл",
+    "category": "drinkware",
+    "description": "Термос для напитков объёмом 615 мл. Доступен в нескольких цветах.",
+    "attributes": {
+      "volume_ml": 615
+    },
+    "sort_order": 105,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BZ2618",
+        "color_code": "mirror",
+        "color_label": "Зеркальный",
+        "retail_price": 21390,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 145,
+        "source_name": "specular color-615ml"
+      },
+      {
+        "sku": "BZ2622",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 21390,
+        "stock_quantity": 15,
+        "sort_order": 1,
+        "source_page": 5,
+        "source_row": 142,
+        "source_name": "black-615ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-thermos-685",
+    "name": "Термос MUVNA 685 мл",
+    "category": "drinkware",
+    "description": "Термос для напитков объёмом 685 мл. Доступен в нескольких цветах.",
+    "attributes": {
+      "volume_ml": 685
+    },
+    "sort_order": 106,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BZ2619",
+        "color_code": "mirror",
+        "color_label": "Зеркальный",
+        "retail_price": 22310,
+        "stock_quantity": 10,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 144,
+        "source_name": "specular color-685ml"
+      },
+      {
+        "sku": "BZ2621",
+        "color_code": "gray",
+        "color_label": "Серый",
+        "retail_price": 22310,
+        "stock_quantity": 10,
+        "sort_order": 1,
+        "source_page": 5,
+        "source_row": 143,
+        "source_name": "gray-685ml"
+      },
+      {
+        "sku": "BZ2623",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 22310,
+        "stock_quantity": 10,
+        "sort_order": 2,
+        "source_page": 5,
+        "source_row": 141,
+        "source_name": "black-685ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-inclined-scale-cherry",
+    "name": "Кофейные весы MUVNA — вишнёвое дерево",
+    "category": "scales",
+    "description": "Электронные кофейные весы в корпусе из вишнёвого дерева с наклонным дисплеем.",
+    "attributes": {
+      "material": "cherry wood"
+    },
+    "sort_order": 107,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "ES2625",
+        "color_code": "cherry",
+        "color_label": "Вишнёвое дерево",
+        "retail_price": 36053,
+        "stock_quantity": 5,
+        "sort_order": 0,
+        "source_page": 6,
+        "source_row": 10,
+        "source_name": "cherry"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-travel-mug-260",
+    "name": "Термокружка MUVNA 260 мл",
+    "category": "drinkware",
+    "description": "Термокружка для кофе и других напитков объёмом 260 мл. Градиентное, чёрное и белое исполнение.",
+    "attributes": {
+      "volume_ml": 260
+    },
+    "sort_order": 108,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BZ2612",
+        "color_code": "gradient",
+        "color_label": "Градиентный",
+        "retail_price": 13915,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 135,
+        "source_name": "gradient ramp-260ml"
+      },
+      {
+        "sku": "BZ2614",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 13915,
+        "stock_quantity": 15,
+        "sort_order": 1,
+        "source_page": 5,
+        "source_row": 137,
+        "source_name": "black-260ml"
+      },
+      {
+        "sku": "BZ2616",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 13915,
+        "stock_quantity": 15,
+        "sort_order": 2,
+        "source_page": 5,
+        "source_row": 139,
+        "source_name": "white-260ml"
+      }
+    ]
+  },
+  {
+    "slug": "muvna-travel-mug-450",
+    "name": "Термокружка MUVNA 450 мл",
+    "category": "drinkware",
+    "description": "Термокружка для кофе и других напитков объёмом 450 мл. Градиентное, чёрное и белое исполнение.",
+    "attributes": {
+      "volume_ml": 450
+    },
+    "sort_order": 109,
+    "brand": "muvna",
+    "variants": [
+      {
+        "sku": "BZ2613",
+        "color_code": "gradient",
+        "color_label": "Градиентный",
+        "retail_price": 15295,
+        "stock_quantity": 15,
+        "sort_order": 0,
+        "source_page": 5,
+        "source_row": 136,
+        "source_name": "gradient ramp-450ml"
+      },
+      {
+        "sku": "BZ2615",
+        "color_code": "black",
+        "color_label": "Чёрный",
+        "retail_price": 15295,
+        "stock_quantity": 15,
+        "sort_order": 1,
+        "source_page": 5,
+        "source_row": 138,
+        "source_name": "black-450ml"
+      },
+      {
+        "sku": "BZ2617",
+        "color_code": "white",
+        "color_label": "Белый",
+        "retail_price": 15295,
+        "stock_quantity": 15,
+        "sort_order": 2,
+        "source_page": 5,
+        "source_row": 140,
+        "source_name": "white-450ml"
+      }
+    ]
+  }
+]

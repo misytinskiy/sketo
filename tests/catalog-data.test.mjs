@@ -16,6 +16,13 @@ function load(path, modules) {
 }
 const schema = load('lib/db/schema.ts', { 'drizzle-orm': orm, 'drizzle-orm/pg-core': pg });
 const sqlDb = drizzle.mock({ schema });
+test('product back links preload the full public catalogue route', () => {
+  for (const [file, href] of [
+    ['app/catalog/[slug]/LotPageClient.tsx', '/catalog'],
+    ['app/catalog/equipment/[slug]/EquipmentItemPageClient.tsx', '/equipment'],
+    ['app/accessories/AccessoryPageClient.tsx', '/accessories'],
+  ]) assert.ok(readFileSync(file, 'utf8').includes(`href="${href}" prefetch={true} className={styles.backLink}`));
+});
 function setup(kind, row, failure) {
   const queries = [], caches = [];
   const db = { query: { products: {
@@ -36,6 +43,18 @@ const row = {
   translations: [{ locale: 'ru', name: 'Example', notes: '', size: '', description: 'Searchable text', category: 'Machine', statusLabel: 'In stock' }],
   details: [], features: [], images: [],
 };
+test('coffee recommendations use one public in-stock query and explicit brewing details', async () => {
+  const { api, queries } = setup('coffee', { ...row, status: 'in_stock', details: [
+    { label: 'Brewing method', value: 'Espresso' }, { label: 'Country', value: 'Brazil' },
+  ] });
+  const result = await api.getCoffeeRecommendationItems();
+  assert.equal(queries.length, 1);
+  assert.equal(result[0].methodText, 'Espresso');
+  const query = sqlDb.query.products.findMany(api.coffeeRecommendationQuery).toSQL();
+  assert.ok(query.params.includes(true));
+  assert.ok(query.params.includes('in_stock'));
+  assert.ok(query.params.includes('coffee'));
+});
 for (const kind of ['coffee', 'equipment']) {
   const prefix = kind === 'coffee' ? 'Coffee' : 'Equipment';
   const bySlug = kind === 'coffee' ? 'getCoffeeCatalogItemBySlug' : 'getEquipmentItemBySlug';
@@ -83,7 +102,7 @@ for (const kind of ['coffee', 'equipment']) {
     const sql = sqlDb.query.products.findFirst(queries[0]).toSQL();
     assert.ok(sql.params.includes(row.slug));
     assert.ok(!sql.params.includes(true));
-    assert.equal(caches.length, 3);
+    assert.equal(caches.length, kind === 'coffee' ? 4 : 3);
     for (const entry of caches) assert.ok(entry.options.tags.includes(`${kind}-catalog`));
   });
 }

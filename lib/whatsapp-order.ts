@@ -1,13 +1,14 @@
 import type { Language } from "@/app/components/language";
 
 export type WhatsAppOrder = {
-  kind: "coffee" | "equipment";
+  kind: "coffee" | "equipment" | "accessory";
   language: Language;
   name: string;
   slug: string;
   productUrl: string;
   size?: string;
   price?: string;
+  color?: string;
 };
 
 export const orderCopy = {
@@ -26,21 +27,21 @@ export function buildWhatsAppOrderUrl(order: WhatsAppOrder) {
   const name = order.name.trim() || order.slug;
   const text = {
     ru: {
-      intro: `Здравствуйте! Хочу заказать ${order.kind === "coffee" ? "кофе" : "оборудование"} «${name}».`,
+      intro: `Здравствуйте! Хочу заказать ${order.kind === "coffee" ? "кофе" : order.kind === "accessory" ? "аксессуар" : "оборудование"} «${name}».`,
       size: "Вес", price: "Цена на сайте", article: "Артикул",
       question: order.kind === "coffee"
         ? "Подскажите, пожалуйста, наличие и как оформить заказ."
         : "Подскажите, пожалуйста, стоимость, наличие и условия поставки.",
     },
     en: {
-      intro: `Hello! I'd like to order ${order.kind === "coffee" ? "coffee" : "equipment"}: ${name}.`,
+      intro: `Hello! I'd like to order ${order.kind === "coffee" ? "coffee" : order.kind === "accessory" ? "an accessory" : "equipment"}: ${name}.`,
       size: "Weight", price: "Website price", article: "Item code",
       question: order.kind === "coffee"
         ? "Could you confirm availability and help me place an order?"
         : "Could you share the price, availability and delivery terms?",
     },
     kz: {
-      intro: `Сәлеметсіз бе! «${name}» ${order.kind === "coffee" ? "кофесіне" : "жабдығына"} тапсырыс бергім келеді.`,
+      intro: `Сәлеметсіз бе! «${name}» ${order.kind === "coffee" ? "кофесіне" : order.kind === "accessory" ? "аксессуарына" : "жабдығына"} тапсырыс бергім келеді.`,
       size: "Салмағы", price: "Сайттағы баға", article: "Артикул",
       question: order.kind === "coffee"
         ? "Қолда бар-жоғын және тапсырысты қалай рәсімдеуге болатынын айта аласыз ба?"
@@ -52,7 +53,8 @@ export function buildWhatsAppOrderUrl(order: WhatsAppOrder) {
     "",
     `${text.article}: ${order.slug}`,
     ...(order.kind === "coffee" && order.size?.trim() ? [`${text.size}: ${order.size.trim()}`] : []),
-    ...(order.kind === "coffee" && order.price?.trim() ? [`${text.price}: ${order.price.trim()}`] : []),
+    ...(order.kind === "accessory" && order.color?.trim() ? [`${order.language === "en" ? "Colour" : order.language === "kz" ? "Түсі" : "Цвет"}: ${order.color.trim()}`] : []),
+    ...(order.kind !== "equipment" && order.price?.trim() ? [`${text.price}: ${order.price.trim()}`] : []),
     order.productUrl,
     "",
     text.question,

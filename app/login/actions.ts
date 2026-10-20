@@ -2,7 +2,7 @@
 
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
-import { db } from "@/lib/db";
+import { withBoundedDatabase } from "@/lib/db/bounded";
 import { staffMembers } from "@/lib/db/schema";
 import { createClient } from "@/lib/supabase/server";
 
@@ -15,7 +15,8 @@ export async function login(_previous: { message: string }, form: FormData) {
     const client = await createClient();
     const { data, error } = await client.auth.signInWithPassword({ email, password });
     if (error || !data.user) return denied;
-    const member = await db.query.staffMembers.findFirst({ where: eq(staffMembers.userId, data.user.id) });
+    const userId = data.user.id;
+    const member = await withBoundedDatabase("staff-auth", db => db.query.staffMembers.findFirst({ where: eq(staffMembers.userId, userId) }));
     if (!member?.isActive || (member.role !== "admin" && member.role !== "editor")) {
       await client.auth.signOut({ scope: "local" });
       return denied;

@@ -40,6 +40,22 @@ export const getCoffeeCatalogItems = cache(unstable_cache(
   async () => (await loadCards()).map(mapCard), ["coffee-catalog-cards-v4-status"], cacheOptions,
 ));
 
+// One cached query for recommendations: never include drafts or sold-out coffee.
+export const coffeeRecommendationQuery = {
+  ...coffeeCardQuery,
+  where: and(published, eq(products.status, "in_stock")),
+  with: {
+    translations: coffeeCardQuery.with.translations,
+    details: { columns: { label: true, value: true } },
+  },
+} satisfies NonNullable<Parameters<typeof db.query.products.findMany>[0]>;
+export const getCoffeeRecommendationItems = cache(unstable_cache(async () => {
+  const rows = await db.query.products.findMany(coffeeRecommendationQuery);
+  return rows.map(row => ({ ...mapCard(row), methodText: row.details
+    .filter(detail => /способ|приготовлен|заварив|brew|method|дайында|демдеу/i.test(detail.label))
+    .map(detail => detail.value).join(" ") }));
+}, ["coffee-workflow-recommendations-v1"], cacheOptions));
+
 export const coffeeDetailRelations = {
   translations: true,
   details: { orderBy: (table, { asc }) => [asc(table.sortOrder), asc(table.label)] },

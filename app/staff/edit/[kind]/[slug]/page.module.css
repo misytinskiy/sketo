@@ -699,6 +699,10 @@
   position: relative;
 }
 
+.customSelectOpen {
+  z-index: 60;
+}
+
 .customSelectTrigger,
 .customSelectOption {
   appearance: none;
@@ -747,13 +751,18 @@
   position: absolute;
   top: calc(100% + 0.45rem);
   left: 0;
-  z-index: 12;
+  z-index: 60;
   display: grid;
   width: 100%;
   min-width: 100%;
   border: 1px solid rgba(45, 49, 52, 0.14);
   background: #f2f0eb;
   box-shadow: 0 14px 34px rgba(45, 49, 52, 0.08);
+}
+
+.customSelectMenuAbove {
+  top: auto;
+  bottom: calc(100% + 0.45rem);
 }
 
 .customSelectOption {

@@ -3,7 +3,7 @@ import "server-only";
 import { cache } from "react";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
-import { db } from "@/lib/db";
+import { withBoundedDatabase } from "@/lib/db/bounded";
 import { staffMembers } from "@/lib/db/schema";
 import { createClient } from "@/lib/supabase/server";
 
@@ -21,7 +21,7 @@ export const getCurrentStaff = cache(async (): Promise<StaffIdentity | null> => 
   const supabase = await createClient();
   const { data: { user }, error } = await supabase.auth.getUser();
   if (error || !user) return null;
-  const member = await db.query.staffMembers.findFirst({ where: eq(staffMembers.userId, user.id) });
+  const member = await withBoundedDatabase("staff-auth", db => db.query.staffMembers.findFirst({ where: eq(staffMembers.userId, user.id) }));
   // "editor" is the existing database value for the personnel role. Legacy viewers
   // are deliberately not promoted to editors by this change.
   if (!member?.isActive || (member.role !== "admin" && member.role !== "editor")) return null;

@@ -47,7 +47,7 @@ export default function EquipmentItemPageClient({
         </div>
 
         <section className={styles.layout}>
-          <Link href="/equipment" className={styles.backLink}>
+          <Link href="/equipment" prefetch={true} className={styles.backLink}>
             {currentLanguage === "kz" ? "Жабдыққа оралу" : currentLanguage === "en"
               ? "Back to equipment"
               : "Назад к оборудованию"}

@@ -19,18 +19,24 @@ const navItems = [
     href: "/equipment",
     image: "/photo/2.JPG",
   },
-  { id: "b2b", label: { kz: "B2B", ru: "B2B", en: "B2B" }, href: "/b2b", image: "/photo/3.JPG" },
+  {
+    id: "accessories",
+    label: { kz: "Аксессуарлар", ru: "Аксессуары", en: "Accessories" },
+    href: "/accessories",
+    image: "/photo/3.JPG",
+  },
+  { id: "b2b", label: { kz: "B2B", ru: "B2B", en: "B2B" }, href: "/b2b", image: "/photo/4.JPG" },
   {
     id: "academy",
     label: { kz: "Академия", ru: "Академия", en: "Academy" },
     href: "/academy",
-    image: "/photo/4.JPG",
+    image: "/photo/5.JPG",
   },
   {
     id: "contacts",
     label: { kz: "Байланыс", ru: "Контакты", en: "Contacts" },
     href: "/contacts",
-    image: "/photo/5.JPG",
+    image: "/photo/6.JPG",
   },
 ] as const;
 

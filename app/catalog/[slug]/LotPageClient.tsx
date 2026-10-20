@@ -46,7 +46,7 @@ export default function LotPageClient({
         </div>
 
         <section className={styles.layout}>
-          <Link href="/catalog" className={styles.backLink}>
+          <Link href="/catalog" prefetch={true} className={styles.backLink}>
             {currentLanguage === "kz" ? "Каталогқа оралу" : currentLanguage === "en" ? "Back to catalog" : "Назад в каталог"}
           </Link>
 

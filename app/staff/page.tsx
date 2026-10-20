@@ -13,6 +13,6 @@ export const metadata = {
 export default async function StaffPage() {
   await requireStaff();
   const products = await getStaffProducts();
-
+  // Accessories load independently after the main workspace is usable.
   return <StaffPageClient products={products} />;
 }

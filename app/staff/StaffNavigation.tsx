@@ -14,7 +14,7 @@ type StaffNavigationProps = {
 export default function StaffNavigation({ name, email, role }: StaffNavigationProps) {
   const pathname = usePathname();
   const links = [
-    { href: "/staff", label: "Каталог", active: pathname === "/staff" || pathname.startsWith("/staff/edit/") },
+    { href: "/staff", label: "Каталог", active: pathname === "/staff" || pathname.startsWith("/staff/edit/") || pathname.startsWith("/staff/accessories/edit/") },
     ...(role === "admin"
       ? [{ href: "/staff/users", label: "Пользователи", active: pathname.startsWith("/staff/users") }]
       : []),
