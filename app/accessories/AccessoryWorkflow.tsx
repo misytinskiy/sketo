@@ -61,7 +61,7 @@ export default function AccessoryWorkflow({ recommendations, language }: { recom
           return <Link key={`${recommendation.kind}:${slug}`} href={`/${isCoffee ? "catalog" : "accessories"}/${encodeURIComponent(slug)}`} className={local.workflowProduct}>
             <div className={local.workflowImage}><Image src={image || "/image-unavailable.svg"} alt="" fill sizes="96px" unoptimized /></div>
             <div><h3>{name}</h3><p>{label(language, ...recommendation.reason)}</p><span className={local.workflowPrice}>{price}</span></div>
-            <span aria-hidden="true">↗</span>
+            <span className={local.workflowArrow} aria-hidden="true">↗</span>
           </Link>;
         })}
         {!recommendations[stage.key].length && <p className={local.workflowEmpty}>{label(language, "Пока нет подходящих дополнений для этого этапа. Посмотрите соседние этапы.", "No suitable additions for this stage yet. Explore the other stages.", "Бұл кезеңге лайықты қосымша тауарлар әзірге жоқ. Басқа кезеңдерді қараңыз.")}</p>}
