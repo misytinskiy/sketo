@@ -2,7 +2,7 @@
 .header { display: grid; grid-template-columns: minmax(0, 2.3fr) minmax(0, 1fr); gap: 1rem 3rem; align-items: end; padding-bottom: 2.5rem; }
 .eyebrow, .category, .catalogLink, .empty { font-family: var(--font-basis-mono); }
 .eyebrow { grid-column: 1 / -1; margin: 0 0 .5rem; font-size: 12px; line-height: 1.2; text-transform: uppercase; letter-spacing: .12em; opacity: .65; }
-.title { margin: 0; font-family: var(--font-activist); font-size: clamp(3rem, 5.6vw, 7rem); line-height: .98; letter-spacing: -.055em; text-transform: uppercase; }
+.title { margin: 0; font-family: var(--font-activist); font-size: clamp(3rem, 5vw, 7rem); line-height: .98; letter-spacing: -.055em; text-transform: uppercase; }
 .lead { margin: 0; max-width: 24rem; font-family: var(--font-basis-mono); font-size: clamp(.9rem, 1.2vw, 1.25rem); line-height: 1; color: #2d3134b8; }
 .products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
 .column { position: relative; display: flex; flex-direction: column; min-width: 0; }

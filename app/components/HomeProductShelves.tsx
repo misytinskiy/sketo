@@ -19,9 +19,9 @@ const showcaseNames: Record<string, string> = {
   "/catalog/colombia-jefferson-castano-250g": "Colombia Jefferson Castano",
 };
 const heading = {
-  ru: { title: "Для вашего кофе", lead: "Хороший кофе начинается с деталей. Зёрна, оборудование и инструменты для вашей любимой чашки." },
-  en: { title: "For your coffee", lead: "Good coffee starts with the details. Beans, equipment and tools for your favourite cup." },
-  kz: { title: "Кофеңіз үшін", lead: "Жақсы кофе ұсақ-түйектен басталады. Сүйікті кофеңізге арналған дәндер, жабдықтар мен құралдар." },
+  ru: { title: "Зерно. Техника. Детали.", lead: "Хороший кофе начинается с деталей. Зёрна, оборудование и инструменты для вашей любимой чашки." },
+  en: { title: "Beans. Gear. Details.", lead: "Good coffee starts with the details. Beans, equipment and tools for your favourite cup." },
+  kz: { title: "Дән. Жабдық. Бөлшектер.", lead: "Жақсы кофе ұсақ-түйектен басталады. Сүйікті кофеңізге арналған дәндер, жабдықтар мен құралдар." },
 };
 
 export default function HomeProductShelves({ shelves = [], initialLanguage, loading = false }: {
