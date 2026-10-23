@@ -141,6 +141,14 @@ test('product volumes are independent of colours and support custom units with m
   p.volumes[0].value = '450'; p.volumes[0].price = '-1';
   assert.throws(() => model.parseAccessoryInput(JSON.stringify(p)), /цену объёма/);
 });
+test('saving preserves volume SKU mappings and drops deleted colour references', () => {
+  const p = input();
+  const variantId = p.variants[0].id;
+  p.volumes = [{ id: imageId, value: '250', unit: 'г', price: '6440', currency: 'KZT', skuByVariant: { [variantId]: 'GC2299', [imageId]: 'removed' } }];
+  const result = model.parseAccessoryInput(JSON.stringify(p));
+  assert.equal(result.volumes[0].skuByVariant[variantId], 'GC2299');
+  assert.equal(Object.keys(result.volumes[0].skuByVariant).length, 1);
+});
 test('rejects negative prices, duplicate variants and unknown photo colours', () => {
   for (const change of [
     (p) => { p.variants[0].price = '-1'; },

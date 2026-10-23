@@ -39,6 +39,32 @@ const item = {
     { id: 'white', sku: 'BK2', color: 'Белый', hex: '#ffffff', price: '12000', currency: 'KZT', availability: 'out_of_stock' }],
   images: [{ id: 'a', url: '/shared.jpg', variantId: null }, { id: 'b', url: '/black.jpg', variantId: 'black' }, { id: 'c', url: '/white.jpg', variantId: 'white' }],
 };
+test('SKU search supports every variant, case, spacing and hyphens in every language', () => {
+  for (const language of ['ru', 'en', 'kz']) {
+    for (const query of ['BK1', 'bk2', ' BK 1 ', 'bk-2']) {
+      assert.equal(model.matchesAccessorySearch(item, query, language), true);
+    }
+    assert.equal(model.matchesAccessorySearch(item, 'BK999', language), false);
+    assert.equal(model.matchesAccessorySearch(item, '---', language), false);
+  }
+  assert.equal(model.matchesAccessorySearch(item, 'чайник', 'ru'), true);
+  assert.equal(model.matchesAccessorySearch(item, '', 'en'), true);
+  const duplicate = { ...item, variants: [...item.variants, { ...item.variants[0], sku: ' BK1 ' }] };
+  assert.equal(model.accessorySkus(duplicate).join(', '), 'BK1, BK2');
+});
+test('volume SKUs follow the colour, are searchable, and unavailable combinations are excluded', () => {
+  const sample = { ...item, volumes: [
+    { id: '250', value: '250', unit: 'г', price: '6440', currency: 'KZT', skuByVariant: { black: 'GC2299', white: 'GC2314' } },
+    { id: '750', value: '750', unit: 'г', price: '8050', currency: 'KZT', skuByVariant: { black: 'GC2301' } },
+  ] };
+  assert.equal(model.accessorySku(sample.variants[0], sample.volumes[1]), 'GC2301');
+  assert.equal(model.accessorySku(sample.variants[1], sample.volumes[1]), '');
+  assert.equal(model.accessoryVolumes(sample, 'white').map(v => v.id).join(), '250');
+  assert.equal(model.accessoryVolumes(sample, 'black').length, 2);
+  assert.equal(model.matchesAccessorySearch(sample, 'gc 2301', 'ru'), true);
+  assert.equal(model.accessorySkus(sample).join(), 'GC2299,GC2314,GC2301');
+  assert.equal(model.accessorySku({ ...item.variants[0], sku: 'ACC-c620f4b3-2ba8-4d92-a0f4-e34c029815ea' }), '');
+});
 test('gallery intersects colour and volume bindings while retaining shared photos', () => {
   const sample = { ...item, images: [...item.images,
     { id: 'd', url: '/450.jpg', variantId: null, volumeId: '450' },

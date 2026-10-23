@@ -272,6 +272,10 @@
   background-repeat: no-repeat;
 }
 
+.quoteText {
+  text-transform: uppercase;
+}
+
 @media (min-width: 1900px) {
   .topBar {
     gap: 2.5rem;

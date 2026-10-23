@@ -9,7 +9,7 @@ import ProductOrderButton from "../components/ProductOrderButton";
 import EquipmentMediaGallery from "../catalog/equipment/[slug]/EquipmentMediaGallery";
 import AccessoryWorkflow from "./AccessoryWorkflow";
 import type { Recommendations } from "./recommendations";
-import { accessoryContent, attributeRows, categoryLabel, label, priceLabel, variantImages, volumeLabel, type Accessory } from "./model";
+import { accessoryContent, accessorySku, accessoryVolumes, attributeRows, categoryLabel, label, priceLabel, variantImages, volumeLabel, type Accessory } from "./model";
 import styles from "../catalog/equipment/[slug]/equipment-item.module.css";
 import local from "./accessories.module.css";
 
@@ -19,9 +19,10 @@ export default function AccessoryPageClient({ item, recommendations, initialLang
   const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const [selectedId, setSelectedId] = useState(item.variants[0].id);
   const variant = item.variants.find(v => v.id === selectedId) || item.variants[0];
-  const volumes = item.volumes ?? [];
+  const volumes = accessoryVolumes(item, variant.id);
   const [selectedVolumeId, setSelectedVolumeId] = useState(volumes[0]?.id);
   const selectedVolume = volumes.find(v => v.id === selectedVolumeId) ?? volumes[0];
+  const sku = accessorySku(variant, selectedVolume);
   const colors = item.variants;
   const images = variantImages(item, variant.id, selectedVolume?.id);
   const content = accessoryContent(item, language);
@@ -49,6 +50,7 @@ export default function AccessoryPageClient({ item, recommendations, initialLang
       <EquipmentMediaGallery key={`${variant.id}:${selectedVolume?.id ?? ''}`} images={images.length ? images.map(i => i.url) : ["/image-unavailable.svg"]} name={`${content.name} — ${variant.color}`} language={language} unoptimized />
       <div className={styles.infoPanel}>
         <div className={styles.headline}><h1 className={styles.title}>{content.name}</h1></div>
+        {sku && <p className={local.productSku} aria-live="polite">{label(language, "Артикул", "SKU", "Артикул")}: {sku}</p>}
         {content.description && <div className={styles.infoCard}><p className={styles.sectionLabel}>{label(language, "Обзор", "Overview", "Шолу")}</p><p className={styles.description}>{content.description}</p></div>}
         {volumes.length > 0 && <div className={styles.infoCard}><p className={styles.sectionLabel}>{label(language, 'Объём', 'Volume', 'Көлем')}</p>
           <div className={local.colorOptions}>{volumes.map(volume => <button key={volume.id} type="button" className={`${local.colorOption} ${volume.id === selectedVolume?.id ? local.colorActive : ''}`} aria-pressed={volume.id === selectedVolume?.id} onClick={() => setSelectedVolumeId(volume.id)}>{volumeLabel(volume, language)}</button>)}</div>
@@ -69,7 +71,7 @@ export default function AccessoryPageClient({ item, recommendations, initialLang
             {selectedVolume && <p className={local.priceMeta}>{volumeLabel(selectedVolume, language)}</p>}
             <p className={local.priceMeta}>{availability}</p>
           </div>
-          <ProductOrderButton kind="accessory" language={language} name={content.name} slug={variant.sku} color={`${variant.color}${selectedVolume ? ` · ${volumeLabel(selectedVolume, language)}` : ''}`} price={pricedOption.price === null ? undefined : price} productUrl={productUrl} />
+          <ProductOrderButton kind="accessory" language={language} name={content.name} slug={sku} color={`${variant.color}${selectedVolume ? ` · ${volumeLabel(selectedVolume, language)}` : ''}`} price={pricedOption.price === null ? undefined : price} productUrl={productUrl} />
         </div>
       </div>
     </section>

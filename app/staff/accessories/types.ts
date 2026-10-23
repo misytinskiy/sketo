@@ -46,7 +46,7 @@ export function filterAccessories(products: StaffAccessory[], query: string, cat
     const haystack = [product.name, product.brand, product.description, product.searchText,
       accessoryCategories[product.category] ?? product.category,
       ...product.variants.flatMap((variant) => [variant.sku, variant.color, variant.volumeMl]),
-      ...(product.volumes ?? []).flatMap(volume => [volume.value, volume.unit]),
+      ...(product.volumes ?? []).flatMap(volume => [volume.value, volume.unit, ...Object.values(volume.skuByVariant ?? {})]),
     ].join(" ").toLocaleLowerCase("ru");
     return terms.every((term) => haystack.includes(term));
   });

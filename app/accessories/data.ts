@@ -37,7 +37,7 @@ async function loadAccessories(slug?: string): Promise<Accessory[]> {
 // Next Data Cache also avoids a new database connection on return navigation.
 // Only public rows enter this cache. Staff reads remain uncached.
 export const getAccessories = cache(unstable_cache(loadAccessories,
-  ['accessories-public-v1-stock-colour-visibility'],
+  ['accessories-public-v2-volume-skus'],
   { tags: ['accessories-catalog'], revalidate: 300 },
 ));
 

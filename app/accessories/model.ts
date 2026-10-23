@@ -1,5 +1,5 @@
 import type { Language } from "../components/language";
-export type AccessoryVolume = { id: string; value: string; unit: string; price: string; currency: string };
+export type AccessoryVolume = { id: string; value: string; unit: string; price: string; currency: string; skuByVariant?: Record<string, string> };
 export function volumeLabel(volume: AccessoryVolume, language: Language) {
   const unit = language === 'en' ? ({ 'мл': 'ml', 'л': 'l', 'г': 'g', 'кг': 'kg' } as Record<string, string>)[volume.unit] ?? volume.unit : volume.unit;
   return `${Number(volume.value)} ${unit}`;
@@ -49,6 +49,32 @@ export function accessoryContent(item: Accessory, language: Language) {
   const ru = item.translations.find(t => t.locale === "ru");
   const translation = item.translations.find(t => t.locale === language);
   return { name: translation?.name || ru?.name || item.name, description: translation?.description || ru?.description || "" };
+}
+export function accessorySkus(item: Accessory) {
+  const skus = item.volumes?.length
+    ? item.volumes.flatMap(volume => item.variants.map(variant => accessorySku(variant, volume)))
+    : item.variants.map(variant => accessorySku(variant));
+  return [...new Set(skus.filter(Boolean))];
+}
+
+export function accessorySku(variant: Accessory['variants'][number], volume?: AccessoryVolume) {
+  const sku = (volume?.skuByVariant ? volume.skuByVariant[variant.id] ?? '' : variant.sku).trim();
+  return /^ACC-[0-9a-f-]{36}$/i.test(sku) ? '' : sku;
+}
+
+export function accessoryVolumes(item: Accessory, variantId: string) {
+  return (item.volumes ?? []).filter(volume => !volume.skuByVariant || Boolean(volume.skuByVariant[variantId]));
+}
+
+export function matchesAccessorySearch(item: Accessory, query: string, language: Language) {
+  const normalizedQuery = query.trim().toLocaleLowerCase();
+  if (!normalizedQuery) return true;
+  const content = accessoryContent(item, language);
+  const text = `${content.name} ${content.description} ${item.brand} ${categoryLabel(item.category, language)} ${accessorySkus(item).join(' ')} ${item.variants.map(v => v.color).join(" ")}`;
+  if (text.toLocaleLowerCase().includes(normalizedQuery)) return true;
+  const compact = (value: string) => value.toLocaleLowerCase().replace(/[\s\-–—]+/g, "");
+  const skuQuery = compact(normalizedQuery);
+  return Boolean(skuQuery) && accessorySkus(item).some(sku => compact(sku).includes(skuQuery));
 }
 export function variantImages(item: Accessory, variantId: string, volumeId?: string) {
   // Never show another colour as if it were the selected variant.

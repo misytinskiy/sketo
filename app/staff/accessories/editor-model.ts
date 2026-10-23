@@ -59,7 +59,11 @@ export function parseAccessoryInput(raw: string) {
     if (!/^\d{1,10}(\.\d{1,2})?$/.test(price) || Number(price) > 9999999999.99) throw new Error('Проверьте цену объёма.');
     const currency = text(v.currency, 'Валюта', 3);
     if (!/^[A-Z]{3}$/.test(currency)) throw new Error('Проверьте валюту объёма.');
-    return { id: id(v.id), value: String(Number(value)), unit: text(v.unit ?? 'мл', 'Единица измерения', 20), price, currency };
+    const skuByVariant = v.skuByVariant == null ? undefined : Object.fromEntries(
+      Object.entries(record(v.skuByVariant)).map(([variantId, sku]) => [id(variantId), text(sku, 'Артикул объёма', 100)]),
+    );
+    if (skuByVariant && Object.keys(skuByVariant).length > 100) throw new Error('Слишком много артикулов объёма.');
+    return { id: id(v.id), value: String(Number(value)), unit: text(v.unit ?? 'мл', 'Единица измерения', 20), price, currency, ...(skuByVariant ? { skuByVariant } : {}) };
   });
   if (new Set(volumes.map(v => v.id)).size !== volumes.length || new Set(volumes.map(v => `${v.value}:${v.unit.toLowerCase()}`)).size !== volumes.length) throw new Error('Объёмы не должны повторяться.');
   if (!Array.isArray(p.translations) || p.translations.length !== 3) throw new Error("Нужны поля для RU, EN и KZ.");
@@ -87,6 +91,11 @@ export function parseAccessoryInput(raw: string) {
       volumeMl: volumeMl === null ? null : String(Number(volumeMl)), hex, price, currency, availability: availability as NonNullable<EditorVariant['availability']>, active: boolean(v.active) };
   });
   for (const key of ["id", "sku", "code"] as const) if (new Set(variants.map((v) => v[key])).size !== variants.length) throw new Error("Артикулы, идентификаторы и коды цветов не должны повторяться.");
+  for (const volume of volumes) {
+    if (volume.skuByVariant) volume.skuByVariant = Object.fromEntries(
+      Object.entries(volume.skuByVariant).filter(([variantId]) => variants.some(v => v.id === variantId)),
+    );
+  }
   if (p.deletedVariantIds != null && (!Array.isArray(p.deletedVariantIds) || p.deletedVariantIds.length > 100)) throw new Error('Некорректный список удаляемых цветов.');
   const deletedVariantIds = ((p.deletedVariantIds ?? []) as unknown[]).map(id);
   if (new Set(deletedVariantIds).size !== deletedVariantIds.length || deletedVariantIds.some(id => variants.some(v => v.id === id))) throw new Error('Удаляемый цвет не должен оставаться в карточке.');

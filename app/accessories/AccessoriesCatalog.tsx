@@ -7,7 +7,7 @@ import usePersistentLanguage from "../components/usePersistentLanguage";
 import CatalogSkeleton from "../components/CatalogSkeleton";
 import type { Language } from "../components/language";
 import useCatalogViewState from "../catalog/useCatalogViewState";
-import { accessoryContent, categoryLabel, groupAccessoriesByCategory, label, matchesStage, type Accessory, type Stage } from "./model";
+import { categoryLabel, groupAccessoriesByCategory, label, matchesAccessorySearch, matchesStage, type Accessory, type Stage } from "./model";
 import AccessoryCard from "./AccessoryCard";
 import styles from "../catalog/equipment/equipment.module.css";
 import local from "./accessories.module.css";
@@ -29,9 +29,8 @@ export default function AccessoriesCatalog({ items, initialLanguage, stage }: { 
   const category = categories.includes(state.category) ? state.category : "all";
   const brand = brands.includes(state.brand) ? state.brand : "all";
   const filtered = scoped.filter(item => {
-    const content = accessoryContent(item, language);
     return (category === "all" || category === item.category) && (brand === "all" || brand === item.brand) &&
-      `${content.name} ${content.description} ${item.brand} ${categoryLabel(item.category, language)} ${item.variants.map(v => `${v.sku} ${v.color}`).join(" ")}`.toLocaleLowerCase().includes(query);
+      matchesAccessorySearch(item, query, language);
   });
   const orderedItems = groupAccessoriesByCategory(filtered).flatMap(group => group.products);
   const visibleItems = state.expanded ? orderedItems : orderedItems.slice(0, 12);
