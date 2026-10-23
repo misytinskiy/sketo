@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Footer from "../../components/Footer";
-import LanguageSwitch from "../../components/LanguageSwitch";
+import ShopHeaderActions from "../../components/ShopHeaderActions";
 import { getContentLanguage } from "../../components/language";
 import usePersistentLanguage from "../../components/usePersistentLanguage";
 import {
@@ -12,6 +12,7 @@ import {
 import LotEditorial from "./LotEditorial";
 import LotMedia from "./LotMedia";
 import ProductOrderButton from "../../components/ProductOrderButton";
+import { localizeProduct, parseKztPrice } from "../../cart/model";
 import styles from "./lot.module.css";
 
 type LotPageClientProps = {
@@ -42,7 +43,7 @@ export default function LotPageClient({
           >
             sketo.
           </Link>
-          <LanguageSwitch value={language} onChange={setLanguage} />
+          <ShopHeaderActions value={language} onChange={setLanguage} />
         </div>
 
         <section className={styles.layout}>
@@ -111,7 +112,10 @@ export default function LotPageClient({
                 <p className={styles.size}>{content.status}</p>
               </div>
               <ProductOrderButton kind="coffee" language={currentLanguage} name={content.name}
-                slug={item.slug} size={content.size} price={item.price} productUrl={productUrl} />
+                slug={item.slug} size={content.size} price={item.price} productUrl={productUrl}
+                unavailable={item.translations.ru.status === "Нет в наличии"}
+                cartItem={{ kind: "coffee", slug: item.slug, href: `/catalog/${item.slug}`, image: item.image,
+                  unitPrice: parseKztPrice(item.price), content: localizeProduct(locale => ({ name: item.translations[locale].name, detail: item.translations[locale].size })) }} />
             </div>
           </div>
         </section>

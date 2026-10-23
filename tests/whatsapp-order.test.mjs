@@ -18,6 +18,11 @@ const order = load('lib/whatsapp-order.ts');
 const Button = load('app/components/ProductOrderButton.tsx', {
   'react/jsx-runtime': jsx, '@/lib/whatsapp-order': order,
   './ProductOrderButton.module.css': { default: {} },
+  '../cart/CartProvider': { useOpenCart: () => () => {} },
+  '../cart/store': { useCartLines: () => [], addToCart: () => {} },
+  '../cart/model': { MAX_LINES: 100, cartKey: item => item.slug },
+  '../cart/copy': load('app/cart/copy.ts'),
+  '../cart/cart.module.css': { default: {} },
 }).default;
 const greetings = { ru: 'Здравствуйте!', en: 'Hello!', kz: 'Сәлеметсіз бе!' };
 const props = {

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useDeferredValue, useMemo } from "react";
 import Footer from "../components/Footer";
 import CatalogSkeleton from "../components/CatalogSkeleton";
-import LanguageSwitch from "../components/LanguageSwitch";
+import ShopHeaderActions from "../components/ShopHeaderActions";
 import { getContentLanguage } from "../components/language";
 import usePersistentLanguage from "../components/usePersistentLanguage";
 import CatalogCard from "./CatalogCard";
@@ -146,7 +146,7 @@ export default function CatalogContent({
           >
             sketo.
           </Link>
-          <LanguageSwitch value={language} onChange={setLanguage} />
+          <ShopHeaderActions value={language} onChange={setLanguage} />
         </div>
 
         <section

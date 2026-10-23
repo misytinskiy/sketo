@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useDeferredValue } from "react";
 import Footer from "../components/Footer";
-import LanguageSwitch from "../components/LanguageSwitch";
+import ShopHeaderActions from "../components/ShopHeaderActions";
 import usePersistentLanguage from "../components/usePersistentLanguage";
 import CatalogSkeleton from "../components/CatalogSkeleton";
 import type { Language } from "../components/language";
@@ -37,7 +37,7 @@ export default function AccessoriesCatalog({ items, initialLanguage, stage }: { 
   const visibleItems = state.expanded ? orderedItems : orderedItems.slice(0, 12);
   if (!isRestored) return <CatalogSkeleton filterCounts={[1, 6]} />;
   return <main className={styles.page}><div className={styles.contentShell}>
-    <div className={styles.topBar}><Link href="/" className={styles.homeLogo} aria-label="Sketo">sketo.</Link><LanguageSwitch value={language} onChange={setLanguage} /></div>
+    <div className={styles.topBar}><Link href="/" className={styles.homeLogo} aria-label="Sketo">sketo.</Link><ShopHeaderActions value={language} onChange={setLanguage} /></div>
     <section className={`${styles.controls} ${local.controls}`} aria-label={label(language, "Фильтры", "Filters", "Сүзгілер")}>
       <div className={styles.searchBlock}><label htmlFor="accessory-search" className={styles.controlLabel}>{label(language, "Поиск", "Search", "Іздеу")}</label>
         <input id="accessory-search" type="search" value={state.search} className={styles.searchInput} placeholder={label(language, "Название или артикул", "Name or SKU", "Атауы немесе артикулы")}

@@ -29,6 +29,16 @@
   pointer-events: auto;
 }
 
+.floatingCart {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 8;
+  pointer-events: auto;
+}
+
+.floatingTopBarLight { --cart-trigger-color: rgba(255, 255, 255, 0.88); }
+
 .floatingTopBarLight .languageOption {
   color: rgba(255, 255, 255, 0.88);
   opacity: 1;
@@ -273,6 +283,7 @@
 }
 
 @media (min-width: 1900px) {
+  .floatingCart { top: 3.1rem; right: 7.25rem; }
   .topBar {
     gap: 2.5rem;
     padding: 2.5rem 7.25rem 0;
@@ -345,6 +356,7 @@
 }
 
 @media (max-width: 900px) {
+  .floatingCart { top: 1rem; right: 1rem; }
   .topBar {
     padding: 1.5rem 1rem 0;
   }

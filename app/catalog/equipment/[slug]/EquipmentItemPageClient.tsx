@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Footer from "../../../components/Footer";
-import LanguageSwitch from "../../../components/LanguageSwitch";
+import ShopHeaderActions from "../../../components/ShopHeaderActions";
 import { getContentLanguage } from "../../../components/language";
 import usePersistentLanguage from "../../../components/usePersistentLanguage";
 import {
@@ -13,6 +13,7 @@ import {
 } from "../equipment-data";
 import EquipmentMediaGallery from "./EquipmentMediaGallery";
 import ProductOrderButton from "../../../components/ProductOrderButton";
+import { localizeProduct } from "../../../cart/model";
 import styles from "./equipment-item.module.css";
 
 type EquipmentItemPageClientProps = {
@@ -43,7 +44,7 @@ export default function EquipmentItemPageClient({
           >
             sketo.
           </Link>
-          <LanguageSwitch value={language} onChange={setLanguage} />
+          <ShopHeaderActions value={language} onChange={setLanguage} />
         </div>
 
         <section className={styles.layout}>
@@ -139,7 +140,10 @@ export default function EquipmentItemPageClient({
 
             <div className={styles.orderAction}>
               <ProductOrderButton kind="equipment" language={currentLanguage} name={item.name}
-                slug={item.slug} productUrl={productUrl} />
+                slug={item.slug} productUrl={productUrl}
+                unavailable={item.translations.ru.status === "Нет в наличии"}
+                cartItem={{ kind: "equipment", slug: item.slug, href: `/equipment/${item.slug}`, image: item.images[0] || "/image-unavailable.svg", unitPrice: null,
+                  content: localizeProduct(locale => ({ name: item.name, detail: item.translations[locale].category })) }} />
             </div>
           </div>
         </section>
