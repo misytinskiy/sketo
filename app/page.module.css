@@ -167,6 +167,7 @@
   display: inline-flex;
   align-items: center;
   gap: 1rem;
+  text-transform: uppercase;
   flex: 1 1 0;
   min-width: 0;
   padding-top: 14px;
