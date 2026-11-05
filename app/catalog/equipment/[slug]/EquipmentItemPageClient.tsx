@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Footer from "../../../components/Footer";
-import LanguageSwitch from "../../../components/LanguageSwitch";
+import ShopHeaderActions from "../../../components/ShopHeaderActions";
 import { getContentLanguage } from "../../../components/language";
 import usePersistentLanguage from "../../../components/usePersistentLanguage";
 import {
@@ -13,7 +13,10 @@ import {
 } from "../equipment-data";
 import EquipmentMediaGallery from "./EquipmentMediaGallery";
 import ProductOrderButton from "../../../components/ProductOrderButton";
+import { localizeProduct } from "../../../cart/model";
 import styles from "./equipment-item.module.css";
+import useEquipmentRate from "../../../components/useEquipmentRate";
+import { equipmentKztPrice, formatEquipmentPrice } from "@/lib/equipment-price";
 
 type EquipmentItemPageClientProps = {
   productUrl: string;
@@ -31,6 +34,9 @@ export default function EquipmentItemPageClient({
   const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const currentLanguage = getContentLanguage(language);
   const content = getEquipmentItemContent(item, currentLanguage);
+  const rate = useEquipmentRate();
+  const unitPrice = equipmentKztPrice(item.equipmentPriceEur, rate);
+  const price = formatEquipmentPrice(unitPrice, Boolean(item.equipmentPriceFrom), currentLanguage);
 
   return (
     <main className={styles.page}>
@@ -43,7 +49,7 @@ export default function EquipmentItemPageClient({
           >
             sketo.
           </Link>
-          <LanguageSwitch value={language} onChange={setLanguage} />
+          <ShopHeaderActions value={language} onChange={setLanguage} />
         </div>
 
         <section className={styles.layout}>
@@ -137,9 +143,20 @@ export default function EquipmentItemPageClient({
               </div>
             </div>
 
-            <div className={styles.orderAction}>
+            <div className={styles.purchase}>
+              <p className={styles.sectionLabel}>
+                {currentLanguage === "kz" ? "Баға / Мәртебе" : currentLanguage === "en" ? "Price / Status" : "Цена / Наличие"}
+              </p>
+              <div className={styles.priceLine} aria-live="polite">
+                <p className={styles.productPrice}>{price}</p>
+                <p className={styles.priceMeta}>{content.status}</p>
+              </div>
               <ProductOrderButton kind="equipment" language={currentLanguage} name={item.name}
-                slug={item.slug} productUrl={productUrl} />
+                slug={item.slug} productUrl={productUrl} price={price}
+                unavailable={item.translations.ru.status === "Нет в наличии"}
+                cartItem={{ kind: "equipment", slug: item.slug, href: `/equipment/${item.slug}`, image: item.images[0] || "/image-unavailable.svg", unitPrice,
+                  equipmentPriceEur: item.equipmentPriceEur, priceFrom: item.equipmentPriceFrom,
+                  content: localizeProduct(locale => ({ name: item.name, detail: item.translations[locale].category })) }} />
             </div>
           </div>
         </section>

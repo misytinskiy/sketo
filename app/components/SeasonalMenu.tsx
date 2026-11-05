@@ -12,83 +12,90 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Language } from "./language";
 import styles from "./SeasonalMenu.module.css";
 
+const seasonalImages = {
+  pear: { image: "/photo/seasonMenu/груша-розмарин.PNG", width: 1086, height: 1448 },
+  cocoa: { image: "/photo/seasonMenu/какао-фундук.JPG", width: 4000, height: 6000 },
+  citrus: { image: "/photo/seasonMenu/фильтр-цитрус.JPG", width: 4000, height: 6000 },
+  pumpkin: { image: "/photo/seasonMenu/пампкин-матча-латте.JPG", width: 6000, height: 4000 },
+} as const;
+
 const drinksByLanguage = {
   kz: [
     {
-      name: "Cherry Bloom",
-      image: "/photo/seasonMenu/cherryBloom.PNG",
+      name: "Алмұрт — розмарин",
+      ...seasonalImages.pear,
       description:
-        "Шырынды шие, піскен алма және жеңіл уытты соңғы дәм. Жазғы бақта серуендегенді еске түсіретін сусын.",
+        "Алмұрт езбесі мен розмарин қосылған шу пуэр. Жемістің жұмсақ тәттілігі, шайдың ағаш ноталары және балғын шөп хош иісі.",
     },
     {
-      name: "Banana Tonic",
-      image: "/photo/seasonMenu/bananaTonic.PNG",
+      name: "Какао — орман жаңғағы",
+      ...seasonalImages.cocoa,
       description:
-        "Нәзік бананды милк-панч, цитрус ащылығы және сергітетін тоник. Рауғаштың жеңіл реңкі бар жарқын әрі ерекше дәм.",
+        "Орман жаңғағы пастасы, лимон қабығы және үгітілген жаңғақ қосылған қою какао. Барқыттай жұмсақ, шоколадты әрі жаңғақ дәмі қанық.",
     },
     {
-      name: "White Pine",
-      image: "/photo/seasonMenu/whitePine.PNG",
+      name: "Цитрусты сүзгі кофе",
+      ...seasonalImages.citrus,
       description:
-        "Тропикалық ананас, ақ шайдың гүлді ноталары және жеңіл өсімдік сипаты. Ыстық күндерге арналған сергітетін әрі әсем сусын.",
+        "Нәзік апельсин көбігі мен балғын қабығы қосылған қара сүзгі кофе. Айқын кофе дәмі, цитрус тәттілігі және жеңіл ащылық.",
     },
     {
-      name: "Golden Osmanthus",
-      image: "/photo/seasonMenu/goldenOsmanthus.PNG",
+      name: "Асқабақ матча латте",
+      ...seasonalImages.pumpkin,
       description:
-        "Османтус, Earl Grey және нәзік цитрус реңктері. Асықпай өтетін жазғы кештерге арналған жұмсақ, гүлді және көпқырлы дәм.",
+        "Асқабақ көбігі, кілегей және үйеңкі шәрбаты қосылған сүтті матча. Нәзік кілегейлі дәм мен асқабақтың жұмсақ тәттілігі.",
     },
   ],
   ru: [
     {
-      name: "Cherry Bloom",
-      image: "/photo/seasonMenu/cherryBloom.PNG",
+      name: "Груша — розмарин",
+      ...seasonalImages.pear,
       description:
-        "Сочная вишня, спелое яблоко и легкое солодовое послевкусие. Напиток, напоминающий прогулку по летнему саду.",
+        "Шу пуэр с грушевым пюре и розмарином. Мягкая фруктовая сладость, древесные ноты чая и свежий травяной аромат.",
     },
     {
-      name: "Banana Tonic",
-      image: "/photo/seasonMenu/bananaTonic.PNG",
+      name: "Какао — фундук",
+      ...seasonalImages.cocoa,
       description:
-        "Нежный банановый милк-панч, цитрусовая горчинка и освежающий тоник. Яркий и необычный вкус с легким оттенком ревеня.",
+        "Насыщенное какао с фундуковой пастой, лимонной цедрой и тёртым фундуком. Бархатистый, шоколадный и по-настоящему ореховый вкус.",
     },
     {
-      name: "White Pine",
-      image: "/photo/seasonMenu/whitePine.PNG",
+      name: "Фильтр «Цитрус»",
+      ...seasonalImages.citrus,
       description:
-        "Тропический ананас, цветочные ноты белого чая и легкий ботанический характер. Освежающий и элегантный напиток для жарких дней.",
+        "Чёрный фильтр-кофе с нежной апельсиновой пенкой и свежей цедрой. Яркий кофейный вкус с цитрусовой сладостью и лёгкой горчинкой.",
     },
     {
-      name: "Golden Osmanthus",
-      image: "/photo/seasonMenu/goldenOsmanthus.PNG",
+      name: "Пампкин матча латте",
+      ...seasonalImages.pumpkin,
       description:
-        "Османтус, Earl Grey и тонкие цитрусовые оттенки. Мягкий, цветочный и многослойный вкус для неспешных летних вечеров.",
+        "Матча на молоке с тыквенной пенкой, сливками и кленовым сиропом. Нежный сливочный вкус с мягкой сладостью тыквы.",
     },
   ],
   en: [
     {
-      name: "Cherry Bloom",
-      image: "/photo/seasonMenu/cherryBloom.PNG",
+      name: "Pear — Rosemary",
+      ...seasonalImages.pear,
       description:
-        "Juicy cherry, ripe apple, and a light malty finish. A drink that feels like a walk through a summer garden.",
+        "Shu pu-erh with pear purée and rosemary. Gentle fruit sweetness, woody tea notes and a fresh herbal aroma.",
     },
     {
-      name: "Banana Tonic",
-      image: "/photo/seasonMenu/bananaTonic.PNG",
+      name: "Cocoa — Hazelnut",
+      ...seasonalImages.cocoa,
       description:
-        "Soft banana milk punch, citrus bitterness, and refreshing tonic. Bright and unusual, with a subtle note of rhubarb.",
+        "Rich cocoa with hazelnut paste, lemon zest and grated hazelnut. Velvety, chocolatey and deeply nutty.",
     },
     {
-      name: "White Pine",
-      image: "/photo/seasonMenu/whitePine.PNG",
+      name: "Citrus Filter",
+      ...seasonalImages.citrus,
       description:
-        "Tropical pineapple, floral white tea notes, and a light botanical character. A refreshing and elegant drink for warm days.",
+        "Black filter coffee with delicate orange foam and fresh zest. Bright coffee flavour with citrus sweetness and a light bitterness.",
     },
     {
-      name: "Golden Osmanthus",
-      image: "/photo/seasonMenu/goldenOsmanthus.PNG",
+      name: "Pumpkin Matcha Latte",
+      ...seasonalImages.pumpkin,
       description:
-        "Osmanthus, Earl Grey, and delicate citrus tones. Soft, floral, and layered for long unhurried summer evenings.",
+        "Matcha with milk, pumpkin foam, cream and maple syrup. A soft, creamy taste with the gentle sweetness of pumpkin.",
     },
   ],
 } as const;
@@ -152,7 +159,7 @@ export default function SeasonalMenu({ language }: SeasonalMenuProps) {
           <div className={styles.mainColumn}>
             <div className={styles.topContent}>
               <div className={styles.headingBlock}>
-                <p className={styles.eyebrow}><LocalizedText text="summer / 2026" /></p>
+                <p className={styles.eyebrow}>{language === "kz" ? "күз / 2026" : language === "en" ? "autumn / 2026" : "осень / 2026"}</p>
                 <h2 id="seasonal-menu-title" className={styles.title}>
                   {language === "kz" ? (
                     <>
@@ -173,9 +180,9 @@ export default function SeasonalMenu({ language }: SeasonalMenuProps) {
               </div>
               <div className={styles.leadBlock}>
                 <p className={styles.lead}>
-                  {language === "kz" ? "sketo.coffee-де әр сусыны өзіндік көңіл күй сыйлайтын маусымдық мәзір жинадық: шырынды жеміс балғындығынан нәзік гүл мен шай ноталарына дейін. Жеңіл, сергітетін әрі өзіндік мінезі бар бұл сусындар жылы кездесулер мен ұзақ әңгімелерге арналған." : language === "en"
-                    ? "At sketo.coffee, we built a seasonal drink menu where every item carries its own mood: from juicy fruit brightness to delicate floral and tea-like notes. Light, refreshing, and full of character, these drinks are made for warm meetings and long conversations."
-                    : "В sketo.coffee мы собрали сезонное меню напитков, где каждая позиция несет свое настроение: от сочной фруктовой свежести до тонких цветочных и чайных нот. Легкие, освежающие и с характером, эти напитки созданы для теплых встреч и долгих разговоров."}
+                  {language === "kz" ? "Жаңа күзгі сусындар мәзірде. Алмұрт пен розмарин, жаңғақты какао, цитрусты кофе және асқабақты матча — таныс дәмдер жаңаша ашылатын төрт үйлесім." : language === "en"
+                    ? "Our autumn specials are here: four fresh combinations that give familiar flavours a new character — pear and rosemary, hazelnut cocoa, citrus coffee and pumpkin matcha."
+                    : "Новые осенние напитки уже в меню. Четыре сочетания, в которых знакомые вкусы раскрываются по-новому: груша с розмарином, какао с фундуком, цитрусовый кофе и тыквенная матча."}
                 </p>
               </div>
             </div>
@@ -226,8 +233,8 @@ export default function SeasonalMenu({ language }: SeasonalMenuProps) {
                           <Image
                             src={drink.image}
                             alt={drink.name}
-                            width={1080}
-                            height={1920}
+                            width={drink.width}
+                            height={drink.height}
                             sizes="(max-width: 900px) 100vw, 50vw"
                             className={styles.drinkImage}
                           />
@@ -240,9 +247,9 @@ export default function SeasonalMenu({ language }: SeasonalMenuProps) {
             </div>
 
             <p className={styles.footerNote}>
-              {language === "kz" ? "Дәмін татып, сүйікті сусыныңызды табуға және маусымды Sketo-мен бірге өткізуге келіңіз." : language === "en"
-                ? "Come by to taste, find your favorites, and spend the season with Sketo."
-                : "Приходите пробовать, находить своих фаворитов и проводить сезон вместе со Sketo."}
+              {language === "kz" ? "Күзіңізге арналған төрт көңіл күй. Келіп дәм татып, сүйікті сусыныңызды табыңыз." : language === "en"
+                ? "Four different moods for your autumn. Come by, taste them and find your favourite."
+                : "Четыре разных настроения для вашей осени. Приходите пробовать и находить своего фаворита."}
             </p>
           </div>
 
@@ -250,7 +257,8 @@ export default function SeasonalMenu({ language }: SeasonalMenuProps) {
             <div className={styles.videoWrap}>
               <video
                 className={styles.video}
-                src="/video/seasonalMenu.mp4"
+                src="/photo/seasonMenu/autumn-2026.mp4"
+                poster="/photo/seasonMenu/груша-розмарин.PNG"
                 autoPlay
                 muted
                 loop

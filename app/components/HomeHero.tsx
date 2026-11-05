@@ -11,7 +11,9 @@ import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroNavigation from "./HeroNavigation";
+import ShopHeaderActions from "./ShopHeaderActions";
 import LanguageSwitch from "./LanguageSwitch";
+import CartButton from "../cart/CartButton";
 import { getContentLanguage, type Language } from "./language";
 import styles from "../page.module.css";
 
@@ -30,6 +32,7 @@ export default function HomeHero({
   const heroRef = useRef<HTMLElement | null>(null);
   const logoWrapRef = useRef<HTMLDivElement | null>(null);
   const topBarRef = useRef<HTMLElement | null>(null);
+  const cartWrapRef = useRef<HTMLDivElement | null>(null);
   const isDesktop = useSyncExternalStore(
     (onStoreChange) => {
       const media = window.matchMedia("(min-width: 641px)");
@@ -52,12 +55,25 @@ export default function HomeHero({
 
     const mm = gsap.matchMedia();
 
+    mm.add("(min-width: 641px)", () => {
+      const quoteSection = document.getElementById("quote-section");
+      const targets = [topBarRef.current, cartWrapRef.current].filter(Boolean);
+      if (quoteSection) {
+        ScrollTrigger.create({
+          trigger: quoteSection,
+          start: "top top+=72",
+          end: "bottom top+=72",
+          toggleClass: { targets, className: styles.floatingTopBarLight },
+        });
+      }
+    });
+
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const hero = heroRef.current;
       const logoWrap = logoWrapRef.current;
       const topBar = topBarRef.current;
-      const quoteSection = document.getElementById("quote-section");
-      if (!hero || !logoWrap || !topBar) {
+      const cartWrap = cartWrapRef.current;
+      if (!hero || !logoWrap || !topBar || !cartWrap) {
         return;
       }
 
@@ -93,6 +109,12 @@ export default function HomeHero({
         gsap.utils.clamp(96, 142, document.documentElement.clientWidth * 0.082) /
         Math.max(1, logoWrap.offsetWidth);
 
+      const positionCart = () => gsap.set(cartWrap, {
+        right: getDesktopInset(),
+        top: getDesktopTopInset() + logoWrap.offsetHeight * getLogoScale() / 2 - cartWrap.offsetHeight / 2,
+      });
+      positionCart();
+
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: hero,
@@ -121,7 +143,7 @@ export default function HomeHero({
           { x: 0, y: 0, xPercent: -50 },
           {
             x: () => document.documentElement.clientWidth - getDesktopInset() -
-              topBar.offsetLeft - topBar.offsetWidth / 2,
+              cartWrap.offsetWidth - 24 - topBar.offsetLeft - topBar.offsetWidth / 2,
             y: () => getDesktopTopInset() +
               logoWrap.offsetHeight * getLogoScale() / 2 -
               topBar.offsetHeight / 2 - topBar.offsetTop,
@@ -139,6 +161,7 @@ export default function HomeHero({
         if (disposed || frame) return;
         frame = window.requestAnimationFrame(() => {
           frame = 0;
+          positionCart();
           ScrollTrigger.refresh();
           // Do not let scrub smoothing keep stale coordinates outside the viewport.
           timeline.progress(timeline.scrollTrigger?.progress ?? 0);
@@ -147,20 +170,10 @@ export default function HomeHero({
       const observer = new ResizeObserver(refresh);
       observer.observe(logoWrap);
       observer.observe(topBar);
+      observer.observe(cartWrap);
       window.addEventListener("resize", refresh);
       void document.fonts.ready.then(refresh);
 
-      if (quoteSection) {
-        ScrollTrigger.create({
-          trigger: quoteSection,
-          start: "top top+=72",
-          end: "bottom top+=72",
-          toggleClass: {
-            targets: topBar,
-            className: styles.floatingTopBarLight,
-          },
-        });
-      }
       return () => {
         disposed = true;
         window.cancelAnimationFrame(frame);
@@ -180,6 +193,7 @@ export default function HomeHero({
       <header ref={topBarRef} className={styles.floatingTopBar}>
         <LanguageSwitch value={language} onChange={onLanguageChange} />
       </header>
+      <div ref={cartWrapRef} className={styles.floatingCart}><CartButton /></div>
 
       <div ref={logoWrapRef} className={styles.floatingLogoWrap}>
         <span className={styles.logo}>sketo.</span>
@@ -197,7 +211,7 @@ export default function HomeHero({
       {!isDesktop ? (
         <>
           <header className={styles.topBar}>
-            <LanguageSwitch value={language} onChange={onLanguageChange} />
+            <ShopHeaderActions value={language} onChange={onLanguageChange} />
           </header>
 
           <div className={styles.logoWrap}>

@@ -243,6 +243,10 @@
   overflow: hidden;
 }
 
+.imagePanel.equipmentImagePanel {
+  aspect-ratio: 1.65;
+}
+
 .image {
   object-fit: contain;
   padding: 0;

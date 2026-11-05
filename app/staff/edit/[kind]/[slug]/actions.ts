@@ -4,7 +4,7 @@ import { requireStaff } from "@/lib/staff-auth";
 
 import { Buffer } from "node:buffer";
 import sharp from "sharp";
-import { validateProductFields } from "@/lib/product-form";
+import { parseEquipmentPriceEur, validateProductFields } from "@/lib/product-form";
 import { validateImageFile, matchesImageSignature } from "@/lib/supabase/media-validation";
 import { queueMediaCleanup, processMediaCleanup, getPendingMediaCleanupCount } from "@/lib/supabase/media-cleanup";
 import { and, asc, eq, sql } from "drizzle-orm";
@@ -550,6 +550,13 @@ async function submitEditorTransaction(
 
   const now = new Date(Math.max(Date.now(), product.updatedAt.getTime() + 1));
   const price = parsePrice(priceDisplay);
+  // Preserve EUR prices if an older open editor submits without the new field.
+  const equipmentPriceEur = kind === "equipment" && formData.has("equipmentPriceEur")
+    ? parseEquipmentPriceEur(asNonEmptyString(formData.get("equipmentPriceEur")))
+    : product.equipmentPriceEur;
+  const equipmentPriceFrom = kind === "equipment" && formData.has("equipmentPriceEur")
+    ? equipmentPriceEur !== null && formData.get("equipmentPriceFrom") === "on"
+    : product.equipmentPriceFrom;
   let savedVersion: string;
 
   await createProductRevisionSnapshot({
@@ -570,6 +577,11 @@ async function submitEditorTransaction(
         priceDisplay: kind === "coffee" ? price.priceDisplay : product.priceDisplay,
         priceAmount: kind === "coffee" ? price.priceAmount : product.priceAmount,
         priceCurrency: kind === "coffee" ? price.priceCurrency : product.priceCurrency,
+        equipmentPriceEur,
+        equipmentPriceFrom,
+        coffeeBrand: kind === "coffee" && formData.has("coffeeBrand")
+          ? asNonEmptyString(formData.get("coffeeBrand")) || null
+          : product.coffeeBrand,
         imageUrl: product.imageUrl,
         brand:
           kind === "equipment"
@@ -741,6 +753,7 @@ async function submitEditorTransaction(
         : `Товар ${product.slug} сохранён${willPublish ? " и остаётся опубликованным" : " как черновик"}`,
     diff: {
       status,
+      ...(kind === "equipment" ? { equipmentPriceEur, equipmentPriceFrom } : {}),
       editorialState: willPublish ? "published" : "draft",
       imageUrl: product.imageUrl,
     },

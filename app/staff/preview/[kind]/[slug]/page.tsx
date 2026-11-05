@@ -8,6 +8,8 @@ import { getCoffeePreviewItem } from "@/app/catalog/catalog-db";
 import { getEquipmentPreviewItem } from "@/app/catalog/equipment/equipment-db";
 import LotPageClient from "@/app/catalog/[slug]/LotPageClient";
 import EquipmentItemPageClient from "@/app/catalog/equipment/[slug]/EquipmentItemPageClient";
+import { getAccessories } from "@/app/accessories/data";
+import { recommendCoffeeAccessories } from "@/app/accessories/recommendations";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Предпросмотр товара — Sketo", robots: { index: false, follow: false }, referrer: "no-referrer" };
@@ -24,13 +26,16 @@ export default async function PreviewPage({ params, searchParams }: {
   if (!content) notFound();
   const initialLanguage = await getInitialLanguage();
   const productUrl = new URL(publicProductPath(kind, slug), getSiteUrl()).href;
+  const recommendations = "price" in content
+    ? recommendCoffeeAccessories(content, await getAccessories())
+    : { prep: [], brew: [], serve: [] };
   return <>
     <aside style={{ padding: "16px", background: "#2d3134", color: "white" }}>
       Предпросмотр сохранённой версии · ссылка действует 15 минут. {" "}
       <Link href={`/staff/edit/${kind}/${slug}`}>Вернуться к редактору</Link>
     </aside>
     {"price" in content
-      ? <LotPageClient item={content} itemIndex={0} initialLanguage={initialLanguage} productUrl={productUrl} />
+      ? <LotPageClient item={content} recommendations={recommendations} itemIndex={0} initialLanguage={initialLanguage} productUrl={productUrl} />
       : <EquipmentItemPageClient item={content} itemIndex={0} initialLanguage={initialLanguage} productUrl={productUrl} />}
   </>;
 }

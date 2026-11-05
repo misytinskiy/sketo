@@ -24,7 +24,7 @@ const catalogOrder = [
 
 // One SQL statement for cards. Description is retained for the existing client-side search.
 export const equipmentCardQuery = {
-  columns: { slug: true, name: true, imageUrl: true, brand: true, equipmentType: true },
+  columns: { slug: true, name: true, imageUrl: true, brand: true, equipmentType: true, equipmentPriceEur: true, equipmentPriceFrom: true },
   where: published,
   orderBy: catalogOrder,
   with: { translations: { columns: { locale: true, category: true, statusLabel: true, description: true } } },
@@ -37,12 +37,13 @@ function mapCard(row: Awaited<ReturnType<typeof loadCards>>[number]): EquipmentC
     return { category: value?.category ?? "", status: value?.statusLabel ?? "", description: value?.description ?? "" };
   };
   return { slug: row.slug, image: resolveEquipmentStorageUrl(row.imageUrl),
+    equipmentPriceEur: row.equipmentPriceEur, equipmentPriceFrom: row.equipmentPriceFrom,
     name: row.name ?? row.slug, brand: row.brand ?? "la-marzocco", type: row.equipmentType ?? "espresso-machine",
     translations: { ru: translation("ru"), en: translation("en"), kz: translation("kz") } };
 }
 async function loadCards() { return db.query.products.findMany(equipmentCardQuery); }
 export const getEquipmentCatalogItems = cache(unstable_cache(
-  async () => (await loadCards()).map(mapCard), ["equipment-catalog-cards-v4-type-brand"], cacheOptions,
+  async () => (await loadCards()).map(mapCard), ["equipment-catalog-cards-v5-eur"], cacheOptions,
 ));
 
 export const equipmentDetailRelations = {
@@ -76,7 +77,7 @@ async function loadDetail(slug: string, preview = false): Promise<EquipmentItem 
   return { ...card, image: primary ? resolveEquipmentStorageUrl(primary.url) : images[0] ?? card.image, images: images.length ? images : card.image ? [card.image] : [], translations: { ru: translation("ru"), en: translation("en"), kz: translation("kz") } };
 }
 export const getEquipmentItemBySlug = cache(unstable_cache(
-  (slug: string) => loadDetail(slug), ["equipment-product-detail-v4-seo"], cacheOptions,
+  (slug: string) => loadDetail(slug), ["equipment-product-detail-v5-eur"], cacheOptions,
 ));
 // Preview deliberately bypasses the public cache and publication filter.
 export async function getEquipmentPreviewItem(slug: string) { return loadDetail(slug, true); }

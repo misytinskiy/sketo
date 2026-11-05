@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 import Footer from "../components/Footer";
-import LanguageSwitch from "../components/LanguageSwitch";
+import ShopHeaderActions from "../components/ShopHeaderActions";
 import usePersistentLanguage from "../components/usePersistentLanguage";
 import type { Language } from "../components/language";
 import { documents, documentCopy } from "./documents";
@@ -19,11 +19,7 @@ const copy = {
   kz: { title: "Сатып алушыларға", lines: ["Сатып", "алушыларға"], intro: "Sketo сатып алу шарттары мен құжаттары.", contact: "Сұрақтарыңыз бар ма? Бізге жазыңыз", back: "артқа" },
   en: { title: "Customer care", lines: ["Customer", "care"], intro: "Shopping information and documents from Sketo.", contact: "Any questions? Get in touch", back: "back" },
 };
-const placeholderDocumentCopy = {
-  intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  contact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-};
+
 
 function Arrow({ className }: { className?: string }) {
   return <svg className={className} width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true"><path d="M1 7h17M13 1.5 18.5 7 13 12.5" stroke="currentColor" strokeWidth="1.25" /></svg>;
@@ -89,7 +85,7 @@ export default function DocumentPageClient({ slug, initialLanguage }: { slug?: s
           >
             {text.back}
           </Link>
-          <LanguageSwitch value={language} onChange={setLanguage} />
+          <ShopHeaderActions value={language} onChange={setLanguage} />
         </header>
 
         {!document ? (
@@ -119,7 +115,7 @@ export default function DocumentPageClient({ slug, initialLanguage }: { slug?: s
           <>
             <header key={`hero-${document.slug}`} className={styles.documentHero}>
               <h1>{document.title[language]}</h1>
-              <p className={styles.documentIntro}>{placeholderDocumentCopy.intro}</p>
+              <p className={styles.documentIntro}>{document.intro[language]}</p>
             </header>
             <div className={styles.layout}>
               <nav ref={navRef} className={styles.nav} aria-label={documentCopy.label[language]}>
@@ -136,16 +132,18 @@ export default function DocumentPageClient({ slug, initialLanguage }: { slug?: s
                     <span className={styles.sectionIndex} aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
                     <div>
                       <h2>{section.title[language]}</h2>
-                      <p>{placeholderDocumentCopy.body}</p>
+                      <p>{section.body[language]}</p>
+                      {section.href && section.link && <a className={styles.source} href={section.href} target="_blank" rel="noopener noreferrer">{section.link[language]}</a>}
                     </div>
                   </section>
                 ))}
                 <section className={styles.contact}>
                   <h2>{documentCopy.contact[language]}</h2>
-                  <p>{placeholderDocumentCopy.contact}</p>
+                  <p>{documentCopy.contactBody[language]}</p>
                   <div className={styles.contactLinks}>
                     <a href="https://wa.me/77473835398" target="_blank" rel="noreferrer">{documentCopy.whatsapp[language]}</a>
                     <a href="tel:+77473835398">+7 747 383 53 98</a>
+                    <a href="mailto:sketo.coffeeast@gmail.com">sketo.coffeeast@gmail.com</a>
                   </div>
                 </section>
               </article>

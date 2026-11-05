@@ -14,7 +14,7 @@ const cacheOptions = { tags: ["products", "coffee-catalog"], revalidate: 300 };
 
 // One SQL statement, with only the fields needed by the listing.
 export const coffeeCardQuery = {
-  columns: { slug: true, name: true, imageUrl: true, priceDisplay: true, filters: true, status: true },
+  columns: { slug: true, name: true, imageUrl: true, priceDisplay: true, filters: true, status: true, coffeeBrand: true },
   where: published,
   orderBy: [asc(products.sortOrder), asc(products.slug)],
   with: { translations: { columns: { locale: true, name: true, size: true, notes: true } } },
@@ -31,13 +31,13 @@ function mapCard(row: Awaited<ReturnType<typeof loadCards>>[number]): CoffeeCata
     }[locale][row.status];
     return { name: value?.name ?? row.name ?? row.slug, size: value?.size ?? "", notes: value?.notes ?? "", status };
   };
-  return { slug: row.slug, image: resolveCoffeeStorageUrl(row.imageUrl),
+  return { slug: row.slug, coffeeBrand: row.coffeeBrand ?? null, image: resolveCoffeeStorageUrl(row.imageUrl),
     price: row.priceDisplay ?? "", filters: (row.filters ?? []).filter((filter): filter is "profiles" | "decaf" | "microlot" => ["profiles", "decaf", "microlot"].includes(filter)),
     translations: { ru: translation("ru"), en: translation("en"), kz: translation("kz") } };
 }
 async function loadCards() { return db.query.products.findMany(coffeeCardQuery); }
 export const getCoffeeCatalogItems = cache(unstable_cache(
-  async () => (await loadCards()).map(mapCard), ["coffee-catalog-cards-v4-status"], cacheOptions,
+  async () => (await loadCards()).map(mapCard), ["coffee-catalog-cards-v6-brands-complete"], cacheOptions,
 ));
 
 // One cached query for recommendations: never include drafts or sold-out coffee.
@@ -54,7 +54,7 @@ export const getCoffeeRecommendationItems = cache(unstable_cache(async () => {
   return rows.map(row => ({ ...mapCard(row), methodText: row.details
     .filter(detail => /способ|приготовлен|заварив|brew|method|дайында|демдеу/i.test(detail.label))
     .map(detail => detail.value).join(" ") }));
-}, ["coffee-workflow-recommendations-v1"], cacheOptions));
+}, ["coffee-workflow-recommendations-v3-brands-complete"], cacheOptions));
 
 export const coffeeDetailRelations = {
   translations: true,
@@ -83,7 +83,7 @@ async function loadDetail(slug: string, preview = false): Promise<CatalogItem | 
   return { ...card, translations: { ru: translation("ru"), en: translation("en"), kz: translation("kz") } };
 }
 export const getCoffeeCatalogItemBySlug = cache(unstable_cache(
-  (slug: string) => loadDetail(slug), ["coffee-product-detail-v5-status"], cacheOptions,
+  (slug: string) => loadDetail(slug), ["coffee-product-detail-v7-brands-complete"], cacheOptions,
 ));
 // Preview deliberately bypasses the public cache and publication filter.
 export async function getCoffeePreviewItem(slug: string) { return loadDetail(slug, true); }

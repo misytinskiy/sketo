@@ -2,10 +2,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import Footer from "../components/Footer";
-import LanguageSwitch from "../components/LanguageSwitch";
+import ShopHeaderActions from "../components/ShopHeaderActions";
 import usePersistentLanguage from "../components/usePersistentLanguage";
 import type { Language } from "../components/language";
 import ProductOrderButton from "../components/ProductOrderButton";
+import { localizeProduct, toMinorUnits } from "../cart/model";
 import EquipmentMediaGallery from "../catalog/equipment/[slug]/EquipmentMediaGallery";
 import AccessoryWorkflow from "./AccessoryWorkflow";
 import type { Recommendations } from "./recommendations";
@@ -43,7 +44,7 @@ export default function AccessoryPageClient({ item, recommendations, initialLang
     ...attributes,
   ];
   return <main className={styles.page}><div className={styles.contentShell}>
-    <div className={styles.topBar}><Link href="/" className={styles.homeLogo} aria-label="Sketo">sketo.</Link><LanguageSwitch value={language} onChange={setLanguage} /></div>
+    <div className={styles.topBar}><Link href="/" className={styles.homeLogo} aria-label="Sketo">sketo.</Link><ShopHeaderActions value={language} onChange={setLanguage} /></div>
     <section className={styles.layout}>
       <Link href="/accessories" prefetch={true} className={styles.backLink}>{label(language, "Назад к аксессуарам", "Back to accessories", "Аксессуарларға оралу")}</Link>
       <div className={`${styles.techMeta} ${local.techMeta}`}><p className={styles.techMetaText}>{item.brand}</p><p className={styles.techMetaText}>{label(language, "Галерея", "Gallery", "Галерея")} / {String(images.length).padStart(2, "0")}</p></div>
@@ -71,7 +72,14 @@ export default function AccessoryPageClient({ item, recommendations, initialLang
             {selectedVolume && <p className={local.priceMeta}>{volumeLabel(selectedVolume, language)}</p>}
             <p className={local.priceMeta}>{availability}</p>
           </div>
-          <ProductOrderButton kind="accessory" language={language} name={content.name} slug={sku} color={`${variant.color}${selectedVolume ? ` · ${volumeLabel(selectedVolume, language)}` : ''}`} price={pricedOption.price === null ? undefined : price} productUrl={productUrl} />
+          <ProductOrderButton kind="accessory" language={language} name={content.name} slug={sku} color={`${variant.color}${selectedVolume ? ` · ${volumeLabel(selectedVolume, language)}` : ''}`} price={pricedOption.price === null ? undefined : price} productUrl={productUrl}
+            unavailable={variant.availability === "out_of_stock"}
+            cartItem={{ kind: "accessory", slug: item.slug, variantId: variant.id, volumeId: selectedVolume?.id,
+              href: `/accessories/${item.slug}`, image: images[0]?.url || "/image-unavailable.svg",
+              unitPrice: pricedOption.currency === "KZT" ? toMinorUnits(pricedOption.price) : null,
+              content: localizeProduct(locale => ({ name: accessoryContent(item, locale).name,
+                detail: [colors.length > 1 ? variant.color : "", selectedVolume ? volumeLabel(selectedVolume, locale) : ""].filter(Boolean).join(" · ") })),
+            }} />
         </div>
       </div>
     </section>

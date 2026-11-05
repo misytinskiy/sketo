@@ -1,3 +1,5 @@
+"use client";
+
 import type { EquipmentCatalogCardItem } from "./equipment-db";
 import Link from "next/link";
 import Image from "../../components/CatalogImage";
@@ -8,6 +10,8 @@ import {
 
 } from "./equipment-data";
 import styles from "./equipment.module.css";
+import useEquipmentRate from "../../components/useEquipmentRate";
+import { equipmentKztPrice, formatEquipmentPrice } from "@/lib/equipment-price";
 
 type EquipmentCatalogCardProps = {
   item: EquipmentCatalogCardItem;
@@ -21,6 +25,8 @@ export default function EquipmentCatalogCard({
   onNavigate,
 }: EquipmentCatalogCardProps) {
   const content = item.translations[language];
+  const rate = useEquipmentRate();
+  const price = equipmentKztPrice(item.equipmentPriceEur, rate);
 
   return (
     <Link
@@ -29,7 +35,7 @@ export default function EquipmentCatalogCard({
       onNavigate={onNavigate}
     >
       <article className={styles.card}>
-        <div className={styles.imagePanel}>
+        <div className={`${styles.imagePanel} ${styles.equipmentImagePanel}`}>
           <Image
             src={item.image}
             alt={item.name}
@@ -63,9 +69,9 @@ export default function EquipmentCatalogCard({
 
           <div className={styles.metaBlock}>
             <p className={styles.metaLabel}>
-              {language === "kz" ? "Мәртебе" : language === "en" ? "Status" : "Статус"}
+              {language === "kz" ? "Баға" : language === "en" ? "Price" : "Цена"}
             </p>
-            <p className={styles.price}>{content.status}</p>
+            <p className={styles.price}>{formatEquipmentPrice(price, Boolean(item.equipmentPriceFrom), language)}</p>
           </div>
         </div>
       </article>

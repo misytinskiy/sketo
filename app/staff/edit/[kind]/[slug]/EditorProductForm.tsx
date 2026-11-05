@@ -61,11 +61,14 @@ type BaseEditorProduct = {
 type CoffeeEditorProduct = BaseEditorProduct & {
   kind: "coffee";
   price: string;
+  coffeeBrand: string;
   translations: Record<Locale, CoffeeTranslationFormData>;
 };
 
 type EquipmentEditorProduct = BaseEditorProduct & {
   kind: "equipment";
+  equipmentPriceEur: string;
+  equipmentPriceFrom: boolean;
   brand: EquipmentBrand;
   equipmentType: EquipmentType;
   translations: Record<Locale, EquipmentTranslationFormData>;
@@ -91,6 +94,7 @@ const copy = {
   category: "Категория",
   brand: "Бренд",
   equipmentType: "Тип оборудования",
+  equipmentPriceEur: "Цена в евро (€)",
   features: "Ключевые блоки",
   featuresHint: "Для каждого блока задайте заголовок и описание.",
   specifications: "Технические характеристики",
@@ -704,6 +708,17 @@ const equipmentKzSpecifications = useDynamicRows<LabelValueRow>(
           </label>
 
           {product.kind === "coffee" ? (
+            <>
+            <label className={styles.fieldCard}>
+              <span className={styles.fieldLabel}>{copy.brand}</span>
+              <input name="coffeeBrand" defaultValue={product.coffeeBrand} list="coffee-brands" maxLength={80}
+                className={styles.textInput} placeholder="Выберите или введите бренд"
+                aria-invalid={Boolean(fieldErrors.coffeeBrand)} aria-describedby="error-coffeeBrand" />
+              <datalist id="coffee-brands">
+                {["Pro Barista", "Serikov", "Сварщица Екатерина", "Massimo", "Hypno"].map(brand => <option key={brand} value={brand} />)}
+              </datalist>
+              {fieldError("coffeeBrand")}
+            </label>
             <label className={styles.fieldCard}>
               <span className={styles.fieldLabel}>{copy.price}</span>
               <input
@@ -712,6 +727,7 @@ const equipmentKzSpecifications = useDynamicRows<LabelValueRow>(
                 className={styles.textInput}
               />
             </label>
+            </>
           ) : (
             <>
               <label className={styles.fieldCard}>
@@ -744,6 +760,31 @@ const equipmentKzSpecifications = useDynamicRows<LabelValueRow>(
                   onChange={(value) => { setEquipmentTypeValue(value); setDirty(true); }}
                 />
                 {fieldError("equipmentType")}
+              </label>
+              <label className={styles.fieldCard}>
+                <span className={styles.fieldLabel}>{copy.equipmentPriceEur}</span>
+                <input
+                  name="equipmentPriceEur"
+                  type="text"
+                  inputMode="decimal"
+                  defaultValue={product.equipmentPriceEur}
+                  placeholder="Например, 11602 или 11602,50"
+                  aria-invalid={Boolean(fieldErrors.equipmentPriceEur)}
+                  aria-describedby="equipment-price-hint error-equipmentPriceEur"
+                  className={styles.textInput}
+                />
+                <span id="equipment-price-hint" className={styles.fieldHint}>
+                  Базовая цена в EUR для будущего пересчёта в тенге. Если цена неизвестна, оставьте поле пустым.
+                </span>
+                {fieldError("equipmentPriceEur")}
+              </label>
+              <label className={styles.fieldCard}>
+                <span className={styles.fieldLabel}>Цена «от»</span>
+                <span>
+                  <input name="equipmentPriceFrom" type="checkbox" defaultChecked={product.equipmentPriceFrom} />
+                  {" "}Указана минимальная цена модели
+                </span>
+                <span className={styles.fieldHint}>Для разных цветов и комплектаций. Без цены отметка не сохраняется.</span>
               </label>
             </>
           )}

@@ -26,6 +26,8 @@ type ProductRow = {
   editorialState: EditorialState;
   imageUrl: string;
   priceDisplay: string | null;
+  equipmentPriceEur: string | null;
+  equipmentPriceFrom: boolean;
   brand: EquipmentBrand | null;
   updatedAt: Date | null;
   sortOrder: number;
@@ -82,6 +84,8 @@ async function loadProductRows(): Promise<ProductRow[]> {
       editorialState: products.editorialState,
       imageUrl: products.imageUrl,
       priceDisplay: products.priceDisplay,
+      equipmentPriceEur: products.equipmentPriceEur,
+      equipmentPriceFrom: products.equipmentPriceFrom,
       brand: products.brand,
       updatedAt: products.updatedAt,
       sortOrder: products.sortOrder,
@@ -177,7 +181,10 @@ function mapProductRecord(
       row.type === "coffee"
         ? resolveCoffeeStorageUrl(row.imageUrl)
         : resolveEquipmentStorageUrl(row.imageUrl),
-    price: row.type === "coffee" ? row.priceDisplay ?? undefined : undefined,
+    price: row.type === "coffee" ? row.priceDisplay ?? undefined
+      : row.equipmentPriceEur
+        ? `${row.equipmentPriceFrom ? "от " : ""}${Number(row.equipmentPriceEur).toLocaleString("ru-RU", { maximumFractionDigits: 2 })} €`
+        : undefined,
     status: row.status,
     editorialState: normalizeEditorialState(row.editorialState),
     sortOrder: row.sortOrder,

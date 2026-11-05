@@ -38,6 +38,8 @@ type EquipmentTranslation = {
 };
 
 export type EquipmentItem = {
+  equipmentPriceEur?: string | null;
+  equipmentPriceFrom?: boolean;
   slug: string;
   name: string;
   image: string;

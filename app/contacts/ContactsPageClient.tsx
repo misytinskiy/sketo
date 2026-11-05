@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Footer from "../components/Footer";
-import LanguageSwitch from "../components/LanguageSwitch";
+import ShopHeaderActions from "../components/ShopHeaderActions";
 import { getContentLanguage } from "../components/language";
 import usePersistentLanguage from "../components/usePersistentLanguage";
 import styles from "./contacts.module.css";
@@ -31,7 +31,7 @@ export default function ContactsPageClient({
             </span>
           </Link>
 
-          <LanguageSwitch value={language} onChange={setLanguage} />
+          <ShopHeaderActions value={language} onChange={setLanguage} />
         </div>
 
         <div className={styles.contentColumn}>
