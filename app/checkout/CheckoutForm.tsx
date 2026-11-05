@@ -6,7 +6,8 @@ import Image from "next/image";
 import Footer from "../components/Footer";
 import ShopHeaderActions from "../components/ShopHeaderActions";
 import usePersistentLanguage from "../components/usePersistentLanguage";
-import { money, useOpenCart } from "../cart/CartProvider";
+import { useOpenCart } from "../cart/CartProvider";
+import { formatEquipmentPrice } from "@/lib/equipment-price";
 import { cartCopy } from "../cart/copy";
 import { cartKey, cartTotals } from "../cart/model";
 import { useCartLines } from "../cart/store";
@@ -94,14 +95,14 @@ export default function CheckoutForm() {
             return <li key={cartKey(line)} className={styles.product}>
               <Link className={styles.image} href={line.href} tabIndex={-1} aria-hidden="true"><Image src={line.image || "/image-unavailable.svg"} alt="" width={110} height={120} unoptimized /></Link>
               <div className={styles.productCopy}><Link href={line.href}>{content.name}</Link><p>{[content.detail, `${line.quantity} ${t.quantity}`].filter(Boolean).join(" · ")}</p></div>
-              <strong>{line.unitPrice === null ? cartText.quote : money(line.unitPrice * line.quantity, language)}</strong>
+              <strong>{line.unitPrice === null ? cartText.quote : formatEquipmentPrice(line.unitPrice * line.quantity, Boolean(line.priceFrom), language)}</strong>
             </li>;
           })}</ul>
           <dl className={styles.breakdown}>
-            <div><dt>{totals.needsQuote ? cartText.knownTotal : t.items}</dt><dd>{money(totals.subtotal, language)}</dd></div>
+            <div><dt>{totals.needsQuote ? cartText.knownTotal : t.items}</dt><dd>{formatEquipmentPrice(totals.subtotal, totals.priceFrom, language)}</dd></div>
             <div><dt>{t[delivery]}</dt><dd>{delivery === "delivery" ? t.deliveryLater : t.pickupLater}</dd></div>
           </dl>
-          <div className={styles.total} aria-live="polite"><span>{totals.needsQuote ? cartText.knownTotal : cartText.total}</span><strong>{money(totals.subtotal, language)}</strong></div>
+          <div className={styles.total} aria-live="polite"><span>{totals.needsQuote ? cartText.knownTotal : cartText.total}</span><strong>{formatEquipmentPrice(totals.subtotal, totals.priceFrom, language)}</strong></div>
           {totals.needsQuote && <p className={styles.note}>{cartText.quoteNote}</p>}
           <label className={styles.consent}><input type="checkbox" name="consent" required /><span>{t.acceptStart}<Link href="/info/offer" target="_blank" rel="noopener noreferrer">{t.offer}</Link>{t.acceptMiddle}<Link href="/info/privacy" target="_blank" rel="noopener noreferrer">{t.privacy}</Link></span></label>
           <button type="submit" className={styles.submit}>{t.submit}</button>

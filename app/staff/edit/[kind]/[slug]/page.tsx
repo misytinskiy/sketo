@@ -135,6 +135,7 @@ function buildCoffeeFormData(
     isArchived: product.editorialState === "archived",
     previewHref: createPreviewHref("coffee", slug),
     price: product.priceDisplay ?? "",
+    coffeeBrand: product.coffeeBrand ?? "",
     translations: {
       ru: {
         seoTitle: ruTranslation?.seoTitle ?? "",
@@ -203,6 +204,8 @@ function buildEquipmentFormData(
     previewHref: createPreviewHref("equipment", slug),
     brand: (product.brand ?? "la-marzocco") as EquipmentBrand,
     equipmentType: product.equipmentType ?? "grinder",
+    equipmentPriceEur: product.equipmentPriceEur ?? "",
+    equipmentPriceFrom: product.equipmentPriceFrom,
     translations: {
       ru: {
         seoTitle: ruTranslation?.seoTitle ?? "",
@@ -267,7 +270,7 @@ export default async function StaffEditPage({ params }: StaffEditPageProps) {
       ? `${formData.translations.ru.size} · ${formData.price}`
       : `${equipmentBrandLabels.ru[formData.brand]} · ${getEquipmentTypeLabel(
           formData.equipmentType,
-        )}`;
+        )}${formData.equipmentPriceEur ? ` · ${formData.equipmentPriceFrom ? "от " : ""}${Number(formData.equipmentPriceEur).toLocaleString("ru-RU", { maximumFractionDigits: 2 })} €` : ""}`;
 
   return (
     <main className={styles.page}>

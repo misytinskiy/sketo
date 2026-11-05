@@ -191,9 +191,37 @@
   gap: 1.5rem;
 }
 
-.orderAction {
+.purchase {
+  display: grid;
+  gap: .9rem;
   align-self: end;
   margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #2d3134;
+}
+
+.priceLine {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.productPrice,
+.priceMeta {
+  font: 12px/1 var(--font-basis-mono);
+  text-transform: uppercase;
+}
+
+.productPrice {
+  color: #ce1616;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+
+.priceMeta {
+  text-align: right;
 }
 
 .headline {

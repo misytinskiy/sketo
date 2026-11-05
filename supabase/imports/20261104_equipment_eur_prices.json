@@ -1,0 +1,24 @@
+{
+  "source": "ProCoffeeLine Прайс для Sketo.xlsx",
+  "sheet": "Лист1",
+  "column": "B — Цена в евро",
+  "policy": "Цена до дилерской скидки. Для вариантов — минимум с пометкой от, согласовано 2026-11-04. Без конвертации.",
+  "items": [
+    { "slug": "linea-classic-s-av-2-group", "sourceName": "Linea Classic S AV 2gr", "cell": "B6", "eur": "11602.00", "from": false },
+    { "slug": "linea-pb-av-2-group", "sourceName": "Linea PB 2 Group", "cell": "B8", "eur": "15741.00", "from": true, "note": "Базовая цена PB 2 Group; управление AV в прайсе отдельно не уточнено." },
+    { "slug": "gb5-s-av-2-group", "sourceName": "GB5 2GRoups AV", "cell": "B12", "eur": "16966.00", "from": true, "note": "Базовая цена GB5 2GR AV; версия S в прайсе отдельно не уточнена." },
+    { "slug": "la-marzocco-kb90", "sourceName": "KB 90, 2 GR AV", "cell": "B13", "eur": "21338.00", "from": true, "note": "Минимум для 2 GR AV; зелёная версия дороже. Карточка также описывает 3 группы." },
+    { "slug": "linea-mini-r", "sourceName": "Linea MINI Метал", "cell": "B15", "eur": "4839.00", "from": true, "note": "Минимальная цена MINI в металле по согласованному правилу. Версия R в прайсе не уточнена." },
+    { "slug": "la-marzocco-micra", "sourceName": "Linea Micra Металл", "cell": "B22", "eur": "4452.00", "from": true, "note": "Металл 4452 EUR, цветные исполнения 4764 EUR." },
+    { "slug": "mahlkonig-ek43-s", "sourceName": "EK 43 (S, T, ST)", "cell": "B36", "eur": "3497.00", "from": false },
+    { "slug": "mahlkonig-e80w-gbs", "sourceName": "E80W GbS", "cell": "B37", "eur": "3987.00", "from": false },
+    { "slug": "mahlkonig-e65w-gbs", "sourceName": "E65W GbS", "cell": "B38", "eur": "2914.00", "from": false }
+  ],
+  "excluded": [
+    { "slug": "puqpress-m3", "reason": "В строке 44 нет цены EUR, только KZT. Обратный пересчёт не выполнялся." },
+    { "slug": "puqpress-m5", "reason": "В строке 45 нет цены EUR, только KZT. Обратный пересчёт не выполнялся." },
+    { "slug": "linea-pb-x-av-2-group", "reason": "В прайсе PB X только 3 Group (B10), карточка сайта — 2 Group." },
+    { "slug": "gb5-s-ee-2-group", "reason": "В прайсе только AV, не EE." },
+    { "slug": "mahlkonig-e80s-gbw", "reason": "В прайсе E80W GbS, не E80S GbW." }
+  ]
+}

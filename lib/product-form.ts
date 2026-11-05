@@ -5,6 +5,17 @@ export function suggestProductSlug(title: string) {
   return [...title.toLowerCase()].map((letter) => transliteration[letter] ?? letter).join("")
     .normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 80).replace(/-$/, "");
 }
+// Return decimal text for PostgreSQL numeric; never round a submitted price silently.
+export function parseEquipmentPriceEur(value: string): string | null {
+  const normalized = value.trim().replace(/,/g, ".");
+  if (!normalized) return null;
+  if (!/^\d{1,10}(?:\.\d{1,2})?$/.test(normalized) || Number(normalized) <= 0) {
+    throw new Error("Введите цену больше нуля, до 9 999 999 999,99 €, не более двух знаков после запятой.");
+  }
+  const [whole, fraction = ""] = normalized.split(".");
+  return `${Number(whole)}.${fraction.padEnd(2, "0")}`;
+}
+
 export function validateProductFields(data: FormData, kind: "coffee" | "equipment", published: boolean) {
   const errors: Record<string, string> = {};
   const value = (key: string) => String(data.get(key) ?? "").trim();
@@ -19,7 +30,13 @@ export function validateProductFields(data: FormData, kind: "coffee" | "equipmen
     if (!value("descriptionRu")) errors.descriptionRu = "Добавьте описание на русском.";
   }
   if (!["in_stock", "out_of_stock", "preorder"].includes(value("status"))) errors.status = "Выберите наличие товара.";
+  if (kind === "coffee" && value("coffeeBrand").length > 80) errors.coffeeBrand = "Бренд: не более 80 символов.";
   if (kind === "equipment") {
+    try {
+      parseEquipmentPriceEur(value("equipmentPriceEur"));
+    } catch (error) {
+      errors.equipmentPriceEur = (error as Error).message;
+    }
     if (!["la-marzocco", "mahlkonig", "anfim", "mazzer", "balenare", "allround", "victoria-arduino", "nuova-simonelli", "eureka", "modbar", "puqpress"].includes(value("brand"))) errors.brand = "Укажите поддерживаемый бренд оборудования.";
     if (!["grinder", "espresso-machine", "tamper", "steam-module", "accessory"].includes(value("equipmentType"))) errors.equipmentType = "Выберите тип оборудования.";
   }

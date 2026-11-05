@@ -6,6 +6,8 @@ import {
   getCoffeeCatalogStaticParams,
 } from "../catalog-db";
 import LotPageClient from "./LotPageClient";
+import { getAccessories } from "../../accessories/data";
+import { recommendCoffeeAccessories } from "../../accessories/recommendations";
 import { getSiteUrl, publicProductPath } from "@/lib/site-url";
 import { buildProductMetadata, buildProductStructuredData, serializeStructuredData } from "@/lib/product-seo";
 
@@ -38,6 +40,8 @@ export default async function LotPage({ params }: LotPageProps) {
     notFound();
   }
 
+  const recommendations = recommendCoffeeAccessories(item, await getAccessories());
+
   return (
     <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeStructuredData(
@@ -46,6 +50,7 @@ export default async function LotPage({ params }: LotPageProps) {
     <LotPageClient
       productUrl={new URL(publicProductPath("coffee", item.slug), getSiteUrl()).href}
       item={item}
+      recommendations={recommendations}
       itemIndex={itemIndex}
       initialLanguage={initialLanguage}
     />

@@ -1,6 +1,8 @@
 "use client";
 import { useSyncExternalStore } from "react";
 import { addLine, cartKey, decodeCart, setQuantity, type CartLine, type CartProduct } from "./model";
+import useEquipmentRate from "../components/useEquipmentRate";
+import { equipmentKztPrice } from "@/lib/equipment-price";
 
 const STORAGE_KEY = "sketo-cart-v1";
 const EMPTY: CartLine[] = [];
@@ -30,4 +32,10 @@ function write(next: CartLine[]) {
 export const addToCart = (item: CartProduct) => write(addLine(snapshot(), item));
 export const changeQuantity = (key: string, quantity: number) => write(setQuantity(snapshot(), key, quantity));
 export const removeFromCart = (key: string) => write(snapshot().filter(item => cartKey(item) !== key));
-export const useCartLines = () => useSyncExternalStore(subscribe, snapshot, () => EMPTY);
+export function useCartLines() {
+  const stored = useSyncExternalStore(subscribe, snapshot, () => EMPTY);
+  const rate = useEquipmentRate(stored.some(line => line.kind === "equipment"));
+  // Reprice restored equipment too: a saved KZT amount must never outlive its exchange rate.
+  return stored.map(line => line.kind === "equipment"
+    ? { ...line, unitPrice: equipmentKztPrice(line.equipmentPriceEur, rate) } : line);
+}

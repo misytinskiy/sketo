@@ -1,11 +1,13 @@
 import { matchesStage, type Accessory, type Stage } from "./model";
 import type { CoffeeCatalogCardItem } from "../catalog/catalog-db";
+import type { CatalogItem } from "../catalog/catalog-data";
 
 export type CoffeeCandidate = CoffeeCatalogCardItem & { methodText: string };
 export type Recommendation = { kind: "accessory"; item: Accessory; reason: [string, string, string] }
   | { kind: "coffee"; coffee: CoffeeCandidate; reason: [string, string, string] };
 export type Recommendations = Record<Stage, Recommendation[]>;
 type Method = "espresso" | "pour-over";
+type RecommendationContext = Pick<Accessory, "id" | "slug" | "category" | "attributes" | "variants" | "volumes">;
 
 function text(value: unknown): string {
   if (typeof value === "string") return value.toLowerCase();
@@ -15,7 +17,7 @@ function text(value: unknown): string {
   return [v.ru, v.en, v.kz].map(text).join(" ");
 }
 
-function methods(item: Accessory): Set<Method> {
+function methods(item: Pick<Accessory, "attributes" | "category">): Set<Method> {
   const result = new Set<Method>();
   const value = text(item.attributes.brewing_method);
   if (/espresso|эспрессо/.test(value)) result.add("espresso");
@@ -70,14 +72,14 @@ function affinity(seed: string, id: string) {
   hash ^= hash >>> 13;
   return (hash >>> 0) / 4294967295;
 }
-function medianPrice(item: Accessory) {
+function medianPrice(item: Pick<Accessory, "volumes" | "variants">) {
   const values = (item.volumes?.length ? item.volumes : item.variants)
     .filter(v => v.currency === "KZT" && v.price !== null && Number(v.price) > 0)
     .map(v => Number(v.price)).sort((a, b) => a - b);
   return values.length ? values[Math.floor(values.length / 2)] : undefined;
 }
 
-export function recommendAccessories(current: Accessory, catalog: Accessory[], coffee: CoffeeCandidate[] = []): Recommendations {
+export function recommendAccessories(current: RecommendationContext, catalog: Accessory[], coffee: CoffeeCandidate[] = []): Recommendations {
   const result: Recommendations = { prep: [], brew: [], serve: [] };
   const currentMethods = methods(current);
   const included = text(current.attributes.set_contents) + " " + text(current.attributes.additional_item);
@@ -142,4 +144,14 @@ export function recommendAccessories(current: Accessory, catalog: Accessory[], c
     }
   }
   return result;
+}
+
+export function recommendCoffeeAccessories(lot: CatalogItem, catalog: Accessory[]): Recommendations {
+  const methodText = Object.values(lot.translations).flatMap(content => content.details)
+    .filter(detail => /способ|приготовлен|заварив|обжар|brew|method|roast|дайында|демдеу|қуыру/i.test(detail.label))
+    .map(detail => detail.value).join(" ");
+  return recommendAccessories({
+    id: `coffee:${lot.slug}`, slug: lot.slug, category: "coffee",
+    attributes: { brewing_method: methodText }, variants: [],
+  }, catalog);
 }

@@ -51,6 +51,10 @@
   gap: 0.55rem;
 }
 
+.brandFilters {
+  grid-column: 1 / -1;
+}
+
 .controlLabel {
   font-family: var(--font-basis-mono);
   font-size: 12px;

@@ -15,7 +15,7 @@ function load(path, modules = {}) {
   return exports;
 }
 const model = load('app/accessories/model.ts');
-const { recommendAccessories } = load('app/accessories/recommendations.ts', { './model': model });
+const { recommendAccessories, recommendCoffeeAccessories } = load('app/accessories/recommendations.ts', { './model': model });
 function product(id, category, attributes = {}) {
   return { id, slug: id, name: id, brand: 'muvna', category, attributes, translations: [],
     variants: [{ id: `${id}-v`, sku: id, color: 'Black', hex: '#000000', price: '1000', currency: 'KZT', availability: 'in_stock' }],
@@ -146,9 +146,29 @@ test('workflow renders inline buttons, reasons and product links in all language
     assert.ok(!html.includes('/accessories?stage='));
     assert.ok(!html.includes('Complete your setup'));
     assert.ok(html.includes('aria-live="polite"'));
-    assert.equal((html.match(/data-active="true"/g) || []).length, 1);
-    assert.equal((html.match(/data-active="false"/g) || []).length, 2);
+    assert.equal((html.match(/<div[^>]*data-active="true"/g) || []).length, 1);
+    assert.equal((html.match(/<div[^>]*data-active="false"/g) || []).length, 2);
     assert.equal((html.match(/inert=""/g) || []).length, 2);
   }
   assert.equal(renderToStaticMarkup(React.createElement(Workflow, { recommendations: { prep: [], brew: [], serve: [] }, language: 'en' })), '');
+});
+
+
+test('coffee lots recommend only available accessories, respect brewing method and retain type diversity', () => {
+  const lot = { slug: 'filter-lot', translations: { ru: { details: [{ label: 'Обжарка', value: 'Фильтр' }] } } };
+  const sold = product('sold', 'scales');
+  sold.variants[0].availability = 'out_of_stock';
+  const catalog = [product('scale1', 'scales'), product('scale2', 'scales'), product('grinder', 'grinders'),
+    product('kettle', 'kettles'), product('dripper', 'drippers'), product('milk', 'milk-tools'),
+    product('cup', 'drinkware'), product('basket', 'baskets'), sold];
+  const result = recommendCoffeeAccessories(lot, catalog);
+  assert.ok(Object.values(result).flat().length > 0);
+  for (const entries of Object.values(result)) {
+    assert.ok(entries.every(entry => entry.kind === 'accessory'));
+    assert.equal(new Set(entries.map(entry => entry.item.category)).size, entries.length);
+    assert.ok(entries.length <= 3);
+  }
+  assert.ok(!flatten(result).some(id => ['sold', 'milk', 'basket'].includes(id)));
+  assert.ok(flatten(result).includes('kettle'));
+  assert.deepEqual(result, recommendCoffeeAccessories(lot, catalog));
 });

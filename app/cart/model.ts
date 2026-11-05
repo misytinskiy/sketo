@@ -9,6 +9,8 @@ export type CartProduct = {
   image: string;
   // Integer minor units. null means a price must be confirmed, never free.
   unitPrice: number | null;
+  equipmentPriceEur?: string | null;
+  priceFrom?: boolean;
   content: Record<Language, { name: string; detail: string }>;
 };
 export type CartLine = CartProduct & { quantity: number };
@@ -40,7 +42,8 @@ export function setQuantity(lines: CartLine[], key: string, quantity: number): C
 export function cartTotals(lines: CartLine[]) {
   return { count: lines.reduce((sum, line) => sum + line.quantity, 0),
     subtotal: lines.reduce((sum, line) => sum + (line.unitPrice ?? 0) * line.quantity, 0),
-    needsQuote: lines.some(line => line.unitPrice === null) };
+    needsQuote: lines.some(line => line.unitPrice === null),
+    priceFrom: lines.some(line => line.unitPrice !== null && line.priceFrom === true) };
 }
 export function decodeCart(raw: string | null): CartLine[] {
   try {
@@ -54,6 +57,8 @@ export function decodeCart(raw: string | null): CartLine[] {
       if (typeof item.href !== "string" || !/^\/(catalog|equipment|accessories)\/[a-zA-Z0-9%_-]+$/.test(item.href)) return false;
       if (typeof item.image !== "string" || item.image.length > 2048 || !/^(\/(?!\/)|https:\/\/)/.test(item.image)) return false;
       if (item.unitPrice !== null && (!Number.isSafeInteger(item.unitPrice) || item.unitPrice < 0 || item.unitPrice > 1e12)) return false;
+      if (item.priceFrom !== undefined && typeof item.priceFrom !== "boolean") return false;
+      if (item.equipmentPriceEur != null && (typeof item.equipmentPriceEur !== "string" || !/^\d{1,10}(?:\.\d{1,2})?$/.test(item.equipmentPriceEur))) return false;
       if (!Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > MAX_QUANTITY) return false;
       if (!["ru", "en", "kz"].every(lang => typeof item.content?.[lang]?.name === "string" && item.content[lang].name.length <= 500 && typeof item.content[lang].detail === "string" && item.content[lang].detail.length <= 1000)) return false;
       const key = cartKey(item);

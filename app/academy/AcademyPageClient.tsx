@@ -5,7 +5,7 @@ import LocalizedText from "@/app/components/LocalizedText";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "../components/Footer";
-import LanguageSwitch from "../components/LanguageSwitch";
+import ShopHeaderActions from "../components/ShopHeaderActions";
 import { getContentLanguage } from "../components/language";
 import usePersistentLanguage from "../components/usePersistentLanguage";
 import AcademyReveal from "./AcademyReveal";
@@ -556,7 +556,7 @@ export default function AcademyPageClient({
           </Link>
 
           <div className={styles.heroTopMeta}>
-            <LanguageSwitch value={language} onChange={setLanguage} />
+            <ShopHeaderActions value={language} onChange={setLanguage} />
           </div>
         </div>
 

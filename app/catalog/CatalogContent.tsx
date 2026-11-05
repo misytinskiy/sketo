@@ -18,12 +18,14 @@ const CATALOG_VIEW_STORAGE_KEY = "sketo:catalog:coffee-view:v1";
 
 type CoffeeCatalogViewState = {
   activeFilter: CatalogFilter;
+  activeBrand: string;
   searchValue: string;
   isExpanded: boolean;
 };
 
 const initialCatalogViewState: CoffeeCatalogViewState = {
   activeFilter: "all",
+  activeBrand: "",
   searchValue: "",
   isExpanded: false,
 };
@@ -42,7 +44,8 @@ function parseCatalogViewState(value: unknown): CoffeeCatalogViewState | null {
     return null;
   }
 
-  return candidate as CoffeeCatalogViewState;
+  if (candidate.activeBrand !== undefined && typeof candidate.activeBrand !== "string") return null;
+  return { ...candidate, activeBrand: candidate.activeBrand ?? "" } as CoffeeCatalogViewState;
 }
 
 const filterLabels = {
@@ -101,7 +104,15 @@ export default function CatalogContent({
     initialState: initialCatalogViewState,
     parse: parseCatalogViewState,
   });
-  const { activeFilter, searchValue, isExpanded } = state;
+  const { activeFilter, activeBrand, searchValue, isExpanded } = state;
+  const brands = useMemo(() => {
+    const unique = new Map<string, string>();
+    for (const item of items) {
+      const brand = item.coffeeBrand?.trim();
+      if (brand) unique.set(brand.toLowerCase(), brand);
+    }
+    return [...unique].sort((a, b) => a[1].localeCompare(b[1], "ru"));
+  }, [items]);
   const deferredSearch = useDeferredValue(searchValue);
   const currentLanguage = getContentLanguage(language);
 
@@ -118,9 +129,9 @@ export default function CatalogContent({
           .toLowerCase()
           .includes(normalizedSearch);
 
-      return matchesFilter && matchesSearch;
+      return matchesFilter && matchesSearch && (!activeBrand || item.coffeeBrand?.trim().toLowerCase() === activeBrand);
     });
-  }, [activeFilter, currentLanguage, deferredSearch, items]);
+  }, [activeFilter, activeBrand, currentLanguage, deferredSearch, items]);
 
   const resultsLabel = `${filteredItems.length} ${getLotsLabel(
     filteredItems.length,
@@ -191,6 +202,7 @@ export default function CatalogContent({
                   <button
                     key={filter}
                     type="button"
+                    aria-pressed={isActive}
                     onClick={() => {
                       setState((current) => ({
                         ...current,
@@ -210,6 +222,18 @@ export default function CatalogContent({
           </div>
 
           <p className={styles.resultsCount}>{resultsLabel}</p>
+          <div className={`${styles.filtersBlock} ${styles.brandFilters}`}>
+            <span className={styles.controlLabel}>{currentLanguage === "en" ? "Brands" : currentLanguage === "kz" ? "Брендтер" : "Бренды"}</span>
+            <div className={styles.filterRow}>
+              {[["", filterLabels[currentLanguage].all], ...brands].map(([key, name]) => (
+                <button key={key} type="button" aria-pressed={activeBrand === key}
+                  className={`${styles.filterChip} ${activeBrand === key ? styles.filterChipActive : ""}`}
+                  onClick={() => setState(current => ({ ...current, activeBrand: key, isExpanded: false }))}>
+                  {name}
+                </button>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section

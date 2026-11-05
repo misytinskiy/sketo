@@ -11,6 +11,8 @@ import { useCartLines, changeQuantity, removeFromCart } from "./store";
 import { cartCopy } from "./copy";
 import type { Language } from "../components/language";
 import styles from "./cart.module.css";
+import { formatEquipmentPrice } from "@/lib/equipment-price";
+import { buildWhatsAppCartUrl } from "./whatsapp";
 
 const CartContext = createContext<(() => void) | null>(null);
 export function useOpenCart() {
@@ -37,7 +39,7 @@ export function CartItems({ lines, language, onNavigate }: { lines: CartLine[]; 
             <span aria-live="polite" aria-atomic="true">{line.quantity}</span>
             <button type="button" disabled={line.quantity >= MAX_QUANTITY} aria-label={`${t.plus}: ${text.name}`} onClick={() => changeQuantity(key, line.quantity + 1)}>+</button>
           </div>
-          <strong className={styles.price}>{line.unitPrice === null ? t.quote : money(line.unitPrice * line.quantity, language)}</strong>
+          <strong className={styles.price}>{line.unitPrice === null ? t.quote : formatEquipmentPrice(line.unitPrice * line.quantity, Boolean(line.priceFrom), language)}</strong>
         </div>
       </div>
     </li>;
@@ -106,9 +108,9 @@ export default function CartProvider({ children }: { children: React.ReactNode }
         </div>
         <footer className={styles.summary}>
           {lines.length > 0 && <>
-            <div className={styles.total} aria-live="polite"><span>{totals.needsQuote ? t.knownTotal : t.total}</span><strong>{money(totals.subtotal, language)}</strong></div>
+            <div className={styles.total} aria-live="polite"><span>{totals.needsQuote ? t.knownTotal : t.total}</span><strong>{formatEquipmentPrice(totals.subtotal, totals.priceFrom, language)}</strong></div>
             <p className={styles.note}>{totals.needsQuote && `${t.quoteNote} `}{t.note}</p>
-            <Link href="/checkout" className={styles.primary} onClick={close}>{t.checkout}</Link>
+            <a href={buildWhatsAppCartUrl(lines, language)} className={styles.primary} target="_blank" rel="noopener noreferrer">{t.checkout}</a>
           </>}
           <button type="button" className={styles.continue} onClick={close}>{t.continue}</button>
         </footer>

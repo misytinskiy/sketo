@@ -19,7 +19,6 @@ export default function ProductOrderButton(props: WhatsAppOrder & { cartItem?: C
       <span className={styles.label}>{props.unavailable ? t.unavailable : t.add}</span>
     </button>
     {full && <p className={cartStyles.note}>{t.limit}</p>}
-    <a className={cartStyles.textLink} href={buildWhatsAppOrderUrl(props)} target="_blank" rel="noopener noreferrer">{copy.button} ↗</a>
   </div>;
   return <div className={styles.order}>
     <a className={styles.button} href={buildWhatsAppOrderUrl(props)} target="_blank" rel="noopener noreferrer">

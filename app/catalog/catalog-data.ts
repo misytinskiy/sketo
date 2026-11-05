@@ -22,6 +22,7 @@ export type CatalogItem = {
   slug: string;
   image: string;
   price: string;
+  coffeeBrand?: string | null;
   filters: CatalogFilter[];
   translations: Record<CatalogLanguage, CatalogTranslation>;
 };

@@ -5,7 +5,7 @@ import LocalizedText from "@/app/components/LocalizedText";
 import Link from "next/link";
 import AcademyReveal from "../academy/AcademyReveal";
 import Footer from "../components/Footer";
-import LanguageSwitch from "../components/LanguageSwitch";
+import ShopHeaderActions from "../components/ShopHeaderActions";
 import { getContentLanguage } from "../components/language";
 import usePersistentLanguage from "../components/usePersistentLanguage";
 import B2BAudienceCore from "./B2BAudienceCore";
@@ -555,7 +555,7 @@ export default function B2BPageClient({
             {copy.back}
           </Link>
 
-          <LanguageSwitch value={language} onChange={setLanguage} />
+          <ShopHeaderActions value={language} onChange={setLanguage} />
         </div>
 
         <div className={styles.heroGrid}>

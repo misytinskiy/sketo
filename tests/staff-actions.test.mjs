@@ -103,6 +103,47 @@ function setup(product, options = {}) {
 }
 const base = { id: 'test', slug: 'sample', type: 'coffee', isPublished: false, editorialState: 'draft', updatedAt: new Date('2026-09-07T00:00:00Z') };
 
+const equipmentFields = { kind: 'equipment', brand: 'la-marzocco', equipmentType: 'espresso-machine' };
+test('equipment editor saves exact EUR cents and from flag without changing KZT price', async () => {
+  const s = setup({ ...base, type: 'equipment', priceAmount: 500000, priceCurrency: 'KZT', priceDisplay: 'KZT 500,000' });
+  assert.equal((await s.run('save_draft', { ...equipmentFields, equipmentPriceEur: '11602,50', equipmentPriceFrom: 'on' })).status, 'success');
+  assert.equal(s.writes[0].equipmentPriceEur, '11602.50');
+  assert.equal(s.writes[0].equipmentPriceFrom, true);
+  assert.equal(s.writes[0].priceAmount, 500000);
+  assert.equal(s.writes[0].priceCurrency, 'KZT');
+  assert.ok(s.invalidatedTags.includes('equipment-catalog'));
+  assert.equal(s.snapshots(), 1);
+});
+test('empty equipment price clears amount and from flag; old forms preserve both', async () => {
+  const existing = { ...base, type: 'equipment', equipmentPriceEur: '4452.00', equipmentPriceFrom: true };
+  const old = setup(existing);
+  assert.equal((await old.run('save_draft', equipmentFields)).status, 'success');
+  assert.equal(old.writes[0].equipmentPriceEur, '4452.00');
+  assert.equal(old.writes[0].equipmentPriceFrom, true);
+  const cleared = setup(existing);
+  assert.equal((await cleared.run('save_draft', { ...equipmentFields, equipmentPriceEur: '', equipmentPriceFrom: 'on' })).status, 'success');
+  assert.equal(cleared.writes[0].equipmentPriceEur, null);
+  assert.equal(cleared.writes[0].equipmentPriceFrom, false);
+});
+test('invalid equipment prices fail before any database writes', async () => {
+  for (const price of ['0', '-1', '1.234', 'NaN', 'Infinity', '1e3', '10000000000', '12,34.56', 'EUR 100']) {
+    const s = setup({ ...base, type: 'equipment' });
+    const result = await s.run('save_draft', { ...equipmentFields, equipmentPriceEur: price });
+    assert.equal(result.status, 'error', price);
+    assert.ok(result.fieldErrors.equipmentPriceEur, price);
+    assert.equal(s.writes.length, 0);
+    assert.equal(s.snapshots(), 0);
+  }
+  assert.equal(productForm.parseEquipmentPriceEur('9999999999,99'), '9999999999.99');
+  assert.equal(productForm.parseEquipmentPriceEur('0.01'), '0.01');
+});
+test('coffee cannot change equipment EUR fields through a forged form', async () => {
+  const s = setup({ ...base, equipmentPriceEur: null, equipmentPriceFrom: false });
+  assert.equal((await s.run('save_draft', { equipmentPriceEur: '100', equipmentPriceFrom: 'on' })).status, 'success');
+  assert.equal(s.writes[0].equipmentPriceEur, null);
+  assert.equal(s.writes[0].equipmentPriceFrom, false);
+});
+
 test('incomplete draft can be saved without publication', async () => {
   const s = setup(base);
   assert.equal((await s.run('save_draft')).status, 'success');
@@ -447,4 +488,28 @@ test('editor saves SEO fields per language and validates their lengths', async (
   assert.equal(rejected.status, 'error');
   assert.ok(rejected.fieldErrors.seoTitleRu);
   assert.equal(bad.writes.length, 0);
+});
+
+test('coffee brand is saved, cleared, and preserved by older forms', async () => {
+  const edited = setup({ ...base, coffeeBrand: null });
+  assert.equal((await edited.run('save_draft', { coffeeBrand: '  Сварщица Екатерина  ' })).status, 'success');
+  assert.equal(edited.writes[0].coffeeBrand, 'Сварщица Екатерина');
+  assert.ok(edited.invalidatedTags.includes('coffee-catalog'));
+  const old = setup({ ...base, coffeeBrand: 'Serikov' });
+  assert.equal((await old.run('save_draft')).status, 'success');
+  assert.equal(old.writes[0].coffeeBrand, 'Serikov');
+  const cleared = setup({ ...base, coffeeBrand: 'Serikov' });
+  assert.equal((await cleared.run('save_draft', { coffeeBrand: ' ' })).status, 'success');
+  assert.equal(cleared.writes[0].coffeeBrand, null);
+});
+
+test('coffee brand length is validated and equipment cannot modify it', async () => {
+  const invalid = setup(base);
+  const result = await invalid.run('save_draft', { coffeeBrand: 'x'.repeat(81) });
+  assert.equal(result.status, 'error');
+  assert.ok(result.fieldErrors.coffeeBrand);
+  assert.equal(invalid.writes.length, 0);
+  const equipment = setup({ ...base, type: 'equipment', coffeeBrand: null });
+  assert.equal((await equipment.run('save_draft', { ...equipmentFields, coffeeBrand: 'Massimo' })).status, 'success');
+  assert.equal(equipment.writes[0].coffeeBrand, null);
 });

@@ -1,6 +1,7 @@
 "use client";
 
 import usePersistentLanguage from "../components/usePersistentLanguage";
+import CartButton from "../cart/CartButton";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { useSyncExternalStore } from "react";
@@ -25,9 +26,12 @@ export default function WhyHomeLogo() {
   }
 
   return createPortal(
-    <Link href="/" className={styles.homeLogo} aria-label={language === "kz" ? "Sketo басты беті" : "Sketo home"}>
-      sketo.
-    </Link>,
+    <>
+      <Link href="/" className={styles.homeLogo} aria-label={language === "kz" ? "Sketo басты беті" : "Sketo home"}>
+        sketo.
+      </Link>
+      <div className={styles.cartTrigger}><CartButton /></div>
+    </>,
     portalTarget,
   );
 }

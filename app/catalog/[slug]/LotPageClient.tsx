@@ -14,10 +14,16 @@ import LotMedia from "./LotMedia";
 import ProductOrderButton from "../../components/ProductOrderButton";
 import { localizeProduct, parseKztPrice } from "../../cart/model";
 import styles from "./lot.module.css";
+import AccessoryWorkflow from "../../accessories/AccessoryWorkflow";
+import type { Recommendations } from "../../accessories/recommendations";
+import { label } from "../../accessories/model";
+import local from "../../accessories/accessories.module.css";
+import { WHATSAPP_NUMBER } from "@/lib/whatsapp-order";
 
 type LotPageClientProps = {
   productUrl: string;
   item: CatalogItem;
+  recommendations: Recommendations;
   itemIndex: number;
   initialLanguage: "ru" | "en" | "kz";
 };
@@ -27,10 +33,15 @@ export default function LotPageClient({
   itemIndex,
   initialLanguage,
   productUrl,
+  recommendations,
 }: LotPageClientProps) {
   const [language, setLanguage] = usePersistentLanguage(initialLanguage);
   const currentLanguage = getContentLanguage(language);
   const content = getCatalogItemContent(item, currentLanguage);
+  const helpMessage = `${label(currentLanguage,
+    "Здравствуйте! Помогите, пожалуйста, выбрать кофе:",
+    "Hello! Could you help me choose coffee?",
+    "Сәлеметсіз бе! Кофе таңдауға көмектесе аласыз ба?")}\n${content.name}\n${productUrl}`;
 
   return (
     <main className={styles.page}>
@@ -121,6 +132,25 @@ export default function LotPageClient({
         </section>
 
         <LotEditorial language={currentLanguage} />
+        <AccessoryWorkflow key={item.slug} recommendations={recommendations} language={currentLanguage} />
+        <section className={local.help} aria-labelledby="coffee-help-title">
+          <div className={local.helpCopy}>
+            <p className={local.helpEyebrow}>ASK SKETO</p>
+            <h2 id="coffee-help-title" className={local.helpTitle}>
+              <span>{label(currentLanguage, "Нужна помощь", "Need help", "Кофе таңдауға")}</span>
+              <span>{label(currentLanguage, "с выбором кофе?", "choosing coffee?", "көмек керек пе?")}</span>
+            </h2>
+          </div>
+          <div className={local.helpContent}>
+            <p>{label(currentLanguage,
+              "Расскажите, как вы готовите кофе и какие вкусы любите. Поможем выбрать зерно под ваш способ приготовления, разобраться в обжарке и подобрать рецепт для этого лота.",
+              "Tell us how you brew coffee and which flavours you enjoy. We’ll help you choose beans for your brewing method, understand the roast and find a recipe for this lot.",
+              "Кофені қалай дайындайтыныңызды және қандай дәмдерді ұнататыныңызды айтыңыз. Дайындау әдісіңізге сай дәнді таңдауға, қуыру ерекшеліктерін түсінуге және осы лотқа рецепт табуға көмектесеміз.")}</p>
+            <a className={local.helpLink} href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(helpMessage)}`} target="_blank" rel="noopener noreferrer">
+              <span>{label(currentLanguage, "Написать в WhatsApp", "Chat on WhatsApp", "WhatsApp-та жазу")}</span>
+            </a>
+          </div>
+        </section>
       </div>
 
       <Footer language={currentLanguage} />
