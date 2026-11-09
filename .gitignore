@@ -43,3 +43,8 @@ next-env.d.ts
 
 # Local database change snapshots (not deployment assets)
 /.local-backups/
+
+# Local source assets; the site uses autumn-2026.mp4
+/Meshy_Lens.fbx
+/public/photo/seasonMenu/IMG_3313.MOV
+/public/photo/seasonMenu/video.MOV
